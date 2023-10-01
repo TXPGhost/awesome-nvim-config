@@ -124,7 +124,3 @@ set("ErrorMsg", red)
 
 -- nvim-tree
 set("NvimTreeGitNew", green)
-
--- language specific
-link("luaTable", "Operator")
-link("luaFunction", "Keyword")
