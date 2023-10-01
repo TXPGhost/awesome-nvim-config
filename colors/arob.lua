@@ -49,6 +49,7 @@ for hl, _ in pairs(vim.api.nvim_get_hl(0, {})) do
 	clear(hl)
 end
 
+-- palette
 local white = "#ffffff"
 local light_gray = "#cccccc"
 local gray = "#888888"
