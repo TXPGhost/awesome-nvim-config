@@ -10,12 +10,12 @@ cmp.setup({
 	},
 	window = {},
 	mapping = cmp.mapping.preset.insert({
-		["<C-b>"] = cmp.mapping.scroll_docs(-4),
-		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete(),
-		["<C-e>"] = cmp.mapping.abort(),
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
-		["<Tab>"] = cmp.mapping(function(fallback)
+			["<C-b>"] = cmp.mapping.scroll_docs(-4),
+			["<C-f>"] = cmp.mapping.scroll_docs(4),
+			["<C-Space>"] = cmp.mapping.complete(),
+			["<C-e>"] = cmp.mapping.abort(),
+			["<CR>"] = cmp.mapping.confirm({ select = true }),
+			["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
 			else
@@ -115,6 +115,10 @@ require("nvim-treesitter.configs").setup({
 })
 
 -- KEYMAPS
+
+-- generic
+vim.keymap.set("n", "<Tab>", "<cmd>><CR>")
+vim.keymap.set("n", "<S-Tab>", "<cmd><<CR>")
 
 -- oil.nvim
 vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })

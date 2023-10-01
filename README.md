@@ -2,6 +2,12 @@
 
 ## Keybindings
 
+### Generic
+| Key | Binding |
+|:--|--:|
+|Tab|Increase indent|
+|Shift+Tab|Decreaase indent|
+
 ### File picker
 | Key | Binding |
 |:--|--:|
