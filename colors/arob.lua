@@ -73,6 +73,8 @@ set("LineNr", gray)
 
 set("OilDirIcon", light_blue)
 set("OilDir", light_light_blue)
+set("SagaFolder", light_blue)
+set("SagaFolderName", light_light_blue)
 
 setbg("NormalFloat", black)
 setbg("Pmenu", dark_gray)
