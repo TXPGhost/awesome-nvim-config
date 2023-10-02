@@ -8,6 +8,11 @@
 |Tab|Increase indent|
 |Shift+Tab|Decreaase indent|
 
+### Git
+| Key | Binding |
+|:--|--:|
+|?|Toggle diff view|
+
 ### File picker
 | Key | Binding |
 |:--|--:|

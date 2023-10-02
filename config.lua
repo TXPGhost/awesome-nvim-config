@@ -61,7 +61,7 @@ cmp.setup.cmdline(":", {
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- gitsigns
-require("gitsigns").setup()
+require("gitsigns").setup({})
 
 -- lspconfig
 local lspconfig = require("lspconfig")
@@ -124,6 +124,14 @@ vim.cmd("vnoremap <S-Tab> <gv")
 
 -- oil.nvim
 vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
+
+-- gitsigns
+vim.keymap.set("n", "?", function()
+	vim.cmd("Gitsigns toggle_deleted")
+	vim.cmd("Gitsigns toggle_numhl")
+	vim.cmd("Gitsigns toggle_linehl")
+	vim.cmd("TSToggle highlight")
+end)
 
 -- lspsaga
 vim.keymap.set("n", "<Space>r", "<cmd>Lspsaga rename<CR>")
