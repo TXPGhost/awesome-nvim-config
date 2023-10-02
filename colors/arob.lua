@@ -50,6 +50,7 @@ for hl, _ in pairs(vim.api.nvim_get_hl(0, {})) do
 end
 
 -- palette
+-- to make `_bg`	https://colorpicker.me/		change lightness from 50 to 10
 local white = "#ffffff"
 local light_gray = "#cccccc"
 local gray = "#888888"
@@ -57,10 +58,13 @@ local dark_gray = "#1b1b1b"
 local black = "#000000"
 local gold = "#ffaa00"
 local green = "#00ff77"
+local green_bg = "#003318"
 local dark_green = "#33bb66"
 local red = "#ff2400"
+local red_bg = "#330700"
 local dark_red = "#ee0033"
 local blue = "#0099ff"
+local blue_bg = "#001f33"
 local light_blue = "#60b3f7"
 local light_light_blue = "#9dcdf5"
 local cyan = "#00eeff"
@@ -122,6 +126,11 @@ setuc("DiagnosticUnderlineInfo", white)
 setuc("DiagnosticUnderlineHint", cyan)
 
 set("ErrorMsg", red)
+
+-- gitsigns
+setbg("GitSignsAddLn", green_bg)
+setbg("GitSignsChangeLn", blue_bg)
+setbg("GitSignsDeleteVirtLn", red_bg)
 
 -- latex
 set("@function.latex", blue)
