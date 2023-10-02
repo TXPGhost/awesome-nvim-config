@@ -132,6 +132,7 @@ vim.keymap.set("n", "?", function()
 	vim.cmd("Gitsigns toggle_linehl")
 	vim.cmd("TSToggle highlight")
 end)
+vim.keymap.set("n", "<Space>b", "<cmd>Gitsigns blame_line<CR>")
 
 -- lspsaga
 vim.keymap.set("n", "<Space>r", "<cmd>Lspsaga rename<CR>")

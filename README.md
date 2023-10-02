@@ -16,6 +16,7 @@
 | Key | Binding |
 |:--|--:|
 |?|Toggle diff view|
+|Space+b|Blame current line|
 
 ### File picker
 | Key | Binding |
