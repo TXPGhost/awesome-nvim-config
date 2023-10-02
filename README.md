@@ -1,5 +1,9 @@
 # awesome-nvim-config
 
+## Installation
+1. Clone the repo into your `.config/nvim`
+2. Open Neovim and run `:PlugInstall`
+
 ## Keybindings
 
 ### Generic
