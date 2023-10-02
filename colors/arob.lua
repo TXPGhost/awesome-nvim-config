@@ -128,9 +128,9 @@ setuc("DiagnosticUnderlineHint", cyan)
 set("ErrorMsg", red)
 
 -- gitsigns
-setbg("GitSignsAddLn", green_bg)
-setbg("GitSignsChangeLn", blue_bg)
-setbg("GitSignsDeleteVirtLn", red_bg)
+setboth("GitSignsAddLn", green, green_bg)
+setboth("GitSignsChangeLn", blue, blue_bg)
+setboth("GitSignsDeleteVirtLn", red, red_bg)
 
 -- latex
 set("@function.latex", blue)
