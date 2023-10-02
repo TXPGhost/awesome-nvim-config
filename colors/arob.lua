@@ -67,6 +67,8 @@ local cyan = "#00eeff"
 local magenta = "#ff44cc"
 
 -- color definitions
+clear("TODO")
+
 set("EndOfBuffer", black)
 setul("Underlined", white)
 set("LineNr", gray)
@@ -80,12 +82,9 @@ setbg("NormalFloat", black)
 setbg("Pmenu", dark_gray)
 setboth("PmenuSel", black, white)
 
-setfgul("TODO", dark_green)
-
 set("Normal", white)
 set("Error", red)
 setbg("Visual", dark_gray)
-set("Special", gold)
 
 set("@type", cyan)
 set("@storageclass", cyan)
