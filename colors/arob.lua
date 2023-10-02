@@ -100,12 +100,12 @@ set("@float", gold)
 set("@character", gold)
 set("@string", gold)
 set("@operator", light_gray)
+set("@punctuation", light_gray)
 setbf("@define", magenta)
 setbf("@preproc", magenta)
 setbf("@include", magenta)
 setit("@macro", dark_red)
 setit("@function", light_gray)
-set("@punctuation", light_gray)
 
 set("DiffAdd", green)
 set("DiffChange", blue)
@@ -115,7 +115,7 @@ setit("DiagnosticError", red)
 setit("DiagnosticWarn", gold)
 setit("DiagnosticInfo", white)
 setit("DiagnosticHint", cyan)
-set("DiagnosticUnnecessary", white)
+setuc("DiagnosticUnnecessary", cyan)
 
 setuc("DiagnosticUnderlineError", red)
 setuc("DiagnosticUnderlineWarn", gold)
@@ -123,6 +123,15 @@ setuc("DiagnosticUnderlineInfo", white)
 setuc("DiagnosticUnderlineHint", cyan)
 
 set("ErrorMsg", red)
+
+-- latex
+set("@function.latex", blue)
+set("@function.macro.latex", red)
+set("@text.math.latex", gold)
+setbf("@text.environment.latex", blue)
+set("@operator.latex", gold)
+set("@parameter.latex", gold)
+set("@punctuation.special.latex", gold)
 
 -- nvim-tree
 set("NvimTreeGitNew", green)
