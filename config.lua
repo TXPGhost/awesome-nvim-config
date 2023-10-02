@@ -93,9 +93,6 @@ require("lspsaga").setup({
 
 -- oil.nvim
 require("oil").setup({})
-if next(vim.fn.argv()) == nil then
-	vim.cmd("Oil")
-end
 
 -- tree-sitter
 require("nvim-treesitter.configs").setup({
