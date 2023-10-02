@@ -117,8 +117,10 @@ require("nvim-treesitter.configs").setup({
 -- KEYMAPS
 
 -- generic
-vim.keymap.set("n", "<Tab>", "<cmd>><CR>")
-vim.keymap.set("n", "<S-Tab>", "<cmd><<CR>")
+vim.cmd("noremap <Tab> >>")
+vim.cmd("noremap <S-Tab> <<")
+vim.cmd("vnoremap <Tab> >gv")
+vim.cmd("vnoremap <S-Tab> <gv")
 
 -- oil.nvim
 vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
