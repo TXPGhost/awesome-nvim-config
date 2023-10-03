@@ -127,7 +127,7 @@ vim.keymap.set("n", "?", function()
 	vim.cmd("Gitsigns toggle_deleted")
 	vim.cmd("Gitsigns toggle_numhl")
 	vim.cmd("Gitsigns toggle_linehl")
-	vim.cmd("TSToggle highlight")
+	-- vim.cmd("TSToggle highlight")
 end)
 vim.keymap.set("n", "<Space>b", "<cmd>Gitsigns blame_line<CR>")
 
