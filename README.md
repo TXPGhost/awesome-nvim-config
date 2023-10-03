@@ -10,13 +10,13 @@
 | Key | Binding |
 |:--|--:|
 |Tab|Increase indent|
-|Shift+Tab|Decrease indent|
+|Shift Tab|Decrease indent|
 
 ### Git
 | Key | Binding |
 |:--|--:|
 |?|Toggle diff view|
-|Space+b|Blame current line|
+|Space b|Blame current line|
 
 ### File picker
 | Key | Binding |
