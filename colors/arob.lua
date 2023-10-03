@@ -90,6 +90,8 @@ set("Normal", white)
 set("Error", red)
 setbg("Visual", dark_gray)
 
+setbg("MatchParen", dark_gray)
+
 set("@type", cyan)
 set("@storageclass", cyan)
 set("@comment", dark_green)
