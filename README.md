@@ -10,7 +10,7 @@
 | Key | Binding |
 |:--|--:|
 |Tab|Increase indent|
-|Shift+Tab|Decreaase indent|
+|Shift+Tab|Decrease indent|
 
 ### Git
 | Key | Binding |
