@@ -44,6 +44,9 @@ Plug 'nvim-tree/nvim-web-devicons'
 " better LSP
 Plug 'nvimdev/lspsaga.nvim'
 
+" latex
+Plug 'lervag/vimtex'
+
 call plug#end()
 
 " run config file

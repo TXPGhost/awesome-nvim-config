@@ -37,3 +37,11 @@
 |Space+i|View incoming calls|
 |Space+o|View outgoing calls|
 |Space+;|Open outline|
+
+## LaTeX
+| Key | Binding |
+|:--|--:|
+|\ll|Compile (using `tectonic`)|
+|dsc|Delete surroinding command|
+|dse|Delete surrounding environment|
+|]]|Close surrounding environment (insert mode only)|
