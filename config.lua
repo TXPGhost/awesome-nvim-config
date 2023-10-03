@@ -5,6 +5,14 @@ vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSig
 vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
 vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
 
+-- auto pairs
+local autoexpand = function(ls, rs)
+	vim.cmd("inoremap " .. ls .. "<CR> " .. ls .. "<CR>" .. rs .. "<C-c>O")
+end
+autoexpand("{", "}")
+autoexpand("(", ")")
+autoexpand("[", "]")
+
 -- nvim-cmp
 local cmp = require("cmp")
 local lspkind = require("lspkind")
