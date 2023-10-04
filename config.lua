@@ -91,7 +91,10 @@ lspconfig.clangd.setup({
 lspconfig.cmake.setup({capabilities = capabilities})
 lspconfig.lua_ls.setup({capabilities = capabilities})
 lspconfig.marksman.setup({capabilities = capabilities})
-lspconfig.ocamllsp.setup({capabilities = capabilities})
+lspconfig.ocamllsp.setup({
+	cmd = {"ocamllsp", "--fallback-read-dot-merlin"},
+	capabilities = capabilities
+})
 lspconfig.texlab.setup({capabilities = capabilities})
 lspconfig.wgsl_analyzer.setup({capabilities = capabilities})
 lspconfig.tsserver.setup({capabilities = capabilities})
