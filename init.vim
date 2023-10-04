@@ -34,10 +34,6 @@ Plug 'onsails/lspkind.nvim'
 " git integration
 Plug 'lewis6991/gitsigns.nvim'
 
-" colorscheme
-Plug 'projekt0n/github-nvim-theme'
-Plug 'tiagovla/tokyodark.nvim'
-
 " icons
 Plug 'nvim-tree/nvim-web-devicons'
 
