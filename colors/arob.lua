@@ -143,5 +143,26 @@ set("@operator.latex", gold)
 set("@parameter.latex", gold)
 set("@punctuation.special.latex", gold)
 
+-- markdown
+setfgul("@text.uri.markdown_inline", blue)
+set("@text.reference.markdown_inline", cyan)
+setbf("@text.strong.markdown_inline", white)
+setit("@text.emphasis.markdown_inline", white)
+set("@punctuation.delimiter.markdown_inline", gold)
+
+setbf("@text.title.1.markdown", green)
+setbf("@text.title.2.markdown", green)
+setbf("@text.title.3.markdown", green)
+setbf("@text.title.4.markdown", green)
+setbf("@text.title.5.markdown", green)
+setbf("@text.title.6.markdown", green)
+
+setbf("@text.title.1.marker.markdown", dark_green)
+setbf("@text.title.2.marker.markdown", dark_green)
+setbf("@text.title.3.marker.markdown", dark_green)
+setbf("@text.title.4.marker.markdown", dark_green)
+setbf("@text.title.5.marker.markdown", dark_green)
+setbf("@text.title.6.marker.markdown", dark_green)
+
 -- nvim-tree
 set("NvimTreeGitNew", green)
