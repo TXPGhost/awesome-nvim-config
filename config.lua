@@ -147,6 +147,8 @@ vim.cmd("noremap <S-Tab> <<")
 vim.cmd("vnoremap <Tab> >gv")
 vim.cmd("vnoremap <S-Tab> <gv")
 
+vim.keymap.set("n", "<esc>", "<cmd>noh<CR>")
+
 -- oil.nvim
 vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
 
