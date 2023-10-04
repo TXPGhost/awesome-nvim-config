@@ -47,6 +47,9 @@ Plug 'nvimdev/lspsaga.nvim'
 " latex
 Plug 'lervag/vimtex'
 
+" automatic tab type detection
+Plug 'tpope/vim-sleuth'
+
 call plug#end()
 
 " run config file
