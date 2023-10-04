@@ -98,6 +98,10 @@ lspconfig.ocamllsp.setup({
 lspconfig.texlab.setup({capabilities = capabilities})
 lspconfig.wgsl_analyzer.setup({capabilities = capabilities})
 lspconfig.tsserver.setup({capabilities = capabilities})
+lspconfig.bashls.setup({capabilities = capabilities})
+lspconfig.jsonls.setup({capabilities = capabilities})
+lspconfig.cssls.setup({capabilities = capabilities})
+lspconfig.html.setup({capabilities = capabilities})
 
 -- lspsaga
 require("lspsaga").setup({
