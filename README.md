@@ -6,12 +6,6 @@
 
 ## Keybindings
 
-### Generic
-| Key | Binding |
-|:--|--:|
-|Tab|Increase indent|
-|Shift Tab|Decrease indent|
-
 ### Git
 | Key | Binding |
 |:--|--:|
