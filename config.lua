@@ -142,10 +142,10 @@ vim.cmd("let g:vimtex_compiler_method = 'tectonic'")
 -- KEYMAPS
 
 -- generic
-vim.cmd("noremap <Tab> >>")
-vim.cmd("noremap <S-Tab> <<")
-vim.cmd("vnoremap <Tab> >gv")
-vim.cmd("vnoremap <S-Tab> <gv")
+vim.cmd("noremap > >>")
+vim.cmd("noremap < <<")
+vim.cmd("vnoremap > >gv")
+vim.cmd("vnoremap < <gv")
 
 vim.keymap.set("n", "<esc>", "<cmd>noh<CR>")
 
