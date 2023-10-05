@@ -113,6 +113,7 @@ setbf("@define", magenta)
 setbf("@preproc", magenta)
 setbf("@include", magenta)
 setit("@macro", dark_red)
+set("@variable.builtin", blue)
 
 set("DiffAdd", green)
 set("DiffChange", blue)
