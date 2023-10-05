@@ -75,7 +75,9 @@ clear("TODO")
 
 set("EndOfBuffer", black)
 setul("Underlined", white)
-set("LineNr", gray)
+set("LineNr", light_gray)
+set("LineNrAbove", gray)
+set("LineNrBelow", gray)
 setbg("Search", dark_gray)
 
 set("OilDirIcon", light_blue)
