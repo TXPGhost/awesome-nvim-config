@@ -172,7 +172,7 @@ vim.keymap.set("n", "<Space>f", "<cmd>Lspsaga finder<CR>")
 vim.keymap.set("n", "<Space>a", "<cmd>Lspsaga code_action<CR>")
 vim.keymap.set("n", "<Space>i", "<cmd>Lspsaga incoming_calls<CR>")
 vim.keymap.set("n", "<Space>o", "<cmd>Lspsaga outgoing_calls<CR>")
-vim.keymap.set("n", "<Space>;", "<cmd>Lspsaga outline<CR>")
+vim.keymap.set("n", ";", "<cmd>Lspsaga outline<CR>")
 
 -- startup commands
 vim.cmd("set nocompatible")

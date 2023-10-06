@@ -30,7 +30,7 @@
 |Space a|Code action|
 |Space i|View incoming calls|
 |Space o|View outgoing calls|
-|Space ;|Open outline|
+|;|Open outline|
 
 ## LaTeX
 | Key | Binding |
