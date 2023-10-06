@@ -110,6 +110,10 @@ require("lspsaga").setup({
 	},
 	code_action = {
 		extend_gitsigns = true
+	},
+	outline = {
+		win_width = 60,
+		detail = false
 	}
 })
 
