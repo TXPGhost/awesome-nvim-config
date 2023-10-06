@@ -69,6 +69,7 @@ local light_blue = "#60b3f7"
 local light_light_blue = "#9dcdf5"
 local cyan = "#00eeff"
 local magenta = "#ff44cc"
+local orange = "#ff7700"
 
 -- color definitions
 clear("TODO")
@@ -113,7 +114,7 @@ setbf("@define", magenta)
 setbf("@preproc", magenta)
 setbf("@include", magenta)
 set("@macro", dark_red)
-setit("@function.macro", dark_red)
+set("@function.macro", dark_red)
 set("@variable.builtin", blue)
 set("@namespace", light_blue)
 set("@operator", orange)
@@ -135,6 +136,17 @@ setuc("DiagnosticUnderlineInfo", white)
 setuc("DiagnosticUnderlineHint", cyan)
 
 set("ErrorMsg", red)
+
+-- lspsaga
+set("SagaConstant", gold)
+set("SagaNumber", gold)
+set("SagaBoolean", gold)
+set("SagaString", gold)
+set("SagaOperator", light_gray)
+set("SagaImpIcon", magenta)
+set("SagaMacro", dark_red)
+set("SagaNamespace", light_blue)
+set("SagaFunction", light_light_blue)
 
 -- gitsigns
 setboth("GitSignsAddLn", green, green_bg)
