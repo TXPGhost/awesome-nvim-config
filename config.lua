@@ -1,3 +1,6 @@
+-- set help window to vertical split
+vim.cmd("autocmd FileType help wincmd L")
+
 -- set diagnostic icons
 
 vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
