@@ -31,6 +31,9 @@
 |Space i|View incoming calls|
 |Space o|View outgoing calls|
 |;|Open outline|
+|Enter|Begin selection|
+|Tab|Grow selection|
+|Shift Tab|Shrink Selection|
 
 ## LaTeX
 | Key | Binding |
