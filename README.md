@@ -39,3 +39,11 @@
 |dsc|Delete surroinding command|
 |dse|Delete surrounding environment|
 |]]|Close surrounding environment (insert mode only)|
+
+## Fold
+| Key | Binding |
+|:--|--:|
+|zc|Close fold|
+|zo|Open fold|
+|zM|Close all folds|
+|zR|Open all folds|

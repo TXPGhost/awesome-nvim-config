@@ -142,6 +142,9 @@ require("nvim-treesitter.configs").setup({
 		enable = false
 	}
 })
+vim.cmd("set foldmethod=expr")
+vim.cmd("set foldexpr=nvim_treesitter#foldexpr()")
+vim.cmd("set foldlevel=99999")
 
 -- vimtex
 vim.cmd("let g:vimtex_view_general_viewer = \'okular\'")

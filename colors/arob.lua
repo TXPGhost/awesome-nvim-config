@@ -96,6 +96,8 @@ setbg("Visual", dark_gray)
 
 setbg("MatchParen", dark_gray)
 
+set("Folded", gray)
+
 set("@type", cyan)
 set("@storageclass", cyan)
 set("@comment", dark_green)
