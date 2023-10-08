@@ -123,7 +123,8 @@ require("lspsaga").setup({
 })
 
 -- oil.nvim
-require("oil").setup({})
+local oil = require("oil")
+oil.setup({})
 
 -- tree-sitter
 require("nvim-treesitter.configs").setup({
@@ -159,7 +160,9 @@ vim.cmd("vnoremap < <gv")
 vim.keymap.set("n", "<esc>", "<cmd>noh<CR>")
 
 -- oil.nvim
-vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
+vim.keymap.set("n", "-", function()
+	oil.open()
+end)
 
 -- gitsigns
 vim.keymap.set("n", "?", function()
