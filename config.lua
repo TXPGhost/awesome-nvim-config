@@ -129,7 +129,8 @@ require("lspsaga").setup({
 	},
 	outline = {
 		win_width = 40,
-		detail = false
+		auto_preview = false,
+		detail = false,
 	}
 })
 
