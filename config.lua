@@ -1,8 +1,19 @@
 -- set help window to vertical split
 vim.cmd("autocmd FileType help wincmd L")
 
--- set diagnostic icons
+-- set cursorline for insert mode
+vim.api.nvim_create_autocmd({ "InsertEnter" }, {
+	callback = function()
+		vim.cmd("set cursorline")
+	end
+})
+vim.api.nvim_create_autocmd({ "InsertLeave" }, {
+	callback = function()
+		vim.cmd("set nocursorline")
+	end
+})
 
+-- set diagnostic icon
 vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
 vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
 vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
