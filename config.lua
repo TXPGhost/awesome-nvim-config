@@ -128,7 +128,7 @@ require("lspsaga").setup({
 		extend_gitsigns = true
 	},
 	outline = {
-		win_width = 60,
+		win_width = 40,
 		detail = false
 	}
 })
