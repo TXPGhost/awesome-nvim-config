@@ -95,6 +95,7 @@ set("Error", red)
 setbg("Visual", dark_gray)
 
 setbg("MatchParen", dark_gray)
+setbg("CursorLine", dark_gray)
 
 set("Folded", gray)
 
