@@ -95,29 +95,37 @@ require("gitsigns").setup({})
 -- lspconfig
 local lspconfig = require("lspconfig")
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#vimls
-lspconfig.rust_analyzer.setup({capabilities = capabilities})
-lspconfig.jdtls.setup({capabilities = capabilities})
-lspconfig.vimls.setup({capabilities = capabilities})
+lspconfig.rust_analyzer.setup({ capabilities = capabilities })
+lspconfig.jdtls.setup({ capabilities = capabilities })
+lspconfig.vimls.setup({ capabilities = capabilities })
 lspconfig.clangd.setup({
-	cmd = {"clangd", "--query-driver=/usr/bin/arm-none-eabi-gcc,/usr/bin/arm-none-eabi-g++"},
+	cmd = { "clangd", "--query-driver=/usr/bin/arm-none-eabi-gcc,/usr/bin/arm-none-eabi-g++" },
 	capabilities = capabilities
 })
-lspconfig.cmake.setup({capabilities = capabilities})
-lspconfig.lua_ls.setup({capabilities = capabilities})
-lspconfig.marksman.setup({capabilities = capabilities})
+lspconfig.cmake.setup({ capabilities = capabilities })
+lspconfig.lua_ls.setup({ capabilities = capabilities })
+lspconfig.marksman.setup({ capabilities = capabilities })
 lspconfig.ocamllsp.setup({
-	cmd = {"ocamllsp", "--fallback-read-dot-merlin"},
+	cmd = { "ocamllsp", "--fallback-read-dot-merlin" },
 	capabilities = capabilities
 })
-lspconfig.texlab.setup({capabilities = capabilities})
-lspconfig.wgsl_analyzer.setup({capabilities = capabilities})
-lspconfig.tsserver.setup({capabilities = capabilities})
-lspconfig.bashls.setup({capabilities = capabilities})
-lspconfig.jsonls.setup({capabilities = capabilities})
-lspconfig.cssls.setup({capabilities = capabilities})
-lspconfig.html.setup({capabilities = capabilities})
-lspconfig.lemminx.setup({capabilities = capabilities})
-lspconfig.yamlls.setup({capabilities = capabilities})
+lspconfig.texlab.setup({ capabilities = capabilities })
+lspconfig.wgsl_analyzer.setup({ capabilities = capabilities })
+lspconfig.tsserver.setup({ capabilities = capabilities })
+lspconfig.bashls.setup({ capabilities = capabilities })
+lspconfig.jsonls.setup({ capabilities = capabilities })
+lspconfig.cssls.setup({ capabilities = capabilities })
+lspconfig.html.setup({ capabilities = capabilities })
+lspconfig.lemminx.setup({ capabilities = capabilities })
+lspconfig.yamlls.setup({ capabilities = capabilities })
+
+-- format on save
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+	pattern = { "*" },
+	callback = function()
+		vim.lsp.buf.format()
+	end
+})
 
 -- lspsaga
 require("lspsaga").setup({
