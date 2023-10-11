@@ -31,12 +31,12 @@ local blue = "#407ced"
 local greenbg = "#10381b"
 local redbg = "#3f1010"
 local bluebg = "#112851"
-local keyword = "#29eec9"
-local string = "#ff4c7d"
-local include = "#e64cf7"
-local func = "#f5ab4a"
-local constant = "#aff90c"
-local type = "#63cce1"
+local cyan = "#29eec9"
+local lightred = "#ff4c7d"
+local magenta = "#e64cf7"
+local orange = "#f5ab4a"
+local lightgreen = "#aff90c"
+local lightblue = "#63cce1"
 
 local error = "#ff0000"
 local warn = "#ffaa00"
@@ -88,14 +88,14 @@ set("GitSignsAddLn", { fg = green, bg = greenbg })
 set("GitSignsChangeLn", { fg = green, bg = greenbg })
 set("GitSignsDeleteVirtLn", { fg = red, bg = redbg })
 
-set("@include", { fg = include })
-set("@define", { fg = include })
-set("@preproc", { fg = include })
+set("@include", { fg = magenta })
+set("@define", { fg = magenta })
+set("@preproc", { fg = magenta })
 
 set("@punctuation", { fg = fgg })
 set("@operator", { fg = fgg })
 
-set("@type", { fg = type })
+set("@type", { fg = lightblue })
 
 set("@variable", { fg = fg })
 set("@property", { fg = fg })
@@ -107,24 +107,58 @@ set("@variable.builtin", { fg = blue })
 set("@comment", { fg = fggg })
 set("Comment", { fg = fggg })
 
-set("@keyword", { fg = keyword })
-set("@conditional", { fg = keyword })
-set("@repeat", { fg = keyword })
+set("@keyword", { fg = cyan })
+set("@conditional", { fg = cyan })
+set("@repeat", { fg = cyan })
 
-set("@function", { fg = func })
+set("@function", { fg = orange })
 
-set("@macro", { fg = keyword })
-set("@function.macro", { fg = keyword })
-set("@lsp.type.macro", { fg = keyword })
+set("@macro", { fg = cyan })
+set("@function.macro", { fg = cyan })
+set("@lsp.type.macro", { fg = cyan })
 
-set("@constant", { fg = constant })
-set("@constant.builtin", { fg = constant })
-set("@constructor", { fg = constant })
-set("@number", { fg = constant })
-set("@boolean", { fg = constant })
-set("@float", { fg = constant })
-set("@character", { fg = string })
-set("@string", { fg = string })
+set("@constant", { fg = lightgreen })
+set("@constant.builtin", { fg = lightgreen })
+set("@constructor", { fg = lightgreen })
+set("@number", { fg = lightgreen })
+set("@boolean", { fg = lightgreen })
+set("@float", { fg = lightgreen })
+set("@character", { fg = lightred })
+set("@string", { fg = lightred })
 
 set("@spell.gitcommit", { fg = fg })
 set("@text.title.gitcommit", { fg = fgg })
+
+-- latex
+set("@text.strong.latex", { bold = true })
+set("@text.emphasis.latex", { italic = true })
+set("@comment.latex", { fg = fggg })
+set("@function.latex", { fg = orange })
+set("@punctuation.special.latex", { fg = orange })
+set("@function.macro.latex", { fg = cyan })
+set("@text.environment.latex", { fg = blue })
+set("@text.math.latex", { fg = lightred })
+set("@operator.latex", { fg = lightred })
+set("@parameter.latex", { fg = lightgreen })
+
+-- markdown
+set("@text.title.1.markdown", { fg = fg, bold = true })
+set("@text.title.2.markdown", { fg = fg, bold = true })
+set("@text.title.3.markdown", { fg = fg, bold = true })
+set("@text.title.4.markdown", { fg = fg, bold = true })
+set("@text.title.5.markdown", { fg = fg, bold = true })
+set("@text.title.6.markdown", { fg = fg, bold = true })
+
+set("@text.title.1.marker.markdown", { fg = lightgreen, bold = true })
+set("@text.title.2.marker.markdown", { fg = lightgreen, bold = true })
+set("@text.title.3.marker.markdown", { fg = lightgreen, bold = true })
+set("@text.title.4.marker.markdown", { fg = lightgreen, bold = true })
+set("@text.title.5.marker.markdown", { fg = lightgreen, bold = true })
+set("@text.title.6.marker.markdown", { fg = lightgreen, bold = true })
+
+set("@text.reference.markdown_inline", { fg = blue })
+set("@text.uri.markdown_inline", { fg = cyan, underline = true })
+set("@punctuation.delimiter.markdown_inline", { fg = lightred })
+set("@punctuation.special.markdown", { fg = orange })
+set("@text.strong.markdown_inline", { fg = fg, bold = true })
+set("@text.emphasis.markdown_inline", { fg = fg, italic = true })
