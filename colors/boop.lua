@@ -29,8 +29,8 @@ local green = "#32a852"
 local red = "#ad2d2d"
 local blue = "#2b61c4"
 local greenbg = "#10381b"
-local redbg = "#3a0f0f"
-local bluebg = "#0e2042"
+local redbg = "#3f1010"
+local bluebg = "#112851"
 local keyword = "#29eec9"
 local string = "#ff4c7d"
 local include = "#e64cf7"
@@ -44,7 +44,7 @@ local warn = "#ffaa00"
 -- color definitions
 clear("TODO")
 
-set("Normal", { fg = fg, bg = bg })
+set("Normal", { fg = fgg, bg = bg })
 set("Visual", { bg = bgg })
 set("LineNr", { fg = bggg, bg = bbg })
 set("LineNrAbove", { fg = bggg, bg = bbg })
@@ -75,13 +75,13 @@ set("DiagnosticSignWarn", { bg = bbg })
 set("DiagnosticSignError", { bg = bbg })
 
 set("GitSignsAdd", { fg = green, bg = bbg })
-set("GitSignsChange", { fg = blue, bg = bbg })
+set("GitSignsChange", { fg = green, bg = bbg })
 set("GitSignsDelete", { fg = red, bg = bbg })
 set("GitSignsUntracked", { fg = green, bg = bbg })
 
-set("GitSignsAddLn", { bg = greenbg })
-set("GitSignsChangeLn", { bg = bluebg })
-set("GitSignsDeleteVirtLn", { bg = redbg })
+set("GitSignsAddLn", { fg = green, bg = greenbg })
+set("GitSignsChangeLn", { fg = green, bg = greenbg })
+set("GitSignsDeleteVirtLn", { fg = red, bg = redbg })
 
 set("@include", { fg = include })
 set("@define", { fg = include })
@@ -91,6 +91,10 @@ set("@punctuation", { fg = fgg })
 set("@operator", { fg = fgg })
 
 set("@type", { fg = type })
+
+set("@variable", { fg = fg })
+set("@property", { fg = fg })
+set("@parameter", { fg = fg })
 
 set("@comment", { fg = fggg })
 set("Comment", { fg = fggg })
@@ -107,6 +111,7 @@ set("@lsp.type.macro", { fg = keyword })
 
 set("@constant", { fg = constant })
 set("@constant.builtin", { fg = constant })
+set("@constructor", { fg = constant })
 set("@number", { fg = constant })
 set("@boolean", { fg = constant })
 set("@float", { fg = constant })
