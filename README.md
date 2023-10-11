@@ -20,17 +20,16 @@
 ### LSP
 | Key | Binding |
 |:--|--:|
+|gd|Goto definition|
+|gp|Peek definition|
 |Space r|Rename symbol|
 |Space k|Hover documentation|
-|Space d|Goto definition|
-|Space p|Peek definition|
-|Space y|Goto type definition|
-|Space l|Peek type definition|
 |Space f|Open finder|
 |Space a|Code action|
 |Space i|View incoming calls|
 |Space o|View outgoing calls|
-|Space g|Show workspace diagnostics|
+|Space d|Show workspace diagnostics|
+|Space D|Show workspace diagnostics|
 |;|Open outline|
 |Enter|Begin selection|
 |Tab|Grow selection|

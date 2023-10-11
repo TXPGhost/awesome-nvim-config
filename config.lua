@@ -223,17 +223,17 @@ end)
 vim.keymap.set("n", "<Space>b", "<cmd>Gitsigns blame_line<CR>")
 
 -- lspsaga
+vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
+vim.keymap.set("n", "gy", "<cmd>Lspsaga goto_type_definition<CR>")
+
 vim.keymap.set("n", "<Space>r", "<cmd>Lspsaga rename<CR>")
 vim.keymap.set("n", "<Space>k", "<cmd>Lspsaga hover_doc<CR>")
-vim.keymap.set("n", "<Space>d", "<cmd>Lspsaga goto_definition<CR>")
-vim.keymap.set("n", "<Space>p", "<cmd>Lspsaga peek_definition<CR>")
-vim.keymap.set("n", "<Space>y", "<cmd>Lspsaga goto_type_definition<CR>")
-vim.keymap.set("n", "<Space>l", "<cmd>Lspsaga peek_type_definition<CR>")
 vim.keymap.set("n", "<Space>f", "<cmd>Lspsaga finder<CR>")
 vim.keymap.set("n", "<Space>a", "<cmd>Lspsaga code_action<CR>")
 vim.keymap.set("n", "<Space>i", "<cmd>Lspsaga incoming_calls<CR>")
 vim.keymap.set("n", "<Space>o", "<cmd>Lspsaga outgoing_calls<CR>")
-vim.keymap.set("n", "<Space>g", "<cmd>Lspsaga show_workspace_diagnostics<CR>")
+vim.keymap.set("n", "<Space>d", "<cmd>Lspsaga show_buf_diagnostics<CR>")
+vim.keymap.set("n", "<Space>D", "<cmd>Lspsaga show_workspace_diagnostics<CR>")
 vim.keymap.set("n", ";", "<cmd>Lspsaga outline<CR>")
 
 -- startup commands
