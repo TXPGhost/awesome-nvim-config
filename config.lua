@@ -119,6 +119,21 @@ lspconfig.html.setup({ capabilities = capabilities })
 lspconfig.lemminx.setup({ capabilities = capabilities })
 lspconfig.yamlls.setup({ capabilities = capabilities })
 
+-- rust-tools
+local rust_tools = require("rust-tools")
+rust_tools.setup({
+	tools = {
+		inlay_hints = {
+			highlight = "Comment",
+		}
+	},
+	server = {
+		on_attach = function()
+
+		end
+	}
+})
+
 -- format on save
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	pattern = { "*" },
