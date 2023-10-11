@@ -125,3 +125,6 @@ set("@boolean", { fg = constant })
 set("@float", { fg = constant })
 set("@character", { fg = string })
 set("@string", { fg = string })
+
+set("@spell.gitcommit", { fg = fg })
+set("@text.title.gitcommit", { fg = fgg })
