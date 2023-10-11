@@ -1,6 +1,9 @@
 -- set help window to vertical split
 vim.cmd("autocmd FileType help wincmd L")
 
+-- add new filetypes
+vim.cmd("autocmd BufNewFile,BufRead *.wgsl set filetype=wgsl")
+
 -- set cursorline for insert mode
 vim.api.nvim_create_autocmd({ "InsertEnter" }, {
 	callback = function()
