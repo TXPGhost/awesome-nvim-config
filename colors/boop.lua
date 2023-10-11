@@ -101,6 +101,8 @@ set("@punctuation", { fg = fgg })
 set("@operator", { fg = fgg })
 
 set("@type", { fg = lightblue })
+set("@storageclass", { fg = blue })
+set("@type.qualifier", { fg = blue })
 
 set("@variable", { fg = fg })
 set("@property", { fg = fg })
@@ -117,10 +119,10 @@ set("@conditional", { fg = cyan })
 set("@repeat", { fg = cyan })
 
 set("@function", { fg = orange })
+set("@method", { fg = orange })
 
 set("@macro", { fg = cyan })
 set("@function.macro", { fg = cyan })
-set("@lsp.type.macro", { fg = cyan })
 
 set("@constant", { fg = lightgreen })
 set("@constant.builtin", { fg = lightgreen })
