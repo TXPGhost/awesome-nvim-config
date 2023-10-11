@@ -154,6 +154,9 @@ require("lspsaga").setup({
 		win_width = 40,
 		auto_preview = false,
 		detail = false,
+	},
+	symbol_in_winbar = {
+		enable = false
 	}
 })
 
