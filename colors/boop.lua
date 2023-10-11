@@ -63,6 +63,11 @@ set("SagaBorder", { bg = bgg })
 
 set("OilFile", { fg = fg })
 
+set("DiagnosticOk", { fg = fg })
+set("DiagnosticHint", { fg = warn })
+set("DiagnosticInfo", { fg = fg })
+set("DiagnosticWarn", { fg = warn })
+set("DiagnosticError", { fg = error })
 set("DiagnosticVirtualTextOk", { fg = fg, italic = true })
 set("DiagnosticVirtualTextHint", { fg = warn, italic = true })
 set("DiagnosticVirtualTextInfo", { fg = fg, italic = true })
@@ -128,6 +133,18 @@ set("@string", { fg = lightred })
 
 set("@spell.gitcommit", { fg = fg })
 set("@text.title.gitcommit", { fg = fgg })
+
+-- lspsaga
+set("SagaFunction", { fg = orange })
+set("SagaStruct", { fg = lightblue })
+set("SagaModule", { fg = magenta })
+set("SagaNamespace", { fg = magenta })
+
+set("SagaString", { fg = lightred })
+set("SagaNumber", { fg = lightgreen })
+set("SagaBoolean", { fg = lightgreen })
+set("SagaVariable", { fg = cyan })
+set("SagaParameter", { fg = fg })
 
 -- latex
 set("@text.strong.latex", { bold = true })
