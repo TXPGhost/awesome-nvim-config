@@ -30,6 +30,7 @@
 |Space a|Code action|
 |Space i|View incoming calls|
 |Space o|View outgoing calls|
+|Space g|Show workspace diagnostics|
 |;|Open outline|
 |Enter|Begin selection|
 |Tab|Grow selection|
