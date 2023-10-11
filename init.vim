@@ -46,6 +46,9 @@ Plug 'lervag/vimtex'
 " automatic tab type detection
 Plug 'tpope/vim-sleuth'
 
+" rust
+Plug 'simrat39/rust-tools.nvim'
+
 call plug#end()
 
 " run config file
