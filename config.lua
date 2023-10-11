@@ -94,7 +94,7 @@ require("gitsigns").setup({})
 
 -- lspconfig
 local lspconfig = require("lspconfig")
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#vimls
+
 lspconfig.rust_analyzer.setup({ capabilities = capabilities })
 lspconfig.jdtls.setup({ capabilities = capabilities })
 lspconfig.vimls.setup({ capabilities = capabilities })
@@ -225,5 +225,5 @@ vim.cmd("set noswapfile")
 vim.cmd("set signcolumn=yes")
 vim.cmd("set nowrap")
 
-vim.cmd("colorscheme arob")
+vim.cmd("colorscheme boop")
 vim.cmd("set termguicolors")
