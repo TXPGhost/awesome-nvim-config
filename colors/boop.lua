@@ -27,7 +27,7 @@ local bg = "#1f1f1f"
 local bbg = "#161616"
 local green = "#32a852"
 local red = "#ad2d2d"
-local blue = "#2b61c4"
+local blue = "#407ced"
 local greenbg = "#10381b"
 local redbg = "#3f1010"
 local bluebg = "#112851"
@@ -46,17 +46,22 @@ clear("TODO")
 
 set("Normal", { fg = fgg, bg = bg })
 set("Visual", { bg = bgg })
+
 set("LineNr", { fg = bggg, bg = bbg })
 set("LineNrAbove", { fg = bggg, bg = bbg })
 set("LineNrBelow", { fg = bggg, bg = bbg })
+set("StatusLine", { bg = bgg })
+
 set("SignColumn", { bg = bbg })
-set("EndOfBuffer", { fg = bbg, bg = bbg })
+set("EndOfBuffer", { fg = bgg, bg = bbg })
 set("CursorLineNr", { bg = bbg })
 set("Pmenu", { bg = bgg })
 set("Float", { bg = bgg })
 
 set("SagaNormal", { bg = bgg })
 set("SagaBorder", { bg = bgg })
+
+set("OilFile", { fg = fg })
 
 set("DiagnosticVirtualTextOk", { fg = fg, italic = true })
 set("DiagnosticVirtualTextHint", { fg = warn, italic = true })
@@ -95,6 +100,9 @@ set("@type", { fg = type })
 set("@variable", { fg = fg })
 set("@property", { fg = fg })
 set("@parameter", { fg = fg })
+set("@field", { fg = fg })
+
+set("@variable.builtin", { fg = blue })
 
 set("@comment", { fg = fggg })
 set("Comment", { fg = fggg })
