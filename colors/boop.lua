@@ -34,10 +34,9 @@ local bluebg = "#0e2042"
 local keyword = "#29eec9"
 local string = "#ff4c7d"
 local include = "#e64cf7"
-local number = "#f5ab4a"
-local boolean = "#aff90c"
+local func = "#f5ab4a"
+local constant = "#aff90c"
 local type = "#63cce1"
-local func = "#64db59"
 
 local error = "#ff0000"
 local warn = "#ffaa00"
@@ -100,16 +99,16 @@ set("@keyword", { fg = keyword })
 set("@conditional", { fg = keyword })
 set("@repeat", { fg = keyword })
 
-set("@function", { fg = number })
+set("@function", { fg = func })
 
 set("@macro", { fg = keyword })
 set("@function.macro", { fg = keyword })
 set("@lsp.type.macro", { fg = keyword })
 
-set("@constant", { fg = boolean })
-set("@constant.builtin", { fg = boolean })
-set("@number", { fg = number })
-set("@boolean", { fg = boolean })
-set("@float", { fg = number })
+set("@constant", { fg = constant })
+set("@constant.builtin", { fg = constant })
+set("@number", { fg = constant })
+set("@boolean", { fg = constant })
+set("@float", { fg = constant })
 set("@character", { fg = string })
 set("@string", { fg = string })
