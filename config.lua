@@ -199,7 +199,6 @@ require("nvim-treesitter.configs").setup({
 		enable = true,
 		keymaps = {
 			init_selection = "<CR>",
-			scope_incremental = "<CR>",
 			node_incremental = "<Tab>",
 			node_decremental = "<S-Tab>",
 		}
@@ -230,6 +229,20 @@ vim.cmd("vnoremap > >gv")
 vim.cmd("vnoremap < <gv")
 
 vim.keymap.set("n", "<esc>", "<cmd>noh<CR>")
+vim.keymap.set("v", "<CR>", "")
+
+-- treesitter-textobjects
+local function mktextobj(bind, obj)
+	vim.keymap.set({ "n", "v" }, "]" .. bind, "<cmd>TSTextobjectGotoNextStart " .. obj .. "<CR><cmd>norm zz<CR>")
+	vim.keymap.set({ "n", "v" }, "[" .. bind, "<cmd>TSTextobjectGotoPreviousStart" .. obj .. "<CR><cmd>norm zz<CR>")
+end
+
+mktextobj("f", "@function.outer")
+mktextobj("c", "@class.outer")
+mktextobj("s", "@statement.outer")
+
+vim.keymap.set("n", "<Tab>", "<cmd>TSTextobjectGotoNextStart @parameter.inner<CR>")
+vim.keymap.set("n", "<S-Tab>", "<cmd>TSTextobjectGotoPreviousStart @parameter.inner<CR>")
 
 -- oil.nvim
 vim.keymap.set("n", "-", function()
@@ -245,6 +258,9 @@ vim.keymap.set("n", "?", function()
 end)
 vim.keymap.set("n", "<Space>b", "<cmd>Gitsigns blame_line<CR>")
 
+vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<CR>")
+vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<CR>")
+
 -- lspsaga
 vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
 vim.keymap.set("n", "gy", "<cmd>Lspsaga goto_type_definition<CR>")
@@ -258,6 +274,9 @@ vim.keymap.set("n", "<Space>o", "<cmd>Lspsaga outgoing_calls<CR>")
 vim.keymap.set("n", "<Space>d", "<cmd>Lspsaga show_buf_diagnostics<CR>")
 vim.keymap.set("n", "<Space>D", "<cmd>Lspsaga show_workspace_diagnostics<CR>")
 vim.keymap.set("n", ";", "<cmd>Lspsaga outline<CR>")
+
+vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
 
 -- startup commands
 vim.cmd("set nocompatible")

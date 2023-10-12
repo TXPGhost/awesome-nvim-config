@@ -11,11 +11,29 @@
 |:--|--:|
 |?|Toggle diff view|
 |Space b|Blame current line|
+|]h|Next hunk|
+|[h|Previous hunk|
 
 ### File picker
 | Key | Binding |
 |:--|--:|
 |-|Open file picker, goto parent directory|
+
+### Tree-Sitter
+|Enter Enter|Init selection|
+|(Visual) Tab|Grow selection|
+|(Visual) Shift Tab|Shrink Selection|
+|(Normal) Tab|Goto next parameter|
+|(Normal) Shift Tab|Goto previous parameter|
+|\]f|Jump to next function|
+|\[f|Jump to previous function|
+|Enter f|Select current function|
+|\]c|Jump to next class|
+|\[c|Jump to previous class|
+|Enter c|Select current class|
+|\]s|Jump to next statement|
+|\[s|Jump to previous statement|
+|Enter s|Select current statement|
 
 ### LSP
 | Key | Binding |
@@ -31,9 +49,8 @@
 |Space d|Show workspace diagnostics|
 |Space D|Show workspace diagnostics|
 |;|Open outline|
-|Enter|Begin selection|
-|Tab|Grow selection|
-|Shift Tab|Shrink Selection|
+|\]d|Jump to next diagnostic|
+|\[d|Jump to previous diagnostic|
 
 ## LaTeX
 | Key | Binding |
