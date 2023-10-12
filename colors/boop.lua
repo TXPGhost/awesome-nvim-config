@@ -46,6 +46,7 @@ clear("TODO")
 
 set("Normal", { fg = fgg, bg = bg })
 set("Visual", { bg = bgg })
+set("Folded", { fg = fggg, italic = true })
 
 set("LineNr", { fg = bggg, bg = bbg })
 set("LineNrAbove", { fg = bggg, bg = bbg })
@@ -86,15 +87,6 @@ set("DiagnosticSignInfo", { bg = bbg })
 set("DiagnosticSignWarn", { bg = bbg })
 set("DiagnosticSignError", { bg = bbg })
 
-set("GitSignsAdd", { fg = green, bg = bbg })
-set("GitSignsChange", { fg = green, bg = bbg })
-set("GitSignsDelete", { fg = red, bg = bbg })
-set("GitSignsUntracked", { fg = green, bg = bbg })
-
-set("GitSignsAddLn", { fg = green, bg = greenbg })
-set("GitSignsChangeLn", { fg = green, bg = greenbg })
-set("GitSignsDeleteVirtLn", { fg = red, bg = redbg })
-
 set("@include", { fg = magenta })
 set("@define", { fg = magenta })
 set("@preproc", { fg = magenta })
@@ -133,6 +125,41 @@ set("@boolean", { fg = lightgreen })
 set("@float", { fg = lightgreen })
 set("@character", { fg = lightred })
 set("@string", { fg = lightred })
+
+-- markup language
+set("@tag", { fg = lightblue })
+set("@tag.attribute", { fg = orange })
+set("@tag.delimiter", { fg = fgg })
+
+-- xml
+set("@string.special.xml", { fg = cyan })
+
+-- git
+set("DiffAdd", { fg = green, bg = greenbg })
+set("DiffDelete", { fg = red, bg = redbg })
+
+set("GitSignsAdd", { fg = green, bg = bbg })
+set("GitSignsChange", { fg = green, bg = bbg })
+set("GitSignsDelete", { fg = red, bg = bbg })
+set("GitSignsUntracked", { fg = green, bg = bbg })
+
+set("GitSignsAddLn", { fg = green, bg = greenbg })
+set("GitSignsChangeLn", { fg = green, bg = greenbg })
+set("GitSignsDeleteVirtLn", { fg = red, bg = redbg })
+
+set("gitDiff", { fg = fg })
+set("diffLine", { fg = fggg })
+set("diffAdded", { fg = green })
+set("diffRemoved", { fg = red })
+
+set("fugitiveHeader", { fg = lightgreen, bold = true })
+set("fugitiveSymbolicRef", { fg = fg })
+set("fugitiveUnstagedSection", { fg = red })
+set("fugitiveStagedSection", { fg = green })
+set("fugitiveUnstagedHeading", { fg = fg, bold = true })
+set("fugitiveStagedHeading", { fg = fg, bold = true })
+set("fugitiveHelpTag", { fg = fg })
+set("fugitiveCount", { fg = fg })
 
 set("@spell.gitcommit", { fg = fg })
 set("@text.title.gitcommit", { fg = fgg })
@@ -182,3 +209,11 @@ set("@punctuation.delimiter.markdown_inline", { fg = lightred })
 set("@punctuation.special.markdown", { fg = orange })
 set("@text.strong.markdown_inline", { fg = fg, bold = true })
 set("@text.emphasis.markdown_inline", { fg = fg, italic = true })
+
+-- vimdoc
+set("@text.reference.vimdoc", { fg = lightblue, underline = true })
+set("@label.vimdoc", { fg = orange })
+set("@string.special.vimdoc", { fg = cyan })
+
+set("@text.title.1.vimdoc", { fg = lightgreen, bold = true })
+set("@text.title.2.vimdoc", { fg = lightgreen, bold = true })
