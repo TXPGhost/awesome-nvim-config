@@ -55,8 +55,10 @@ set("StatusLine", { bg = bgg })
 set("SignColumn", { bg = bbg })
 set("EndOfBuffer", { fg = bgg, bg = bbg })
 set("CursorLineNr", { bg = bbg })
-set("Pmenu", { bg = bgg })
 set("Float", { bg = bgg })
+
+set("Pmenu", { bg = bgg })
+set("PmenuSel", { bg = bggg })
 
 set("SagaNormal", { bg = bgg })
 set("SagaBorder", { bg = bgg })

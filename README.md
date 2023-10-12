@@ -20,6 +20,8 @@
 |-|Open file picker, goto parent directory|
 
 ### Tree-Sitter
+| Key | Binding |
+|:--|--:|
 |Enter Enter|Init selection|
 |(Visual) Tab|Grow selection|
 |(Visual) Shift Tab|Shrink Selection|
