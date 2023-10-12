@@ -136,15 +136,17 @@ set("@string.special.xml", { fg = cyan })
 
 -- git
 set("DiffAdd", { fg = green, bg = greenbg })
+set("DiffChange", { fg = blue, bg = bluebg })
+set("DiffText", { fg = blue, bg = bluebg })
 set("DiffDelete", { fg = red, bg = redbg })
 
 set("GitSignsAdd", { fg = green, bg = bbg })
-set("GitSignsChange", { fg = green, bg = bbg })
+set("GitSignsChange", { fg = blue, bg = bbg })
 set("GitSignsDelete", { fg = red, bg = bbg })
 set("GitSignsUntracked", { fg = green, bg = bbg })
 
-set("GitSignsAddLn", { fg = green, bg = greenbg })
-set("GitSignsChangeLn", { fg = green, bg = greenbg })
+set("GitSignsAddLn", { bg = bgg })
+set("GitSignsChangeLn", { bg = bgg })
 set("GitSignsDeleteVirtLn", { fg = red, bg = redbg })
 
 set("gitDiff", { fg = fg })
@@ -175,6 +177,8 @@ set("SagaNumber", { fg = lightgreen })
 set("SagaBoolean", { fg = lightgreen })
 set("SagaVariable", { fg = cyan })
 set("SagaParameter", { fg = fg })
+
+set("CodeActionNumber", { fg = green, bold = true })
 
 -- latex
 set("@text.strong.latex", { bold = true })
@@ -217,3 +221,7 @@ set("@string.special.vimdoc", { fg = cyan })
 
 set("@text.title.1.vimdoc", { fg = lightgreen, bold = true })
 set("@text.title.2.vimdoc", { fg = lightgreen, bold = true })
+set("@text.title.3.vimdoc", { fg = lightgreen, bold = true })
+set("@text.title.4.vimdoc", { fg = lightgreen, bold = true })
+set("@text.title.5.vimdoc", { fg = lightgreen, bold = true })
+set("@text.title.6.vimdoc", { fg = lightgreen, bold = true })
