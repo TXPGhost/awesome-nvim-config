@@ -126,7 +126,6 @@ set("@function.macro", { fg = cyan })
 
 set("@constant", { fg = lightgreen })
 set("@constant.builtin", { fg = lightgreen })
-set("@constructor", { fg = lightgreen })
 set("@number", { fg = lightgreen })
 set("@boolean", { fg = lightgreen })
 set("@float", { fg = lightgreen })
