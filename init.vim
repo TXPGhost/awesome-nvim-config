@@ -34,6 +34,7 @@ Plug 'onsails/lspkind.nvim'
 
 " git integration
 Plug 'lewis6991/gitsigns.nvim'
+Plug 'tpope/vim-fugitive'
 
 " icons
 Plug 'nvim-tree/nvim-web-devicons'

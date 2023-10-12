@@ -9,7 +9,8 @@
 ### Git
 | Key | Binding |
 |:--|--:|
-|?|Toggle diff view|
+|?|Toggle inline diff view|
+|g?|Open split diff view|
 |Space b|Blame current line|
 |]h|Next hunk|
 |[h|Previous hunk|

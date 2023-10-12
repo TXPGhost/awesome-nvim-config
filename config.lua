@@ -249,6 +249,9 @@ vim.keymap.set("n", "-", function()
 	oil.open()
 end)
 
+-- fugitive
+vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit<CR>")
+
 -- gitsigns
 vim.keymap.set("n", "?", function()
 	vim.cmd("Gitsigns toggle_deleted")
