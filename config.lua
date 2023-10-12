@@ -250,15 +250,9 @@ vim.keymap.set("n", "-", function()
 end)
 
 -- fugitive
-vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit<CR>")
+vim.keymap.set("n", "?", "<cmd>Gvdiffsplit<CR>")
 
 -- gitsigns
-vim.keymap.set("n", "?", function()
-	vim.cmd("Gitsigns toggle_deleted")
-	vim.cmd("Gitsigns toggle_numhl")
-	vim.cmd("Gitsigns toggle_linehl")
-	vim.cmd("TSToggle highlight")
-end)
 vim.keymap.set("n", "<Space>b", "<cmd>Gitsigns blame_line<CR>")
 
 vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<CR>")
