@@ -162,7 +162,9 @@ rust_tools.setup({
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	pattern = { "*" },
 	callback = function()
-		vim.lsp.buf.format()
+		pcall(function()
+			vim.lsp.buf.format()
+		end)
 	end
 })
 
