@@ -47,7 +47,8 @@
 |:--|--:|
 |;|Toggle document symbols|
 |gd|Goto definition|
-|gp|Peek definition|
+|gy|Goto type definition|
+|gr|Goto references|
 |Space r|Rename symbol|
 |Space k|Hover documentation|
 |Space f|Open finder|
