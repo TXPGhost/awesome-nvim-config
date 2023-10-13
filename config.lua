@@ -1,9 +1,6 @@
 -- set help window to vertical split
 vim.cmd("autocmd FileType help wincmd L")
 
--- disable fold column for diff view
-vim.cmd("set diffopt=foldcolumn:0")
-
 -- add new filetypes
 vim.cmd("autocmd BufNewFile,BufRead *.wgsl set filetype=wgsl")
 
