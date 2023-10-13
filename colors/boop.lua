@@ -186,7 +186,7 @@ set("NeoTreeWinSeparator", { bg = bg, fg = bgg })
 
 set("NeoTreeFileName", { fg = fg })
 set("NeoTreeFileOpen", { fg = fg, underline = true })
-set("NeoTreeModified", { fg = lightgreen })
+set("NeoTreeModified", { fg = fgg })
 
 set("NeoTreeTitleBar", { fg = fg, bg = bbg })
 set("NeoTreeFloatNormal", { fg = fg, bg = bg })
