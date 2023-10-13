@@ -27,6 +27,9 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 
+" auto pairs
+Plug 'cohama/lexima.vim'
+
 " snippets (for autocompletion)
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
