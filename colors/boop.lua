@@ -49,6 +49,8 @@ set("Visual", { bg = bgg })
 set("Search", { bg = bgg })
 set("Folded", { fg = fggg, italic = true })
 
+set("MatchParen", { bg = bgg })
+
 set("LineNr", { fg = bggg, bg = bg })
 set("LineNrAbove", { fg = bggg, bg = bg })
 set("LineNrBelow", { fg = bggg, bg = bg })
