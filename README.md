@@ -15,10 +15,14 @@
 |]h|Next hunk|
 |[h|Previous hunk|
 
-### File picker
+### File tree
 | Key | Binding |
 |:--|--:|
-|-|Open file picker, goto parent directory|
+|-|Open file tree/navigate up|
+|+|Navigate in|
+|Backspace|Close file tree|
+|w|Open file/folder|
+|H|Toggle hidden|
 
 ### Tree-Sitter
 | Key | Binding |
@@ -41,6 +45,7 @@
 ### LSP
 | Key | Binding |
 |:--|--:|
+|;|Toggle document symbols|
 |gd|Goto definition|
 |gp|Peek definition|
 |Space r|Rename symbol|
@@ -51,7 +56,6 @@
 |Space o|View outgoing calls|
 |Space d|Show workspace diagnostics|
 |Space D|Show workspace diagnostics|
-|;|Open outline|
 |\]d|Jump to next diagnostic|
 |\[d|Jump to previous diagnostic|
 

@@ -22,9 +22,9 @@ local fg = "#ffffff"
 local fgg = "#989fb8"
 local fggg = "#696e7f"
 local bggg = "#666666"
-local bgg = "#262626"
-local bg = "#1f1f1f"
-local bbg = "#161616"
+local bgg = "#1f1f1f"
+local bg = "#161616"
+local bbg = "#131313"
 local green = "#32a852"
 local red = "#ad2d2d"
 local blue = "#407ced"
@@ -44,48 +44,56 @@ local warn = "#ffaa00"
 -- color definitions
 clear("TODO")
 
-set("Normal", { fg = fgg, bg = bg })
+set("Normal", { fg = fgg, bg = bbg })
 set("Visual", { bg = bgg })
 set("Folded", { fg = fggg, italic = true })
 
-set("LineNr", { fg = bggg, bg = bbg })
-set("LineNrAbove", { fg = bggg, bg = bbg })
-set("LineNrBelow", { fg = bggg, bg = bbg })
+set("LineNr", { fg = bggg, bg = bg })
+set("LineNrAbove", { fg = bggg, bg = bg })
+set("LineNrBelow", { fg = bggg, bg = bg })
 set("StatusLine", { bg = bgg })
 
-set("SignColumn", { bg = bbg })
-set("EndOfBuffer", { fg = bgg, bg = bbg })
-set("CursorLineNr", { bg = bbg })
+set("SignColumn", { bg = bg })
+set("FoldColumn", { bg = bg })
+set("EndOfBuffer", { fg = bgg, bg = bg })
+set("CursorLineNr", { bg = bg })
 set("Float", { bg = bgg })
 
 set("Pmenu", { bg = bgg })
 set("PmenuSel", { bg = bggg })
+set("WinSeparator", { bg = bg, fg = bgg })
 
 set("SagaNormal", { bg = bgg })
 set("SagaBorder", { bg = bgg })
 
-set("OilFile", { fg = fg })
+local diagnosticOk = fg
+local diagnosticHint = lightblue
+local diagnosticInfo = fg
+local diagnosticWarn = warn
+local diagnosticError = error
 
-set("DiagnosticOk", { fg = fg })
-set("DiagnosticHint", { fg = warn })
-set("DiagnosticInfo", { fg = fg })
-set("DiagnosticWarn", { fg = warn })
-set("DiagnosticError", { fg = error })
-set("DiagnosticVirtualTextOk", { fg = fg, italic = true })
-set("DiagnosticVirtualTextHint", { fg = warn, italic = true })
-set("DiagnosticVirtualTextInfo", { fg = fg, italic = true })
-set("DiagnosticVirtualTextWarn", { fg = warn, italic = true })
-set("DiagnosticVirtualTextError", { fg = error, italic = true })
-set("DiagnosticSignOk", { fg = fg })
-set("DiagnosticSignHint", { fg = warn })
-set("DiagnosticSignInfo", { fg = fg })
-set("DiagnosticSignWarn", { fg = warn })
-set("DiagnosticSignError", { fg = error })
-set("DiagnosticSignOk", { bg = bbg })
-set("DiagnosticSignHint", { bg = bbg })
-set("DiagnosticSignInfo", { bg = bbg })
-set("DiagnosticSignWarn", { bg = bbg })
-set("DiagnosticSignError", { bg = bbg })
+set("DiagnosticOk", { fg = diagnosticOk })
+set("DiagnosticHint", { fg = diagnosticWarn })
+set("DiagnosticInfo", { fg = diagnosticInfo })
+set("DiagnosticWarn", { fg = diagnosticWarn })
+set("DiagnosticError", { fg = diagnosticError })
+set("DiagnosticVirtualTextOk", { fg = diagnosticOk, italic = true })
+set("DiagnosticVirtualTextHint", { fg = diagnosticWarn, italic = true })
+set("DiagnosticVirtualTextInfo", { fg = diagnosticInfo, italic = true })
+set("DiagnosticVirtualTextWarn", { fg = diagnosticWarn, italic = true })
+set("DiagnosticVirtualTextError", { fg = diagnosticError, italic = true })
+set("DiagnosticSignOk", { fg = diagnosticOk, bg = bg })
+set("DiagnosticSignHint", { fg = diagnosticHint, bg = bg })
+set("DiagnosticSignInfo", { fg = diagnosticInfo, bg = bg })
+set("DiagnosticSignWarn", { fg = diagnosticWarn, bg = bg })
+set("DiagnosticSignError", { fg = diagnosticError, bg = bg })
+set("DiagnosticUnderlineOk", { sp = diagnosticOk, undercurl = true })
+set("DiagnosticUnderlineHint", { sp = diagnosticHint, undercurl = true })
+set("DiagnosticUnderlineInfo", { sp = diagnosticInfo, undercurl = true })
+set("DiagnosticUnderlineWarn", { sp = diagnosticWarn, undercurl = true })
+set("DiagnosticUnderlineError", { sp = diagnosticError, undercurl = true })
+
+set("DiagnosticUnnecessary", { sp = diagnosticWarn, undercurl = true })
 
 set("@include", { fg = magenta })
 set("@define", { fg = magenta })
@@ -140,10 +148,10 @@ set("DiffChange", { fg = blue, bg = bluebg })
 set("DiffText", { fg = blue, bg = bluebg })
 set("DiffDelete", { fg = red, bg = redbg })
 
-set("GitSignsAdd", { fg = green, bg = bbg })
-set("GitSignsChange", { fg = blue, bg = bbg })
-set("GitSignsDelete", { fg = red, bg = bbg })
-set("GitSignsUntracked", { fg = green, bg = bbg })
+set("GitSignsAdd", { fg = green, bg = bg })
+set("GitSignsChange", { fg = blue, bg = bg })
+set("GitSignsDelete", { fg = red, bg = bg })
+set("GitSignsUntracked", { fg = green, bg = bg })
 
 set("GitSignsAddLn", { bg = bgg })
 set("GitSignsChangeLn", { bg = bgg })
@@ -165,6 +173,21 @@ set("fugitiveCount", { fg = fg })
 
 set("@spell.gitcommit", { fg = fg })
 set("@text.title.gitcommit", { fg = fgg })
+
+-- neo-tree
+set("NeoTreeNormal", { fg = fgg, bg = bg })
+set("NeoTreeNormalNC", { fg = fgg, bg = bg })
+set("NeoTreeEndOfBuffer", { fg = bg })
+set("NeoTreeRootName", { fg = fg, bold = true, underline = true })
+set("NeoTreeWinSeparator", { bg = bg, fg = bgg })
+
+set("NeoTreeFileName", { fg = fg })
+set("NeoTreeFileOpen", { fg = fg, underline = true })
+set("NeoTreeModified", { fg = lightgreen })
+
+set("NeoTreeTitleBar", { fg = fg, bg = bbg })
+set("NeoTreeFloatNormal", { fg = fg, bg = bg })
+set("NeoTreeFloatBorder", { fg = fg, bg = bg })
 
 -- lspsaga
 set("SagaFunction", { fg = orange })
@@ -225,3 +248,6 @@ set("@text.title.3.vimdoc", { fg = lightgreen, bold = true })
 set("@text.title.4.vimdoc", { fg = lightgreen, bold = true })
 set("@text.title.5.vimdoc", { fg = lightgreen, bold = true })
 set("@text.title.6.vimdoc", { fg = lightgreen, bold = true })
+
+-- crates
+set("CratesNvimVersion", { fg = fggg, italic = true })

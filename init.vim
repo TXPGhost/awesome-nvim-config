@@ -11,7 +11,9 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 " file explorer
-Plug 'stevearc/oil.nvim'
+Plug 's1n7ax/nvim-window-picker'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'nvim-neo-tree/neo-tree.nvim'
 
 " telescope
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
@@ -50,6 +52,7 @@ Plug 'tpope/vim-sleuth'
 
 " rust
 Plug 'simrat39/rust-tools.nvim'
+Plug 'Saecki/crates.nvim'
 
 call plug#end()
 

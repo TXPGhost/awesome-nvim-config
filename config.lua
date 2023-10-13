@@ -1,6 +1,9 @@
 -- set help window to vertical split
 vim.cmd("autocmd FileType help wincmd L")
 
+-- disable fold column for diff view
+vim.cmd("set diffopt=foldcolumn:0")
+
 -- add new filetypes
 vim.cmd("autocmd BufNewFile,BufRead *.wgsl set filetype=wgsl")
 
@@ -79,8 +82,8 @@ cmp.setup({
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
 		{ name = "vsnip" },
-	}, {
-		{ name = "buffer" },
+		{ name = "crates" },
+	}, { { name = "buffer" },
 	}),
 	formatting = {
 		format = lspkind.cmp_format({
@@ -119,7 +122,6 @@ require("gitsigns").setup({})
 -- lspconfig
 local lspconfig = require("lspconfig")
 
-lspconfig.rust_analyzer.setup({ capabilities = capabilities })
 lspconfig.jdtls.setup({ capabilities = capabilities })
 lspconfig.vimls.setup({ capabilities = capabilities })
 lspconfig.clangd.setup({
@@ -151,10 +153,14 @@ rust_tools.setup({
 			highlight = "Comment",
 		}
 	},
-	server = {
-		on_attach = function()
+})
 
-		end
+-- crates
+require("crates").setup({
+	src = {
+		cmp = {
+			enabled = true
+		}
 	}
 })
 
@@ -176,18 +182,52 @@ require("lspsaga").setup({
 	code_action = {
 		extend_gitsigns = true
 	},
-	outline = {
-		win_width = 40,
-		auto_preview = false,
-	},
 	symbol_in_winbar = {
 		enable = false
 	}
 })
 
--- oil.nvim
-local oil = require("oil")
-oil.setup({})
+-- neo-tree
+local neo_tree = require("neo-tree")
+neo_tree.setup({
+	window = {
+		auto_expand_width = true
+	},
+	sources = {
+		"filesystem",
+		"document_symbols",
+	},
+	popup_border_style = "rounded",
+	close_if_last_window = true,
+	filesystem = {
+		window = {
+			mappings = {
+				["-"] = "navigate_up",
+				["+"] = "set_root",
+			}
+		}
+	},
+	document_symbols = {
+		close_if_last_window = true,
+		kinds = {
+			Function = { hl = "@function" },
+			Constructor = { hl = "@function" },
+			Method = { hl = "@function" },
+
+			Namespace = { hl = "@include" },
+			Module = { hl = "@include" },
+			Package = { hl = "@include" },
+
+			Struct = { hl = "@storageclass" },
+			Object = { hl = "@storageclass" },
+			Field = { hl = "@type" },
+
+			Array = { hl = "@constant" },
+			String = { hl = "@string" },
+			Constant = { hl = "@constant" },
+		}
+	}
+})
 
 -- tree-sitter
 require("nvim-treesitter.configs").setup({
@@ -244,10 +284,10 @@ mktextobj("s", "@statement.outer")
 vim.keymap.set("n", "<Tab>", "<cmd>TSTextobjectGotoNextStart @parameter.inner<CR>")
 vim.keymap.set("n", "<S-Tab>", "<cmd>TSTextobjectGotoPreviousStart @parameter.inner<CR>")
 
--- oil.nvim
-vim.keymap.set("n", "-", function()
-	oil.open()
-end)
+-- neo-tree
+vim.keymap.set("n", "-", "<cmd>Neotree filesystem<CR>")
+vim.keymap.set("n", ";", "<cmd>Neotree document_symbols<CR>")
+vim.keymap.set("n", "<BS>", "<cmd>Neotree close<CR>")
 
 -- fugitive
 vim.keymap.set("n", "?", "<cmd>Gvdiffsplit<CR>")
@@ -270,7 +310,6 @@ vim.keymap.set("n", "<Space>i", "<cmd>Lspsaga incoming_calls<CR>")
 vim.keymap.set("n", "<Space>o", "<cmd>Lspsaga outgoing_calls<CR>")
 vim.keymap.set("n", "<Space>d", "<cmd>Lspsaga show_buf_diagnostics<CR>")
 vim.keymap.set("n", "<Space>D", "<cmd>Lspsaga show_workspace_diagnostics<CR>")
-vim.keymap.set("n", ";", "<cmd>Lspsaga outline<CR>")
 
 vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>")
 vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
