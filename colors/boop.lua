@@ -46,6 +46,7 @@ clear("TODO")
 
 set("Normal", { fg = fgg, bg = bbg })
 set("Visual", { bg = bgg })
+set("Search", { bg = bgg })
 set("Folded", { fg = fggg, italic = true })
 
 set("LineNr", { fg = bggg, bg = bg })
