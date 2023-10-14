@@ -9,7 +9,7 @@
 ### General
 | Key | Binding |
 |:--|--:|
-|\\\\|Search in current buffer|
+|\\\\ |Search in current buffer|
 
 ### Git
 | Key | Binding |
