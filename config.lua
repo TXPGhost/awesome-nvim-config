@@ -8,34 +8,51 @@ vim.cmd("autocmd BufNewFile,BufRead *.wgsl set filetype=wgsl")
 vim.api.nvim_create_autocmd({ "InsertEnter" }, {
 	callback = function()
 		vim.cmd("set cursorline")
-	end
+	end,
 })
 vim.api.nvim_create_autocmd({ "InsertLeave" }, {
 	callback = function()
 		vim.cmd("set nocursorline")
-	end
+	end,
 })
 
 -- set diagnostic icon
-vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
-vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
-vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
-vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
+vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
 
 -- format on save
 local conform = require("conform")
 conform.setup({
 	formatters_by_ft = {
+		javascript = { "prettierd" },
+		javascriptreact = { "prettierd" },
+		json = { "prettierd" },
+		typescript = { "prettierd" },
+		html = { "prettierd" },
+		css = { "prettierd" },
+		scss = { "prettierd" },
+		vue = { "prettierd" },
+		markdown = { "prettierd" },
+		yaml = { "prettierd" },
 		rust = { "rustfmt" },
 		c = { "clang-format" },
 		cpp = { "clang-format" },
-		javascript = { "prettierd" },
-		markdown = { "prettierd" },
+		lua = { "stylua" },
+		tex = { "latexindent" },
+		ocaml = { "ocamlformat" },
+	},
+	formatters = {
+		latexindent = {
+			command = "latexindent",
+			args = { "-m" },
+		},
 	},
 	format_on_save = {
 		timeout_ms = 500,
 		lsp_fallback = true,
-	}
+	},
 })
 
 -- nvim-cmp
@@ -88,8 +105,7 @@ cmp.setup({
 		{ name = "nvim_lsp" },
 		{ name = "vsnip" },
 		{ name = "crates" },
-	}, { { name = "buffer" },
-	}),
+	}, { { name = "buffer" } }),
 	formatting = {
 		format = lspkind.cmp_format({
 			mode = "symbol",
@@ -97,9 +113,9 @@ cmp.setup({
 			ellipsis_char = "...",
 			before = function(_, vim_item)
 				return vim_item
-			end
-		})
-	}
+			end,
+		}),
+	},
 })
 
 cmp.setup.filetype("gitcommit", {
@@ -107,16 +123,16 @@ cmp.setup.filetype("gitcommit", {
 		{ name = "git" },
 	}, {
 		{ name = "buffer" },
-	})
+	}),
 })
 
 cmp.setup.cmdline(":", {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
-		{ name = "path" }
+		{ name = "path" },
 	}, {
-		{ name = "cmdline" }
-	})
+		{ name = "cmdline" },
+	}),
 })
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -131,14 +147,14 @@ lspconfig.jdtls.setup({ capabilities = capabilities })
 lspconfig.vimls.setup({ capabilities = capabilities })
 lspconfig.clangd.setup({
 	cmd = { "clangd", "--query-driver=/usr/bin/arm-none-eabi-gcc,/usr/bin/arm-none-eabi-g++" },
-	capabilities = capabilities
+	capabilities = capabilities,
 })
 lspconfig.cmake.setup({ capabilities = capabilities })
 lspconfig.lua_ls.setup({ capabilities = capabilities })
 lspconfig.marksman.setup({ capabilities = capabilities })
 lspconfig.ocamllsp.setup({
 	cmd = { "ocamllsp", "--fallback-read-dot-merlin" },
-	capabilities = capabilities
+	capabilities = capabilities,
 })
 lspconfig.texlab.setup({ capabilities = capabilities })
 lspconfig.wgsl_analyzer.setup({ capabilities = capabilities })
@@ -156,7 +172,7 @@ rust_tools.setup({
 	tools = {
 		inlay_hints = {
 			highlight = "Comment",
-		}
+		},
 	},
 })
 
@@ -164,30 +180,29 @@ rust_tools.setup({
 require("crates").setup({
 	src = {
 		cmp = {
-			enabled = true
-		}
-	}
+			enabled = true,
+		},
+	},
 })
-
 
 -- lspsaga
 require("lspsaga").setup({
 	lightbulb = {
-		enable = false
+		enable = false,
 	},
 	code_action = {
-		extend_gitsigns = true
+		extend_gitsigns = true,
 	},
 	symbol_in_winbar = {
-		enable = false
-	}
+		enable = false,
+	},
 })
 
 -- neo-tree
 local neo_tree = require("neo-tree")
 neo_tree.setup({
 	window = {
-		auto_expand_width = true
+		auto_expand_width = true,
 	},
 	sources = {
 		"filesystem",
@@ -200,8 +215,8 @@ neo_tree.setup({
 			mappings = {
 				["-"] = "navigate_up",
 				["+"] = "set_root",
-			}
-		}
+			},
+		},
 	},
 	document_symbols = {
 		close_if_last_window = true,
@@ -221,15 +236,15 @@ neo_tree.setup({
 			Array = { hl = "@constant" },
 			String = { hl = "@string" },
 			Constant = { hl = "@constant" },
-		}
-	}
+		},
+	},
 })
 
 -- tree-sitter
 require("nvim-treesitter.configs").setup({
 	auto_install = true,
 	highlight = {
-		enable = true
+		enable = true,
 	},
 	incremental_selection = {
 		enable = true,
@@ -237,22 +252,22 @@ require("nvim-treesitter.configs").setup({
 			init_selection = "<CR>",
 			node_incremental = "<Tab>",
 			node_decremental = "<S-Tab>",
-		}
+		},
 	},
 	indent = {
-		enable = true
+		enable = true,
 	},
 	beacon = {
-		enable = false
-	}
+		enable = false,
+	},
 })
 vim.cmd("set foldmethod=expr")
 vim.cmd("set foldexpr=nvim_treesitter#foldexpr()")
 vim.cmd("set foldlevel=99999")
 
 -- vimtex
-vim.cmd("let g:vimtex_view_general_viewer = \'okular\'")
-vim.cmd("let g:vimtex_view_general_options = \'--unique file:@pdf\\#src@line@tex\'")
+vim.cmd("let g:vimtex_view_general_viewer = 'okular'")
+vim.cmd("let g:vimtex_view_general_options = '--unique file:@pdf\\#src@line@tex'")
 
 vim.cmd("let g:vimtex_compiler_method = 'tectonic'")
 
