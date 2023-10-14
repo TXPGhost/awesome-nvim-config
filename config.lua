@@ -262,7 +262,7 @@ vim.keymap.set("v", "<CR>", "")
 
 -- telescope
 vim.keymap.set("n", "<Space>f", "<cmd>Telescope find_files<CR>")
-vim.keymap.set("n", "<C-f>", "<cmd>Telescope current_buffer_fuzzy_find<CR>")
+vim.keymap.set("n", "/", "<cmd>Telescope current_buffer_fuzzy_find<CR>")
 
 -- treesitter-textobjects
 local function mktextobj(bind, obj)
@@ -278,7 +278,7 @@ vim.keymap.set("n", "<Tab>", "<cmd>TSTextobjectGotoNextStart @parameter.inner<CR
 vim.keymap.set("n", "<S-Tab>", "<cmd>TSTextobjectGotoPreviousStart @parameter.inner<CR>")
 
 -- neo-tree
-vim.keymap.set("n", "-", "<cmd>Neotree filesystem reveal_force_cwd<CR>")
+vim.keymap.set("n", "-", "<cmd>Neotree filesystem reveal<CR>")
 vim.keymap.set("n", ";", "<cmd>Neotree document_symbols<CR>")
 vim.keymap.set("n", "<BS>", "<cmd>Neotree close<CR>")
 
