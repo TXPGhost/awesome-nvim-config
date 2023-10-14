@@ -181,7 +181,7 @@ set("@text.title.gitcommit", { fg = fgg })
 set("NeoTreeNormal", { fg = fgg, bg = bg })
 set("NeoTreeNormalNC", { fg = fgg, bg = bg })
 set("NeoTreeEndOfBuffer", { fg = bg })
-set("NeoTreeRootName", { fg = fg, bold = true, underline = true })
+set("NeoTreeRootName", { fg = lightgreen })
 set("NeoTreeWinSeparator", { bg = bg, fg = bgg })
 
 set("NeoTreeFileName", { fg = fg })
