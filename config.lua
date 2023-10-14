@@ -260,6 +260,10 @@ vim.cmd("vnoremap < <gv")
 vim.keymap.set("n", "<esc>", "<cmd>noh<CR>")
 vim.keymap.set("v", "<CR>", "")
 
+-- telescope
+vim.keymap.set("n", "<Space>f", "<cmd>Telescope find_files<CR>")
+vim.keymap.set("n", "<C-f>", "<cmd>Telescope current_buffer_fuzzy_find<CR>")
+
 -- treesitter-textobjects
 local function mktextobj(bind, obj)
 	vim.keymap.set({ "n", "v" }, "]" .. bind, "<cmd>TSTextobjectGotoNextStart " .. obj .. "<CR><cmd>norm zz<CR>")
