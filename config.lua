@@ -278,7 +278,7 @@ vim.keymap.set("n", "<Tab>", "<cmd>TSTextobjectGotoNextStart @parameter.inner<CR
 vim.keymap.set("n", "<S-Tab>", "<cmd>TSTextobjectGotoPreviousStart @parameter.inner<CR>")
 
 -- neo-tree
-vim.keymap.set("n", "-", "<cmd>Neotree filesystem<CR>")
+vim.keymap.set("n", "-", "<cmd>Neotree filesystem reveal_force_cwd<CR>")
 vim.keymap.set("n", ";", "<cmd>Neotree document_symbols<CR>")
 vim.keymap.set("n", "<BS>", "<cmd>Neotree close<CR>")
 
