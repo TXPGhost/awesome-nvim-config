@@ -22,6 +22,22 @@ vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSig
 vim.fn.sign_define('DiagnosticSignInfo', { text = '', texthl = 'DiagnosticSignInfo' })
 vim.fn.sign_define('DiagnosticSignHint', { text = '', texthl = 'DiagnosticSignHint' })
 
+-- format on save
+local conform = require("conform")
+conform.setup({
+	formatters_by_ft = {
+		rust = { "rustfmt" },
+		c = { "clang-format" },
+		cpp = { "clang-format" },
+		javascript = { "prettierd" },
+		markdown = { "prettierd" },
+	},
+	format_on_save = {
+		timeout_ms = 500,
+		lsp_fallback = true,
+	}
+})
+
 -- nvim-cmp
 local cmp = require("cmp")
 local lspkind = require("lspkind")
@@ -153,15 +169,6 @@ require("crates").setup({
 	}
 })
 
--- format on save
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-	pattern = { "*" },
-	callback = function()
-		pcall(function()
-			vim.lsp.buf.format()
-		end)
-	end
-})
 
 -- lspsaga
 require("lspsaga").setup({
