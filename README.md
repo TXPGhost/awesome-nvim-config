@@ -6,11 +6,15 @@
 
 ## Keybindings
 
+### General
+| Key | Binding |
+|:--|--:|
+|\\|Search in current buffer|
+
 ### Git
 | Key | Binding |
 |:--|--:|
-|?|Toggle inline diff view|
-|g?|Open split diff view|
+|?|Open split diff view|
 |Space b|Blame current line|
 |]h|Next hunk|
 |[h|Previous hunk|
@@ -23,6 +27,7 @@
 |Backspace|Close file tree|
 |w|Open file/folder|
 |H|Toggle hidden|
+|Ctrl f|Search for files|
 
 ### Tree-Sitter
 | Key | Binding |
