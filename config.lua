@@ -43,12 +43,6 @@ conform.setup({
 		tex = { "latexindent" },
 		ocaml = { "ocamlformat" },
 	},
-	formatters = {
-		latexindent = {
-			command = "latexindent",
-			args = { "-m" },
-		},
-	},
 	format_on_save = {
 		timeout_ms = 500,
 		lsp_fallback = true,
@@ -230,6 +224,8 @@ neo_tree.setup({
 			Package = { hl = "@include" },
 
 			Struct = { hl = "@storageclass" },
+			Enum = { hl = "@storageclass" },
+			EnumMember = { hl = "@constant" },
 			Object = { hl = "@storageclass" },
 			Field = { hl = "@type" },
 

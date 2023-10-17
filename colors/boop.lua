@@ -37,6 +37,7 @@ local magenta = "#e64cf7"
 local orange = "#f5ab4a"
 local lightgreen = "#aff90c"
 local lightblue = "#63cce1"
+local brightblue = "#28cced"
 
 local error = "#ff0000"
 local warn = "#ffaa00"
@@ -70,18 +71,18 @@ set("SagaNormal", { bg = bgg })
 set("SagaBorder", { bg = bgg })
 
 local diagnosticOk = fg
-local diagnosticHint = lightblue
+local diagnosticHint = brightblue
 local diagnosticInfo = fg
 local diagnosticWarn = warn
 local diagnosticError = error
 
 set("DiagnosticOk", { fg = diagnosticOk })
-set("DiagnosticHint", { fg = diagnosticWarn })
+set("DiagnosticHint", { fg = diagnosticHint })
 set("DiagnosticInfo", { fg = diagnosticInfo })
 set("DiagnosticWarn", { fg = diagnosticWarn })
 set("DiagnosticError", { fg = diagnosticError })
 set("DiagnosticVirtualTextOk", { fg = diagnosticOk, italic = true })
-set("DiagnosticVirtualTextHint", { fg = diagnosticWarn, italic = true })
+set("DiagnosticVirtualTextHint", { fg = diagnosticHint, italic = true })
 set("DiagnosticVirtualTextInfo", { fg = diagnosticInfo, italic = true })
 set("DiagnosticVirtualTextWarn", { fg = diagnosticWarn, italic = true })
 set("DiagnosticVirtualTextError", { fg = diagnosticError, italic = true })
@@ -96,7 +97,7 @@ set("DiagnosticUnderlineInfo", { sp = diagnosticInfo, undercurl = true })
 set("DiagnosticUnderlineWarn", { sp = diagnosticWarn, undercurl = true })
 set("DiagnosticUnderlineError", { sp = diagnosticError, undercurl = true })
 
-set("DiagnosticUnnecessary", { sp = diagnosticWarn, undercurl = true })
+set("DiagnosticUnnecessary", { sp = bggg, undercurl = true })
 
 set("@include", { fg = magenta })
 set("@define", { fg = magenta })
