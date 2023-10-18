@@ -138,6 +138,9 @@ set("@float", { fg = lightgreen })
 set("@character", { fg = lightred })
 set("@string", { fg = lightred })
 
+-- ocaml
+set("@constructor.ocaml", { fg = lightgreen })
+
 -- markup language
 set("@tag", { fg = lightblue })
 set("@tag.attribute", { fg = orange })
