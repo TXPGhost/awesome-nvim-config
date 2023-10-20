@@ -241,6 +241,7 @@ set("@text.reference.markdown_inline", { fg = blue })
 set("@text.uri.markdown_inline", { fg = cyan, underline = true })
 set("@punctuation.delimiter.markdown_inline", { fg = lightred })
 set("@punctuation.special.markdown", { fg = orange })
+set("@text.literal.markdown_inline", { fg = fg })
 set("@text.strong.markdown_inline", { fg = fg, bold = true })
 set("@text.emphasis.markdown_inline", { fg = fg, italic = true })
 
