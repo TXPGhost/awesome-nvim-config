@@ -60,6 +60,9 @@ Plug 'tpope/vim-sleuth'
 Plug 'simrat39/rust-tools.nvim'
 Plug 'Saecki/crates.nvim'
 
+" markdown preview
+Plug 'cloudsftp/peek.nvim'
+
 call plug#end()
 
 " run config file

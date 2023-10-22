@@ -131,6 +131,12 @@ cmp.setup.cmdline(":", {
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+-- markdown preview
+local peek = require("peek")
+peek.setup({})
+vim.api.nvim_create_user_command("MarkdownPreviewOpen", peek.open, {})
+vim.api.nvim_create_user_command("MarkdownPreviewClose", peek.close, {})
+
 -- gitsigns
 require("gitsigns").setup({})
 
