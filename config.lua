@@ -279,6 +279,14 @@ vim.keymap.set("n", "<esc>", "<cmd>noh<CR>")
 vim.keymap.set("v", "<CR>", "")
 
 -- telescope
+require("telescope").setup({
+	pickers = {
+		find_files = {
+			find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/" },
+		},
+	},
+})
+
 vim.keymap.set("n", "<Space>f", "<cmd>Telescope find_files<CR>")
 vim.keymap.set("n", "/", "<cmd>Telescope current_buffer_fuzzy_find<CR>")
 
