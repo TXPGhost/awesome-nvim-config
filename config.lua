@@ -42,10 +42,17 @@ conform.setup({
 		lua = { "stylua" },
 		tex = { "latexindent" },
 		ocaml = { "ocamlformat" },
+		_ = { "trim_whitespace" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
 		lsp_fallback = true,
+	},
+	formatters = {
+		ocamlformat = {
+			command = "ocamlformat",
+			args = { "--doc-comments=before", "--wrap-comments", "--parse-docstrings", "--name", "$FILENAME", "-" },
+		},
 	},
 })
 
