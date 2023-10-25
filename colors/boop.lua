@@ -210,6 +210,11 @@ set("SagaParameter", { fg = fg })
 
 set("CodeActionNumber", { fg = green, bold = true })
 
+-- makefile
+set("@symbol.make", { fg = magenta })
+set("@function.builtin.make", { fg = blue })
+set("@operator.make", { fg = lightgreen })
+
 -- latex
 set("@text.strong.latex", { bold = true })
 set("@text.emphasis.latex", { italic = true })
