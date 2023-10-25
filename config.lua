@@ -42,6 +42,7 @@ conform.setup({
 		lua = { "stylua" },
 		tex = { "latexindent" },
 		ocaml = { "ocamlformat" },
+		java = { "jdtls" },
 		_ = { "trim_whitespace" },
 	},
 	format_on_save = {
