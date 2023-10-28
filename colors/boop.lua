@@ -123,6 +123,7 @@ set("Comment", { fg = fggg })
 set("@keyword", { fg = cyan })
 set("@conditional", { fg = cyan })
 set("@repeat", { fg = cyan })
+set("@exception", { fg = cyan })
 
 set("@function", { fg = orange })
 set("@method", { fg = orange })
