@@ -269,9 +269,6 @@ mktextobj("f", "@function.outer")
 mktextobj("c", "@class.outer")
 mktextobj("s", "@statement.outer")
 
-vim.keymap.set("n", "<Tab>", "<cmd>TSTextobjectGotoNextStart @parameter.inner<CR>")
-vim.keymap.set("n", "<S-Tab>", "<cmd>TSTextobjectGotoPreviousStart @parameter.inner<CR>")
-
 -- fugitive
 vim.keymap.set("n", "?", "<cmd>Gvdiffsplit<CR>")
 
