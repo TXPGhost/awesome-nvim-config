@@ -4,19 +4,7 @@ vim.cmd("autocmd FileType help wincmd L")
 -- add new filetypes
 vim.cmd("autocmd BufNewFile,BufRead *.wgsl set filetype=wgsl")
 
--- set cursorline for insert mode
-vim.api.nvim_create_autocmd({ "InsertEnter" }, {
-	callback = function()
-		vim.cmd("set cursorline")
-	end,
-})
-vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-	callback = function()
-		vim.cmd("set nocursorline")
-	end,
-})
-
--- set diagnostic icon
+-- set diagnostic icons
 vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
 vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
 vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
@@ -40,9 +28,7 @@ conform.setup({
 		c = { "clang-format" },
 		cpp = { "clang-format" },
 		lua = { "stylua" },
-		tex = { "latexindent" },
 		ocaml = { "ocamlformat" },
-		java = { "jdtls" },
 		_ = { "trim_whitespace" },
 	},
 	format_on_save = {
@@ -50,12 +36,20 @@ conform.setup({
 		lsp_fallback = true,
 	},
 	formatters = {
-		ocamlformat = {
+		["ocamlformat"] = {
 			command = "ocamlformat",
 			args = { "--doc-comments=before", "--wrap-comments", "--parse-docstrings", "--name", "$FILENAME", "-" },
 		},
+		["clang-format"] = {
+			command = "clang-format",
+			args = { "--assume-filename=$FILENAME" },
+		},
 	},
 })
+
+-- oil
+require("oil").setup({})
+vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
 
 -- nvim-cmp
 local cmp = require("cmp")
@@ -184,7 +178,7 @@ rust_tools.setup({
 	},
 })
 
--- crates
+-- rust crates
 require("crates").setup({
 	src = {
 		cmp = {
@@ -206,50 +200,6 @@ require("lspsaga").setup({
 	},
 })
 
--- neo-tree
-local neo_tree = require("neo-tree")
-neo_tree.setup({
-	window = {
-		auto_expand_width = true,
-	},
-	sources = {
-		"filesystem",
-		"document_symbols",
-	},
-	popup_border_style = "rounded",
-	close_if_last_window = true,
-	filesystem = {
-		window = {
-			mappings = {
-				["-"] = "navigate_up",
-				["+"] = "set_root",
-			},
-		},
-	},
-	document_symbols = {
-		close_if_last_window = true,
-		kinds = {
-			Function = { hl = "@function" },
-			Constructor = { hl = "@function" },
-			Method = { hl = "@function" },
-
-			Namespace = { hl = "@include" },
-			Module = { hl = "@include" },
-			Package = { hl = "@include" },
-
-			Struct = { hl = "@storageclass" },
-			Enum = { hl = "@storageclass" },
-			EnumMember = { hl = "@constant" },
-			Object = { hl = "@storageclass" },
-			Field = { hl = "@type" },
-
-			Array = { hl = "@constant" },
-			String = { hl = "@string" },
-			Constant = { hl = "@constant" },
-		},
-	},
-})
-
 -- tree-sitter
 require("nvim-treesitter.configs").setup({
 	auto_install = true,
@@ -260,12 +210,13 @@ require("nvim-treesitter.configs").setup({
 		enable = true,
 		keymaps = {
 			init_selection = "<CR>",
+			scope_incremental = "<CR>",
 			node_incremental = "<Tab>",
 			node_decremental = "<S-Tab>",
 		},
 	},
 	indent = {
-		enable = true,
+		enable = false,
 	},
 	beacon = {
 		enable = false,
@@ -275,10 +226,15 @@ vim.cmd("set foldmethod=expr")
 vim.cmd("set foldexpr=nvim_treesitter#foldexpr()")
 vim.cmd("set foldlevel=99999")
 
+-- lexima
+
+vim.cmd("call lexima#add_rule({'char': '$', 'input_after': '$', 'filetype': 'tex'})")
+vim.cmd("call lexima#add_rule({'char': '$', 'at': '\\%#\\$', 'leave': 1, 'filetype': 'tex'})")
+vim.cmd("call lexima#add_rule({'char': '<BS>', 'at': '\\$\\%#\\$', 'delete': 1, 'filetype': 'tex'})")
+
 -- vimtex
 vim.cmd("let g:vimtex_view_general_viewer = 'okular'")
 vim.cmd("let g:vimtex_view_general_options = '--unique file:@pdf\\#src@line@tex'")
-
 vim.cmd("let g:vimtex_compiler_method = 'tectonic'")
 
 -- KEYMAPS
@@ -302,7 +258,6 @@ require("telescope").setup({
 })
 
 vim.keymap.set("n", "<Space>f", "<cmd>Telescope find_files<CR>")
-vim.keymap.set("n", "/", "<cmd>Telescope current_buffer_fuzzy_find<CR>")
 
 -- treesitter-textobjects
 local function mktextobj(bind, obj)
@@ -316,11 +271,6 @@ mktextobj("s", "@statement.outer")
 
 vim.keymap.set("n", "<Tab>", "<cmd>TSTextobjectGotoNextStart @parameter.inner<CR>")
 vim.keymap.set("n", "<S-Tab>", "<cmd>TSTextobjectGotoPreviousStart @parameter.inner<CR>")
-
--- neo-tree
-vim.keymap.set("n", "-", "<cmd>Neotree filesystem reveal<CR>")
-vim.keymap.set("n", ";", "<cmd>Neotree document_symbols<CR>")
-vim.keymap.set("n", "<BS>", "<cmd>Neotree close<CR>")
 
 -- fugitive
 vim.keymap.set("n", "?", "<cmd>Gvdiffsplit<CR>")

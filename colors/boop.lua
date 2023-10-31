@@ -39,6 +39,8 @@ local lightgreen = "#aff90c"
 local lightblue = "#63cce1"
 local brightblue = "#28cced"
 
+local searchbg = "#1f283a"
+
 local error = "#ff0000"
 local warn = "#ffaa00"
 
@@ -47,7 +49,7 @@ clear("TODO")
 
 set("Normal", { fg = fgg, bg = bbg })
 set("Visual", { bg = bgg })
-set("Search", { bg = bgg })
+set("Search", { bg = searchbg })
 set("Folded", { fg = fggg, italic = true })
 
 set("MatchParen", { bg = bgg })

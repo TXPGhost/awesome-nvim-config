@@ -11,9 +11,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 " file explorer
-Plug 's1n7ax/nvim-window-picker'
-Plug 'MunifTanjim/nui.nvim'
-Plug 'nvim-neo-tree/neo-tree.nvim'
+Plug 'stevearc/oil.nvim'
 
 " formatter
 Plug 'stevearc/conform.nvim'
