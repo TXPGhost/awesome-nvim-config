@@ -4,9 +4,6 @@ vim.cmd("autocmd FileType help wincmd L")
 -- add new filetypes
 vim.cmd("autocmd BufNewFile,BufRead *.wgsl set filetype=wgsl")
 
--- disable auto comment
-vim.cmd("set paste")
-
 -- disable mouse integration
 vim.cmd("set mouse=")
 
