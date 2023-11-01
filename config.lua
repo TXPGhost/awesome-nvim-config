@@ -1,6 +1,9 @@
 -- set help window to vertical split
 vim.cmd("autocmd FileType help wincmd L")
 
+-- disable startup message
+vim.cmd("set shm+=I")
+
 -- add new filetypes
 vim.cmd("autocmd BufNewFile,BufRead *.wgsl set filetype=wgsl")
 
@@ -17,6 +20,7 @@ vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSig
 -- format on save
 local conform = require("conform")
 conform.setup({
+	notify_on_error = false,
 	formatters_by_ft = {
 		javascript = { "prettierd" },
 		javascriptreact = { "prettierd" },
