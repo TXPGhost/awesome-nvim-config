@@ -29,7 +29,7 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 
 " auto pairs
-Plug 'cohama/lexima.vim'
+Plug 'windwp/nvim-autopairs'
 
 " snippets (for autocompletion)
 Plug 'hrsh7th/cmp-vsnip'

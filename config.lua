@@ -4,6 +4,12 @@ vim.cmd("autocmd FileType help wincmd L")
 -- add new filetypes
 vim.cmd("autocmd BufNewFile,BufRead *.wgsl set filetype=wgsl")
 
+-- disable auto comment
+vim.cmd("set paste")
+
+-- disable mouse integration
+vim.cmd("set mouse=")
+
 -- set diagnostic icons
 vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
 vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
@@ -50,6 +56,18 @@ conform.setup({
 -- oil
 require("oil").setup({})
 vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
+
+-- nvim-autopairs
+local npairs = require("nvim-autopairs")
+npairs.setup({
+	check_ts = true,
+})
+
+local rule = require("nvim-autopairs.rule")
+
+npairs.add_rule(rule("$", "$", "tex"):with_move(function(opts)
+	return opts.next_char == opts.char
+end))
 
 -- nvim-cmp
 local cmp = require("cmp")
@@ -225,12 +243,6 @@ require("nvim-treesitter.configs").setup({
 vim.cmd("set foldmethod=expr")
 vim.cmd("set foldexpr=nvim_treesitter#foldexpr()")
 vim.cmd("set foldlevel=99999")
-
--- lexima
-
-vim.cmd("call lexima#add_rule({'char': '$', 'input_after': '$', 'filetype': 'tex'})")
-vim.cmd("call lexima#add_rule({'char': '$', 'at': '\\%#\\$', 'leave': 1, 'filetype': 'tex'})")
-vim.cmd("call lexima#add_rule({'char': '<BS>', 'at': '\\$\\%#\\$', 'delete': 1, 'filetype': 'tex'})")
 
 -- vimtex
 vim.cmd("let g:vimtex_view_general_viewer = 'okular'")

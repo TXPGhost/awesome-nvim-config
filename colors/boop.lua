@@ -141,6 +141,10 @@ set("@float", { fg = lightgreen })
 set("@character", { fg = lightred })
 set("@string", { fg = lightred })
 
+-- oil
+set("OilDir", { fg = blue })
+set("OilFile", { fg = fg })
+
 -- ocaml
 set("@constructor.ocaml", { fg = lightgreen })
 
