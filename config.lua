@@ -4,8 +4,9 @@ vim.cmd("autocmd FileType help wincmd L")
 -- add new filetypes
 vim.cmd("autocmd BufNewFile,BufRead *.wgsl set filetype=wgsl")
 
--- disable mouse integration
-vim.cmd("set mouse=")
+-- custom mouse integration
+vim.cmd("set mouse=a")
+vim.cmd("set mousescroll=ver:1,hor:2")
 
 -- set diagnostic icons
 vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
