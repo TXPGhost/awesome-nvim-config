@@ -257,6 +257,19 @@ set("@text.literal.markdown_inline", { fg = fg })
 set("@text.strong.markdown_inline", { fg = fg, bold = true })
 set("@text.emphasis.markdown_inline", { fg = fg, italic = true })
 
+-- vim plug
+set("plug1", { fg = lightgreen, bold = true })
+set("plug2", { fg = lightred })
+set("plugH2", { fg = magenta })
+set("plugNumber", { fg = fg })
+set("plugUpdate", { fg = orange })
+set("plugMessage", { fg = fg })
+set("plugCommit", { fg = fg })
+set("plugSha", { fg = orange })
+set("plugName", { fg = blue })
+set("plugBracket", { fg = lightblue })
+set("plugDeleted", { fg = red })
+
 -- vimdoc
 set("@text.reference.vimdoc", { fg = lightblue, underline = true })
 set("@label.vimdoc", { fg = orange })
