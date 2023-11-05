@@ -1,15 +1,15 @@
 -- set help window to vertical split
-vim.cmd("autocmd FileType help wincmd L")
+vim.api.nvim_create_autocmd({ "FileType" }, { pattern = { "help" }, command = "wincmd L" })
 
 -- disable startup message
-vim.cmd("set shm+=I")
+vim.opt.shm:append("I")
 
--- add new filetypes
-vim.cmd("autocmd BufNewFile,BufRead *.wgsl set filetype=wgsl")
+-- add wgsl filetype
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = { "*.wgsl" }, command = "set filetype=wgsl" })
 
 -- custom mouse integration
-vim.cmd("set mouse=a")
-vim.cmd("set mousescroll=ver:1,hor:2")
+vim.opt.mouse = "a"
+vim.opt.mousescroll = "ver:1,hor:2"
 
 -- set diagnostic icons
 vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
@@ -242,23 +242,18 @@ require("nvim-treesitter.configs").setup({
 		enable = false,
 	},
 })
-vim.cmd("set foldmethod=expr")
-vim.cmd("set foldexpr=nvim_treesitter#foldexpr()")
-vim.cmd("set foldlevel=99999")
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 99999
 
 -- vimtex
-vim.cmd("let g:vimtex_view_general_viewer = 'okular'")
-vim.cmd("let g:vimtex_view_general_options = '--unique file:@pdf\\#src@line@tex'")
-vim.cmd("let g:vimtex_compiler_method = 'tectonic'")
+vim.g.vimtex_view_general_viewer = "okular"
+vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src@line@tex"
+vim.g.vimtex_compiler_method = "tectonic"
 
 -- KEYMAPS
 
 -- generic
-vim.cmd("noremap > >>")
-vim.cmd("noremap < <<")
-vim.cmd("vnoremap > >gv")
-vim.cmd("vnoremap < <gv")
-
 vim.keymap.set("n", "<esc>", "<cmd>noh<CR>")
 vim.keymap.set("v", "<CR>", "")
 
@@ -285,10 +280,9 @@ mktextobj("s", "@statement.outer")
 
 -- fugitive
 vim.keymap.set("n", "?", "<cmd>Gvdiffsplit<CR>")
+vim.keymap.set("n", "gb", "<cmd>Git blame<CR>")
 
 -- gitsigns
-vim.keymap.set("n", "<Space>b", "<cmd>Gitsigns blame_line<CR>")
-
 vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<CR>")
 vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<CR>")
 
@@ -309,14 +303,14 @@ vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>")
 vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
 
 -- startup commands
-vim.cmd("set nocompatible")
-vim.cmd("set tabstop=4")
-vim.cmd("set shiftwidth=4")
-vim.cmd("set number")
-vim.cmd("set relativenumber")
-vim.cmd("set noswapfile")
-vim.cmd("set signcolumn=yes")
-vim.cmd("set nowrap")
+vim.opt.compatible = false
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.swapfile = false
+vim.opt.signcolumn = "yes"
+vim.opt.wrap = false
 
-vim.cmd("colorscheme boop")
-vim.cmd("set termguicolors")
+vim.cmd.colorscheme("boop")
+vim.opt.termguicolors = true
