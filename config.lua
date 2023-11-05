@@ -7,11 +7,8 @@ vim.opt.shm:append("I")
 -- add wgsl filetype
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = { "*.wgsl" }, command = "set filetype=wgsl" })
 
--- custom mouse integration
-vim.opt.mouse = "a"
-vim.opt.mousescroll = "ver:1,hor:2"
-vim.opt.mousemodel = "extend"
-vim.opt.keymodel = ""
+-- disable mouse
+vim.opt.mouse = ""
 
 -- set diagnostic icons
 vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
