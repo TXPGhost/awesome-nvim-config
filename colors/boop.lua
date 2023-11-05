@@ -50,6 +50,8 @@ clear("TODO")
 set("Normal", { fg = fgg, bg = bbg })
 set("Visual", { bg = bgg })
 set("Search", { bg = searchbg })
+set("CurSearch", { bg = searchbg })
+set("IncSearch", { bg = searchbg })
 set("Folded", { fg = fggg, italic = true })
 
 set("MatchParen", { bg = bgg })
