@@ -10,6 +10,8 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = { "*.wgsl" 
 -- custom mouse integration
 vim.opt.mouse = "a"
 vim.opt.mousescroll = "ver:1,hor:2"
+vim.opt.mousemodel = "extend"
+vim.opt.keymodel = ""
 
 -- set diagnostic icons
 vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
