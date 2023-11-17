@@ -144,6 +144,30 @@ set("@float", { fg = lightgreen })
 set("@character", { fg = lightred })
 set("@string", { fg = lightred })
 
+-- cmp
+set("CmpItemAbbr", { fg = fgg })
+set("CmpItemAbbrMatch", { fg = fg })
+
+set("CmpItemKind", { fg = fg })
+
+set("CmpItemKindSnippet", { fg = lightred })
+
+set("CmpItemKindVariable", { fg = lightgreen })
+set("CmpItemKindConstant", { fg = lightgreen })
+set("CmpItemKindField", { fg = lightblue })
+set("CmpItemKindProperty", { fg = lightblue })
+
+set("CmpItemKindFunction", { fg = orange })
+set("CmpItemKindMethod", { fg = orange })
+set("CmpItemKindConstructor", { fg = orange })
+
+set("CmpItemKindEnum", { fg = blue })
+set("CmpItemKindClass", { fg = blue })
+set("CmpItemKindStruct", { fg = blue })
+set("CmpItemKindInterface", { fg = blue })
+
+set("CmpItemKindModule", { fg = magenta })
+
 -- oil
 set("OilDir", { fg = blue })
 set("OilFile", { fg = fg })
