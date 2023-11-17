@@ -119,7 +119,8 @@ set("@property", { fg = fg })
 set("@parameter", { fg = fg })
 set("@field", { fg = fg })
 
-set("@variable.builtin", { fg = blue })
+set("@variable.builtin", { fg = magenta })
+set("@function.builtin", { fg = magenta })
 
 set("@comment", { fg = fggg })
 set("Comment", { fg = fggg })
