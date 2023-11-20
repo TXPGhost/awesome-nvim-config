@@ -107,6 +107,8 @@ set("@include", { fg = magenta })
 set("@define", { fg = magenta })
 set("@preproc", { fg = magenta })
 
+set("@attribute", { fg = fgg })
+
 set("@punctuation", { fg = fgg })
 set("@operator", { fg = fgg })
 
