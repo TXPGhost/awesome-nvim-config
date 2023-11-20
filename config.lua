@@ -195,6 +195,19 @@ rust_tools.setup({
 			highlight = "Comment",
 		},
 	},
+	server = {
+		standalone = true,
+		settings = {
+			["rust-analyzer"] = {
+				check = {
+					command = "clippy",
+				},
+				checkOnSave = {
+					command = "clippy",
+				},
+			},
+		},
+	},
 })
 
 -- rust crates
