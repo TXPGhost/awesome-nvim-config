@@ -62,6 +62,7 @@ set("LineNr", { fg = bggg, bg = bg })
 set("LineNrAbove", { fg = bggg, bg = bg })
 set("LineNrBelow", { fg = bggg, bg = bg })
 set("StatusLine", { bg = bgg })
+set("StatusLineNC", { bg = bg })
 
 set("SignColumn", { bg = bg })
 set("FoldColumn", { bg = bg })
