@@ -38,6 +38,9 @@ local orange = "#f5ab4a"
 local lightgreen = "#aff90c"
 local lightblue = "#63cce1"
 local brightblue = "#28cced"
+local changeln = "#13181e"
+local addln = "#131a13"
+local deleteln = "#1a1313"
 
 local searchbg = "#1f283a"
 
@@ -63,7 +66,7 @@ set("StatusLine", { bg = bgg })
 
 set("SignColumn", { bg = bg })
 set("FoldColumn", { bg = bg })
-set("EndOfBuffer", { fg = bgg, bg = bg })
+set("EndOfBuffer", { fg = blue, bg = bg })
 set("CursorLineNr", { bg = bg })
 set("Float", { bg = bgg })
 
@@ -196,9 +199,10 @@ set("GitSignsChange", { fg = blue, bg = bg })
 set("GitSignsDelete", { fg = red, bg = bg })
 set("GitSignsUntracked", { fg = green, bg = bg })
 
-set("GitSignsAddLn", { bg = bgg })
-set("GitSignsChangeLn", { bg = bgg })
-set("GitSignsDeleteVirtLn", { fg = red, bg = redbg })
+set("GitSignsAddLn", { bg = addln })
+set("GitSignsChangeLn", { bg = changeln })
+set("GitSignsDeleteVirtLn", { fg = red, bg = deleteln, italic = true })
+set("GitSignsDeleteVirtLnInline", { fg = red, bg = deleteln, strikethrough = true, italic = true })
 
 set("gitDiff", { fg = fg })
 set("diffLine", { fg = fggg })

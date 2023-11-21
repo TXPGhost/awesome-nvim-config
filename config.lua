@@ -159,7 +159,11 @@ vim.api.nvim_create_user_command("MarkdownPreviewOpen", peek.open, {})
 vim.api.nvim_create_user_command("MarkdownPreviewClose", peek.close, {})
 
 -- gitsigns
-require("gitsigns").setup({})
+require("gitsigns").setup({
+	linehl = true,
+	word_diff = true,
+})
+vim.cmd("Gitsigns toggle_deleted")
 
 -- lspconfig
 local lspconfig = require("lspconfig")
@@ -291,10 +295,10 @@ mktextobj("c", "@class.outer")
 mktextobj("s", "@statement.outer")
 
 -- fugitive
-vim.keymap.set("n", "?", "<cmd>Gvdiffsplit<CR>")
 vim.keymap.set("n", "gb", "<cmd>Git blame<CR>")
 
 -- gitsigns
+vim.keymap.set("n", "?", "<cmd>Gitsigns toggle_deleted<CR>")
 vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<CR>")
 vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<CR>")
 
@@ -318,10 +322,8 @@ vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
 vim.opt.compatible = false
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.number = true
-vim.opt.relativenumber = true
 vim.opt.swapfile = false
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "no"
 vim.opt.wrap = false
 
 vim.cmd.colorscheme("boop")
