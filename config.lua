@@ -162,11 +162,12 @@ vim.api.nvim_create_user_command("MarkdownPreviewOpen", peek.open, {})
 vim.api.nvim_create_user_command("MarkdownPreviewClose", peek.close, {})
 
 -- gitsigns
-require("gitsigns").setup({
+local gitsigns = require("gitsigns")
+gitsigns.setup({
 	linehl = true,
 	word_diff = true,
 })
-vim.cmd("Gitsigns toggle_deleted")
+gitsigns.toggle_deleted()
 
 -- lspconfig
 local lspconfig = require("lspconfig")
@@ -226,18 +227,9 @@ require("crates").setup({
 	},
 })
 
--- lspsaga
-require("lspsaga").setup({
-	lightbulb = {
-		enable = false,
-	},
-	code_action = {
-		extend_gitsigns = true,
-	},
-	symbol_in_winbar = {
-		enable = false,
-	},
-})
+-- code actions
+vim.g.code_action_menu_show_action_kind = false
+vim.g.code_action_menu_show_details = false
 
 -- tree-sitter
 require("nvim-treesitter.configs").setup({
@@ -283,9 +275,13 @@ require("telescope").setup({
 			find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/" },
 		},
 	},
+	defaults = {
+		initial_mode = "normal",
+	},
 })
 
-vim.keymap.set("n", "<Space>f", "<cmd>Telescope find_files<CR>")
+vim.keymap.set("n", "<Space>F", "<cmd>Telescope find_files<CR>")
+vim.keymap.set("n", "<Space>f", "<cmd>Telescope buffers<CR>")
 
 -- treesitter-textobjects
 local function mktextobj(bind, obj)
@@ -297,29 +293,42 @@ mktextobj("f", "@function.outer")
 mktextobj("c", "@class.outer")
 mktextobj("s", "@statement.outer")
 
--- fugitive
-vim.keymap.set("n", "gb", "<cmd>Git blame<CR>")
-
--- gitsigns
+-- git
+vim.keymap.set("n", "<Space>g", "<cmd>Gitsigns stage_hunk<CR>")
+vim.keymap.set("n", "<Space>G", "<cmd>Gitsigns stage_buffer<CR>")
+vim.keymap.set("n", "<Space>u", "<cmd>Gitsigns undo_stage_hunk<CR>")
 vim.keymap.set("n", "?", "<cmd>Gitsigns toggle_deleted<CR>")
+vim.keymap.set("n", "gh", "<cmd>Git blame<CR>")
 vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<CR>")
 vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<CR>")
+vim.keymap.set("n", "gs", "<cmd>Git<CR>")
+vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit<CR>")
+vim.keymap.set("n", "gb", "<cmd>Telescope git_branches<CR>")
+vim.keymap.set("n", "gc", "<cmd>Telescope git_commits<CR>")
 
 -- lspsaga
-vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
-vim.keymap.set("n", "gy", "<cmd>Lspsaga goto_type_definition<CR>")
-vim.keymap.set("n", "gr", "<cmd>Lspsaga finder<CR>")
+-- vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
+-- vim.keymap.set("n", "gy", "<cmd>Lspsaga goto_type_definition<CR>")
+-- vim.keymap.set("n", "gr", "<cmd>Lspsaga finder<CR>")
+--
+-- vim.keymap.set("n", "<Space>r", "<cmd>Lspsaga rename<CR>")
+--
+-- vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+-- vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
 
-vim.keymap.set("n", "<Space>r", "<cmd>Lspsaga rename<CR>")
-vim.keymap.set("n", "<Space>k", "<cmd>Lspsaga hover_doc<CR>")
-vim.keymap.set("n", "<Space>a", "<cmd>Lspsaga code_action<CR>")
-vim.keymap.set("n", "<Space>i", "<cmd>Lspsaga incoming_calls<CR>")
-vim.keymap.set("n", "<Space>o", "<cmd>Lspsaga outgoing_calls<CR>")
-vim.keymap.set("n", "<Space>d", "<cmd>Lspsaga show_buf_diagnostics<CR>")
-vim.keymap.set("n", "<Space>D", "<cmd>Lspsaga show_workspace_diagnostics<CR>")
+vim.keymap.set("n", "<Space>k", function()
+	vim.lsp.buf.hover()
+end)
+vim.keymap.set("n", "<Space>d", "<cmd>Telescope diagnostics<CR>")
+vim.keymap.set("n", "<Space>a", "<cmd>CodeActionMenu<CR>")
 
-vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>")
-vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
+vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>")
+vim.keymap.set("n", "gd", function()
+	vim.lsp.buf.definition()
+end)
+vim.keymap.set("n", "gy", function()
+	vim.lsp.buf.type_definition()
+end)
 
 -- startup commands
 vim.opt.compatible = false
@@ -328,6 +337,7 @@ vim.opt.shiftwidth = 4
 vim.opt.swapfile = false
 vim.opt.signcolumn = "no"
 vim.opt.wrap = false
+vim.opt.scrolloff = 5
 
 vim.cmd.colorscheme("boop")
 vim.opt.termguicolors = true

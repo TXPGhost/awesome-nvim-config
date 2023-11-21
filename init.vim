@@ -45,8 +45,8 @@ Plug 'tpope/vim-fugitive'
 " icons
 Plug 'nvim-tree/nvim-web-devicons'
 
-" better LSP
-Plug 'nvimdev/lspsaga.nvim'
+" code actions
+Plug 'weilbith/nvim-code-action-menu'
 
 " latex
 Plug 'lervag/vimtex'

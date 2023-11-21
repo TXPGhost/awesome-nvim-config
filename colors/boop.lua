@@ -78,25 +78,25 @@ set("SagaNormal", { bg = bgg })
 set("SagaBorder", { bg = bgg })
 
 set("DiagnosticOk", { fg = fg })
-set("DiagnosticInfo", { fg = fg })
+set("DiagnosticInfo", { fg = brightblue })
 set("DiagnosticHint", { fg = brightblue })
 set("DiagnosticWarn", { fg = gold })
 set("DiagnosticError", { fg = error })
 
 set("DiagnosticVirtualTextOk", { fg = fg, italic = true })
-set("DiagnosticVirtualTextInfo", { fg = fg, italic = true })
+set("DiagnosticVirtualTextInfo", { fg = brightblue, italic = true })
 set("DiagnosticVirtualTextHint", { fg = brightblue, bg = brightbluebg, italic = true })
 set("DiagnosticVirtualTextWarn", { fg = gold, bg = goldbg, italic = true })
 set("DiagnosticVirtualTextError", { fg = error, bg = redbg, italic = true })
 
 set("DiagnosticSignOk", { fg = fg, bg = bg })
-set("DiagnosticSignInfo", { fg = fg, bg = bg })
+set("DiagnosticSignInfo", { fg = brightblue, bg = bg })
 set("DiagnosticSignHint", { fg = brightblue, bg = bg })
 set("DiagnosticSignWarn", { fg = gold, bg = bg })
 set("DiagnosticSignError", { fg = error, bg = bg })
 
 set("DiagnosticUnderlineOk", { sp = fg, undercurl = true })
-set("DiagnosticUnderlineInfo", { sp = fg, undercurl = true })
+set("DiagnosticUnderlineInfo", { sp = brightblue, undercurl = true })
 set("DiagnosticUnderlineHint", { sp = brightblue, undercurl = true })
 set("DiagnosticUnderlineWarn", { sp = gold, undercurl = true })
 set("DiagnosticUnderlineError", { sp = error, undercurl = true })
@@ -218,34 +218,9 @@ set("fugitiveCount", { fg = fg })
 set("@spell.gitcommit", { fg = fg })
 set("@text.title.gitcommit", { fg = fgg })
 
--- neo-tree
-set("NeoTreeNormal", { fg = fgg, bg = bg })
-set("NeoTreeNormalNC", { fg = fgg, bg = bg })
-set("NeoTreeEndOfBuffer", { fg = bg })
-set("NeoTreeRootName", { fg = lightgreen })
-set("NeoTreeWinSeparator", { bg = bg, fg = bgg })
-
-set("NeoTreeFileName", { fg = fg })
-set("NeoTreeFileOpen", { fg = fg, underline = true })
-set("NeoTreeModified", { fg = fgg })
-
-set("NeoTreeTitleBar", { fg = fg, bg = bbg })
-set("NeoTreeFloatNormal", { fg = fg, bg = bg })
-set("NeoTreeFloatBorder", { fg = fg, bg = bg })
-
--- lspsaga
-set("SagaFunction", { fg = orange })
-set("SagaStruct", { fg = lightblue })
-set("SagaModule", { fg = magenta })
-set("SagaNamespace", { fg = magenta })
-
-set("SagaString", { fg = lightred })
-set("SagaNumber", { fg = lightgreen })
-set("SagaBoolean", { fg = lightgreen })
-set("SagaVariable", { fg = cyan })
-set("SagaParameter", { fg = fg })
-
-set("CodeActionNumber", { fg = green, bold = true })
+-- code action
+set("CodeActionMenuMenuTitle", { bg = bgg })
+set("CodeActionMenuMenuIndex", { fg = green, bold = true })
 
 -- makefile
 set("@symbol.make", { fg = magenta })
