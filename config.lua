@@ -328,3 +328,6 @@ vim.opt.wrap = false
 
 vim.cmd.colorscheme("boop")
 vim.opt.termguicolors = true
+
+-- statusline
+vim.opt.statusline = [[%<%f %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%) %P]]
