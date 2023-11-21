@@ -7,9 +7,6 @@ vim.opt.shm:append("I")
 -- add wgsl filetype
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = { "*.wgsl" }, command = "set filetype=wgsl" })
 
--- disable mouse
-vim.opt.mouse = ""
-
 -- configure diagnostics
 vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
 vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
