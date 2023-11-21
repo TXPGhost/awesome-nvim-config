@@ -121,7 +121,9 @@ cmp.setup({
 		{ name = "nvim_lsp" },
 		{ name = "vsnip" },
 		{ name = "crates" },
-	}, { { name = "buffer" } }),
+	}, {
+		-- { name = "buffer" }
+	}),
 	formatting = {
 		format = lspkind.cmp_format({
 			mode = "symbol",
