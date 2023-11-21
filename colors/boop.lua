@@ -28,9 +28,6 @@ local bbg = "#131313"
 local green = "#32a852"
 local red = "#ad2d2d"
 local blue = "#407ced"
-local greenbg = "#10381b"
-local redbg = "#3f1010"
-local bluebg = "#112851"
 local cyan = "#29eec9"
 local lightred = "#ff4c7d"
 local magenta = "#e64cf7"
@@ -38,14 +35,16 @@ local orange = "#f5ab4a"
 local lightgreen = "#aff90c"
 local lightblue = "#63cce1"
 local brightblue = "#28cced"
-local changeln = "#13181e"
-local addln = "#131a13"
-local deleteln = "#1a1313"
+local brightbluebg = "#131c1e"
+local bluebg = "#13181e"
+local greenbg = "#131a13"
+local redbg = "#1a1313"
+local gold = "#ffaa00"
+local goldbg = "#1e1a13"
 
 local searchbg = "#1f283a"
 
 local error = "#ff0000"
-local warn = "#ffaa00"
 
 -- color definitions
 clear("TODO")
@@ -77,32 +76,29 @@ set("WinSeparator", { bg = bg, fg = bgg })
 set("SagaNormal", { bg = bgg })
 set("SagaBorder", { bg = bgg })
 
-local diagnosticOk = fg
-local diagnosticHint = brightblue
-local diagnosticInfo = fg
-local diagnosticWarn = warn
-local diagnosticError = error
+set("DiagnosticOk", { fg = fg })
+set("DiagnosticInfo", { fg = fg })
+set("DiagnosticHint", { fg = brightblue })
+set("DiagnosticWarn", { fg = gold })
+set("DiagnosticError", { fg = error })
 
-set("DiagnosticOk", { fg = diagnosticOk })
-set("DiagnosticHint", { fg = diagnosticHint })
-set("DiagnosticInfo", { fg = diagnosticInfo })
-set("DiagnosticWarn", { fg = diagnosticWarn })
-set("DiagnosticError", { fg = diagnosticError })
-set("DiagnosticVirtualTextOk", { fg = diagnosticOk, italic = true })
-set("DiagnosticVirtualTextHint", { fg = diagnosticHint, italic = true })
-set("DiagnosticVirtualTextInfo", { fg = diagnosticInfo, italic = true })
-set("DiagnosticVirtualTextWarn", { fg = diagnosticWarn, italic = true })
-set("DiagnosticVirtualTextError", { fg = diagnosticError, italic = true })
-set("DiagnosticSignOk", { fg = diagnosticOk, bg = bg })
-set("DiagnosticSignHint", { fg = diagnosticHint, bg = bg })
-set("DiagnosticSignInfo", { fg = diagnosticInfo, bg = bg })
-set("DiagnosticSignWarn", { fg = diagnosticWarn, bg = bg })
-set("DiagnosticSignError", { fg = diagnosticError, bg = bg })
-set("DiagnosticUnderlineOk", { sp = diagnosticOk, undercurl = true })
-set("DiagnosticUnderlineHint", { sp = diagnosticHint, undercurl = true })
-set("DiagnosticUnderlineInfo", { sp = diagnosticInfo, undercurl = true })
-set("DiagnosticUnderlineWarn", { sp = diagnosticWarn, undercurl = true })
-set("DiagnosticUnderlineError", { sp = diagnosticError, undercurl = true })
+set("DiagnosticVirtualTextOk", { fg = fg, italic = true })
+set("DiagnosticVirtualTextInfo", { fg = fg, italic = true })
+set("DiagnosticVirtualTextHint", { fg = brightblue, bg = brightbluebg, italic = true })
+set("DiagnosticVirtualTextWarn", { fg = gold, bg = goldbg, italic = true })
+set("DiagnosticVirtualTextError", { fg = error, bg = redbg, italic = true })
+
+set("DiagnosticSignOk", { fg = fg, bg = bg })
+set("DiagnosticSignInfo", { fg = fg, bg = bg })
+set("DiagnosticSignHint", { fg = brightblue, bg = bg })
+set("DiagnosticSignWarn", { fg = gold, bg = bg })
+set("DiagnosticSignError", { fg = error, bg = bg })
+
+set("DiagnosticUnderlineOk", { sp = fg, undercurl = true })
+set("DiagnosticUnderlineInfo", { sp = fg, undercurl = true })
+set("DiagnosticUnderlineHint", { sp = brightblue, undercurl = true })
+set("DiagnosticUnderlineWarn", { sp = gold, undercurl = true })
+set("DiagnosticUnderlineError", { sp = error, undercurl = true })
 
 set("DiagnosticUnnecessary", { sp = bggg, undercurl = true })
 
@@ -199,10 +195,10 @@ set("GitSignsChange", { fg = blue, bg = bg })
 set("GitSignsDelete", { fg = red, bg = bg })
 set("GitSignsUntracked", { fg = green, bg = bg })
 
-set("GitSignsAddLn", { bg = addln })
-set("GitSignsChangeLn", { bg = changeln })
-set("GitSignsDeleteVirtLn", { fg = red, bg = deleteln, italic = true })
-set("GitSignsDeleteVirtLnInline", { fg = red, bg = deleteln, strikethrough = true, italic = true })
+set("GitSignsAddLn", { bg = greenbg })
+set("GitSignsChangeLn", { bg = bluebg })
+set("GitSignsDeleteVirtLn", { fg = red, bg = redbg, italic = true })
+set("GitSignsDeleteVirtLnInline", { fg = red, bg = redbg, strikethrough = true, italic = true })
 
 set("gitDiff", { fg = fg })
 set("diffLine", { fg = fggg })

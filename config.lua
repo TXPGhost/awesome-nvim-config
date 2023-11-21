@@ -10,11 +10,12 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = { "*.wgsl" 
 -- disable mouse
 vim.opt.mouse = ""
 
--- set diagnostic icons
+-- configure diagnostics
 vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
 vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
 vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
 vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
 
 -- format on save
 local conform = require("conform")
