@@ -3,6 +3,10 @@ call plug#begin()
 " dependencies
 Plug 'nvim-lua/plenary.nvim'
 
+" themes
+Plug 'folke/tokyonight.nvim'
+Plug 'rebelot/kanagawa.nvim'
+
 " LSP
 Plug 'neovim/nvim-lspconfig'
 
@@ -57,6 +61,9 @@ Plug 'tpope/vim-sleuth'
 " rust
 Plug 'simrat39/rust-tools.nvim'
 Plug 'Saecki/crates.nvim'
+
+" java
+Plug 'mfussenegger/nvim-jdtls'
 
 " markdown preview
 Plug 'cloudsftp/peek.nvim'

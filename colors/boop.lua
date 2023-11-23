@@ -44,12 +44,12 @@ local goldbg = "#1e1a13"
 
 local searchbg = "#1f283a"
 
-local error = "#ff0000"
+local brightred = "#ff0000"
 
 -- color definitions
 clear("TODO")
 
-set("Normal", { fg = fgg, bg = bbg })
+set("Normal", { fg = fg, bg = bbg })
 set("Visual", { bg = bgg })
 set("Search", { bg = searchbg })
 set("CurSearch", { bg = searchbg })
@@ -81,25 +81,25 @@ set("DiagnosticOk", { fg = fg })
 set("DiagnosticInfo", { fg = brightblue })
 set("DiagnosticHint", { fg = brightblue })
 set("DiagnosticWarn", { fg = gold })
-set("DiagnosticError", { fg = error })
+set("DiagnosticError", { fg = brightred })
 
 set("DiagnosticVirtualTextOk", { fg = fg, italic = true })
 set("DiagnosticVirtualTextInfo", { fg = brightblue, italic = true })
 set("DiagnosticVirtualTextHint", { fg = brightblue, bg = brightbluebg, italic = true })
 set("DiagnosticVirtualTextWarn", { fg = gold, bg = goldbg, italic = true })
-set("DiagnosticVirtualTextError", { fg = error, bg = redbg, italic = true })
+set("DiagnosticVirtualTextError", { fg = brightred, bg = redbg, italic = true })
 
 set("DiagnosticSignOk", { fg = fg, bg = bg })
 set("DiagnosticSignInfo", { fg = brightblue, bg = bg })
 set("DiagnosticSignHint", { fg = brightblue, bg = bg })
 set("DiagnosticSignWarn", { fg = gold, bg = bg })
-set("DiagnosticSignError", { fg = error, bg = bg })
+set("DiagnosticSignError", { fg = brightred, bg = bg })
 
 set("DiagnosticUnderlineOk", { sp = fg, undercurl = true })
 set("DiagnosticUnderlineInfo", { sp = brightblue, undercurl = true })
 set("DiagnosticUnderlineHint", { sp = brightblue, undercurl = true })
 set("DiagnosticUnderlineWarn", { sp = gold, undercurl = true })
-set("DiagnosticUnderlineError", { sp = error, undercurl = true })
+set("DiagnosticUnderlineError", { sp = brightred, undercurl = true })
 
 set("DiagnosticUnnecessary", { sp = bggg, undercurl = true })
 
@@ -170,6 +170,25 @@ set("CmpItemKindInterface", { fg = blue })
 
 set("CmpItemKindModule", { fg = magenta })
 
+-- telescope
+set("TelescopeTitle", { fg = fg })
+
+set("TelescopeMatching", { fg = fg })
+set("TelescopeSelection", { bg = bgg })
+set("TelescopeSelectionCaret", { fg = fg, bg = bgg })
+set("TelescopeMultiSelection", { bg = bg })
+set("TelescopeMultiIcon", { fg = fg, bg = bg })
+
+set("TelescopeResultsVariable", { fg = fg })
+set("TelescopeResultsIdentifier", { fg = fg })
+set("TelescopeResultsConstant", { fg = lightgreen })
+set("TelescopeResultsNumber", { fg = lightgreen })
+set("TelescopeResultsField", { fg = fg })
+set("TelescopeResultsFunction", { fg = orange })
+set("TelescopeResultsMethod", { fg = orange })
+set("TelescopeResultsClass", { fg = lightblue })
+set("TelescopeResultsStruct", { fg = lightblue })
+
 -- oil
 set("OilDir", { fg = blue })
 set("OilFile", { fg = fg })
@@ -196,7 +215,7 @@ set("GitSignsChange", { fg = blue, bg = bg })
 set("GitSignsDelete", { fg = red, bg = bg })
 set("GitSignsUntracked", { fg = green, bg = bg })
 
-set("GitSignsAddLn", { bg = greenbg })
+set("GitSignsAddLn", { bg = bluebg })
 set("GitSignsChangeLn", { bg = bluebg })
 set("GitSignsDeleteVirtLn", { fg = red, bg = redbg, italic = true })
 set("GitSignsDeleteVirtLnInline", { fg = red, bg = redbg, strikethrough = true, italic = true })
@@ -209,8 +228,10 @@ set("diffRemoved", { fg = red })
 set("fugitiveHeader", { fg = lightgreen, bold = true })
 set("fugitiveSymbolicRef", { fg = fg })
 set("fugitiveUnstagedSection", { fg = red })
+set("fugitiveUntrackedSection", { fg = orange })
 set("fugitiveStagedSection", { fg = green })
 set("fugitiveUnstagedHeading", { fg = fg, bold = true })
+set("fugitiveUntrackedHeading", { fg = fg, bold = true })
 set("fugitiveStagedHeading", { fg = fg, bold = true })
 set("fugitiveHelpTag", { fg = fg })
 set("fugitiveCount", { fg = fg })

@@ -163,11 +163,7 @@ vim.api.nvim_create_user_command("MarkdownPreviewClose", peek.close, {})
 
 -- gitsigns
 local gitsigns = require("gitsigns")
-gitsigns.setup({
-	linehl = true,
-	word_diff = true,
-})
-gitsigns.toggle_deleted()
+gitsigns.setup({})
 
 -- lspconfig
 local lspconfig = require("lspconfig")
@@ -275,13 +271,13 @@ require("telescope").setup({
 			find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/" },
 		},
 	},
-	defaults = {
-		initial_mode = "normal",
-	},
 })
 
 vim.keymap.set("n", "<Space>F", "<cmd>Telescope find_files<CR>")
 vim.keymap.set("n", "<Space>f", "<cmd>Telescope buffers<CR>")
+
+vim.keymap.set("n", "<Space>;", "<cmd>Telescope lsp_document_symbols<CR>")
+vim.keymap.set("n", "<Space>:", "<cmd>Telescope lsp_workspace_symbols<CR>")
 
 -- treesitter-textobjects
 local function mktextobj(bind, obj)
@@ -297,18 +293,16 @@ mktextobj("s", "@statement.outer")
 vim.keymap.set("n", "<Space>g", "<cmd>Gitsigns stage_hunk<CR>")
 vim.keymap.set("n", "<Space>G", "<cmd>Gitsigns stage_buffer<CR>")
 vim.keymap.set("n", "<Space>u", "<cmd>Gitsigns undo_stage_hunk<CR>")
-vim.keymap.set("n", "?", "<cmd>Gitsigns toggle_deleted<CR>")
+vim.keymap.set("n", "?", "<cmd>Gitsigns toggle_deleted<CR><cmd>Gitsigns toggle_linehl<CR>")
 vim.keymap.set("n", "gh", "<cmd>Git blame<CR>")
 vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<CR>")
 vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<CR>")
-vim.keymap.set("n", "gs", "<cmd>Git<CR>")
+vim.keymap.set("n", "gs", "<cmd>Telescope git_status<CR>")
 vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit<CR>")
 vim.keymap.set("n", "gb", "<cmd>Telescope git_branches<CR>")
 vim.keymap.set("n", "gc", "<cmd>Telescope git_commits<CR>")
 
 -- lspsaga
--- vim.keymap.set("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
--- vim.keymap.set("n", "gy", "<cmd>Lspsaga goto_type_definition<CR>")
 -- vim.keymap.set("n", "gr", "<cmd>Lspsaga finder<CR>")
 --
 -- vim.keymap.set("n", "<Space>r", "<cmd>Lspsaga rename<CR>")
@@ -322,7 +316,17 @@ end)
 vim.keymap.set("n", "<Space>d", "<cmd>Telescope diagnostics<CR>")
 vim.keymap.set("n", "<Space>a", "<cmd>CodeActionMenu<CR>")
 
-vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>")
+vim.keymap.set("n", "]d", function()
+	vim.diagnostic.goto_next()
+end)
+vim.keymap.set("n", "[d", function()
+	vim.diagnostic.goto_prev()
+end)
+
+vim.keymap.set("n", "<space>s", "<cmd>telescope lsp_references<cr>")
+vim.keymap.set("n", "<space>r", function()
+	vim.lsp.buf.rename()
+end)
 vim.keymap.set("n", "gd", function()
 	vim.lsp.buf.definition()
 end)
@@ -339,7 +343,7 @@ vim.opt.signcolumn = "no"
 vim.opt.wrap = false
 vim.opt.scrolloff = 5
 
-vim.cmd.colorscheme("boop")
+vim.cmd.colorscheme("kanagawa")
 vim.opt.termguicolors = true
 
 -- statusline
