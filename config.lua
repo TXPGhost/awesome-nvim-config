@@ -14,9 +14,6 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = { "*.wgsl" 
 -- configure diagnostics
 vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
 
--- set mouse scroll
-vim.opt.mousescroll = "ver:1,hor:2"
-
 -- enable format on save
 local conform = require("conform")
 conform.setup({
