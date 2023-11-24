@@ -342,7 +342,6 @@ vim.opt.shiftwidth = 4
 vim.opt.swapfile = false
 vim.opt.signcolumn = "no"
 vim.opt.wrap = false
-vim.opt.scrolloff = 5
 
 vim.cmd.colorscheme("kanagawa")
 vim.opt.termguicolors = true
