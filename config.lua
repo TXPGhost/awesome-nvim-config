@@ -12,6 +12,10 @@ vim.opt.shm:append("I")
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = { "*.wgsl" }, command = "set filetype=wgsl" })
 
 -- configure diagnostics
+vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
 vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
 
 -- enable format on save
@@ -291,7 +295,7 @@ mktextobj("s", "@statement.outer")
 vim.keymap.set("n", "<Space>g", "<cmd>Gitsigns stage_hunk<CR>")
 vim.keymap.set("n", "<Space>G", "<cmd>Gitsigns stage_buffer<CR>")
 vim.keymap.set("n", "<Space>u", "<cmd>Gitsigns undo_stage_hunk<CR>")
-vim.keymap.set("n", "?", "<cmd>Gitsigns toggle_deleted<CR><cmd>Gitsigns toggle_linehl<CR>")
+vim.keymap.set("n", "?", "<cmd>Gitsigns toggle_deleted<CR>")
 vim.keymap.set("n", "gh", "<cmd>Git blame<CR>")
 vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<CR>")
 vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<CR>")
@@ -329,7 +333,9 @@ vim.opt.compatible = false
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.swapfile = false
-vim.opt.signcolumn = "no"
+vim.opt.signcolumn = "yes"
+vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.wrap = false
 
 vim.cmd.colorscheme("kanagawa")
