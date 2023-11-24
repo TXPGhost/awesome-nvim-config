@@ -58,7 +58,7 @@ conform.setup({
 
 -- oil
 require("oil").setup({})
-vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
+vim.keymap.set("n", "-", "<cmd>Oil<CR>zz", { desc = "Open parent directory" })
 
 -- nvim-autopairs
 local npairs = require("nvim-autopairs")
