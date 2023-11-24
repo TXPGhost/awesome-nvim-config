@@ -1,6 +1,10 @@
 -- set help window to vertical split
 vim.api.nvim_create_autocmd({ "FileType" }, { pattern = { "help" }, command = "wincmd L" })
 
+-- enable undercurl support for wezterm
+vim.cmd([[let &t_Cs = "\e[60m"]])
+vim.cmd([[let &t_Ce = "\e[24m"]])
+
 -- disable startup message
 vim.opt.shm:append("I")
 
