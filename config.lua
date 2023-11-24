@@ -17,7 +17,7 @@ vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } 
 -- set mouse scroll
 vim.opt.mousescroll = "ver:1,hor:2"
 
--- format on save
+-- enable format on save
 local conform = require("conform")
 conform.setup({
 	notify_on_error = false,
