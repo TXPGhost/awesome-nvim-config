@@ -6,6 +6,7 @@ Plug 'nvim-lua/plenary.nvim'
 " themes
 Plug 'folke/tokyonight.nvim'
 Plug 'rebelot/kanagawa.nvim'
+Plug 'projekt0n/github-nvim-theme'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
