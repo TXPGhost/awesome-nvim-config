@@ -263,7 +263,7 @@ vim.g.vimtex_compiler_method = "tectonic"
 -- generic
 vim.keymap.set("n", "<esc>", "<cmd>noh<CR>")
 vim.keymap.set("v", "<CR>", "")
-vim.keymap.set("n", "`", "<cmd>!make run<CR>")
+vim.keymap.set("n", "`", "<cmd>split<CR><cmd>wincmd w<CR><cmd>wincmd 5-<CR><cmd>terminal<CR>i")
 
 -- telescope
 require("telescope").setup({
