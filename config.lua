@@ -303,14 +303,6 @@ vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit<CR>")
 vim.keymap.set("n", "gb", "<cmd>Telescope git_branches<CR>")
 vim.keymap.set("n", "gc", "<cmd>Telescope git_commits<CR>")
 
--- lspsaga
--- vim.keymap.set("n", "gr", "<cmd>Lspsaga finder<CR>")
---
--- vim.keymap.set("n", "<Space>r", "<cmd>Lspsaga rename<CR>")
---
--- vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>")
--- vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
-
 vim.keymap.set("n", "<Space>k", function()
 	vim.lsp.buf.hover()
 end)
