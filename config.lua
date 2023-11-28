@@ -171,14 +171,6 @@ vim.api.nvim_create_user_command("MarkdownPreviewClose", peek.close, {})
 local gitsigns = require("gitsigns")
 gitsigns.setup({})
 
--- illuminate
-require("illuminate").configure({
-	delay = 500,
-})
-vim.cmd("hi IlluminatedWordRead guibg=#282833")
-vim.cmd("hi IlluminatedWordText guibg=#282833")
-vim.cmd("hi IlluminatedWordWrite guibg=#282833")
-
 -- neodev
 require("neodev").setup({})
 

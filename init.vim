@@ -15,7 +15,6 @@ Plug 'projekt0n/github-nvim-theme'
 Plug 'neovim/nvim-lspconfig'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'smjonas/inc-rename.nvim'
-Plug 'RRethy/vim-illuminate'
 Plug 'weilbith/nvim-code-action-menu'
 Plug 'folke/trouble.nvim'
 
