@@ -16,6 +16,11 @@ vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSi
 vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
 vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
 vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError" })
+vim.fn.sign_define("DapBreakpointConditional", { text = "", texthl = "DiagnosticSignError" })
+vim.fn.sign_define("DapLogPoint", { text = "", texthl = "DiagnosticSignInfo" })
+vim.fn.sign_define("DapStopped", { text = "󰁕", texthl = "DiagnosticSignInfo", linehl = "IlluminatedWordText" })
+vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DiagnosticSignError" })
 vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
 
 -- enable format on save
@@ -58,7 +63,7 @@ conform.setup({
 
 -- oil
 require("oil").setup({})
-vim.keymap.set("n", "-", "<cmd>Oil<CR>zz", { desc = "Open parent directory" })
+vim.keymap.set("n", "-", "<cmd>Oil<cr>zz", { desc = "Open parent directory" })
 
 -- nvim-autopairs
 local npairs = require("nvim-autopairs")
@@ -98,7 +103,7 @@ cmp.setup({
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<C-e>"] = cmp.mapping.abort(),
-		["<CR>"] = cmp.mapping.confirm(),
+		["<cr>"] = cmp.mapping.confirm(),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
@@ -166,6 +171,25 @@ vim.api.nvim_create_user_command("MarkdownPreviewClose", peek.close, {})
 local gitsigns = require("gitsigns")
 gitsigns.setup({})
 
+-- illuminate
+require("illuminate").configure({
+	delay = 500,
+})
+vim.cmd("hi IlluminatedWordRead guibg=#282833")
+vim.cmd("hi IlluminatedWordText guibg=#282833")
+vim.cmd("hi IlluminatedWordWrite guibg=#282833")
+
+-- neodev
+require("neodev").setup({})
+
+-- lspsignature
+require("lsp_signature").setup({
+	hint_prefix = " ",
+	handler_opts = {
+		border = "none",
+	},
+})
+
 -- lspconfig
 local lspconfig = require("lspconfig")
 
@@ -191,6 +215,52 @@ lspconfig.cssls.setup({ capabilities = capabilities })
 lspconfig.html.setup({ capabilities = capabilities })
 lspconfig.lemminx.setup({ capabilities = capabilities })
 lspconfig.yamlls.setup({ capabilities = capabilities })
+lspconfig.taplo.setup({ capabilities = capabilities })
+lspconfig.dotls.setup({ capabilities = capabilities })
+
+-- dap
+local dap = require("dap")
+dap.adapters.codelldb = {
+	type = "server",
+	port = "13000",
+	executable = {
+		command = "/usr/bin/codelldb",
+		args = { "--port", "13000" },
+	},
+}
+
+local ccpprust = {
+	{
+		name = "Launch file",
+		type = "codelldb",
+		request = "launch",
+		program = function()
+			---@diagnostic disable-next-line: redundant-parameter
+			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+		end,
+		cwd = "${workspaceFolder}",
+		stopOnEntry = false,
+	},
+}
+
+dap.configurations.c = ccpprust
+dap.configurations.cpp = ccpprust
+dap.configurations.rust = ccpprust
+
+-- dap ui
+local dapui = require("dapui")
+dapui.setup({})
+
+-- dap virtual text
+require("nvim-dap-virtual-text").setup()
+
+-- jdtls
+-- see https://sookocheff.com/post/vim/neovim-java-ide/#language-server--eclipsejdtls
+-- local jdtls = require("jdtls")
+-- jdtls.start_or_attach({
+-- 	cmd = { "jdtls" },
+-- 	root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnw" }, { upward = true })[1]),
+-- })
 
 -- rust-tools
 local rust_tools = require("rust-tools")
@@ -213,6 +283,11 @@ rust_tools.setup({
 			},
 		},
 	},
+	crate_graph = {
+		backend = "x11",
+		output = nil,
+		full = true,
+	},
 })
 
 -- rust crates
@@ -221,6 +296,21 @@ require("crates").setup({
 		cmp = {
 			enabled = true,
 		},
+	},
+})
+
+-- trouble
+require("trouble").setup({
+	height = 12,
+	padding = false,
+	auto_close = true,
+	auto_jump = {
+		"lsp_definitions",
+		"lsp_type_definitions",
+		"lsp_references",
+		"lsp_implementations",
+		"document_diagnostics",
+		"workspace_diagnostics",
 	},
 })
 
@@ -237,8 +327,8 @@ require("nvim-treesitter.configs").setup({
 	incremental_selection = {
 		enable = true,
 		keymaps = {
-			init_selection = "<CR>",
-			scope_incremental = "<CR>",
+			init_selection = "<cr>",
+			scope_incremental = "<cr>",
 			node_incremental = "<Tab>",
 			node_decremental = "<S-Tab>",
 		},
@@ -248,6 +338,26 @@ require("nvim-treesitter.configs").setup({
 	},
 	beacon = {
 		enable = false,
+	},
+	autotag = {
+		enable = true,
+		filetypes = {
+			"html",
+			"javascript",
+			"typescript",
+			"javascriptreact",
+			"typescriptreact",
+			"svelte",
+			"vue",
+			"tsx",
+			"jsx",
+			"rescript",
+			"css",
+			"lua",
+			"xml",
+			"php",
+			"markdown",
+		},
 	},
 })
 vim.opt.foldmethod = "expr"
@@ -259,12 +369,17 @@ vim.g.vimtex_view_general_viewer = "okular"
 vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src@line@tex"
 vim.g.vimtex_compiler_method = "tectonic"
 
+-- incremental rename
+require("inc_rename").setup({})
+
 -- KEYMAPS
 
 -- generic
-vim.keymap.set("n", "<esc>", "<cmd>noh<CR>")
-vim.keymap.set("v", "<CR>", "")
-vim.keymap.set("n", "`", "<cmd>split<CR><cmd>wincmd w<CR><cmd>wincmd 5-<CR><cmd>terminal<CR>i")
+vim.keymap.set("n", "<esc>", "<cmd>noh<cr><cmd>TroubleClose<cr>")
+vim.keymap.set("v", "<cr>", "")
+vim.keymap.set("n", "`", "<cmd>split<cr><cmd>wincmd w<cr><cmd>wincmd 5-<cr><cmd>terminal<cr>i")
+vim.keymap.set("n", "<c-o>", "<c-o>zz")
+vim.keymap.set("n", "<c-i>", "<c-i>zz")
 
 -- telescope
 require("telescope").setup({
@@ -275,16 +390,17 @@ require("telescope").setup({
 	},
 })
 
-vim.keymap.set("n", "<Space>F", "<cmd>Telescope find_files<CR>")
-vim.keymap.set("n", "<Space>f", "<cmd>Telescope buffers<CR>")
+vim.keymap.set("n", "<space>F", "<cmd>Telescope find_files<cr>")
+vim.keymap.set("n", "<space>f", "<cmd>Telescope buffers<cr>")
+vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
 
-vim.keymap.set("n", "<Space>;", "<cmd>Telescope lsp_document_symbols<CR>")
-vim.keymap.set("n", "<Space>:", "<cmd>Telescope lsp_workspace_symbols<CR>")
+vim.keymap.set("n", "<space>;", "<cmd>Telescope lsp_document_symbols<cr>")
+vim.keymap.set("n", "<space>:", "<cmd>Telescope lsp_workspace_symbols<cr>")
 
 -- treesitter-textobjects
 local function mktextobj(bind, obj)
-	vim.keymap.set({ "n", "v" }, "]" .. bind, "<cmd>TSTextobjectGotoNextStart " .. obj .. "<CR><cmd>norm zz<CR>")
-	vim.keymap.set({ "n", "v" }, "[" .. bind, "<cmd>TSTextobjectGotoPreviousStart" .. obj .. "<CR><cmd>norm zz<CR>")
+	vim.keymap.set({ "n", "v" }, "]" .. bind, "<cmd>TSTextobjectGotoNextStart " .. obj .. "<cr><cmd>norm zz<cr>")
+	vim.keymap.set({ "n", "v" }, "[" .. bind, "<cmd>TSTextobjectGotoPreviousStart" .. obj .. "<cr><cmd>norm zz<cr>")
 end
 
 mktextobj("f", "@function.outer")
@@ -292,23 +408,24 @@ mktextobj("c", "@class.outer")
 mktextobj("s", "@statement.outer")
 
 -- git
-vim.keymap.set("n", "<Space>g", "<cmd>Gitsigns stage_hunk<CR>")
-vim.keymap.set("n", "<Space>G", "<cmd>Gitsigns stage_buffer<CR>")
-vim.keymap.set("n", "<Space>u", "<cmd>Gitsigns undo_stage_hunk<CR>")
-vim.keymap.set("n", "?", "<cmd>Gitsigns toggle_deleted<CR>")
-vim.keymap.set("n", "gh", "<cmd>Git blame<CR>")
-vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<CR>")
-vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<CR>")
-vim.keymap.set("n", "gs", "<cmd>Telescope git_status<CR>")
-vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit<CR>")
-vim.keymap.set("n", "gb", "<cmd>Telescope git_branches<CR>")
-vim.keymap.set("n", "gc", "<cmd>Telescope git_commits<CR>")
+vim.keymap.set("n", "<space>g", "<cmd>Gitsigns stage_hunk<cr>")
+vim.keymap.set("n", "<space>G", "<cmd>Gitsigns stage_buffer<cr>")
+vim.keymap.set("n", "<space>u", "<cmd>Gitsigns undo_stage_hunk<cr>")
+vim.keymap.set("n", "?", "<cmd>Gitsigns toggle_deleted<cr>")
+vim.keymap.set("n", "gh", "<cmd>Git blame<cr>")
+vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>")
+vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr>")
+vim.keymap.set("n", "gs", "<cmd>Telescope git_status<cr>")
+vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit<cr>")
+vim.keymap.set("n", "gb", "<cmd>Telescope git_branches<cr>")
+vim.keymap.set("n", "gc", "<cmd>Telescope git_commits<cr>")
 
-vim.keymap.set("n", "<Space>k", function()
+vim.keymap.set("n", "<space>k", function()
 	vim.lsp.buf.hover()
 end)
-vim.keymap.set("n", "<Space>d", "<cmd>Telescope diagnostics<CR>")
-vim.keymap.set("n", "<Space>a", "<cmd>CodeActionMenu<CR>")
+vim.keymap.set("n", "<space>d", "<cmd>TroubleToggle document_diagnostics<cr>")
+vim.keymap.set("n", "<space>d", "<cmd>TroubleToggle workspace_diagnostics<cr>")
+vim.keymap.set("n", "<space>a", "<cmd>CodeActionMenu<cr>")
 
 vim.keymap.set("n", "]d", function()
 	vim.diagnostic.goto_next()
@@ -317,15 +434,33 @@ vim.keymap.set("n", "[d", function()
 	vim.diagnostic.goto_prev()
 end)
 
-vim.keymap.set("n", "<space>s", "<cmd>telescope lsp_references<cr>")
-vim.keymap.set("n", "<space>r", function()
-	vim.lsp.buf.rename()
+vim.keymap.set("n", "<space>r", ":IncRename ")
+vim.keymap.set("n", "gd", "<cmd>Trouble lsp_definitions<cr>")
+vim.keymap.set("n", "gy", "<cmd>Trouble lsp_type_definitions<cr>")
+vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
+vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
+
+-- dap
+vim.keymap.set("n", "<space>b", function()
+	dap.toggle_breakpoint()
 end)
-vim.keymap.set("n", "gd", function()
-	vim.lsp.buf.definition()
+vim.keymap.set("n", "<Up>", function()
+	dap.step_back()
 end)
-vim.keymap.set("n", "gy", function()
-	vim.lsp.buf.type_definition()
+vim.keymap.set("n", "<Right>", function()
+	dap.step_into()
+end)
+vim.keymap.set("n", "<Left>", function()
+	dap.step_out()
+end)
+vim.keymap.set("n", "<Down>", function()
+	dap.step_over()
+end)
+vim.keymap.set("n", "<space>D", function()
+	dapui.toggle()
+end)
+vim.keymap.set("n", "<space>i", function()
+	dapui.eval()
 end)
 
 -- startup commands

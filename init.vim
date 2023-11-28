@@ -3,6 +3,9 @@ call plug#begin()
 " dependencies
 Plug 'nvim-lua/plenary.nvim'
 
+" neovim dev environment
+Plug 'folke/neodev.nvim'
+
 " themes
 Plug 'folke/tokyonight.nvim'
 Plug 'rebelot/kanagawa.nvim'
@@ -10,6 +13,19 @@ Plug 'projekt0n/github-nvim-theme'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
+Plug 'ray-x/lsp_signature.nvim'
+Plug 'smjonas/inc-rename.nvim'
+Plug 'RRethy/vim-illuminate'
+Plug 'weilbith/nvim-code-action-menu'
+Plug 'folke/trouble.nvim'
+
+" DAP
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'theHamsta/nvim-dap-virtual-text'
+
+" graphviz
+Plug 'liuchengxu/graphviz.vim'
 
 " tree-sitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -32,9 +48,12 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'rafamadriz/friendly-snippets'
 
 " auto pairs
 Plug 'windwp/nvim-autopairs'
+Plug 'windwp/nvim-ts-autotag'
+Plug 'tpope/vim-surround'
 
 " snippets (for autocompletion)
 Plug 'hrsh7th/cmp-vsnip'
@@ -49,9 +68,6 @@ Plug 'tpope/vim-fugitive'
 
 " icons
 Plug 'nvim-tree/nvim-web-devicons'
-
-" code actions
-Plug 'weilbith/nvim-code-action-menu'
 
 " latex
 Plug 'lervag/vimtex'
