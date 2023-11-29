@@ -1,4 +1,5 @@
 -- vim-plug
+---@diagnostic disable-next-line: param-type-mismatch
 vim.call("plug#begin")
 local plug = vim.fn["plug#"]
 
@@ -92,6 +93,7 @@ plug("mfussenegger/nvim-jdtls")
 -- markdown preview
 plug("cloudsftp/peek.nvim")
 
+---@diagnostic disable-next-line: param-type-mismatch
 vim.call("plug#end")
 
 -- set help window to vertical split
