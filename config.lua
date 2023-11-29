@@ -1,3 +1,99 @@
+-- vim-plug
+vim.call("plug#begin")
+local plug = vim.fn["plug#"]
+
+-- dependencies
+plug("nvim-lua/plenary.nvim")
+
+-- neovim dev environment
+plug("folke/neodev.nvim")
+
+-- startup time
+plug("dstein64/vim-startuptime")
+
+-- themes
+plug("folke/tokyonight.nvim")
+plug("rebelot/kanagawa.nvim")
+plug("projekt0n/github-nvim-theme")
+
+-- LSP
+plug("neovim/nvim-lspconfig")
+plug("ray-x/lsp_signature.nvim")
+plug("smjonas/inc-rename.nvim")
+plug("weilbith/nvim-code-action-menu")
+plug("folke/trouble.nvim")
+
+-- DAP
+plug("mfussenegger/nvim-dap")
+plug("rcarriga/nvim-dap-ui")
+plug("theHamsta/nvim-dap-virtual-text")
+
+-- graphviz
+plug("liuchengxu/graphviz.vim")
+
+-- tree-sitter
+plug("nvim-treesitter/nvim-treesitter", "{do: :TSUpdate}")
+plug("nvim-treesitter/nvim-treesitter-textobjects")
+
+-- file explorer
+plug("stevearc/oil.nvim")
+
+-- formatter
+plug("stevearc/conform.nvim")
+
+-- telescope
+plug("nvim-telescope/telescope.nvim", "{ branch: 0.1.x }")
+plug(
+	"nvim-telescope/telescope-fzf-native.nvim",
+	"{ do: cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build }"
+)
+
+-- autocompletion
+plug("neovim/nvim-lspconfig")
+plug("hrsh7th/cmp-nvim-lsp")
+plug("hrsh7th/cmp-buffer")
+plug("hrsh7th/cmp-path")
+plug("hrsh7th/cmp-cmdline")
+plug("hrsh7th/nvim-cmp")
+plug("rafamadriz/friendly-snippets")
+
+-- auto pairs
+plug("windwp/nvim-autopairs")
+plug("windwp/nvim-ts-autotag")
+plug("tpope/vim-surround")
+
+-- snippets (for autocompletion)
+plug("hrsh7th/cmp-vsnip")
+plug("hrsh7th/vim-vsnip")
+
+-- autocompletion icons
+plug("onsails/lspkind.nvim")
+
+-- git integration
+plug("lewis6991/gitsigns.nvim")
+plug("tpope/vim-fugitive")
+
+-- icons
+plug("nvim-tree/nvim-web-devicons")
+
+-- latex
+plug("lervag/vimtex")
+
+-- automatic tab type detection
+plug("tpope/vim-sleuth")
+
+-- rust
+plug("simrat39/rust-tools.nvim")
+plug("Saecki/crates.nvim")
+
+-- java
+plug("mfussenegger/nvim-jdtls")
+
+-- markdown preview
+plug("cloudsftp/peek.nvim")
+
+vim.call("plug#end")
+
 -- set help window to vertical split
 vim.api.nvim_create_autocmd({ "FileType" }, { pattern = { "help" }, command = "wincmd L" })
 

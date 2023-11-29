@@ -6,6 +6,9 @@ Plug 'nvim-lua/plenary.nvim'
 " neovim dev environment
 Plug 'folke/neodev.nvim'
 
+" startup time
+Plug 'dstein64/vim-startuptime'
+
 " themes
 Plug 'folke/tokyonight.nvim'
 Plug 'rebelot/kanagawa.nvim'
