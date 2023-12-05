@@ -502,6 +502,21 @@ vim.opt.statusline = [[%<%f %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%) %P]]
 
 -- neovide configuration
 if vim.g.neovide then
-	vim.opt.guifont = "Monaspace Neon Light:h7:"
+	vim.opt.guifont = "Monaspace Neon ExtraLight:h7:"
 	vim.g.neovide_fullscreen = true
+
+	vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
+	vim.keymap.set("n", "<c-w>", "<cmd>tabclose<cr>")
+
+	vim.keymap.set("n", "<c-h>", "<cmd>tabprev<cr>")
+	vim.keymap.set("n", "<c-l>", "<cmd>tabnext<cr>")
+
+	vim.keymap.set("n", "<s-tab>", "<cmd>tabprev<cr>")
+	vim.keymap.set("n", "<tab>", "<cmd>tabnext<cr>")
+
+	vim.keymap.set(
+		"n",
+		"<c-cr>",
+		"<cmd>tabnew<cr><cmd>set nonumber<cr><cmd>set norelativenumber<cr><cmd>set signcolumn=no<cr><cmd>terminal<cr>i"
+	)
 end
