@@ -498,3 +498,9 @@ vim.opt.termguicolors = true
 
 -- statusline
 vim.opt.statusline = [[%<%f %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%) %P]]
+
+-- neovide configuration
+if vim.g.neovide then
+	vim.opt.guifont = "Monaspace Neon Light:h7:"
+	vim.g.neovide_fullscreen = true
+end
