@@ -307,6 +307,7 @@ lspconfig.lemminx.setup({ capabilities = capabilities })
 lspconfig.yamlls.setup({ capabilities = capabilities })
 lspconfig.taplo.setup({ capabilities = capabilities })
 lspconfig.dotls.setup({ capabilities = capabilities })
+lspconfig.hls.setup({ capabilities = capabilities })
 
 -- dap
 -- local dap = require("dap")
