@@ -24,11 +24,6 @@ plug("smjonas/inc-rename.nvim")
 plug("weilbith/nvim-code-action-menu")
 plug("folke/trouble.nvim")
 
--- DAP
--- plug("mfussenegger/nvim-dap")
--- plug("rcarriga/nvim-dap-ui")
--- plug("theHamsta/nvim-dap-virtual-text")
-
 -- graphviz
 plug("liuchengxu/graphviz.vim")
 
