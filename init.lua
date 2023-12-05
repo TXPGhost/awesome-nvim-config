@@ -562,6 +562,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.wrap = false
+vim.opt.scrolloff = 5
 
 vim.cmd.colorscheme("kanagawa")
 vim.opt.termguicolors = true
