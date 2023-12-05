@@ -25,9 +25,9 @@ plug("weilbith/nvim-code-action-menu")
 plug("folke/trouble.nvim")
 
 -- DAP
-plug("mfussenegger/nvim-dap")
-plug("rcarriga/nvim-dap-ui")
-plug("theHamsta/nvim-dap-virtual-text")
+-- plug("mfussenegger/nvim-dap")
+-- plug("rcarriga/nvim-dap-ui")
+-- plug("theHamsta/nvim-dap-virtual-text")
 
 -- graphviz
 plug("liuchengxu/graphviz.vim")
@@ -309,48 +309,48 @@ lspconfig.taplo.setup({ capabilities = capabilities })
 lspconfig.dotls.setup({ capabilities = capabilities })
 
 -- dap
-local dap = require("dap")
-dap.adapters.codelldb = {
-	type = "server",
-	port = "13000",
-	executable = {
-		command = "/usr/bin/codelldb",
-		args = { "--port", "13000" },
-	},
-}
-
-local ccpprust = {
-	{
-		name = "Launch file",
-		type = "codelldb",
-		request = "launch",
-		program = function()
-			---@diagnostic disable-next-line: redundant-parameter
-			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-		end,
-		cwd = "${workspaceFolder}",
-		stopOnEntry = false,
-	},
-}
-
-dap.configurations.c = ccpprust
-dap.configurations.cpp = ccpprust
-dap.configurations.rust = ccpprust
-
--- dap ui
-local dapui = require("dapui")
-dapui.setup({})
-
--- dap virtual text
-require("nvim-dap-virtual-text").setup()
-
--- jdtls
--- see https://sookocheff.com/post/vim/neovim-java-ide/#language-server--eclipsejdtls
--- local jdtls = require("jdtls")
--- jdtls.start_or_attach({
--- 	cmd = { "jdtls" },
--- 	root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnw" }, { upward = true })[1]),
--- })
+-- local dap = require("dap")
+-- dap.adapters.codelldb = {
+-- 	type = "server",
+-- 	port = "13000",
+-- 	executable = {
+-- 		command = "/usr/bin/codelldb",
+-- 		args = { "--port", "13000" },
+-- 	},
+-- }
+--
+-- local ccpprust = {
+-- 	{
+-- 		name = "Launch file",
+-- 		type = "codelldb",
+-- 		request = "launch",
+-- 		program = function()
+-- 			---@diagnostic disable-next-line: redundant-parameter
+-- 			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+-- 		end,
+-- 		cwd = "${workspaceFolder}",
+-- 		stopOnEntry = false,
+-- 	},
+-- }
+--
+-- dap.configurations.c = ccpprust
+-- dap.configurations.cpp = ccpprust
+-- dap.configurations.rust = ccpprust
+--
+-- -- dap ui
+-- local dapui = require("dapui")
+-- dapui.setup({})
+--
+-- -- dap virtual text
+-- require("nvim-dap-virtual-text").setup()
+--
+-- -- jdtls
+-- -- see https://sookocheff.com/post/vim/neovim-java-ide/#language-server--eclipsejdtls
+-- -- local jdtls = require("jdtls")
+-- -- jdtls.start_or_attach({
+-- -- 	cmd = { "jdtls" },
+-- -- 	root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnw" }, { upward = true })[1]),
+-- -- })
 
 -- rust-tools
 local rust_tools = require("rust-tools")
@@ -531,27 +531,27 @@ vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
 vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
 
 -- dap
-vim.keymap.set("n", "<space>b", function()
-	dap.toggle_breakpoint()
-end)
-vim.keymap.set("n", "<Up>", function()
-	dap.step_back()
-end)
-vim.keymap.set("n", "<Right>", function()
-	dap.step_into()
-end)
-vim.keymap.set("n", "<Left>", function()
-	dap.step_out()
-end)
-vim.keymap.set("n", "<Down>", function()
-	dap.step_over()
-end)
-vim.keymap.set("n", "<space>D", function()
-	dapui.toggle()
-end)
-vim.keymap.set("n", "<space>i", function()
-	dapui.eval()
-end)
+-- vim.keymap.set("n", "<space>b", function()
+-- 	dap.toggle_breakpoint()
+-- end)
+-- vim.keymap.set("n", "<Up>", function()
+-- 	dap.step_back()
+-- end)
+-- vim.keymap.set("n", "<Right>", function()
+-- 	dap.step_into()
+-- end)
+-- vim.keymap.set("n", "<Left>", function()
+-- 	dap.step_out()
+-- end)
+-- vim.keymap.set("n", "<Down>", function()
+-- 	dap.step_over()
+-- end)
+-- vim.keymap.set("n", "<space>D", function()
+-- 	dapui.toggle()
+-- end)
+-- vim.keymap.set("n", "<space>i", function()
+-- 	dapui.eval()
+-- end)
 
 -- startup commands
 vim.opt.compatible = false
