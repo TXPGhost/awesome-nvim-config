@@ -493,7 +493,7 @@ vim.opt.relativenumber = true
 vim.opt.wrap = false
 vim.opt.scrolloff = 5
 
-vim.cmd.colorscheme("kanagawa-dragon")
+vim.cmd.colorscheme("kanagawa")
 vim.opt.termguicolors = true
 
 -- statusline
