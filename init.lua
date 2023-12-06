@@ -477,10 +477,20 @@ vim.keymap.set("n", "[d", function()
 end)
 
 vim.keymap.set("n", "<space>r", ":IncRename ")
-vim.keymap.set("n", "gd", "<cmd>Trouble lsp_definitions<cr>")
+vim.keymap.set("n", "gd", "<cmd>Trouble lsp_definitions<cr>") -- IDEA: open in new tab if different file
 vim.keymap.set("n", "gy", "<cmd>Trouble lsp_type_definitions<cr>")
 vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
 vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
+
+vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
+vim.keymap.set("n", "<c-w>", "<cmd>tabclose<cr>")
+vim.keymap.set("n", "<c-s>", "<cmd>tab split<cr>")
+vim.keymap.set("n", "<c-a>", "<cmd>tabprev<cr>")
+
+vim.keymap.set("n", "<c-h>", "<cmd>wincmd h<cr>")
+vim.keymap.set("n", "<c-j>", "<cmd>wincmd j<cr>")
+vim.keymap.set("n", "<c-k>", "<cmd>wincmd k<cr>")
+vim.keymap.set("n", "<c-l>", "<cmd>wincmd l<cr>")
 
 -- startup commands
 vim.opt.compatible = false
