@@ -484,14 +484,9 @@ vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
 
 vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
 vim.keymap.set("n", "<c-w>", "<cmd>tabclose<cr>")
-vim.keymap.set("n", "<c-s>", "<cmd>tab split<cr>")
-vim.keymap.set("n", "<c-a>", "<cmd>tabprev<cr>")
-vim.keymap.set("n", "<c-d>", "<cmd>tabnext<cr>")
-
-vim.keymap.set("n", "<c-h>", "<cmd>wincmd h<cr>")
-vim.keymap.set("n", "<c-j>", "<cmd>wincmd j<cr>")
-vim.keymap.set("n", "<c-k>", "<cmd>wincmd k<cr>")
-vim.keymap.set("n", "<c-l>", "<cmd>wincmd l<cr>")
+vim.keymap.set("n", "<c-v>", "<cmd>tab split<cr>")
+vim.keymap.set("n", "<c-h>", "<cmd>tabprev<cr>")
+vim.keymap.set("n", "<c-l>", "<cmd>tabnext<cr>")
 
 -- startup commands
 vim.opt.compatible = false
