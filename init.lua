@@ -491,7 +491,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.wrap = false
-vim.opt.mousescroll = "ver:2,hor:0"
+vim.opt.mousescroll = "ver:1,hor:2"
 vim.opt.scrolloff = 5
 
 vim.cmd.colorscheme("kanagawa")
