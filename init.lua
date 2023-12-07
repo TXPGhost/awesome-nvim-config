@@ -506,7 +506,7 @@ vim.opt.wrap = false
 vim.opt.mousescroll = "ver:1,hor:2"
 vim.opt.scrolloff = 5
 
-vim.cmd.colorscheme("kanagawa")
+vim.cmd.colorscheme("tokyonight-night")
 vim.opt.termguicolors = true
 
 -- statusline
