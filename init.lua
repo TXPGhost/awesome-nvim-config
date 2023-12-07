@@ -16,6 +16,11 @@ plug("dstein64/vim-startuptime")
 plug("folke/tokyonight.nvim")
 plug("rebelot/kanagawa.nvim")
 plug("projekt0n/github-nvim-theme")
+plug("catppuccin/nvim")
+plug("andreasvc/vim-256noir")
+
+-- theme builder
+plug("rktjmp/lush.nvim")
 
 -- LSP
 plug("neovim/nvim-lspconfig")
@@ -114,6 +119,7 @@ vim.fn.sign_define("DapBreakpointConditional", { text = "", texthl = "Diagnos
 vim.fn.sign_define("DapLogPoint", { text = "", texthl = "DiagnosticSignInfo" })
 vim.fn.sign_define("DapStopped", { text = "󰁕", texthl = "DiagnosticSignInfo", linehl = "IlluminatedWordText" })
 vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DiagnosticSignError" })
+
 vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
 
 -- enable format on save
@@ -483,8 +489,8 @@ vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
 vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
 
 vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
-vim.keymap.set("n", "<c-w>", "<cmd>tabclose<cr>")
-vim.keymap.set("n", "<c-v>", "<cmd>tab split<cr>")
+vim.keymap.set("n", "<c-s>", "<cmd>vsplit<cr>")
+vim.keymap.set("n", "<c-S>", "<cmd>tab split<cr>")
 vim.keymap.set("n", "<c-h>", "<cmd>tabprev<cr>")
 vim.keymap.set("n", "<c-l>", "<cmd>tabnext<cr>")
 
