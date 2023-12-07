@@ -512,7 +512,7 @@ vim.opt.termguicolors = true
 -- statusline
 vim.opt.statusline = [[%<%f %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%) %P]]
 
--- neovide configuration
+-- configure neovide, if enabled
 if vim.g.neovide then
 	vim.opt.guifont = "Monaspace Neon ExtraLight:h7"
 
