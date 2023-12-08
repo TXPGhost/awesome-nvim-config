@@ -526,6 +526,8 @@ if vim.g.neovide then
 	vim.opt.guifont = "Monaspace Neon ExtraLight:#e-subpixelantialias:h7"
 	vim.opt.mousescroll = "ver:1,hor:0"
 
+	vim.g.neovide_scroll_animation_length = 0.6
+
 	vim.keymap.set("n", "<c-=>", function()
 		if vim.g.neovide_scale_factor < 3 then
 			vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * 1.1
