@@ -510,7 +510,7 @@ vim.opt.shiftwidth = 4
 vim.opt.swapfile = false
 vim.opt.signcolumn = "yes"
 vim.opt.number = true
-vim.opt.relativenumber = false
+vim.opt.relativenumber = true
 vim.opt.wrap = false
 vim.opt.mousescroll = "ver:1,hor:2"
 vim.opt.scrolloff = 5
@@ -523,6 +523,8 @@ vim.opt.statusline = [[%<%f %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%) %P]]
 
 -- configure neovide, if enabled
 if vim.g.neovide then
+	vim.opt.relativenumber = false
+
 	vim.opt.guifont = "Monaspace Neon ExtraLight:#e-subpixelantialias:h7"
 	vim.opt.mousescroll = "ver:1,hor:0"
 
