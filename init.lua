@@ -436,8 +436,7 @@ require("inc_rename").setup({})
 
 -- generic
 vim.keymap.set("n", "<esc>", "<cmd>noh<cr><cmd>TroubleClose<cr>")
-vim.keymap.set("v", "<cr>", "")
-vim.keymap.set("n", "`", "<cmd>split<cr><cmd>wincmd w<cr><cmd>wincmd 5-<cr><cmd>terminal<cr>i")
+vim.keymap.set("n", "<c-cr>", "<cmd>tabnew<cr><cmd>terminal<cr>i")
 vim.keymap.set("n", "<c-o>", "<c-o>zz")
 vim.keymap.set("n", "<c-i>", "<c-i>zz")
 
@@ -471,14 +470,11 @@ mktextobj("s", "@statement.outer")
 vim.keymap.set("n", "<space>g", "<cmd>Gitsigns stage_hunk<cr>")
 vim.keymap.set("n", "<space>G", "<cmd>Gitsigns stage_buffer<cr>")
 vim.keymap.set("n", "<space>u", "<cmd>Gitsigns undo_stage_hunk<cr>")
-vim.keymap.set("n", "?", "<cmd>Gitsigns toggle_deleted<cr>")
 vim.keymap.set("n", "gh", "<cmd>Git blame<cr>")
 vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>")
 vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr>")
-vim.keymap.set("n", "gs", "<cmd>Telescope git_status<cr>")
-vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit<cr>")
-vim.keymap.set("n", "gb", "<cmd>Telescope git_branches<cr>")
-vim.keymap.set("n", "gc", "<cmd>Telescope git_commits<cr>")
+vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
+vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit!<cr>")
 
 vim.keymap.set("n", "<space>k", function()
 	vim.lsp.buf.hover()
@@ -526,33 +522,6 @@ vim.opt.statusline = [[%<%f %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%) %P]]
 
 -- configure neovide, if enabled
 if vim.g.neovide then
-	vim.opt.guifont = "Monaspace Neon ExtraLight:h7"
-
-	vim.keymap.set("n", "T", "<cmd>tabnew<cr>")
-	vim.keymap.set("n", "W", "<cmd>tabclose<cr>")
-
-	vim.keymap.set("n", "H", "<cmd>tabprev<cr>")
-	vim.keymap.set("n", "L", "<cmd>tabnext<cr>")
-
-	vim.keymap.set("n", "<s-tab>", "<cmd>tabprev<cr>")
-	vim.keymap.set("n", "<tab>", "<cmd>tabnext<cr>")
-
-	vim.keymap.set("n", "<c-1>", "1gt")
-	vim.keymap.set("n", "<c-2>", "2gt")
-	vim.keymap.set("n", "<c-3>", "3gt")
-	vim.keymap.set("n", "<c-4>", "4gt")
-	vim.keymap.set("n", "<c-5>", "5gt")
-	vim.keymap.set("n", "<c-6>", "6gt")
-	vim.keymap.set("n", "<c-7>", "7gt")
-	vim.keymap.set("n", "<c-8>", "8gt")
-	vim.keymap.set("n", "<c-9>", "9gt")
-	vim.keymap.set("n", "<c-0>", "10gt")
-
-	vim.keymap.set("n", "<s-cr>", function()
-		vim.cmd.tabnew()
-		vim.opt_local.relativenumber = false
-		vim.opt_local.signcolumn = "no"
-		vim.cmd.terminal()
-		vim.cmd.startinsert()
-	end)
+	vim.opt.guifont = "Monaspace Neon ExtraLight:#e-subpixelantialias:h7"
+	vim.opt.mousescroll = "ver:1,hor:0"
 end
