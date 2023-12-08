@@ -22,6 +22,9 @@ plug("andreasvc/vim-256noir")
 -- theme builder
 plug("rktjmp/lush.nvim")
 
+-- comment toggling
+plug("tpope/vim-commentary")
+
 -- LSP
 plug("neovim/nvim-lspconfig")
 plug("ray-x/lsp_signature.nvim")
@@ -73,6 +76,7 @@ plug("onsails/lspkind.nvim")
 -- git integration
 plug("lewis6991/gitsigns.nvim")
 plug("tpope/vim-fugitive")
+plug("akinsho/git-conflict.nvim")
 
 -- icons
 plug("nvim-tree/nvim-web-devicons")
@@ -265,6 +269,14 @@ local peek = require("peek")
 peek.setup({})
 vim.api.nvim_create_user_command("MarkdownPreviewOpen", peek.open, {})
 vim.api.nvim_create_user_command("MarkdownPreviewClose", peek.close, {})
+
+-- git conflict
+require("git-conflict").setup({
+	highlights = {
+		incoming = "DiffAdd",
+		current = "DiffText",
+	},
+})
 
 -- gitsigns
 local gitsigns = require("gitsigns")
