@@ -525,4 +525,20 @@ vim.opt.statusline = [[%<%f %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%) %P]]
 if vim.g.neovide then
 	vim.opt.guifont = "Monaspace Neon ExtraLight:#e-subpixelantialias:h7"
 	vim.opt.mousescroll = "ver:1,hor:0"
+
+	vim.keymap.set("n", "<c-=>", function()
+		if vim.g.neovide_scale_factor < 3 then
+			vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * 1.1
+		end
+	end)
+
+	vim.keymap.set("n", "<c-->", function()
+		if vim.g.neovide_scale_factor > 0.5 then
+			vim.g.neovide_scale_factor = vim.g.neovide_scale_factor / 1.1
+		end
+	end)
+
+	vim.keymap.set("n", "<c-0>", function()
+		vim.g.neovide_scale_factor = 1
+	end)
 end
