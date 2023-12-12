@@ -22,6 +22,9 @@ plug("andreasvc/vim-256noir")
 -- theme builder
 plug("rktjmp/lush.nvim")
 
+-- lualine
+plug("nvim-lualine/lualine.nvim")
+
 -- comment toggling
 plug("tpope/vim-commentary")
 
@@ -76,7 +79,6 @@ plug("onsails/lspkind.nvim")
 -- git integration
 plug("lewis6991/gitsigns.nvim")
 plug("tpope/vim-fugitive")
-plug("akinsho/git-conflict.nvim")
 
 -- icons
 plug("nvim-tree/nvim-web-devicons")
@@ -163,6 +165,9 @@ conform.setup({
 		},
 	},
 })
+
+-- lualine
+require("lualine").setup({})
 
 -- oil
 require("oil").setup({})
@@ -269,14 +274,6 @@ local peek = require("peek")
 peek.setup({})
 vim.api.nvim_create_user_command("MarkdownPreviewOpen", peek.open, {})
 vim.api.nvim_create_user_command("MarkdownPreviewClose", peek.close, {})
-
--- git conflict
-require("git-conflict").setup({
-	highlights = {
-		incoming = "DiffAdd",
-		current = "DiffText",
-	},
-})
 
 -- gitsigns
 local gitsigns = require("gitsigns")
@@ -519,7 +516,7 @@ vim.cmd.colorscheme("tokyonight-night")
 vim.opt.termguicolors = true
 
 -- statusline
-vim.opt.statusline = [[%<%f %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%) %P]]
+--vim.opt.statusline = [[%<%f %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%) %P]]
 
 -- configure neovide, if enabled
 if vim.g.neovide then
