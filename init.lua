@@ -515,9 +515,6 @@ vim.opt.scrolloff = 5
 vim.cmd.colorscheme("tokyonight-night")
 vim.opt.termguicolors = true
 
--- statusline
---vim.opt.statusline = [[%<%f %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%) %P]]
-
 -- configure neovide, if enabled
 if vim.g.neovide then
 	vim.opt.relativenumber = false
