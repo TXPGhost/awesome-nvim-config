@@ -1,5 +1,9 @@
 # awesome-nvim-config
 
+The cleanest neovim config out there.
+
+![Screenshot of config](preview.png)
+
 ## Installation
 
 1. Clone the repo into your `.config/nvim`
