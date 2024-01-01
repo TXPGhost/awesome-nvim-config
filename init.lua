@@ -479,7 +479,7 @@ vim.keymap.set("n", "<space>k", function()
 	vim.lsp.buf.hover()
 end)
 vim.keymap.set("n", "<space>d", "<cmd>TroubleToggle document_diagnostics<cr>")
-vim.keymap.set("n", "<space>d", "<cmd>TroubleToggle workspace_diagnostics<cr>")
+vim.keymap.set("n", "<space>D", "<cmd>TroubleToggle workspace_diagnostics<cr>")
 vim.keymap.set("n", "<space>a", "<cmd>CodeActionMenu<cr>")
 
 vim.keymap.set("n", "]d", function()
