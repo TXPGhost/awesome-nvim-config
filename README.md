@@ -7,84 +7,75 @@
 
 ## Keybindings
 
-### General
-
-| Key |                  Binding |
-| :-- | -----------------------: |
-| \\  | Search in current buffer |
-
 ### Git
 
-| Key     |              Binding |
-| :------ | -------------------: |
-| ?       | Open split diff view |
-| Space b |   Blame current line |
-| ]h      |            Next hunk |
-| [h      |        Previous hunk |
+| Key |                     Binding |
+| :-- | --------------------------: |
+| ?   | Open fugitive status window |
+| g?  |              Show diff view |
+| gb  |              Show git blame |
+| gB  |           Show git branches |
+| ]h  |                   Next hunk |
+| [h  |               Previous hunk |
 
-### File tree
+### File navigation
 
-| Key       |                    Binding |
-| :-------- | -------------------------: |
-| -         | Open file tree/navigate up |
-| +         |                Navigate in |
-| Backspace |            Close file tree |
-| w         |           Open file/folder |
-| H         |              Toggle hidden |
-| Ctrl f    |           Search for files |
+| Key       |                      Binding |
+| :-------- | ---------------------------: |
+| -         |   Open file tree/navigate up |
+| Enter     |        Open file/navigate in |
+| Backspace |              Close file tree |
+| `         |        Set current directory |
+| g.        |     Toggle show hidden files |
+| Space f   |        Search active buffers |
+| Space F   |         Search project files |
+| Space /   | Search project file contents |
 
 ### Tree-Sitter
 
-| Key                |                    Binding |
-| :----------------- | -------------------------: |
-| Enter Enter        |             Init selection |
-| (Visual) Tab       |             Grow selection |
-| (Visual) Shift Tab |           Shrink Selection |
-| (Normal) Tab       |        Goto next parameter |
-| (Normal) Shift Tab |    Goto previous parameter |
-| \]f                |      Jump to next function |
-| \[f                |  Jump to previous function |
-| Enter f            |    Select current function |
-| \]c                |         Jump to next class |
-| \[c                |     Jump to previous class |
-| Enter c            |       Select current class |
-| \]s                |     Jump to next statement |
-| \[s                | Jump to previous statement |
-| Enter s            |   Select current statement |
+| Key       |                    Binding |
+| :-------- | -------------------------: |
+| Enter     |             Init selection |
+| Tab       |             Grow selection |
+| Shift Tab |           Shrink Selection |
+| \]f       |      Jump to next function |
+| \[f       |  Jump to previous function |
+| \]c       |         Jump to next class |
+| \[c       |     Jump to previous class |
+| \]s       |     Jump to next statement |
+| \[s       | Jump to previous statement |
 
 ### LSP
 
 | Key     |                     Binding |
 | :------ | --------------------------: |
-| ;       |     Toggle document symbols |
 | gd      |             Goto definition |
 | gy      |        Goto type definition |
 | gr      |             Goto references |
+| gi      |        Goto implementations |
 | Space r |               Rename symbol |
 | Space k |         Hover documentation |
-| Space f |                 Open finder |
 | Space a |                 Code action |
-| Space i |         View incoming calls |
-| Space o |         View outgoing calls |
-| Space d |  Show workspace diagnostics |
+| Space d |   Show document diagnostics |
 | Space D |  Show workspace diagnostics |
 | \]d     |     Jump to next diagnostic |
 | \[d     | Jump to previous diagnostic |
+| Space ; |       Show document symbols |
+| Space : |      Show workspace symbols |
+
+### Tabs
+
+| Key    |           Binding |
+| :----- | ----------------: |
+| Ctrl t |    Create new tab |
+| Ctrl h | Goto previous tab |
+| Ctrl l |     Goto next tab |
 
 ## LaTeX
 
 | Key |                                          Binding |
 | :-- | -----------------------------------------------: |
-| \ll |                       Compile (using `tectonic`) |
+| \ll |                                          Compile |
 | dsc |                       Delete surroinding command |
 | dse |                   Delete surrounding environment |
 | ]]  | Close surrounding environment (insert mode only) |
-
-## Fold
-
-| Key |         Binding |
-| :-- | --------------: |
-| zc  |      Close fold |
-| zo  |       Open fold |
-| zM  | Close all folds |
-| zR  |  Open all folds |
