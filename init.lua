@@ -18,6 +18,10 @@ plug("rebelot/kanagawa.nvim")
 plug("projekt0n/github-nvim-theme")
 plug("catppuccin/nvim")
 plug("andreasvc/vim-256noir")
+plug("kepano/flexoki-neovim")
+plug("NLKNguyen/papercolor-theme")
+plug("bluz71/vim-moonfly-colors")
+plug("ayu-theme/ayu-vim")
 
 -- theme builder
 plug("rktjmp/lush.nvim")
@@ -79,6 +83,7 @@ plug("onsails/lspkind.nvim")
 -- git integration
 plug("lewis6991/gitsigns.nvim")
 plug("tpope/vim-fugitive")
+plug("sindrets/diffview.nvim")
 
 -- icons
 plug("nvim-tree/nvim-web-devicons")
@@ -318,6 +323,7 @@ lspconfig.yamlls.setup({ capabilities = capabilities })
 lspconfig.taplo.setup({ capabilities = capabilities })
 lspconfig.dotls.setup({ capabilities = capabilities })
 lspconfig.hls.setup({ capabilities = capabilities })
+lspconfig.glslls.setup({ capabilities = capabilities })
 
 -- rust-tools
 local rust_tools = require("rust-tools")
@@ -509,20 +515,33 @@ vim.opt.signcolumn = "yes"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.wrap = false
-vim.opt.mousescroll = "ver:1,hor:2"
 vim.opt.scrolloff = 5
 
-vim.cmd.colorscheme("tokyonight-night")
 vim.opt.termguicolors = true
+
+-- colorscheme
+vim.cmd.colorscheme("flexoki-dark")
+
+-- enable undercurl
+vim.cmd.hi("DiagnosticUnderlineOk", "gui=undercurl")
+vim.cmd.hi("DiagnosticUnderlineInfo", "gui=undercurl")
+vim.cmd.hi("DiagnosticUnderlineHint", "gui=undercurl")
+vim.cmd.hi("DiagnosticUnderlineWarn", "gui=undercurl")
+vim.cmd.hi("DiagnosticUnderlineError", "gui=undercurl")
+
+-- fix gitsings sign column
+vim.cmd.hi("GitSignsAdd", "guifg=#879a39", "guibg=#100f0f")
+vim.cmd.hi("GitSignsChange", "guifg=#8b7ec8", "guibg=#100f0f")
+vim.cmd.hi("GitSignsDelete", "guifg=#d14d41", "guibg=#100f0f")
 
 -- configure neovide, if enabled
 if vim.g.neovide then
 	vim.opt.relativenumber = false
 
-	vim.opt.guifont = "Monaspace Neon ExtraLight:#e-subpixelantialias:h7"
-	vim.opt.mousescroll = "ver:1,hor:0"
+	vim.opt.guifont = "Monaspace Neon ExtraLight:#e-subpixelantialias:h10"
 
 	vim.g.neovide_scroll_animation_length = 0.6
+	vim.g.neovide_refresh_rate = 144
 
 	vim.keymap.set("n", "<c-=>", function()
 		if vim.g.neovide_scale_factor < 3 then
