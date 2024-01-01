@@ -496,8 +496,6 @@ vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
 vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
 
 vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
-vim.keymap.set("n", "<c-s>", "<cmd>vsplit<cr>")
-vim.keymap.set("n", "<c-S>", "<cmd>tab split<cr>")
 vim.keymap.set("n", "<c-h>", "<cmd>tabprev<cr>")
 vim.keymap.set("n", "<c-l>", "<cmd>tabnext<cr>")
 
