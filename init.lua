@@ -513,18 +513,19 @@ vim.opt.termguicolors = true
 
 -- colorscheme
 vim.cmd.colorscheme("flexoki-dark")
+do
+	-- enable undercurl
+	vim.cmd.hi("DiagnosticUnderlineOk", "gui=undercurl")
+	vim.cmd.hi("DiagnosticUnderlineInfo", "gui=undercurl")
+	vim.cmd.hi("DiagnosticUnderlineHint", "gui=undercurl")
+	vim.cmd.hi("DiagnosticUnderlineWarn", "gui=undercurl")
+	vim.cmd.hi("DiagnosticUnderlineError", "gui=undercurl")
 
--- enable undercurl
-vim.cmd.hi("DiagnosticUnderlineOk", "gui=undercurl")
-vim.cmd.hi("DiagnosticUnderlineInfo", "gui=undercurl")
-vim.cmd.hi("DiagnosticUnderlineHint", "gui=undercurl")
-vim.cmd.hi("DiagnosticUnderlineWarn", "gui=undercurl")
-vim.cmd.hi("DiagnosticUnderlineError", "gui=undercurl")
-
--- fix gitsings sign column
-vim.cmd.hi("GitSignsAdd", "guifg=#879a39", "guibg=#100f0f")
-vim.cmd.hi("GitSignsChange", "guifg=#8b7ec8", "guibg=#100f0f")
-vim.cmd.hi("GitSignsDelete", "guifg=#d14d41", "guibg=#100f0f")
+	-- fix gitsings sign column
+	vim.cmd.hi("GitSignsAdd", "guifg=#879a39", "guibg=#100f0f")
+	vim.cmd.hi("GitSignsChange", "guifg=#8b7ec8", "guibg=#100f0f")
+	vim.cmd.hi("GitSignsDelete", "guifg=#d14d41", "guibg=#100f0f")
+end
 
 -- configure neovide, if enabled
 if vim.g.neovide then
