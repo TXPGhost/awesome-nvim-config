@@ -359,7 +359,7 @@ require("crates").setup({
 
 -- trouble
 require("trouble").setup({
-	height = 12,
+	height = 20,
 	padding = false,
 	auto_close = true,
 	auto_jump = {
@@ -507,6 +507,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.wrap = false
 vim.opt.scrolloff = 5
+vim.opt.mousescroll = "ver:5,hor:6"
 
 vim.opt.termguicolors = true
 
@@ -535,6 +536,8 @@ if vim.g.neovide then
 
 	vim.g.neovide_scroll_animation_length = 0.3
 	vim.g.neovide_refresh_rate = 144
+
+	vim.g.neovide_fullscreen = true
 
 	vim.keymap.set("n", "<c-=>", function()
 		if vim.g.neovide_scale_factor < 3 then
