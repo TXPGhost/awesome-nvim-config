@@ -498,7 +498,6 @@ vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
 vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
 vim.keymap.set("n", "<c-h>", "<cmd>tabprev<cr>")
 vim.keymap.set("n", "<c-l>", "<cmd>tabnext<cr>")
-
 -- startup commands
 vim.opt.compatible = false
 vim.opt.tabstop = 4
@@ -529,11 +528,13 @@ vim.cmd.hi("GitSignsDelete", "guifg=#d14d41", "guibg=#100f0f")
 
 -- configure neovide, if enabled
 if vim.g.neovide then
-	vim.opt.relativenumber = false
+	vim.opt.guifont = "Monaspace Neon ExtraLight:#e-subpixelantialias:h9.5"
 
-	vim.opt.guifont = "Monaspace Neon ExtraLight:#e-subpixelantialias:h10"
+	local default_scale_factor = 1.1
 
-	vim.g.neovide_scroll_animation_length = 0.6
+	vim.g.neovide_scale_factor = default_scale_factor
+
+	vim.g.neovide_scroll_animation_length = 0.3
 	vim.g.neovide_refresh_rate = 144
 
 	vim.keymap.set("n", "<c-=>", function()
@@ -549,6 +550,6 @@ if vim.g.neovide then
 	end)
 
 	vim.keymap.set("n", "<c-0>", function()
-		vim.g.neovide_scale_factor = 1
+		vim.g.neovide_scale_factor = default_scale_factor
 	end)
 end
