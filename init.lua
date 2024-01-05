@@ -465,9 +465,7 @@ mktextobj("c", "@class.outer")
 mktextobj("s", "@statement.outer")
 
 -- git
-vim.keymap.set("n", "<space>g", "<cmd>Gitsigns stage_hunk<cr>")
-vim.keymap.set("n", "<space>G", "<cmd>Gitsigns stage_buffer<cr>")
-vim.keymap.set("n", "<space>u", "<cmd>Gitsigns undo_stage_hunk<cr>")
+vim.keymap.set("n", "<space>g", "<cmd>Gitsigns preview_hunk_inline<cr>")
 vim.keymap.set("n", "gb", "<cmd>Git blame<cr>")
 vim.keymap.set("n", "gB", "<cmd>Telescope git_branches<cr>")
 vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>")
@@ -498,6 +496,7 @@ vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
 vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
 vim.keymap.set("n", "<c-h>", "<cmd>tabprev<cr>")
 vim.keymap.set("n", "<c-l>", "<cmd>tabnext<cr>")
+
 -- startup commands
 vim.opt.compatible = false
 vim.opt.tabstop = 4
