@@ -2,7 +2,6 @@
 ---@diagnostic disable-next-line: param-type-mismatch
 vim.call("plug#begin")
 local plug = vim.fn["plug#"]
-
 -- dependencies
 plug("nvim-lua/plenary.nvim")
 
@@ -148,6 +147,7 @@ conform.setup({
 		cpp = { "clang-format" },
 		lua = { "stylua" },
 		ocaml = { "ocamlformat" },
+		haskell = { "ormolu" },
 		_ = { "trim_whitespace" },
 	},
 	format_on_save = {
@@ -529,8 +529,6 @@ end
 
 -- configure neovide, if enabled
 if vim.g.neovide then
-	vim.opt.guifont = "Monaspace Neon ExtraLight:#e-subpixelantialias:h9.5"
-
 	local default_scale_factor = 1.1
 
 	vim.g.neovide_scale_factor = default_scale_factor
