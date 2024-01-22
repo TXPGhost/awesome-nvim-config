@@ -291,7 +291,6 @@ vim.api.nvim_create_user_command("MarkdownPreviewClose", peek.close, {})
 
 -- config quick edit
 vim.api.nvim_create_user_command("Config", function()
-	vim.cmd("tabnew")
 	vim.cmd("e ~/.config/nvim/init.lua")
 end, {})
 
@@ -544,6 +543,9 @@ vim.opt.termguicolors = true
 
 -- disable mouse menu
 vim.opt.mousemodel = "extend"
+
+-- sonokai
+vim.g.sonokai_style = "andromeda"
 
 -- colorscheme
 vim.cmd.colorscheme("sonokai")
