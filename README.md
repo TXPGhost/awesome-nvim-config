@@ -24,6 +24,19 @@ The cleanest neovim config out there.
 | [h          |               Previous hunk |
 | Space s     |     Stage hunk under cursor |
 
+### Window Navigation
+
+| Key         |                Binding |
+| :---------- | ---------------------: |
+| Left        |  Switch to left window |
+| Right       | Switch to right window |
+| Up          |    Switch to up window |
+| Down        |  Switch to down window |
+| Shift Left  |       Move window left |
+| Shift Right |      Move window right |
+| Shift Up    |         Move window up |
+| Shift Down  |       Move window down |
+
 ### File navigation
 
 | Key       |                      Binding |
