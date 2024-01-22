@@ -33,6 +33,10 @@ plug("nvim-lualine/lualine.nvim")
 -- comment toggling
 plug("tpope/vim-commentary")
 
+-- better fold
+plug("kevinhwang91/promise-async")
+plug("kevinhwang91/nvim-ufo")
+
 -- LSP
 plug("neovim/nvim-lspconfig")
 plug("ray-x/lsp_signature.nvim")
@@ -431,6 +435,10 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99999
 
+-- ufo
+local ufo = require("ufo")
+ufo.setup()
+
 -- vimtex
 vim.g.vimtex_view_general_viewer = "okular"
 vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src@line@tex"
@@ -516,6 +524,18 @@ vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
 vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
 vim.keymap.set("n", "<c-h>", "<cmd>tabprev<cr>")
 vim.keymap.set("n", "<c-l>", "<cmd>tabnext<cr>")
+
+-- folds (ufo)
+vim.keymap.set("n", "zR", ufo.openAllFolds)
+vim.keymap.set("n", "zM", ufo.closeAllFolds)
+vim.keymap.set("n", "zr", ufo.openFoldsExceptKinds)
+vim.keymap.set("n", "zm", ufo.closeFoldsWith)
+vim.keymap.set("n", "K", function()
+	local winid = ufo.peekFoldedLinesUnderCursor()
+	if not winid then
+		vim.lsp.buf.hover()
+	end
+end)
 
 -- startup commands
 vim.opt.compatible = false
