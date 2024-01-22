@@ -13,16 +13,16 @@ The cleanest neovim config out there.
 
 ### Git
 
-| Key      |                     Binding |
-| :------- | --------------------------: |
-| ?        | Open fugitive status window |
-| <space>h |         Inline preview hunk |
-| g?       |              Show diff view |
-| gb       |              Show git blame |
-| gB       |           Show git branches |
-| ]h       |                   Next hunk |
-| [h       |               Previous hunk |
-| <space>s |     Stage hunk under cursor |
+| Key         |                     Binding |
+| :---------- | --------------------------: |
+| ?           | Open fugitive status window |
+| Space Space |         Inline preview hunk |
+| g?          |              Show diff view |
+| gb          |              Show git blame |
+| gB          |           Show git branches |
+| ]h          |                   Next hunk |
+| [h          |               Previous hunk |
+| Space s     |     Stage hunk under cursor |
 
 ### File navigation
 
