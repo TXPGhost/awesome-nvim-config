@@ -16,7 +16,7 @@ The cleanest neovim config out there.
 | Key      |                     Binding |
 | :------- | --------------------------: |
 | ?        | Open fugitive status window |
-| <space>? |         Inline preview hunk |
+| <space>h |         Inline preview hunk |
 | g?       |              Show diff view |
 | gb       |              Show git blame |
 | gB       |           Show git branches |
