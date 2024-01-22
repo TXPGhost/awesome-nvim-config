@@ -485,13 +485,13 @@ mktextobj("c", "@class.outer")
 mktextobj("s", "@statement.outer")
 
 -- git
-vim.keymap.set("n", "<space>g", "<cmd>Gitsigns preview_hunk_inline<cr>")
 vim.keymap.set("n", "gb", "<cmd>Git blame<cr>")
 vim.keymap.set("n", "gB", "<cmd>Telescope git_branches<cr>")
 vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>")
 vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr>")
 vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
-vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit!<cr>")
+vim.keymap.set("n", "g?", "<cmd>Gitsigns preview_hunk_inline<cr>")
+vim.keymap.set("n", "g??", "<cmd>Gvdiffsplit!<cr>")
 vim.keymap.set("n", "gs", "<cmd>Gitsigns stage_hunk<cr>")
 
 vim.keymap.set("n", "<space>k", function()
