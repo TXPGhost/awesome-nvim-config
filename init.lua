@@ -21,6 +21,8 @@ plug("kepano/flexoki-neovim")
 plug("NLKNguyen/papercolor-theme")
 plug("bluz71/vim-moonfly-colors")
 plug("ayu-theme/ayu-vim")
+plug("sainnhe/sonokai")
+plug("AlexvZyl/nordic.nvim")
 
 -- theme builder
 plug("rktjmp/lush.nvim")
@@ -512,8 +514,10 @@ vim.opt.mousescroll = "ver:5,hor:6"
 vim.opt.termguicolors = true
 
 -- colorscheme
-vim.cmd.colorscheme("flexoki-dark")
-do
+vim.cmd.colorscheme("sonokai")
+
+-- fixes for flexoki-dark
+if vim.cmd.colorscheme() == "flexoki-dark" then
 	-- enable undercurl
 	vim.cmd.hi("DiagnosticUnderlineOk", "gui=undercurl")
 	vim.cmd.hi("DiagnosticUnderlineInfo", "gui=undercurl")
