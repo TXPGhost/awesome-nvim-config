@@ -287,6 +287,12 @@ peek.setup({})
 vim.api.nvim_create_user_command("MarkdownPreviewOpen", peek.open, {})
 vim.api.nvim_create_user_command("MarkdownPreviewClose", peek.close, {})
 
+-- config quick edit
+vim.api.nvim_create_user_command("Config", function()
+	vim.cmd("tabnew")
+	vim.cmd("e ~/.config/nvim/init.lua")
+end, {})
+
 -- gitsigns
 local gitsigns = require("gitsigns")
 gitsigns.setup({})
