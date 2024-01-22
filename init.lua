@@ -39,7 +39,6 @@ plug("ray-x/lsp_signature.nvim")
 plug("smjonas/inc-rename.nvim")
 plug("weilbith/nvim-code-action-menu")
 plug("folke/trouble.nvim")
-plug("RRethy/vim-illuminate")
 
 -- graphviz
 plug("liuchengxu/graphviz.vim")
@@ -273,15 +272,6 @@ cmp.setup.cmdline(":", {
 })
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
--- illuminate
-require("illuminate").configure({
-	providers = {
-		"treesitter",
-		"regex",
-	},
-	delay = 0,
-})
 
 -- markdown preview
 local peek = require("peek")
