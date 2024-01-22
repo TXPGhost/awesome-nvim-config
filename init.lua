@@ -47,6 +47,7 @@ plug("liuchengxu/graphviz.vim")
 -- tree-sitter
 plug("nvim-treesitter/nvim-treesitter", "{do: :TSUpdate}")
 plug("nvim-treesitter/nvim-treesitter-textobjects")
+plug("nvim-treesitter/nvim-treesitter-context")
 
 -- file explorer
 plug("stevearc/oil.nvim")
