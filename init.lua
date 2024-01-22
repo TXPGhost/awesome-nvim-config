@@ -542,6 +542,9 @@ vim.opt.mousescroll = "ver:5,hor:6"
 
 vim.opt.termguicolors = true
 
+-- disable mouse menu
+vim.opt.mousemodel = "extend"
+
 -- colorscheme
 vim.cmd.colorscheme("sonokai")
 
