@@ -117,10 +117,6 @@ vim.call("plug#end")
 -- set help window to vertical split
 vim.api.nvim_create_autocmd({ "FileType" }, { pattern = { "help" }, command = "wincmd L" })
 
--- enable undercurl support for wezterm
-vim.cmd([[let &t_Cs = "\e[60m"]])
-vim.cmd([[let &t_Ce = "\e[24m"]])
-
 -- disable startup message
 vim.opt.shm:append("I")
 
@@ -592,16 +588,19 @@ if vim.g.neovide then
 	vim.keymap.set("n", "<c-=>", function()
 		if vim.g.neovide_scale_factor < 3 then
 			vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * 1.1
+			vim.cmd('lua print("Resized window.")')
 		end
 	end)
 
 	vim.keymap.set("n", "<c-->", function()
 		if vim.g.neovide_scale_factor > 0.5 then
 			vim.g.neovide_scale_factor = vim.g.neovide_scale_factor / 1.1
+			vim.cmd('lua print("Resized window.")')
 		end
 	end)
 
 	vim.keymap.set("n", "<c-0>", function()
 		vim.g.neovide_scale_factor = default_scale_factor
+		vim.cmd('lua print("Resized window.")')
 	end)
 end
