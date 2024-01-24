@@ -552,26 +552,24 @@ vim.opt.mousemodel = "extend"
 
 -- colorscheme
 do
-	-- tweaks for sonokai
+	-- set sonokai style
 	vim.g.sonokai_style = "andromeda"
 
 	-- set colorscheme
-	vim.cmd.colorscheme("sonokai")
+	vim.cmd.colorscheme("flexoki-dark")
 
 	-- tweaks for flexoki-dark
-	if vim.cmd.colorscheme() == "flexoki-dark" then
-		-- enable undercurl
-		vim.cmd.hi("DiagnosticUnderlineOk", "gui=undercurl")
-		vim.cmd.hi("DiagnosticUnderlineInfo", "gui=undercurl")
-		vim.cmd.hi("DiagnosticUnderlineHint", "gui=undercurl")
-		vim.cmd.hi("DiagnosticUnderlineWarn", "gui=undercurl")
-		vim.cmd.hi("DiagnosticUnderlineError", "gui=undercurl")
+	vim.cmd.hi("DiagnosticUnderlineOk", "gui=undercurl")
+	vim.cmd.hi("DiagnosticUnderlineInfo", "gui=undercurl")
+	vim.cmd.hi("DiagnosticUnderlineHint", "gui=undercurl")
+	vim.cmd.hi("DiagnosticUnderlineWarn", "gui=undercurl")
+	vim.cmd.hi("DiagnosticUnderlineError", "gui=undercurl")
+	vim.cmd.hi("GitSignsAdd", "guifg=#879a39", "guibg=#100f0f")
+	vim.cmd.hi("GitSignsChange", "guifg=#8b7ec8", "guibg=#100f0f")
+	vim.cmd.hi("GitSignsDelete", "guifg=#d14d41", "guibg=#100f0f")
 
-		-- fix gitsings sign column
-		vim.cmd.hi("GitSignsAdd", "guifg=#879a39", "guibg=#100f0f")
-		vim.cmd.hi("GitSignsChange", "guifg=#8b7ec8", "guibg=#100f0f")
-		vim.cmd.hi("GitSignsDelete", "guifg=#d14d41", "guibg=#100f0f")
-	end
+	-- tweaks for sonokai
+	-- vim.cmd.hi("VirtualTextError", "guifg=#c1536b")
 end
 
 -- configure neovide, if enabled
