@@ -590,6 +590,7 @@ do
 
 	-- tweaks for sonokai
 	vim.cmd.hi("VirtualTextError", "guifg=#c1536b")
+	vim.cmd.hi("VirtualTextWarn", "guifg=#edc763")
 end
 
 -- configure neovide, if enabled
