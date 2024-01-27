@@ -303,6 +303,9 @@ vim.api.nvim_create_user_command("MarkdownPreviewClose", peek.close, {})
 vim.api.nvim_create_user_command("Config", function()
 	vim.cmd("e ~/.config/nvim/init.lua")
 end, {})
+vim.api.nvim_create_user_command("ConfigReload", function()
+	vim.cmd("so ~/.config/nvim/init.lua")
+end, {})
 
 -- gitsigns
 local gitsigns = require("gitsigns")
@@ -324,10 +327,7 @@ local lspconfig = require("lspconfig")
 
 lspconfig.jdtls.setup({ capabilities = capabilities })
 lspconfig.vimls.setup({ capabilities = capabilities })
-lspconfig.clangd.setup({
-	cmd = { "clangd", "--query-driver=/usr/bin/arm-none-eabi-gcc,/usr/bin/arm-none-eabi-g++" },
-	capabilities = capabilities,
-})
+lspconfig.clangd.setup({ capabilities = capabilities })
 lspconfig.cmake.setup({ capabilities = capabilities })
 lspconfig.lua_ls.setup({ capabilities = capabilities })
 lspconfig.marksman.setup({ capabilities = capabilities })
@@ -576,20 +576,20 @@ do
 	vim.g.sonokai_style = "andromeda"
 
 	-- set colorscheme
-	vim.cmd.colorscheme("flexoki-dark")
+	vim.cmd.colorscheme("sonokai")
 
 	-- tweaks for flexoki-dark
-	vim.cmd.hi("DiagnosticUnderlineOk", "gui=undercurl")
-	vim.cmd.hi("DiagnosticUnderlineInfo", "gui=undercurl")
-	vim.cmd.hi("DiagnosticUnderlineHint", "gui=undercurl")
-	vim.cmd.hi("DiagnosticUnderlineWarn", "gui=undercurl")
-	vim.cmd.hi("DiagnosticUnderlineError", "gui=undercurl")
-	vim.cmd.hi("GitSignsAdd", "guifg=#879a39", "guibg=#100f0f")
-	vim.cmd.hi("GitSignsChange", "guifg=#8b7ec8", "guibg=#100f0f")
-	vim.cmd.hi("GitSignsDelete", "guifg=#d14d41", "guibg=#100f0f")
+	-- vim.cmd.hi("DiagnosticUnderlineOk", "gui=undercurl")
+	-- vim.cmd.hi("DiagnosticUnderlineInfo", "gui=undercurl")
+	-- vim.cmd.hi("DiagnosticUnderlineHint", "gui=undercurl")
+	-- vim.cmd.hi("DiagnosticUnderlineWarn", "gui=undercurl")
+	-- vim.cmd.hi("DiagnosticUnderlineError", "gui=undercurl")
+	-- vim.cmd.hi("GitSignsAdd", "guifg=#879a39", "guibg=#100f0f")
+	-- vim.cmd.hi("GitSignsChange", "guifg=#8b7ec8", "guibg=#100f0f")
+	-- vim.cmd.hi("GitSignsDelete", "guifg=#d14d41", "guibg=#100f0f")
 
 	-- tweaks for sonokai
-	-- vim.cmd.hi("VirtualTextError", "guifg=#c1536b")
+	vim.cmd.hi("VirtualTextError", "guifg=#c1536b")
 end
 
 -- configure neovide, if enabled
