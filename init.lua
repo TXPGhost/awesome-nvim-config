@@ -491,8 +491,7 @@ require("telescope").setup({
 	},
 })
 
-vim.keymap.set("n", "<space>F", "<cmd>Telescope find_files<cr>")
-vim.keymap.set("n", "<space>f", "<cmd>Telescope buffers<cr>")
+vim.keymap.set("n", "<space>f", "<cmd>Telescope find_files<cr>")
 vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
 
 vim.keymap.set("n", "<space>;", "<cmd>Telescope lsp_document_symbols<cr>")

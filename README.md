@@ -46,8 +46,7 @@ The cleanest neovim config out there.
 | Backspace |              Close file tree |
 | `         |        Set current directory |
 | g.        |     Toggle show hidden files |
-| Space f   |        Search active buffers |
-| Space F   |         Search project files |
+| Space f   |         Search project files |
 | Space /   | Search project file contents |
 
 ### Tree-Sitter
