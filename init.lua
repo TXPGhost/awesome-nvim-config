@@ -588,6 +588,11 @@ do
 	vim.cmd.hi("GitSignsAdd", "guifg=#879a39", "guibg=#100f0f")
 	vim.cmd.hi("GitSignsChange", "guifg=#8b7ec8", "guibg=#100f0f")
 	vim.cmd.hi("GitSignsDelete", "guifg=#d14d41", "guibg=#100f0f")
+	vim.cmd.hi("ConflictMarkerBegin", "guifg=#100f0f", "guibg=#8b7ec8")
+	vim.cmd.hi("ConflictMarkerEnd", "guifg=#100f0f", "guibg=#879a39")
+	vim.cmd.hi("ConflictMarkerSeparator", "guifg=#100f0f", "guibg=#d14d41")
+	vim.cmd.hi("ConflictMarkerOurs", "guifg=#100f0f", "guibg=#8b7ec8")
+	vim.cmd.hi("ConflictMarkerTheirs", "guifg=#100f0f", "guibg=#879a39")
 
 	-- tweaks for sonokai
 	-- vim.cmd.hi("VirtualTextError", "guifg=#c1536b")
