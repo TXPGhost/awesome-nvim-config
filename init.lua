@@ -348,6 +348,7 @@ lspconfig.taplo.setup({ capabilities = capabilities })
 lspconfig.dotls.setup({ capabilities = capabilities })
 lspconfig.hls.setup({ capabilities = capabilities })
 lspconfig.glslls.setup({ capabilities = capabilities })
+lspconfig.pylsp.setup({ capabilities = capabilities })
 
 -- rust-tools
 local rust_tools = require("rust-tools")
@@ -576,21 +577,21 @@ do
 	vim.g.sonokai_style = "andromeda"
 
 	-- set colorscheme
-	vim.cmd.colorscheme("sonokai")
+	vim.cmd.colorscheme("flexoki-dark")
 
 	-- tweaks for flexoki-dark
-	-- vim.cmd.hi("DiagnosticUnderlineOk", "gui=undercurl")
-	-- vim.cmd.hi("DiagnosticUnderlineInfo", "gui=undercurl")
-	-- vim.cmd.hi("DiagnosticUnderlineHint", "gui=undercurl")
-	-- vim.cmd.hi("DiagnosticUnderlineWarn", "gui=undercurl")
-	-- vim.cmd.hi("DiagnosticUnderlineError", "gui=undercurl")
-	-- vim.cmd.hi("GitSignsAdd", "guifg=#879a39", "guibg=#100f0f")
-	-- vim.cmd.hi("GitSignsChange", "guifg=#8b7ec8", "guibg=#100f0f")
-	-- vim.cmd.hi("GitSignsDelete", "guifg=#d14d41", "guibg=#100f0f")
+	vim.cmd.hi("DiagnosticUnderlineOk", "gui=undercurl")
+	vim.cmd.hi("DiagnosticUnderlineInfo", "gui=undercurl")
+	vim.cmd.hi("DiagnosticUnderlineHint", "gui=undercurl")
+	vim.cmd.hi("DiagnosticUnderlineWarn", "gui=undercurl")
+	vim.cmd.hi("DiagnosticUnderlineError", "gui=undercurl")
+	vim.cmd.hi("GitSignsAdd", "guifg=#879a39", "guibg=#100f0f")
+	vim.cmd.hi("GitSignsChange", "guifg=#8b7ec8", "guibg=#100f0f")
+	vim.cmd.hi("GitSignsDelete", "guifg=#d14d41", "guibg=#100f0f")
 
 	-- tweaks for sonokai
-	vim.cmd.hi("VirtualTextError", "guifg=#c1536b")
-	vim.cmd.hi("VirtualTextWarn", "guifg=#edc763")
+	-- vim.cmd.hi("VirtualTextError", "guifg=#c1536b")
+	-- vim.cmd.hi("DiagnosticVirtualTextWarn", "guifg=#edc763")
 end
 
 -- configure neovide, if enabled
