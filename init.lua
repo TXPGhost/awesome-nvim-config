@@ -48,7 +48,7 @@ plug("folke/trouble.nvim")
 plug("liuchengxu/graphviz.vim")
 
 -- tree-sitter
-plug("nvim-treesitter/nvim-treesitter", "{do: :TSUpdate}")
+plug("nvim-treesitter/nvim-treesitter")
 plug("nvim-treesitter/nvim-treesitter-textobjects")
 plug("nvim-treesitter/nvim-treesitter-context")
 
@@ -59,11 +59,7 @@ plug("stevearc/oil.nvim")
 plug("stevearc/conform.nvim")
 
 -- telescope
-plug("nvim-telescope/telescope.nvim", "{ branch: 0.1.x }")
-plug(
-	"nvim-telescope/telescope-fzf-native.nvim",
-	"{ do: cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build }"
-)
+plug("nvim-telescope/telescope.nvim")
 
 -- autocompletion
 plug("neovim/nvim-lspconfig")
