@@ -625,8 +625,6 @@ do
 	vim.cmd.hi("ConflictMarkerBegin", "guifg=#100f0f", "guibg=#8b7ec8")
 	vim.cmd.hi("ConflictMarkerEnd", "guifg=#100f0f", "guibg=#879a39")
 	vim.cmd.hi("ConflictMarkerSeparator", "guifg=#100f0f", "guibg=#d14d41")
-	vim.cmd.hi("ConflictMarkerOurs", "guifg=#100f0f", "guibg=#8b7ec8")
-	vim.cmd.hi("ConflictMarkerTheirs", "guifg=#100f0f", "guibg=#879a39")
 
 	-- tweaks for sonokai
 	-- vim.cmd.hi("VirtualTextError", "guifg=#c1536b")
