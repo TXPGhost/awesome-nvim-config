@@ -107,6 +107,9 @@ plug("mfussenegger/nvim-jdtls")
 -- markdown preview
 plug("cloudsftp/peek.nvim")
 
+-- colorizer
+plug("norcalli/nvim-colorizer.lua")
+
 ---@diagnostic disable-next-line: param-type-mismatch
 vim.call("plug#end")
 
@@ -486,6 +489,21 @@ require("nvim-treesitter.configs").setup({
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99999
+
+-- colorizer
+vim.opt.termguicolors = true
+require("colorizer").setup({ "*" }, {
+	RGB = true,
+	RRGGBB = true,
+	RRGGBBAA = true,
+	names = true,
+	rgb_fn = true,
+	hsl_fn = true,
+	css = true,
+	css_fn = true,
+	mode = "background",
+})
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = { "*" }, command = "ColorizerAttachToBuffer" })
 
 -- ufo
 local ufo = require("ufo")
