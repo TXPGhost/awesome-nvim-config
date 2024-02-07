@@ -570,6 +570,7 @@ vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
 vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit!<cr>")
 vim.keymap.set("n", "<space>s", "<cmd>Gitsigns stage_hunk<cr>")
 
+-- lsp
 vim.keymap.set("n", "<space>k", function()
 	vim.lsp.buf.hover()
 end)
@@ -590,6 +591,7 @@ vim.keymap.set("n", "gy", "<cmd>Trouble lsp_type_definitions<cr>")
 vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
 vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
 
+-- tabs
 vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
 vim.keymap.set("n", "<c-h>", "<cmd>tabprev<cr>")
 vim.keymap.set("n", "<c-l>", "<cmd>tabnext<cr>")
@@ -618,10 +620,8 @@ vim.opt.wrap = false
 vim.opt.scrolloff = 5
 vim.opt.mousescroll = "ver:5,hor:6"
 
-vim.opt.termguicolors = true
-
 -- disable mouse menu
-vim.opt.mousemodel = "extend"
+-- vim.opt.mousemodel = "extend"
 
 -- colorscheme
 do
