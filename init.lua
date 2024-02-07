@@ -12,20 +12,9 @@ plug("folke/neodev.nvim")
 plug("dstein64/vim-startuptime")
 
 -- themes
-plug("folke/tokyonight.nvim")
 plug("rebelot/kanagawa.nvim")
-plug("projekt0n/github-nvim-theme")
-plug("catppuccin/nvim")
-plug("andreasvc/vim-256noir")
 plug("kepano/flexoki-neovim")
-plug("NLKNguyen/papercolor-theme")
-plug("bluz71/vim-moonfly-colors")
-plug("ayu-theme/ayu-vim")
 plug("sainnhe/sonokai")
-plug("AlexvZyl/nordic.nvim")
-
--- theme builder
-plug("rktjmp/lush.nvim")
 
 -- lualine
 plug("nvim-lualine/lualine.nvim")
@@ -629,20 +618,20 @@ do
 	vim.g.sonokai_style = "andromeda"
 
 	-- set colorscheme
-	vim.cmd.colorscheme("flexoki-dark")
+	vim.cmd.colorscheme("kanagawa-dragon")
 
 	-- tweaks for flexoki-dark
-	vim.cmd.hi("DiagnosticUnderlineOk", "gui=undercurl")
-	vim.cmd.hi("DiagnosticUnderlineInfo", "gui=undercurl")
-	vim.cmd.hi("DiagnosticUnderlineHint", "gui=undercurl")
-	vim.cmd.hi("DiagnosticUnderlineWarn", "gui=undercurl")
-	vim.cmd.hi("DiagnosticUnderlineError", "gui=undercurl")
-	vim.cmd.hi("GitSignsAdd", "guifg=#879a39", "guibg=#100f0f")
-	vim.cmd.hi("GitSignsChange", "guifg=#8b7ec8", "guibg=#100f0f")
-	vim.cmd.hi("GitSignsDelete", "guifg=#d14d41", "guibg=#100f0f")
-	vim.cmd.hi("ConflictMarkerBegin", "guifg=#100f0f", "guibg=#8b7ec8")
-	vim.cmd.hi("ConflictMarkerEnd", "guifg=#100f0f", "guibg=#879a39")
-	vim.cmd.hi("ConflictMarkerSeparator", "guifg=#100f0f", "guibg=#d14d41")
+	-- vim.cmd.hi("DiagnosticUnderlineOk", "gui=undercurl")
+	-- vim.cmd.hi("DiagnosticUnderlineInfo", "gui=undercurl")
+	-- vim.cmd.hi("DiagnosticUnderlineHint", "gui=undercurl")
+	-- vim.cmd.hi("DiagnosticUnderlineWarn", "gui=undercurl")
+	-- vim.cmd.hi("DiagnosticUnderlineError", "gui=undercurl")
+	-- vim.cmd.hi("GitSignsAdd", "guifg=#879a39", "guibg=#100f0f")
+	-- vim.cmd.hi("GitSignsChange", "guifg=#8b7ec8", "guibg=#100f0f")
+	-- vim.cmd.hi("GitSignsDelete", "guifg=#d14d41", "guibg=#100f0f")
+	-- vim.cmd.hi("ConflictMarkerBegin", "guifg=#100f0f", "guibg=#8b7ec8")
+	-- vim.cmd.hi("ConflictMarkerEnd", "guifg=#100f0f", "guibg=#879a39")
+	-- vim.cmd.hi("ConflictMarkerSeparator", "guifg=#100f0f", "guibg=#d14d41")
 
 	-- tweaks for sonokai
 	-- vim.cmd.hi("VirtualTextError", "guifg=#c1536b")
