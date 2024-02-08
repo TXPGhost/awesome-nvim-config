@@ -34,12 +34,19 @@ plug("smjonas/inc-rename.nvim")
 plug("weilbith/nvim-code-action-menu")
 plug("folke/trouble.nvim")
 
+-- testing
+plug("nvim-neotest/neotest")
+plug("andythigpen/nvim-coverage")
+
 -- graphviz
 plug("liuchengxu/graphviz.vim")
 
 -- tree-sitter
 plug("nvim-treesitter/nvim-treesitter")
 plug("nvim-treesitter/nvim-treesitter-textobjects")
+
+-- splitjoin
+plug("Wansmer/treesj")
 
 -- file explorer
 plug("stevearc/oil.nvim")
@@ -92,7 +99,7 @@ plug("tpope/vim-sleuth")
 -- rust
 plug("Saecki/crates.nvim")
 
--- markdown preview
+-- markdown
 plug("cloudsftp/peek.nvim")
 
 -- colorizer
@@ -325,6 +332,11 @@ peek.setup({})
 vim.api.nvim_create_user_command("MarkdownPreviewOpen", peek.open, {})
 vim.api.nvim_create_user_command("MarkdownPreviewClose", peek.close, {})
 
+-- treesj
+require("treesj").setup({
+	use_default_keymaps = false,
+})
+
 -- config quick edit
 vim.api.nvim_create_user_command("Config", function()
 	vim.cmd("e ~/.config/nvim/init.lua")
@@ -546,6 +558,10 @@ vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
 
 vim.keymap.set("n", "<space>;", "<cmd>Telescope lsp_document_symbols<cr>")
 vim.keymap.set("n", "<space>:", "<cmd>Telescope lsp_workspace_symbols<cr>")
+
+-- treesj
+vim.keymap.set("n", "<c-k>", "<cmd>TSJJoin<cr>")
+vim.keymap.set("n", "<c-j>", "<cmd>TSJSplit<cr>")
 
 -- treesitter-textobjects
 local function mktextobj(bind, obj)
