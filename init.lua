@@ -37,7 +37,6 @@ plug("linrongbin16/lsp-progress.nvim")
 
 -- testing
 plug("nvim-neotest/neotest")
-plug("andythigpen/nvim-coverage")
 
 -- graphviz
 plug("liuchengxu/graphviz.vim")
