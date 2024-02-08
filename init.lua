@@ -639,7 +639,8 @@ end
 
 -- configure neovide, if enabled
 if vim.g.neovide then
-	local default_scale_factor = 1.1
+	-- local default_scale_factor = 1.1
+	local default_scale_factor = 1.0
 
 	vim.g.neovide_scale_factor = default_scale_factor
 
