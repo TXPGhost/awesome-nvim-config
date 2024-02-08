@@ -18,6 +18,7 @@ plug("sainnhe/sonokai")
 
 -- lualine
 plug("nvim-lualine/lualine.nvim")
+plug("mawkler/modicator.nvim")
 
 -- comment toggling
 plug("tpope/vim-commentary")
@@ -606,6 +607,7 @@ end)
 
 -- startup commands
 vim.opt.compatible = false
+vim.opt.cursorline = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.swapfile = false
@@ -624,6 +626,17 @@ do
 	-- set colorscheme
 	vim.cmd.colorscheme("kanagawa-dragon")
 
+	-- tweaks for kanagawa-dragon
+	vim.cmd.hi("CursorLine", "guibg=none")
+	vim.cmd.hi("NormalMode", "guibg=#282727")
+	vim.cmd.hi("InsertMode", "guibg=#282727")
+	vim.cmd.hi("VisualMode", "guibg=#282727")
+	vim.cmd.hi("CommandMode", "guibg=#282727")
+	vim.cmd.hi("ReplaceMode", "guibg=#282727")
+	vim.cmd.hi("SelectMode", "guibg=#282727")
+	vim.cmd.hi("TerminalMode", "guibg=#282727")
+	vim.cmd.hi("TerminalNormalMode", "guibg=#282727")
+
 	-- tweaks for flexoki-dark
 	-- vim.cmd.hi("DiagnosticUnderlineOk", "gui=undercurl")
 	-- vim.cmd.hi("DiagnosticUnderlineInfo", "gui=undercurl")
@@ -641,6 +654,9 @@ do
 	-- vim.cmd.hi("VirtualTextError", "guifg=#c1536b")
 	-- vim.cmd.hi("DiagnosticVirtualTextWarn", "guifg=#edc763")
 end
+
+-- modicator
+require("modicator").setup({})
 
 -- configure neovide, if enabled
 if vim.g.neovide then
