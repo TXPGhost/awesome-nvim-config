@@ -367,7 +367,16 @@ lspconfig.jdtls.setup({ capabilities = capabilities })
 lspconfig.vimls.setup({ capabilities = capabilities })
 lspconfig.clangd.setup({ capabilities = capabilities })
 lspconfig.cmake.setup({ capabilities = capabilities })
-lspconfig.lua_ls.setup({ capabilities = capabilities })
+lspconfig.lua_ls.setup({
+	settings = {
+		Lua = {
+			completion = {
+				callSnippet = "Replace",
+			},
+		},
+	},
+	capabilities = capabilities,
+})
 lspconfig.marksman.setup({ capabilities = capabilities })
 lspconfig.ocamllsp.setup({
 	cmd = { "ocamllsp", "--fallback-read-dot-merlin" },
