@@ -58,6 +58,9 @@ plug("hrsh7th/cmp-cmdline")
 plug("hrsh7th/nvim-cmp")
 plug("rafamadriz/friendly-snippets")
 
+-- inlay hints
+plug("lvimuser/lsp-inlayhints.nvim")
+
 -- auto pairs
 plug("windwp/nvim-autopairs")
 plug("windwp/nvim-ts-autotag")
@@ -86,11 +89,7 @@ plug("lervag/vimtex")
 plug("tpope/vim-sleuth")
 
 -- rust
-plug("simrat39/rust-tools.nvim")
 plug("Saecki/crates.nvim")
-
--- java
-plug("mfussenegger/nvim-jdtls")
 
 -- markdown preview
 plug("cloudsftp/peek.nvim")
@@ -335,7 +334,9 @@ end, {})
 
 -- gitsigns
 local gitsigns = require("gitsigns")
-gitsigns.setup({})
+gitsigns.setup({
+	update_debounce = 0,
+})
 
 -- neodev
 require("neodev").setup({})
@@ -362,6 +363,16 @@ lspconfig.ocamllsp.setup({
 	capabilities = capabilities,
 })
 lspconfig.texlab.setup({ capabilities = capabilities })
+lspconfig.rust_analyzer.setup({
+	settings = {
+		["rust-analyzer"] = {
+			checkOnSave = {
+				command = "clippy",
+			},
+		},
+	},
+	capabilities = capabilities,
+})
 lspconfig.wgsl_analyzer.setup({ capabilities = capabilities })
 lspconfig.tsserver.setup({ capabilities = capabilities })
 lspconfig.bashls.setup({ capabilities = capabilities })
@@ -376,32 +387,26 @@ lspconfig.hls.setup({ capabilities = capabilities })
 lspconfig.glslls.setup({ capabilities = capabilities })
 lspconfig.pylsp.setup({ capabilities = capabilities })
 
--- rust-tools
-local rust_tools = require("rust-tools")
-rust_tools.setup({
-	tools = {
-		inlay_hints = {
-			highlight = "Comment",
+-- lsp inlay hints
+require("lsp-inlayhints").setup({
+	inlay_hints = {
+		type_hints = {
+			remove_colon_start = true,
 		},
 	},
-	server = {
-		standalone = true,
-		settings = {
-			["rust-analyzer"] = {
-				check = {
-					command = "clippy",
-				},
-				checkOnSave = {
-					command = "clippy",
-				},
-			},
-		},
-	},
-	crate_graph = {
-		backend = "x11",
-		output = nil,
-		full = true,
-	},
+})
+vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = "LspAttach_inlayhints",
+	callback = function(args)
+		if not (args.data and args.data.client_id) then
+			return
+		end
+
+		local bufnr = args.buf
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		require("lsp-inlayhints").on_attach(client, bufnr)
+	end,
 })
 
 -- rust crates
@@ -639,7 +644,6 @@ end
 
 -- configure neovide, if enabled
 if vim.g.neovide then
-	-- local default_scale_factor = 1.1
 	local default_scale_factor = 1.0
 
 	vim.g.neovide_scale_factor = default_scale_factor
