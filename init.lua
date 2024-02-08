@@ -492,7 +492,10 @@ require("colorizer").setup({ "*" }, {
 	css_fn = true,
 	mode = "background",
 })
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = { "*" }, command = "ColorizerAttachToBuffer" })
+vim.api.nvim_create_autocmd(
+	{ "BufNewFile", "BufRead", "BufWrite" },
+	{ pattern = { "*" }, command = "ColorizerAttachToBuffer" }
+)
 
 -- ufo
 local ufo = require("ufo")
