@@ -39,7 +39,6 @@ plug("liuchengxu/graphviz.vim")
 -- tree-sitter
 plug("nvim-treesitter/nvim-treesitter")
 plug("nvim-treesitter/nvim-treesitter-textobjects")
-plug("nvim-treesitter/nvim-treesitter-context")
 
 -- file explorer
 plug("stevearc/oil.nvim")
@@ -611,9 +610,6 @@ vim.opt.relativenumber = true
 vim.opt.wrap = false
 vim.opt.scrolloff = 5
 vim.opt.mousescroll = "ver:5,hor:6"
-
--- disable mouse menu
--- vim.opt.mousemodel = "extend"
 
 -- colorscheme
 do
