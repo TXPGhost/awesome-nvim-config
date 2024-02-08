@@ -44,8 +44,6 @@ plug("liuchengxu/graphviz.vim")
 -- tree-sitter
 plug("nvim-treesitter/nvim-treesitter")
 plug("nvim-treesitter/nvim-treesitter-textobjects")
-
--- splitjoin
 plug("Wansmer/treesj")
 
 -- file explorer
