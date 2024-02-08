@@ -62,6 +62,8 @@ The awesomest neovim config out there.
 | \[c       |     Jump to previous class |
 | \]s       |     Jump to next statement |
 | \[s       | Jump to previous statement |
+| Ctrl j    |                 Split code |
+| Ctrl k    |                  Join code |
 
 ### LSP
 
