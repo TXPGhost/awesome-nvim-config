@@ -95,6 +95,7 @@ plug("lervag/vimtex")
 plug("tpope/vim-sleuth")
 
 -- rust
+plug("mrcjkb/rustaceanvim")
 plug("Saecki/crates.nvim")
 
 -- markdown
@@ -383,16 +384,6 @@ lspconfig.ocamllsp.setup({
 	capabilities = capabilities,
 })
 lspconfig.texlab.setup({ capabilities = capabilities })
-lspconfig.rust_analyzer.setup({
-	settings = {
-		["rust-analyzer"] = {
-			checkOnSave = {
-				command = "clippy",
-			},
-		},
-	},
-	capabilities = capabilities,
-})
 lspconfig.wgsl_analyzer.setup({ capabilities = capabilities })
 lspconfig.tsserver.setup({ capabilities = capabilities })
 lspconfig.bashls.setup({ capabilities = capabilities })
@@ -659,6 +650,8 @@ do
 	vim.cmd.hi("SelectMode", "guibg=#282727")
 	vim.cmd.hi("TerminalMode", "guibg=#282727")
 	vim.cmd.hi("TerminalNormalMode", "guibg=#282727")
+	vim.cmd.hi("clear", "LspInlayHint")
+	vim.cmd.hi("link", "LspInlayHint", "Comment")
 
 	-- tweaks for flexoki-dark
 	-- vim.cmd.hi("DiagnosticUnderlineOk", "gui=undercurl")
