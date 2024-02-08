@@ -33,6 +33,7 @@ plug("ray-x/lsp_signature.nvim")
 plug("smjonas/inc-rename.nvim")
 plug("weilbith/nvim-code-action-menu")
 plug("folke/trouble.nvim")
+plug("linrongbin16/lsp-progress.nvim")
 
 -- testing
 plug("nvim-neotest/neotest")
@@ -163,6 +164,9 @@ conform.setup({
 	},
 })
 
+-- lsp progress
+require("lsp-progress").setup({})
+
 -- lualine
 require("lualine").setup({
 	options = {
@@ -187,7 +191,7 @@ require("lualine").setup({
 		lualine_a = { "mode" },
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { { "filename", path = 1 } },
-		lualine_x = { "encoding", "fileformat", "filetype" },
+		lualine_x = { require("lsp-progress").progress, "encoding", "fileformat", "filetype" },
 		lualine_y = { "progress" },
 		lualine_z = { "location" },
 	},
@@ -444,6 +448,13 @@ require("trouble").setup({
 	},
 })
 
+-- neotest
+require("neotest").setup({
+	adapters = {
+		require("rustaceanvim.neotest"),
+	},
+})
+
 -- code actions
 vim.g.code_action_menu_show_action_kind = false
 vim.g.code_action_menu_show_details = false
@@ -650,8 +661,16 @@ do
 	vim.cmd.hi("SelectMode", "guibg=#282727")
 	vim.cmd.hi("TerminalMode", "guibg=#282727")
 	vim.cmd.hi("TerminalNormalMode", "guibg=#282727")
+
 	vim.cmd.hi("clear", "LspInlayHint")
 	vim.cmd.hi("link", "LspInlayHint", "Comment")
+
+	vim.cmd.hi("NeotestPassed", "guibg=#282727")
+	vim.cmd.hi("NeotestFailed", "guibg=#282727")
+	vim.cmd.hi("NeotestRunning", "guibg=#282727")
+	vim.cmd.hi("NeotestSkipped", "guibg=#282727")
+	vim.cmd.hi("NeotestUnknown", "guibg=#282727")
+	vim.cmd.hi("NeotestWatching", "guibg=#282727")
 
 	-- tweaks for flexoki-dark
 	-- vim.cmd.hi("DiagnosticUnderlineOk", "gui=undercurl")
