@@ -23,6 +23,9 @@ The awesomest neovim config out there.
 | ]h          |                   Next hunk |
 | [h          |               Previous hunk |
 | Space s     |     Stage hunk under cursor |
+| Space gc    |          Search git commits |
+| Space gb    |         Search git branches |
+| Space gs    |            Search git stash |
 
 ### Window Navigation
 
@@ -47,6 +50,8 @@ The awesomest neovim config out there.
 | `         |        Set current directory |
 | g.        |     Toggle show hidden files |
 | Space f   |         Search project files |
+| Space b   |       Search project buffers |
+| Space j   |              Search jumplist |
 | Space /   | Search project file contents |
 
 ### Tree-Sitter
