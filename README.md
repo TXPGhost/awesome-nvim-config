@@ -91,6 +91,13 @@ The awesomest neovim config out there.
 | Ctrl h | Goto previous tab |
 | Ctrl l |     Goto next tab |
 
+### Terminal
+
+| Key        |        Binding |
+| :--------- | -------------: |
+| Ctrl Enter |  Open terminal |
+| Ctrl a     | Close terminal |
+
 ## LaTeX
 
 | Key |                                          Binding |

@@ -541,7 +541,8 @@ require("modicator").setup({})
 
 -- generic
 vim.keymap.set("n", "<esc>", "<cmd>noh<cr><cmd>TroubleClose<cr>")
-vim.keymap.set("n", "<c-cr>", "<cmd>tabnew<cr><cmd>terminal<cr>i")
+vim.keymap.set("n", "<c-cr>", "<cmd>terminal<cr>i")
+vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
 vim.keymap.set("n", "<c-o>", "<c-o>zz")
 vim.keymap.set("n", "<c-i>", "<c-i>zz")
 
