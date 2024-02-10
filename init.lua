@@ -534,6 +534,9 @@ vim.g.vimtex_compiler_method = "tectonic"
 -- incremental rename
 require("inc_rename").setup({})
 
+-- modicator
+require("modicator").setup({})
+
 -- KEYMAPS
 
 -- generic
@@ -671,6 +674,23 @@ do
 	vim.cmd.hi("NeotestUnknown", "guibg=#282727")
 	vim.cmd.hi("NeotestWatching", "guibg=#282727")
 
+	vim.cmd.hi("@markup.heading.1.markdown", "guifg=#8992a5")
+	vim.cmd.hi("@markup.heading.2.markdown", "guifg=#8992a5")
+	vim.cmd.hi("@markup.heading.3.markdown", "guifg=#8992a5")
+	vim.cmd.hi("@markup.heading.4.markdown", "guifg=#8992a5")
+	vim.cmd.hi("@markup.heading.5.markdown", "guifg=#8992a5")
+	vim.cmd.hi("@markup.heading.6.markdown", "guifg=#8992a5")
+
+	vim.cmd.hi("@markup.heading.1.marker.markdown", "guifg=#c4746e")
+	vim.cmd.hi("@markup.heading.2.marker.markdown", "guifg=#c4746e")
+	vim.cmd.hi("@markup.heading.3.marker.markdown", "guifg=#c4746e")
+	vim.cmd.hi("@markup.heading.4.marker.markdown", "guifg=#c4746e")
+	vim.cmd.hi("@markup.heading.5.marker.markdown", "guifg=#c4746e")
+	vim.cmd.hi("@markup.heading.6.marker.markdown", "guifg=#c4746e")
+
+	vim.cmd.hi("@markup.strong.markdown_inline", "gui=bold")
+	vim.cmd.hi("@markup.italic.markdown_inline", "gui=italic")
+
 	-- tweaks for flexoki-dark
 	-- vim.cmd.hi("DiagnosticUnderlineOk", "gui=undercurl")
 	-- vim.cmd.hi("DiagnosticUnderlineInfo", "gui=undercurl")
@@ -688,9 +708,6 @@ do
 	-- vim.cmd.hi("VirtualTextError", "guifg=#c1536b")
 	-- vim.cmd.hi("DiagnosticVirtualTextWarn", "guifg=#edc763")
 end
-
--- modicator
-require("modicator").setup({})
 
 -- configure neovide, if enabled
 if vim.g.neovide then
