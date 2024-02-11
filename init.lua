@@ -2,6 +2,7 @@
 ---@diagnostic disable-next-line: param-type-mismatch
 vim.call("plug#begin")
 local plug = vim.fn["plug#"]
+
 -- dependencies
 plug("nvim-lua/plenary.nvim")
 
@@ -13,8 +14,6 @@ plug("dstein64/vim-startuptime")
 
 -- themes
 plug("rebelot/kanagawa.nvim")
-plug("kepano/flexoki-neovim")
-plug("sainnhe/sonokai")
 
 -- lualine
 plug("nvim-lualine/lualine.nvim")
