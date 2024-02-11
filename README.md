@@ -74,14 +74,14 @@ The awesomest neovim config out there.
 
 | Key     |                     Binding |
 | :------ | --------------------------: |
-| gD      |             Goto definition |
-| gY      |        Goto type definition |
-| gR      |             Goto references |
-| gI      |        Goto implementations |
-| gd      |          Preview definition |
-| gy      |     Preview type definition |
-| gr      |          Preview references |
-| gi      |     Preview implementations |
+| gd      |             Goto definition |
+| gy      |        Goto type definition |
+| gr      |             Goto references |
+| gi      |        Goto implementations |
+| gpd     |          Preview definition |
+| gpy     |     Preview type definition |
+| gpr     |          Preview references |
+| gpi     |     Preview implementations |
 | Space r |               Rename symbol |
 | Space k |         Hover documentation |
 | Space a |                 Code action |
