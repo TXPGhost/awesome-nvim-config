@@ -534,9 +534,6 @@ vim.g.vimtex_compiler_method = "tectonic"
 -- incremental rename
 require("inc_rename").setup({})
 
--- modicator
-require("modicator").setup({})
-
 -- KEYMAPS
 
 -- generic
@@ -715,6 +712,9 @@ do
 	-- vim.cmd.hi("VirtualTextError", "guifg=#c1536b")
 	-- vim.cmd.hi("DiagnosticVirtualTextWarn", "guifg=#edc763")
 end
+
+-- modicator
+require("modicator").setup({})
 
 -- configure neovide, if enabled
 if vim.g.neovide then
