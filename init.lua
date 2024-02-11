@@ -58,7 +58,6 @@ plug("nvim-telescope/telescope.nvim")
 -- autocompletion
 plug("neovim/nvim-lspconfig")
 plug("hrsh7th/cmp-nvim-lsp")
-plug("hrsh7th/cmp-buffer")
 plug("hrsh7th/cmp-path")
 plug("hrsh7th/cmp-cmdline")
 plug("hrsh7th/nvim-cmp")
