@@ -34,6 +34,7 @@ plug("smjonas/inc-rename.nvim")
 plug("weilbith/nvim-code-action-menu")
 plug("folke/trouble.nvim")
 plug("linrongbin16/lsp-progress.nvim")
+plug("rmagatti/goto-preview")
 
 -- testing
 plug("nvim-neotest/neotest")
@@ -363,6 +364,10 @@ require("lsp_signature").setup({
 	},
 })
 
+-- goto-preview
+local goto_preview = require("goto-preview")
+goto_preview.setup()
+
 -- lspconfig
 local lspconfig = require("lspconfig")
 
@@ -612,10 +617,23 @@ vim.keymap.set("n", "[d", function()
 end)
 
 vim.keymap.set("n", "<space>r", ":IncRename ")
-vim.keymap.set("n", "gd", "<cmd>Trouble lsp_definitions<cr>") -- IDEA: open in new tab if different file
-vim.keymap.set("n", "gy", "<cmd>Trouble lsp_type_definitions<cr>")
-vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
-vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
+vim.keymap.set("n", "gD", "<cmd>Trouble lsp_definitions<cr>") -- IDEA: open in new tab if different file
+vim.keymap.set("n", "gY", "<cmd>Trouble lsp_type_definitions<cr>")
+vim.keymap.set("n", "gR", "<cmd>Trouble lsp_references<cr>")
+vim.keymap.set("n", "gI", "<cmd>Trouble lsp_implementations<cr>")
+
+vim.keymap.set("n", "gd", function()
+	goto_preview.goto_preview_definition()
+end)
+vim.keymap.set("n", "gy", function()
+	goto_preview.goto_preview_type_definition()
+end)
+vim.keymap.set("n", "gr", function()
+	goto_preview.goto_preview_references()
+end)
+vim.keymap.set("n", "gi", function()
+	goto_preview.goto_preview_implementation()
+end)
 
 -- tabs
 vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
