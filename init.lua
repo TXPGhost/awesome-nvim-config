@@ -1,3 +1,12 @@
+---@diagnostic disable-next-line: param-type-mismatch
+vim.cmd("let start_time = reltime()")
+
+local time_names = {}
+local function log_time(name)
+	vim.cmd("let t_" .. name .. " = reltimefloat(reltime(start_time))")
+	table.insert(time_names, "t_" .. name)
+end
+
 -- vim-plug
 ---@diagnostic disable-next-line: param-type-mismatch
 vim.call("plug#begin")
@@ -35,16 +44,12 @@ plug("folke/trouble.nvim")
 plug("linrongbin16/lsp-progress.nvim")
 plug("rmagatti/goto-preview")
 
--- testing
-plug("nvim-neotest/neotest")
-
 -- graphviz
 plug("liuchengxu/graphviz.vim")
 
 -- tree-sitter
 plug("nvim-treesitter/nvim-treesitter")
 plug("nvim-treesitter/nvim-treesitter-textobjects")
-plug("Wansmer/treesj")
 
 -- file explorer
 plug("stevearc/oil.nvim")
@@ -106,6 +111,8 @@ plug("norcalli/nvim-colorizer.lua")
 ---@diagnostic disable-next-line: param-type-mismatch
 vim.call("plug#end")
 
+log_time("vimplug")
+
 -- set help window to vertical split
 vim.api.nvim_create_autocmd({ "FileType" }, { pattern = { "help" }, command = "wincmd L" })
 
@@ -122,6 +129,8 @@ vim.fn.sign_define("DiagnosticSignInfo", { text = "" })
 vim.fn.sign_define("DiagnosticSignHint", { text = "" })
 
 vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
+
+log_time("misc")
 
 -- enable format on save
 local conform = require("conform")
@@ -162,8 +171,12 @@ conform.setup({
 	},
 })
 
+log_time("conform")
+
 -- lsp progress
 require("lsp-progress").setup({})
+
+log_time("lsp_progress")
 
 -- lualine
 require("lualine").setup({
@@ -207,6 +220,8 @@ require("lualine").setup({
 	extensions = {},
 })
 
+log_time("lualine")
+
 -- oil
 require("oil").setup({
 	keymaps = {
@@ -231,6 +246,8 @@ require("oil").setup({
 })
 vim.keymap.set("n", "-", "<cmd>Oil<cr>zz", { desc = "Open parent directory" })
 
+log_time("oil")
+
 -- nvim-autopairs
 local npairs = require("nvim-autopairs")
 npairs.setup({
@@ -242,6 +259,8 @@ local rule = require("nvim-autopairs.rule")
 npairs.add_rule(rule("$", "$", "tex"):with_move(function(opts)
 	return opts.next_char == opts.char
 end))
+
+log_time("autopairs")
 
 -- nvim-cmp
 local cmp = require("cmp")
@@ -327,16 +346,15 @@ cmp.setup.cmdline(":", {
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+log_time("cmp")
+
 -- markdown preview
 local peek = require("peek")
 peek.setup({})
 vim.api.nvim_create_user_command("MarkdownPreviewOpen", peek.open, {})
 vim.api.nvim_create_user_command("MarkdownPreviewClose", peek.close, {})
 
--- treesj
-require("treesj").setup({
-	use_default_keymaps = false,
-})
+log_time("markdown")
 
 -- config quick edit
 vim.api.nvim_create_user_command("Config", function()
@@ -346,14 +364,20 @@ vim.api.nvim_create_user_command("ConfigReload", function()
 	vim.cmd("so ~/.config/nvim/init.lua")
 end, {})
 
+log_time("configautocmd")
+
 -- gitsigns
 local gitsigns = require("gitsigns")
 gitsigns.setup({
 	update_debounce = 0,
 })
 
+log_time("gitsigns")
+
 -- neodev
 require("neodev").setup({})
+
+log_time("neodev")
 
 -- lspsignature
 require("lsp_signature").setup({
@@ -363,9 +387,13 @@ require("lsp_signature").setup({
 	},
 })
 
+log_time("lspsignature")
+
 -- goto-preview
 local goto_preview = require("goto-preview")
 goto_preview.setup()
+
+log_time("gotopreview")
 
 -- lspconfig
 local lspconfig = require("lspconfig")
@@ -404,6 +432,8 @@ lspconfig.hls.setup({ capabilities = capabilities })
 lspconfig.glslls.setup({ capabilities = capabilities })
 lspconfig.pylsp.setup({ capabilities = capabilities })
 
+log_time("lspconfig")
+
 -- lsp inlay hints
 require("lsp-inlayhints").setup({
 	inlay_hints = {
@@ -426,6 +456,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
+log_time("lspinlayhints")
+
 -- rust crates
 require("crates").setup({
 	src = {
@@ -434,6 +466,8 @@ require("crates").setup({
 		},
 	},
 })
+
+log_time("crates")
 
 -- trouble
 require("trouble").setup({
@@ -450,16 +484,13 @@ require("trouble").setup({
 	},
 })
 
--- neotest
-require("neotest").setup({
-	adapters = {
-		require("rustaceanvim.neotest"),
-	},
-})
+log_time("truoble")
 
 -- code actions
 vim.g.code_action_menu_show_action_kind = false
 vim.g.code_action_menu_show_details = false
+
+log_time("actions")
 
 -- tree-sitter
 require("nvim-treesitter.configs").setup({
@@ -507,6 +538,26 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99999
 
+log_time("treesitter")
+
+-- ufo
+local ufo = require("ufo")
+ufo.setup()
+
+log_time("ufo")
+
+-- vimtex
+vim.g.vimtex_view_general_viewer = "okular"
+vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src@line@tex"
+vim.g.vimtex_compiler_method = "tectonic"
+
+log_time("vimtex")
+
+-- incremental rename
+require("inc_rename").setup({})
+
+log_time("increname")
+
 -- colorizer
 vim.opt.termguicolors = true
 require("colorizer").setup({ "*" }, {
@@ -525,17 +576,7 @@ vim.api.nvim_create_autocmd(
 	{ pattern = { "*" }, command = "ColorizerAttachToBuffer" }
 )
 
--- ufo
-local ufo = require("ufo")
-ufo.setup()
-
--- vimtex
-vim.g.vimtex_view_general_viewer = "okular"
-vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src@line@tex"
-vim.g.vimtex_compiler_method = "tectonic"
-
--- incremental rename
-require("inc_rename").setup({})
+log_time("colorizer")
 
 -- KEYMAPS
 
@@ -576,10 +617,6 @@ vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
 vim.keymap.set("n", "<space>;", "<cmd>Telescope lsp_document_symbols<cr>")
 vim.keymap.set("n", "<space>:", "<cmd>Telescope lsp_workspace_symbols<cr>")
 
--- treesj
-vim.keymap.set("n", "<c-k>", "<cmd>TSJJoin<cr>")
-vim.keymap.set("n", "<c-j>", "<cmd>TSJSplit<cr>")
-
 -- treesitter-textobjects
 local function mktextobj(bind, obj)
 	vim.keymap.set({ "n", "v" }, "]" .. bind, "<cmd>TSTextobjectGotoNextStart " .. obj .. "<cr><cmd>norm zz<cr>")
@@ -593,8 +630,8 @@ mktextobj("s", "@statement.outer")
 -- git
 vim.keymap.set("n", "gb", "<cmd>Git blame<cr>")
 vim.keymap.set("n", "gB", "<cmd>Telescope git_branches<cr>")
-vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>")
-vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr>")
+vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
+vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
 vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
 vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
 vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit!<cr>")
@@ -651,9 +688,10 @@ vim.keymap.set("n", "K", function()
 	end
 end)
 
+log_time("keymaps")
+
 -- startup commands
 vim.opt.compatible = false
-vim.opt.cursorline = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.swapfile = false
@@ -665,72 +703,57 @@ vim.opt.scrolloff = 5
 vim.opt.mousescroll = "ver:5,hor:6"
 vim.opt.shell = "fish"
 
+log_time("startupcommands")
+
 -- colorscheme
-do
-	-- set sonokai style
-	vim.g.sonokai_style = "andromeda"
+require("kanagawa").setup({
+	overrides = function(_)
+		return {
+			LspInlayHint = { link = "Comment" },
 
-	-- set colorscheme
-	vim.cmd.colorscheme("kanagawa-dragon")
+			LineNrAbove = { fg = "#625e5a", bg = "#282727" },
+			LineNrBelow = { fg = "#625e5a", bg = "#282727" },
 
-	-- tweaks for kanagawa-dragon
-	vim.cmd.hi("CursorLine", "guibg=none")
-	vim.cmd.hi("NormalMode", "guibg=#282727")
-	vim.cmd.hi("InsertMode", "guibg=#282727")
-	vim.cmd.hi("VisualMode", "guibg=#282727")
-	vim.cmd.hi("CommandMode", "guibg=#282727")
-	vim.cmd.hi("ReplaceMode", "guibg=#282727")
-	vim.cmd.hi("SelectMode", "guibg=#282727")
-	vim.cmd.hi("TerminalMode", "guibg=#282727")
-	vim.cmd.hi("TerminalNormalMode", "guibg=#282727")
+			["@markup.heading.1.markdown"] = { fg = "#8992a5" },
+			["@markup.heading.2.markdown"] = { fg = "#8992a5" },
+			["@markup.heading.3.markdown"] = { fg = "#8992a5" },
+			["@markup.heading.4.markdown"] = { fg = "#8992a5" },
+			["@markup.heading.5.markdown"] = { fg = "#8992a5" },
+			["@markup.heading.6.markdown"] = { fg = "#8992a5" },
 
-	vim.cmd.hi("clear", "LspInlayHint")
-	vim.cmd.hi("link", "LspInlayHint", "Comment")
+			["@markup.heading.1.marker.markdown"] = { fg = "#8992a5" },
+			["@markup.heading.2.marker.markdown"] = { fg = "#8992a5" },
+			["@markup.heading.3.marker.markdown"] = { fg = "#8992a5" },
+			["@markup.heading.4.marker.markdown"] = { fg = "#8992a5" },
+			["@markup.heading.5.marker.markdown"] = { fg = "#8992a5" },
+			["@markup.heading.6.marker.markdown"] = { fg = "#8992a5" },
 
-	vim.cmd.hi("NeotestPassed", "guibg=#282727")
-	vim.cmd.hi("NeotestFailed", "guibg=#282727")
-	vim.cmd.hi("NeotestRunning", "guibg=#282727")
-	vim.cmd.hi("NeotestSkipped", "guibg=#282727")
-	vim.cmd.hi("NeotestUnknown", "guibg=#282727")
-	vim.cmd.hi("NeotestWatching", "guibg=#282727")
+			["@markup.strong.markdown_inline"] = { bold = true },
+			["@markup.italic.markdown_inline"] = { italic = true },
+		}
+	end,
+})
+vim.cmd.colorscheme("kanagawa-dragon")
 
-	vim.cmd.hi("@markup.heading.1.markdown", "guifg=#8992a5")
-	vim.cmd.hi("@markup.heading.2.markdown", "guifg=#8992a5")
-	vim.cmd.hi("@markup.heading.3.markdown", "guifg=#8992a5")
-	vim.cmd.hi("@markup.heading.4.markdown", "guifg=#8992a5")
-	vim.cmd.hi("@markup.heading.5.markdown", "guifg=#8992a5")
-	vim.cmd.hi("@markup.heading.6.markdown", "guifg=#8992a5")
+log_time("colors")
 
-	vim.cmd.hi("@markup.heading.1.marker.markdown", "guifg=#c4746e")
-	vim.cmd.hi("@markup.heading.2.marker.markdown", "guifg=#c4746e")
-	vim.cmd.hi("@markup.heading.3.marker.markdown", "guifg=#c4746e")
-	vim.cmd.hi("@markup.heading.4.marker.markdown", "guifg=#c4746e")
-	vim.cmd.hi("@markup.heading.5.marker.markdown", "guifg=#c4746e")
-	vim.cmd.hi("@markup.heading.6.marker.markdown", "guifg=#c4746e")
-
-	vim.cmd.hi("@markup.strong.markdown_inline", "gui=bold")
-	vim.cmd.hi("@markup.italic.markdown_inline", "gui=italic")
-
-	-- tweaks for flexoki-dark
-	-- vim.cmd.hi("DiagnosticUnderlineOk", "gui=undercurl")
-	-- vim.cmd.hi("DiagnosticUnderlineInfo", "gui=undercurl")
-	-- vim.cmd.hi("DiagnosticUnderlineHint", "gui=undercurl")
-	-- vim.cmd.hi("DiagnosticUnderlineWarn", "gui=undercurl")
-	-- vim.cmd.hi("DiagnosticUnderlineError", "gui=undercurl")
-	-- vim.cmd.hi("GitSignsAdd", "guifg=#879a39", "guibg=#100f0f")
-	-- vim.cmd.hi("GitSignsChange", "guifg=#8b7ec8", "guibg=#100f0f")
-	-- vim.cmd.hi("GitSignsDelete", "guifg=#d14d41", "guibg=#100f0f")
-	-- vim.cmd.hi("ConflictMarkerBegin", "guifg=#100f0f", "guibg=#8b7ec8")
-	-- vim.cmd.hi("ConflictMarkerEnd", "guifg=#100f0f", "guibg=#879a39")
-	-- vim.cmd.hi("ConflictMarkerSeparator", "guifg=#100f0f", "guibg=#d14d41")
-
-	-- tweaks for sonokai
-	-- vim.cmd.hi("VirtualTextError", "guifg=#c1536b")
-	-- vim.cmd.hi("DiagnosticVirtualTextWarn", "guifg=#edc763")
+-- modicator replacement
+local function on_mode_enter(mode, color, run_init)
+	local cmd = string.format("hi LineNr guifg=#%x", color)
+	vim.api.nvim_create_autocmd({ "ModeChanged" }, {
+		pattern = { "*:[" .. mode .. "]*" },
+		command = cmd,
+	})
+	if run_init then
+		vim.cmd(cmd)
+	end
 end
 
--- modicator
-require("modicator").setup({})
+on_mode_enter("n", vim.api.nvim_get_hl(0, { name = "lualine_a_normal" }).bg, true)
+on_mode_enter("i", vim.api.nvim_get_hl(0, { name = "lualine_a_insert" }).bg, false)
+on_mode_enter("vV\x16", vim.api.nvim_get_hl(0, { name = "lualine_a_visual" }).bg, false)
+on_mode_enter(":", vim.api.nvim_get_hl(0, { name = "lualine_a_command" }).bg, false)
+on_mode_enter("r", vim.api.nvim_get_hl(0, { name = "lualine_a_replace" }).bg, false)
 
 -- configure neovide, if enabled
 if vim.g.neovide then
@@ -761,4 +784,10 @@ if vim.g.neovide then
 		vim.g.neovide_scale_factor = default_scale_factor
 		vim.cmd('lua print("Resized window.")')
 	end)
+end
+
+log_time("neovide")
+
+for _, name in pairs(time_names) do
+	-- vim.cmd("let " .. name)
 end
