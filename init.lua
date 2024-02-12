@@ -87,7 +87,6 @@ plug("onsails/lspkind.nvim")
 plug("lewis6991/gitsigns.nvim")
 plug("tpope/vim-fugitive")
 plug("sindrets/diffview.nvim")
-plug("rhysd/conflict-marker.vim")
 
 -- icons
 plug("nvim-tree/nvim-web-devicons")
