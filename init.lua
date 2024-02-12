@@ -703,6 +703,7 @@ vim.opt.scrolloff = 5
 vim.opt.mousescroll = "ver:5,hor:6"
 vim.opt.shell = "fish"
 vim.opt.laststatus = 3
+vim.opt.conceallevel = 2
 
 log_time("startupcommands")
 
