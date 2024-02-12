@@ -106,7 +106,7 @@ plug("Saecki/crates.nvim")
 plug("cloudsftp/peek.nvim")
 
 -- colorizer
-plug("norcalli/nvim-colorizer.lua")
+plug("NvChad/nvim-colorizer.lua")
 
 ---@diagnostic disable-next-line: param-type-mismatch
 vim.call("plug#end")
@@ -137,19 +137,19 @@ local conform = require("conform")
 conform.setup({
 	notify_on_error = false,
 	formatters_by_ft = {
-		javascript = { "prettierd" },
-		javascriptreact = { "prettierd" },
-		json = { "prettierd" },
-		typescript = { "prettierd" },
-		html = { "prettierd" },
-		css = { "prettierd" },
-		scss = { "prettierd" },
-		vue = { "prettierd" },
-		markdown = { "prettierd" },
-		yaml = { "prettierd" },
+		javascript = { "deno_fmt" },
+		javascriptreact = { "deno_fmt" },
+		json = { "deno_fmt" },
+		typescript = { "deno_fmt" },
+		html = { "deno_fmt" },
+		css = { "deno_fmt" },
+		scss = { "deno_fmt" },
+		vue = { "deno_fmt" },
+		markdown = { "deno_fmt" },
+		yaml = { "deno_fmt" },
 		rust = { "rustfmt" },
-		c = { "clang-format" },
-		cpp = { "clang-format" },
+		c = { "clang_format" },
+		cpp = { "clang_format" },
 		lua = { "stylua" },
 		ocaml = { "ocamlformat" },
 		haskell = { "ormolu" },
@@ -163,10 +163,6 @@ conform.setup({
 		["ocamlformat"] = {
 			command = "ocamlformat",
 			args = { "--doc-comments=before", "--wrap-comments", "--parse-docstrings", "--name", "$FILENAME", "-" },
-		},
-		["clang-format"] = {
-			command = "clang-format",
-			args = { "--assume-filename=$FILENAME" },
 		},
 	},
 })
@@ -191,7 +187,7 @@ require("lualine").setup({
 		},
 		ignore_focus = {},
 		always_divide_middle = true,
-		globalstatus = false,
+		globalstatus = true,
 		refresh = {
 			statusline = 1000,
 			tabline = 1000,
@@ -419,7 +415,6 @@ lspconfig.ocamllsp.setup({
 })
 lspconfig.texlab.setup({ capabilities = capabilities })
 lspconfig.wgsl_analyzer.setup({ capabilities = capabilities })
-lspconfig.tsserver.setup({ capabilities = capabilities })
 lspconfig.bashls.setup({ capabilities = capabilities })
 lspconfig.jsonls.setup({ capabilities = capabilities })
 lspconfig.cssls.setup({ capabilities = capabilities })
@@ -431,6 +426,14 @@ lspconfig.dotls.setup({ capabilities = capabilities })
 lspconfig.hls.setup({ capabilities = capabilities })
 lspconfig.glslls.setup({ capabilities = capabilities })
 lspconfig.pylsp.setup({ capabilities = capabilities })
+lspconfig.denols.setup({
+	capabilities = capabilities,
+	root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+})
+lspconfig.tsserver.setup({
+	capabilities = capabilities,
+	root_dir = lspconfig.util.root_pattern("package.json"),
+})
 
 log_time("lspconfig")
 
@@ -560,21 +563,29 @@ log_time("increname")
 
 -- colorizer
 vim.opt.termguicolors = true
-require("colorizer").setup({ "*" }, {
-	RGB = true,
-	RRGGBB = true,
-	RRGGBBAA = true,
-	names = true,
-	rgb_fn = true,
-	hsl_fn = true,
-	css = true,
-	css_fn = true,
-	mode = "background",
+require("colorizer").setup({
+	filetypes = { "*" },
+	user_default_options = {
+		RGB = true,
+		RRGGBB = true,
+		names = true,
+		RRGGBBAA = true,
+		AARRGGBB = true,
+		rgb_fn = true,
+		hsl_fn = true,
+		css = true,
+		css_fn = true,
+
+		mode = "background",
+
+		tailwind = true,
+
+		sass = { enable = true, parsers = { "css" } },
+		virtualtext = "■",
+
+		always_update = false,
+	},
 })
-vim.api.nvim_create_autocmd(
-	{ "BufNewFile", "BufRead", "BufWrite" },
-	{ pattern = { "*" }, command = "ColorizerAttachToBuffer" }
-)
 
 log_time("colorizer")
 
@@ -706,7 +717,6 @@ vim.opt.wrap = false
 vim.opt.scrolloff = 5
 vim.opt.mousescroll = "ver:5,hor:6"
 vim.opt.shell = "fish"
-vim.opt.laststatus = 3
 vim.opt.conceallevel = 2
 
 log_time("startupcommands")
@@ -736,6 +746,10 @@ require("kanagawa").setup({
 
 			["@markup.strong.markdown_inline"] = { bold = true },
 			["@markup.italic.markdown_inline"] = { italic = true },
+			["@markup.strikethrough.markdown_inline"] = { strikethrough = true },
+
+			["@markup.link.label.markdown_inline"] = { fg = "#8ba4b0", underline = true },
+			["@markup.link.url.markdown_inline"] = { fg = "#8992a5", underline = true },
 		}
 	end,
 })
