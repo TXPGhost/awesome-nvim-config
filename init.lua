@@ -619,7 +619,7 @@ require("telescope").setup({
 	},
 })
 
-vim.keymap.set("n", "<space>f", "<cmd>Telescope find_files<cr>")
+vim.keymap.set("n", "<space>f", "<cmd>Telescope fd<cr>")
 vim.keymap.set("n", "<space>b", "<cmd>Telescope buffers<cr>")
 vim.keymap.set("n", "<space>j", "<cmd>Telescope jumplist<cr>")
 vim.keymap.set("n", "<space>gc", "<cmd>Telescope git_commits<cr>")
