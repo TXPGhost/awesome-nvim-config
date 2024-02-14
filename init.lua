@@ -733,7 +733,6 @@ require("colorizer").setup({
 		RRGGBB = true,
 		names = true,
 		RRGGBBAA = true,
-		AARRGGBB = true,
 		rgb_fn = true,
 		hsl_fn = true,
 		css = true,
