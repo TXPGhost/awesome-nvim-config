@@ -935,8 +935,8 @@ end
 on_mode_enter("n", vim.api.nvim_get_hl(0, { name = "lualine_a_normal" }).bg, true)
 on_mode_enter("i", vim.api.nvim_get_hl(0, { name = "lualine_a_insert" }).bg, false)
 on_mode_enter("vV\x16", vim.api.nvim_get_hl(0, { name = "lualine_a_visual" }).bg, false)
-on_mode_enter(":", vim.api.nvim_get_hl(0, { name = "lualine_a_command" }).bg, false)
-on_mode_enter("r", vim.api.nvim_get_hl(0, { name = "lualine_a_replace" }).bg, false)
+on_mode_enter("c", vim.api.nvim_get_hl(0, { name = "lualine_a_command" }).bg, false)
+on_mode_enter("R", vim.api.nvim_get_hl(0, { name = "lualine_a_replace" }).bg, false)
 
 -- configure neovide, if enabled
 if vim.g.neovide then
