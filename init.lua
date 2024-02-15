@@ -875,12 +875,13 @@ vim.opt.wrap = false
 vim.opt.scrolloff = 5
 vim.opt.mousescroll = "ver:5,hor:6"
 vim.opt.shell = "fish"
-vim.opt.conceallevel = 2
 
 log_time("startupcommands")
 
 -- colorscheme
 require("kanagawa").setup({
+	transparent = true,
+	undercurl = false,
 	overrides = function(_)
 		return {
 			LspInlayHint = { link = "Comment" },
@@ -905,6 +906,9 @@ require("kanagawa").setup({
 			["@markup.strong.markdown_inline"] = { bold = true },
 			["@markup.italic.markdown_inline"] = { italic = true },
 			["@markup.strikethrough.markdown_inline"] = { strikethrough = true },
+
+			["@markup.raw.markdown_inline"] = { fg = "#c4746e" },
+			["@markup.raw.block.markdown"] = { fg = "#c4b28a" },
 
 			["@markup.link.label.markdown_inline"] = { fg = "#8ba4b0", underline = true },
 			["@markup.link.url.markdown_inline"] = { fg = "#8992a5", underline = true },
