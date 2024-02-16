@@ -771,6 +771,13 @@ vim.keymap.set("n", "<s-down>", "<cmd>wincmd J<cr>")
 vim.keymap.set("n", "<s-up>", "<cmd>wincmd K<cr>")
 vim.keymap.set("n", "<s-right>", "<cmd>wincmd L<cr>")
 
+vim.keymap.set("n", "<space>n", function()
+	local b = not vim.opt.number:get()
+	vim.opt.number = b
+	vim.opt.relativenumber = b
+	vim.opt.signcolumn = b and "yes" or "no"
+end)
+
 -- telescope
 require("telescope").setup({
 	pickers = {

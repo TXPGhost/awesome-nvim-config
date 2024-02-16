@@ -92,6 +92,12 @@ The awesomest neovim config out there.
 | Space ; |       Show document symbols |
 | Space : |      Show workspace symbols |
 
+### View
+
+| Key     |             Binding |
+| :------ | ------------------: |
+| Space n | Toggle line numbers |
+
 ### Tabs
 
 | Key    |           Binding |
