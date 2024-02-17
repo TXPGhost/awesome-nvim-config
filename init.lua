@@ -41,7 +41,6 @@ plug("ray-x/lsp_signature.nvim")
 plug("smjonas/inc-rename.nvim")
 plug("weilbith/nvim-code-action-menu")
 plug("folke/trouble.nvim")
-plug("linrongbin16/lsp-progress.nvim")
 plug("rmagatti/goto-preview")
 
 -- graphviz
@@ -167,11 +166,6 @@ conform.setup({
 
 log_time("conform")
 
--- lsp progress
-require("lsp-progress").setup({})
-
-log_time("lsp_progress")
-
 -- lualine
 require("lualine").setup({
 	options = {
@@ -196,7 +190,7 @@ require("lualine").setup({
 		lualine_a = { "mode" },
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { { "filename", path = 1 } },
-		lualine_x = { require("lsp-progress").progress, "encoding", "fileformat", "filetype" },
+		lualine_x = { "encoding", "fileformat", "filetype" },
 		lualine_y = { "progress" },
 		lualine_z = { "location" },
 	},
