@@ -242,12 +242,6 @@ npairs.setup({
 	check_ts = true,
 })
 
-local rule = require("nvim-autopairs.rule")
-
-npairs.add_rule(rule("$", "$", "tex"):with_move(function(opts)
-	return opts.next_char == opts.char
-end))
-
 log_time("autopairs")
 
 -- nvim-cmp
