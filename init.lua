@@ -741,6 +741,9 @@ log_time("colorizer")
 -- use esc key to exit trouble window and kill highlighting
 vim.keymap.set("n", "<esc>", "<cmd>noh<cr><cmd>TroubleClose<cr>")
 
+-- easy enter terminal mode
+vim.keymap.set("n", "<c-cr>", "<cmd>terminal<cr>i")
+
 -- easy exit terminal mode
 vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
 
