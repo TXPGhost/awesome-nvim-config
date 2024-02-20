@@ -873,13 +873,12 @@ vim.opt.wrap = false
 vim.opt.scrolloff = 5
 vim.opt.mousescroll = "ver:5,hor:6"
 vim.opt.shell = "fish"
-vim.opt.textwidth = 70
+vim.opt.textwidth = 80
 
 log_time("startupcommands")
 
 -- colorscheme
 require("kanagawa").setup({
-	transparent = true,
 	overrides = function(_)
 		return {
 			LspInlayHint = { link = "Comment" },
