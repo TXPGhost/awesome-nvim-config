@@ -738,27 +738,29 @@ log_time("colorizer")
 
 -- KEYMAPS
 
--- generic
+-- use esc key to exit trouble window and kill highlighting
 vim.keymap.set("n", "<esc>", "<cmd>noh<cr><cmd>TroubleClose<cr>")
-vim.keymap.set(
-	"n",
-	"<c-cr>",
-	"<cmd>terminal<cr><cmd>setlocal nonumber<cr><cmd>setlocal norelativenumber<cr><cmd>setlocal signcolumn=no<cr>i"
-)
+
+-- easy exit terminal mode
 vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
+
+-- center view on jump
 vim.keymap.set("n", "<c-o>", "<c-o>zz")
 vim.keymap.set("n", "<c-i>", "<c-i>zz")
 
+-- use arrow keys to navigate windows
 vim.keymap.set("n", "<left>", "<cmd>wincmd h<cr>")
 vim.keymap.set("n", "<down>", "<cmd>wincmd j<cr>")
 vim.keymap.set("n", "<up>", "<cmd>wincmd k<cr>")
 vim.keymap.set("n", "<right>", "<cmd>wincmd l<cr>")
 
+-- use shift arrow keys to move windows
 vim.keymap.set("n", "<s-left>", "<cmd>wincmd H<cr>")
 vim.keymap.set("n", "<s-down>", "<cmd>wincmd J<cr>")
 vim.keymap.set("n", "<s-up>", "<cmd>wincmd K<cr>")
 vim.keymap.set("n", "<s-right>", "<cmd>wincmd L<cr>")
 
+-- toggleable line numbers
 vim.keymap.set("n", "<space>n", function()
 	local b = not vim.opt.number:get()
 	vim.opt.number = b
