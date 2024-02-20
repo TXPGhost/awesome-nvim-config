@@ -885,6 +885,8 @@ require("kanagawa").setup({
 			LineNrAbove = { fg = "#625e5a", bg = "#282727" },
 			LineNrBelow = { fg = "#625e5a", bg = "#282727" },
 
+			EndOfBuffer = { link = "NonText" },
+
 			["@markup.heading.1.markdown"] = { fg = "#8992a5" },
 			["@markup.heading.2.markdown"] = { fg = "#8992a5" },
 			["@markup.heading.3.markdown"] = { fg = "#8992a5" },
@@ -932,39 +934,6 @@ on_mode_enter("i", vim.api.nvim_get_hl(0, { name = "lualine_a_insert" }).bg, fal
 on_mode_enter("vV\x16", vim.api.nvim_get_hl(0, { name = "lualine_a_visual" }).bg, false)
 on_mode_enter("c", vim.api.nvim_get_hl(0, { name = "lualine_a_command" }).bg, false)
 on_mode_enter("R", vim.api.nvim_get_hl(0, { name = "lualine_a_replace" }).bg, false)
-
--- configure neovide, if enabled
-if vim.g.neovide then
-	local default_scale_factor = 1.0
-
-	vim.g.neovide_scale_factor = default_scale_factor
-
-	vim.g.neovide_scroll_animation_length = 0.3
-	vim.g.neovide_refresh_rate = 144
-
-	vim.g.neovide_fullscreen = true
-
-	vim.keymap.set("n", "<c-=>", function()
-		if vim.g.neovide_scale_factor < 3 then
-			vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * 1.1
-			vim.cmd('lua print("Resized window.")')
-		end
-	end)
-
-	vim.keymap.set("n", "<c-->", function()
-		if vim.g.neovide_scale_factor > 0.5 then
-			vim.g.neovide_scale_factor = vim.g.neovide_scale_factor / 1.1
-			vim.cmd('lua print("Resized window.")')
-		end
-	end)
-
-	vim.keymap.set("n", "<c-0>", function()
-		vim.g.neovide_scale_factor = default_scale_factor
-		vim.cmd('lua print("Resized window.")')
-	end)
-end
-
-log_time("neovide")
 
 for _, name in pairs(time_names) do
 	-- vim.cmd("let " .. name)
