@@ -272,7 +272,6 @@ lspkind.init({
 		Copilot = "",
 	},
 })
-vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 
 local has_words_before = function()
 	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
