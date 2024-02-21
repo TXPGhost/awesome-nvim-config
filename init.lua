@@ -256,14 +256,6 @@ log_time("autopairs")
 -- copilot
 require("copilot").setup({
 	filetypes = {
-		yaml = true,
-		markdown = true,
-		help = true,
-		gitcommit = true,
-		gitrebase = true,
-		hgcommit = true,
-		svn = true,
-		cvs = true,
 		["."] = true,
 	},
 })
@@ -927,7 +919,7 @@ vim.opt.shell = "fish"
 vim.opt.textwidth = 80
 
 -- disable auto comment
-vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions-=cro")
+vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=tqnlj")
 
 log_time("startupcommands")
 
