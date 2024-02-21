@@ -43,6 +43,10 @@ plug("weilbith/nvim-code-action-menu")
 plug("folke/trouble.nvim")
 plug("rmagatti/goto-preview")
 
+-- copilot
+plug("zbirenbaum/copilot.lua")
+plug("zbirenbaum/copilot-cmp")
+
 -- graphviz
 plug("liuchengxu/graphviz.vim")
 
@@ -244,14 +248,40 @@ npairs.setup({
 
 log_time("autopairs")
 
+-- copilot
+require("copilot").setup({
+	filetypes = {
+		yaml = true,
+		markdown = true,
+		help = true,
+		gitcommit = true,
+		gitrebase = true,
+		hgcommit = true,
+		svn = true,
+		cvs = true,
+		["."] = true,
+	},
+})
+require("copilot_cmp").setup()
+
 -- nvim-cmp
 local cmp = require("cmp")
 local lspkind = require("lspkind")
+lspkind.init({
+	symbol_map = {
+		Copilot = "",
+	},
+})
+vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 
 local has_words_before = function()
+	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+		return false
+	end
 	unpack = unpack or table.unpack
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+	-- return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 local feedkey = function(key, mode)
@@ -291,6 +321,7 @@ cmp.setup({
 		end, { "i", "s" }),
 	}),
 	sources = cmp.config.sources({
+		{ name = "copilot" },
 		{ name = "nvim_lsp" },
 		{ name = "vsnip" },
 		{ name = "crates" },
