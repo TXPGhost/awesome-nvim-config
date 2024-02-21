@@ -67,12 +67,13 @@ plug("neovim/nvim-lspconfig")
 plug("hrsh7th/cmp-nvim-lsp")
 plug("hrsh7th/cmp-nvim-lsp-signature-help")
 plug("hrsh7th/cmp-nvim-lsp-document-symbol")
+plug("hrsh7th/cmp-vsnip")
 plug("hrsh7th/cmp-path")
 plug("hrsh7th/cmp-buffer")
 plug("hrsh7th/cmp-cmdline")
 plug("hrsh7th/nvim-cmp")
-plug("rafamadriz/friendly-snippets")
 plug("zbirenbaum/copilot-cmp")
+plug("amarakon/nvim-cmp-lua-latex-symbols")
 
 -- inlay hints
 plug("lvimuser/lsp-inlayhints.nvim")
@@ -83,8 +84,8 @@ plug("windwp/nvim-ts-autotag")
 plug("tpope/vim-surround")
 
 -- snippets (for autocompletion)
-plug("hrsh7th/cmp-vsnip")
 plug("hrsh7th/vim-vsnip")
+plug("rafamadriz/friendly-snippets")
 
 -- autocompletion icons
 plug("onsails/lspkind.nvim")
@@ -329,6 +330,7 @@ cmp.setup({
 		{ name = "vsnip" },
 		{ name = "crates" },
 		{ name = "path" },
+		{ name = "lua-latex-symbols" },
 	}, {
 		{ name = "buffer" },
 	}),
@@ -359,14 +361,6 @@ cmp.setup({
 			cmp.config.compare.order,
 		},
 	},
-})
-
-cmp.setup.filetype("gitcommit", {
-	sources = cmp.config.sources({
-		{ name = "git" },
-	}, {
-		{ name = "buffer" },
-	}),
 })
 
 cmp.setup.cmdline(":", {
