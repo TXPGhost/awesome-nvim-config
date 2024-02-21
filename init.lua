@@ -63,7 +63,7 @@ plug("stevearc/conform.nvim")
 plug("nvim-telescope/telescope.nvim")
 
 -- autocompletion
-plug("neovim/nvim-lspconfig")
+plug("hrsh7th/nvim-cmp")
 plug("hrsh7th/cmp-nvim-lsp")
 plug("hrsh7th/cmp-nvim-lsp-signature-help")
 plug("hrsh7th/cmp-nvim-lsp-document-symbol")
@@ -71,7 +71,7 @@ plug("hrsh7th/cmp-vsnip")
 plug("hrsh7th/cmp-path")
 plug("hrsh7th/cmp-buffer")
 plug("hrsh7th/cmp-cmdline")
-plug("hrsh7th/nvim-cmp")
+plug("hrsh7th/cmp-calc")
 plug("zbirenbaum/copilot-cmp")
 plug("amarakon/nvim-cmp-lua-latex-symbols")
 plug("lukas-reineke/cmp-under-comparator")
@@ -330,6 +330,7 @@ cmp.setup({
 		{ name = "nvim_lsp_signature_help" },
 		{ name = "vsnip" },
 		{ name = "crates" },
+		{ name = "calc" },
 		{ name = "path" },
 		{ name = "lua-latex-symbols" },
 	}, {
@@ -337,9 +338,10 @@ cmp.setup({
 	}),
 	formatting = {
 		format = lspkind.cmp_format({
-			mode = "symbol",
-			maxwidth = 50,
+			mode = "symbol_text",
+			maxwidth = 80,
 			ellipsis_char = "...",
+			show_labelDetails = true,
 			before = function(_, vim_item)
 				return vim_item
 			end,
