@@ -258,6 +258,8 @@ require("copilot").setup({
 	filetypes = {
 		["."] = true,
 	},
+	suggestion = { enabled = false },
+	panel = { enabled = false },
 })
 require("copilot_cmp").setup()
 
