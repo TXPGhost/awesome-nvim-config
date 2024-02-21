@@ -74,6 +74,7 @@ plug("hrsh7th/cmp-cmdline")
 plug("hrsh7th/nvim-cmp")
 plug("zbirenbaum/copilot-cmp")
 plug("amarakon/nvim-cmp-lua-latex-symbols")
+plug("lukas-reineke/cmp-under-comparator")
 
 -- inlay hints
 plug("lvimuser/lsp-inlayhints.nvim")
@@ -347,14 +348,14 @@ cmp.setup({
 	sorting = {
 		priority_weight = 2,
 		comparators = {
+			cmp.config.compare.exact,
 			require("copilot_cmp.comparators").prioritize,
-
 			cmp.config.compare.offset,
 			-- cmp.config.compare.scopes,
-			cmp.config.compare.exact,
 			cmp.config.compare.score,
-			cmp.config.compare.recently_used,
 			cmp.config.compare.locality,
+			cmp.config.compare.recently_used,
+			require("cmp-under-comparator").under,
 			cmp.config.compare.kind,
 			cmp.config.compare.sort_text,
 			cmp.config.compare.length,
@@ -372,7 +373,7 @@ cmp.setup.cmdline(":", {
 	}),
 })
 
-require("cmp").setup.cmdline("/", {
+cmp.setup.cmdline("/", {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp_document_symbol" },
