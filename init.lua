@@ -27,6 +27,7 @@ plug("rebelot/kanagawa.nvim")
 -- lualine
 plug("nvim-lualine/lualine.nvim")
 plug("mawkler/modicator.nvim")
+plug("AndreM222/copilot-lualine")
 
 -- comment toggling
 plug("tpope/vim-commentary")
@@ -37,7 +38,6 @@ plug("kevinhwang91/nvim-ufo")
 
 -- LSP
 plug("neovim/nvim-lspconfig")
-plug("ray-x/lsp_signature.nvim")
 plug("smjonas/inc-rename.nvim")
 plug("weilbith/nvim-code-action-menu")
 plug("folke/trouble.nvim")
@@ -45,7 +45,6 @@ plug("rmagatti/goto-preview")
 
 -- copilot
 plug("zbirenbaum/copilot.lua")
-plug("zbirenbaum/copilot-cmp")
 
 -- graphviz
 plug("liuchengxu/graphviz.vim")
@@ -66,10 +65,14 @@ plug("nvim-telescope/telescope.nvim")
 -- autocompletion
 plug("neovim/nvim-lspconfig")
 plug("hrsh7th/cmp-nvim-lsp")
+plug("hrsh7th/cmp-nvim-lsp-signature-help")
+plug("hrsh7th/cmp-nvim-lsp-document-symbol")
 plug("hrsh7th/cmp-path")
+plug("hrsh7th/cmp-buffer")
 plug("hrsh7th/cmp-cmdline")
 plug("hrsh7th/nvim-cmp")
 plug("rafamadriz/friendly-snippets")
+plug("zbirenbaum/copilot-cmp")
 
 -- inlay hints
 plug("lvimuser/lsp-inlayhints.nvim")
@@ -194,7 +197,7 @@ require("lualine").setup({
 		lualine_a = { "mode" },
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { { "filename", path = 1 } },
-		lualine_x = { "encoding", "fileformat", "filetype" },
+		lualine_x = { "copilot", "encoding", "fileformat", "filetype" },
 		lualine_y = { "progress" },
 		lualine_z = { "location" },
 	},
@@ -322,10 +325,12 @@ cmp.setup({
 	sources = cmp.config.sources({
 		{ name = "copilot" },
 		{ name = "nvim_lsp" },
+		{ name = "nvim_lsp_signature_help" },
 		{ name = "vsnip" },
 		{ name = "crates" },
+		{ name = "path" },
 	}, {
-		-- { name = "buffer" }
+		{ name = "buffer" },
 	}),
 	formatting = {
 		format = lspkind.cmp_format({
@@ -336,6 +341,23 @@ cmp.setup({
 				return vim_item
 			end,
 		}),
+	},
+	sorting = {
+		priority_weight = 2,
+		comparators = {
+			require("copilot_cmp.comparators").prioritize,
+
+			cmp.config.compare.offset,
+			-- cmp.config.compare.scopes,
+			cmp.config.compare.exact,
+			cmp.config.compare.score,
+			cmp.config.compare.recently_used,
+			cmp.config.compare.locality,
+			cmp.config.compare.kind,
+			cmp.config.compare.sort_text,
+			cmp.config.compare.length,
+			cmp.config.compare.order,
+		},
 	},
 })
 
@@ -353,6 +375,15 @@ cmp.setup.cmdline(":", {
 		{ name = "path" },
 	}, {
 		{ name = "cmdline" },
+	}),
+})
+
+require("cmp").setup.cmdline("/", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = "nvim_lsp_document_symbol" },
+	}, {
+		{ name = "buffer" },
 	}),
 })
 
@@ -388,16 +419,6 @@ log_time("gitsigns")
 require("neodev").setup({})
 
 log_time("neodev")
-
--- lspsignature
-require("lsp_signature").setup({
-	hint_prefix = " ",
-	handler_opts = {
-		border = "none",
-	},
-})
-
-log_time("lspsignature")
 
 -- goto-preview
 local goto_preview = require("goto-preview")

@@ -121,3 +121,7 @@ The awesomest neovim config out there.
 | dsc |                       Delete surroinding command |
 | dse |                   Delete surrounding environment |
 | ]]  | Close surrounding environment (insert mode only) |
+
+## Additional Features
+
+When searching the buffer using `/`, use `@` to search LSP document symbols.
