@@ -339,7 +339,7 @@ cmp.setup({
 	formatting = {
 		format = lspkind.cmp_format({
 			mode = "symbol_text",
-			maxwidth = 80,
+			maxwidth = 120, -- doesn't work?
 			ellipsis_char = "...",
 			show_labelDetails = true,
 			before = function(_, vim_item)
@@ -925,6 +925,9 @@ vim.opt.scrolloff = 5
 vim.opt.mousescroll = "ver:5,hor:6"
 vim.opt.shell = "fish"
 vim.opt.textwidth = 80
+
+-- disable auto comment
+vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions-=cro")
 
 log_time("startupcommands")
 
