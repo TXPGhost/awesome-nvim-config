@@ -973,6 +973,7 @@ log_time("startupcommands")
 
 -- colorscheme
 require("kanagawa").setup({
+	transparent = true,
 	overrides = function(_)
 		return {
 			LspInlayHint = { link = "Comment" },
