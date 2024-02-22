@@ -28,6 +28,7 @@ plug("rebelot/kanagawa.nvim")
 plug("nvim-lualine/lualine.nvim")
 plug("mawkler/modicator.nvim")
 plug("AndreM222/copilot-lualine")
+plug("arkav/lualine-lsp-progress")
 
 -- comment toggling
 plug("tpope/vim-commentary")
@@ -199,7 +200,31 @@ require("lualine").setup({
 		lualine_a = { "mode" },
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { { "filename", path = 1 } },
-		lualine_x = { "copilot", "encoding", "fileformat", "filetype" },
+		lualine_x = {
+			{
+				"copilot",
+				symbols = {
+					status = {
+						icons = {
+							enabled = "",
+							sleep = "",
+							disabled = "",
+							warning = "",
+							unknown = "",
+						},
+					},
+				},
+			},
+			{
+				"lsp_progress",
+				display_components = { "lsp_client_name", "spinner", "percentage" },
+				spinner_symbols = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" },
+				timer = { progress_enddelay = 100, spinner = 100, lsp_client_name_enddelay = 0 },
+			},
+			"encoding",
+			"fileformat",
+			"filetype",
+		},
 		lualine_y = { "progress" },
 		lualine_z = { "location" },
 	},
@@ -335,7 +360,7 @@ cmp.setup({
 	formatting = {
 		format = lspkind.cmp_format({
 			mode = "symbol_text",
-			maxwidth = 120, -- doesn't work?
+			maxwidth = 10000, -- doesn't work?
 			ellipsis_char = "...",
 			show_labelDetails = true,
 			before = function(_, vim_item)
