@@ -298,6 +298,14 @@ log_time("autopairs")
 -- copilot
 require("copilot").setup({
 	filetypes = {
+		yaml = true,
+		markdown = true,
+		help = true,
+		gitcommit = true,
+		gitrebase = true,
+		hgcommit = true,
+		svn = true,
+		cvs = true,
 		["."] = true,
 	},
 	suggestion = { enabled = false },
