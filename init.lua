@@ -446,7 +446,9 @@ log_time("configautocmd")
 
 -- gitsigns
 local gitsigns = require("gitsigns")
-gitsigns.setup({})
+gitsigns.setup({
+	update_debounce = 0,
+})
 
 log_time("gitsigns")
 
