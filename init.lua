@@ -72,7 +72,6 @@ plug("hrsh7th/cmp-vsnip")
 plug("hrsh7th/cmp-path")
 plug("hrsh7th/cmp-buffer")
 plug("hrsh7th/cmp-cmdline")
-plug("hrsh7th/cmp-calc")
 plug("zbirenbaum/copilot-cmp")
 plug("amarakon/nvim-cmp-lua-latex-symbols")
 plug("lukas-reineke/cmp-under-comparator")
@@ -376,7 +375,6 @@ cmp.setup({
 		{ name = "nvim_lsp_signature_help" },
 		{ name = "vsnip" },
 		{ name = "crates" },
-		{ name = "calc" },
 		{ name = "path" },
 		{ name = "lua-latex-symbols" },
 	}, {
@@ -743,6 +741,7 @@ require("nvim-treesitter.configs").setup({
 	auto_install = true,
 	highlight = {
 		enable = true,
+		disable = { "tex", "latex" },
 	},
 	incremental_selection = {
 		enable = true,
@@ -796,6 +795,21 @@ log_time("ufo")
 vim.g.vimtex_view_general_viewer = "okular"
 vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src@line@tex"
 vim.g.vimtex_compiler_method = "tectonic"
+vim.g.vimtex_syntax_conceal = {
+	accents = 1,
+	ligatures = 1,
+	cites = 1,
+	fancy = 1,
+	spacing = 1,
+	greek = 1,
+	math_bounds = 1,
+	math_delimiters = 1,
+	math_fracs = 1,
+	math_super_sub = 1,
+	math_symbols = 1,
+	sections = 1,
+	styles = 1,
+}
 
 log_time("vimtex")
 
@@ -812,19 +826,14 @@ require("colorizer").setup({
 		RGB = true,
 		RRGGBB = true,
 		names = false,
-		RRGGBBAA = true,
+		RRGGBBAA = false,
 		AARRGGBB = false,
-		rgb_fn = true,
-		hsl_fn = true,
+		rgb_fn = false,
+		hsl_fn = false,
 		css = true,
 		css_fn = true,
 
 		mode = "background",
-
-		tailwind = true,
-
-		sass = { enable = true, parsers = { "css" } },
-		virtualtext = "■",
 
 		always_update = false,
 	},
@@ -977,6 +986,7 @@ vim.opt.scrolloff = 5
 vim.opt.mousescroll = "ver:5,hor:6"
 vim.opt.shell = "fish"
 vim.opt.textwidth = 80
+vim.opt.conceallevel = 2
 
 -- disable auto comment
 vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=tqnlj")
