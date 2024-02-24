@@ -201,13 +201,9 @@ log_time("gitsigns")
 -- coq
 local coq = require("coq")
 
-vim.g.coq_settings = { keymap = { recommended = false } }
-vim.cmd([[ino <silent><expr> <Esc> pumvisible() ? "\<C-e><Esc>" : "\<Esc>"]])
-vim.cmd([[ino <silent><expr> <C-c> pumvisible() ? "\<C-e><C-c>" : "\<C-c>"]])
-vim.cmd([[ino <silent><expr> <BS> pumvisible() ? "\<C-e><BS>"  : "\<BS>"]])
-vim.cmd([[ino <silent><expr> <CR> pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"]])
-vim.cmd([[ino <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"]])
-vim.cmd([[ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"]])
+vim.g.coq_settings = {
+	keymap = { jump_to_mark = "c-\\" },
+}
 
 -- lsp
 local lspconfig = require("lspconfig")
@@ -498,7 +494,11 @@ require("telescope").setup({
 vim.keymap.set("n", "<esc>", "<cmd>noh<cr><cmd>TroubleClose<cr>")
 
 -- easy enter terminal mode
-vim.keymap.set("n", "<c-cr>", "<cmd>terminal<cr>i")
+vim.keymap.set(
+	"n",
+	"<c-cr>",
+	"<cmd>terminal<cr><cmd>set nonumber<cr><cmd>set norelativenumber<cr><cmd>set signcolumn=no<cr>i"
+)
 
 -- easy exit terminal mode
 vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
@@ -564,7 +564,6 @@ vim.opt.signcolumn = "yes"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.wrap = false
-vim.opt.scrolloff = 5
 vim.opt.shell = "fish"
 vim.opt.textwidth = 80
 vim.opt.cursorline = false
