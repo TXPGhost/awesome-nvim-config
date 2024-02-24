@@ -202,7 +202,7 @@ log_time("gitsigns")
 local coq = require("coq")
 
 vim.g.coq_settings = {
-	keymap = { jump_to_mark = "<c-j>" },
+	keymap = { jump_to_mark = "<c-a>" },
 	display = { pum = { fast_close = false, kind_context = { " ", "" } }, icons = { mode = "short", spacing = 0 } },
 	match = { fuzzy_cutoff = 0.8 },
 }
@@ -518,7 +518,7 @@ vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk
 vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
 vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
 vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit!<cr>")
-vim.keymap.set("n", "ghp", "<cmd>Gitsigns preview_hunk<cr>")
+vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
 vim.keymap.set("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
 vim.keymap.set("n", "ghu", "<cmd>Gitsigns stage_hunk<cr>")
 vim.keymap.set("n", "ghr", "<cmd>Gitsigns reset_hunk<cr>")

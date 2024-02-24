@@ -13,16 +13,16 @@ The awesomest neovim config out there.
 
 ### Git
 
-| Key |                     Binding |
-| :-- | --------------------------: |
-| ?   | Open fugitive status window |
-| g?  |              Show diff view |
-| ]h  |                   Next hunk |
-| [h  |               Previous hunk |
-| ghp |                Preview hunk |
-| ghs |                  Stage hunk |
-| ghu |             Undo stage hunk |
-| ghr |                  Reset hunk |
+| Key         |                     Binding |
+| :---------- | --------------------------: |
+| ?           | Open fugitive status window |
+| g?          |              Show diff view |
+| ]h          |                   Next hunk |
+| [h          |               Previous hunk |
+| Space Space |                Preview hunk |
+| ghs         |                  Stage hunk |
+| ghu         |             Undo stage hunk |
+| ghr         |                  Reset hunk |
 
 ### File navigation
 
@@ -56,20 +56,20 @@ The awesomest neovim config out there.
 
 ### LSP
 
-| Key     |                     Binding |
-| :------ | --------------------------: |
-| gd      |             Goto definition |
-| gy      |        Goto type definition |
-| gr      |             Goto references |
-| gi      |        Goto implementations |
-| Space r |               Rename symbol |
-| Space k |         Hover documentation |
-| Space a |                 Code action |
-| Space d |   Show document diagnostics |
-| Space D |  Show workspace diagnostics |
-| \]d     |     Jump to next diagnostic |
-| \[d     | Jump to previous diagnostic |
-| Ctrl j  |   Jump to next snippet mark |
+| Key     |                                 Binding |
+| :------ | --------------------------------------: |
+| gd      |                         Goto definition |
+| gy      |                    Goto type definition |
+| gr      |                         Goto references |
+| gi      |                    Goto implementations |
+| Space r |                           Rename symbol |
+| Space k |                     Hover documentation |
+| Space a |                             Code action |
+| Space d |               Show document diagnostics |
+| Space D |              Show workspace diagnostics |
+| \]d     |                 Jump to next diagnostic |
+| \[d     |             Jump to previous diagnostic |
+| Ctrl a  | Jump to next snippet mark (Insert mode) |
 
 ### Tabs
 
