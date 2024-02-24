@@ -787,6 +787,6 @@ vim.cmd.colorscheme("kanagawa-dragon")
 
 log_time("colorscheme")
 
-for _, name in pairs(time_names) do
-	vim.cmd("let " .. name)
-end
+-- for _, name in pairs(time_names) do
+-- 	vim.cmd("let " .. name)
+-- end
