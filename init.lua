@@ -69,15 +69,6 @@ plug("windwp/nvim-ts-autotag")
 plug("tpope/vim-surround")
 log_time("plug_surround")
 
--- snippets (for autocompletion)
-plug("hrsh7th/vim-vsnip")
-plug("rafamadriz/friendly-snippets")
-log_time("plug_snippets")
-
--- autocompletion icons
-plug("onsails/lspkind.nvim")
-log_time("plug_lspkind")
-
 -- git integration
 plug("lewis6991/gitsigns.nvim")
 plug("tpope/vim-fugitive")
