@@ -62,6 +62,7 @@ log_time("plug_telescope")
 
 -- autocompletion
 plug("ms-jpq/coq_nvim")
+plug("ms-jpq/coq.artifacts")
 log_time("plug_cmp")
 
 -- auto pairs
@@ -197,12 +198,13 @@ gitsigns.setup({
 
 log_time("gitsigns")
 
--- lspconfig
+-- lsp
 local lspconfig = require("lspconfig")
+local coq = require("coq")
 
-lspconfig.jdtls.setup({ capabilities = capabilities })
-lspconfig.clangd.setup({ capabilities = capabilities })
-lspconfig.lua_ls.setup({
+lspconfig.jdtls.setup(coq.lsp_ensure_capabilities({}))
+lspconfig.clangd.setup(coq.lsp_ensure_capabilities({}))
+lspconfig.lua_ls.setup(coq.lsp_ensure_capabilities({
 	settings = {
 		Lua = {
 			completion = {
@@ -210,29 +212,27 @@ lspconfig.lua_ls.setup({
 			},
 		},
 	},
-	capabilities = capabilities,
-})
-lspconfig.marksman.setup({ capabilities = capabilities })
-lspconfig.ocamllsp.setup({
+}))
+lspconfig.marksman.setup(coq.lsp_ensure_capabilities({}))
+lspconfig.ocamllsp.setup(coq.lsp_ensure_capabilities({
 	cmd = { "ocamllsp", "--fallback-read-dot-merlin" },
-	capabilities = capabilities,
-})
-lspconfig.texlab.setup({ capabilities = capabilities })
-lspconfig.jsonls.setup({ capabilities = capabilities })
-lspconfig.cssls.setup({ capabilities = capabilities })
-lspconfig.taplo.setup({ capabilities = capabilities })
-lspconfig.dotls.setup({ capabilities = capabilities })
-lspconfig.hls.setup({ capabilities = capabilities })
-lspconfig.glslls.setup({ capabilities = capabilities })
-lspconfig.pylsp.setup({ capabilities = capabilities })
-lspconfig.denols.setup({
-	capabilities = capabilities,
+}))
+lspconfig.texlab.setup(coq.lsp_ensure_capabilities({}))
+lspconfig.jsonls.setup(coq.lsp_ensure_capabilities({}))
+lspconfig.cssls.setup(coq.lsp_ensure_capabilities({}))
+lspconfig.taplo.setup(coq.lsp_ensure_capabilities({}))
+lspconfig.dotls.setup(coq.lsp_ensure_capabilities({}))
+lspconfig.hls.setup(coq.lsp_ensure_capabilities({}))
+lspconfig.glslls.setup(coq.lsp_ensure_capabilities({}))
+lspconfig.pylsp.setup(coq.lsp_ensure_capabilities({}))
+lspconfig.denols.setup(coq.lsp_ensure_capabilities({
 	root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-})
-lspconfig.tsserver.setup({
-	capabilities = capabilities,
+}))
+lspconfig.tsserver.setup(coq.lsp_ensure_capabilities({
 	root_dir = lspconfig.util.root_pattern("package.json"),
-})
+}))
+
+-- vim.cmd("COQnow")
 
 log_time("lspconfig")
 
@@ -609,6 +609,6 @@ vim.cmd.colorscheme("kanagawa-dragon")
 
 log_time("colorscheme")
 
-for _, name in pairs(time_names) do
-	vim.cmd("let " .. name)
-end
+-- for _, name in pairs(time_names) do
+-- 	vim.cmd("let " .. name)
+-- end
