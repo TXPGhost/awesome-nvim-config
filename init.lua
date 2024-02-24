@@ -75,7 +75,7 @@ plug("lewis6991/gitsigns.nvim")
 plug("tpope/vim-fugitive")
 log_time("plug_fugitive")
 
--- better looking fold
+-- better folds
 plug("kevinhwang91/nvim-ufo")
 
 -- icons
@@ -437,7 +437,15 @@ require("ufo").setup({
 vim.keymap.set("n", "zR", require("ufo").openAllFolds)
 vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
 vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds)
-vim.keymap.set("n", "zm", require("ufo").closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
+vim.keymap.set("n", "zm", require("ufo").closeFoldsWith)
+vim.keymap.set("n", "]f", require("ufo").goNextClosedFold)
+vim.keymap.set("n", "[f", require("ufo").goPreviousClosedFold)
+vim.keymap.set("n", "K", function()
+	local winid = require("ufo").peekFoldedLinesUnderCursor()
+	if not winid then
+		vim.lsp.buf.hover()
+	end
+end)
 
 -- code actions
 vim.g.code_action_menu_show_action_kind = false
@@ -602,7 +610,7 @@ require("kanagawa").setup({
 
 			LineNr = { fg = "#c8c093", bg = "#282727" },
 			LineNrAbove = { fg = "#625e5a", bg = "#282727" },
-			LineNrBelow = { fg = "#625e5a", bg = "#282727" },
+			LineNrBelow = { link = "LineNrAbove" },
 
 			StatusLine = { bg = "#282727" },
 

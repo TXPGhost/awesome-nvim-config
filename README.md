@@ -40,19 +40,11 @@ The awesomest neovim config out there.
 
 ### Tree-Sitter
 
-| Key       |                    Binding |
-| :-------- | -------------------------: |
-| Enter     |             Init selection |
-| Tab       |             Grow selection |
-| Shift Tab |           Shrink Selection |
-| \]f       |      Jump to next function |
-| \[f       |  Jump to previous function |
-| \]c       |         Jump to next class |
-| \[c       |     Jump to previous class |
-| \]s       |     Jump to next statement |
-| \[s       | Jump to previous statement |
-| Ctrl j    |                 Split code |
-| Ctrl k    |                  Join code |
+| Key       |          Binding |
+| :-------- | ---------------: |
+| Enter     |   Init selection |
+| Tab       |   Grow selection |
+| Shift Tab | Shrink Selection |
 
 ### LSP
 
@@ -81,19 +73,22 @@ The awesomest neovim config out there.
 
 ### Terminal
 
-| Key        |        Binding |
-| :--------- | -------------: |
-| Ctrl Enter |  Open terminal |
-| Ctrl a     | Close terminal |
+| Key        |            Binding |
+| :--------- | -----------------: |
+| Ctrl Enter |      Open terminal |
+| Ctrl a     | Exit terminal mode |
 
-## LaTeX
+## Folds
 
-| Key |                                          Binding |
-| :-- | -----------------------------------------------: |
-| \ll |                                          Compile |
-| dsc |                       Delete surroinding command |
-| dse |                   Delete surrounding environment |
-| ]]  | Close surrounding environment (insert mode only) |
+| Key |                                    Binding |
+| :-- | -----------------------------------------: |
+| zR  |                             Open all folds |
+| zM  |                            Close all folds |
+| zr  | Open all folds except comments and imports |
+| zm  |                 Close all folds with level |
+| K   |                       Preview current fold |
+| ]f  |                      Goto next closed fold |
+| [f  |                  Goto previous closed fold |
 
 ## Additional Features
 
