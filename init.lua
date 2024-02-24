@@ -232,7 +232,7 @@ lspconfig.tsserver.setup(coq.lsp_ensure_capabilities({
 	root_dir = lspconfig.util.root_pattern("package.json"),
 }))
 
--- vim.cmd("COQnow")
+vim.cmd("COQnow --shut-up")
 
 log_time("lspconfig")
 
