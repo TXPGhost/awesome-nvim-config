@@ -75,6 +75,9 @@ plug("lewis6991/gitsigns.nvim")
 plug("tpope/vim-fugitive")
 log_time("plug_fugitive")
 
+-- better looking fold
+plug("kevinhwang91/nvim-ufo")
+
 -- icons
 plug("nvim-tree/nvim-web-devicons")
 log_time("plug_devicons")
@@ -425,6 +428,16 @@ require("trouble").setup({
 })
 
 log_time("trouble")
+
+-- ufo
+require("ufo").setup({
+	open_fold_hl_timeout = 0,
+	close_fold_kinds = { "imports", "comment" },
+})
+vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds)
+vim.keymap.set("n", "zm", require("ufo").closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
 
 -- code actions
 vim.g.code_action_menu_show_action_kind = false
