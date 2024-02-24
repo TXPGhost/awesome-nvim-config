@@ -13,32 +13,12 @@ The awesomest neovim config out there.
 
 ### Git
 
-| Key         |                     Binding |
-| :---------- | --------------------------: |
-| ?           | Open fugitive status window |
-| Space Space |         Inline preview hunk |
-| g?          |              Show diff view |
-| gb          |              Show git blame |
-| gB          |           Show git branches |
-| ]h          |                   Next hunk |
-| [h          |               Previous hunk |
-| Space s     |     Stage hunk under cursor |
-| Space gc    |          Search git commits |
-| Space gb    |         Search git branches |
-| Space gs    |            Search git stash |
-
-### Window Navigation
-
-| Key         |                Binding |
-| :---------- | ---------------------: |
-| Left        |  Switch to left window |
-| Right       | Switch to right window |
-| Up          |    Switch to up window |
-| Down        |  Switch to down window |
-| Shift Left  |       Move window left |
-| Shift Right |      Move window right |
-| Shift Up    |         Move window up |
-| Shift Down  |       Move window down |
+| Key |                     Binding |
+| :-- | --------------------------: |
+| ?   | Open fugitive status window |
+| g?  |              Show diff view |
+| ]h  |                   Next hunk |
+| [h  |               Previous hunk |
 
 ### File navigation
 
@@ -78,10 +58,6 @@ The awesomest neovim config out there.
 | gy      |        Goto type definition |
 | gr      |             Goto references |
 | gi      |        Goto implementations |
-| gpd     |          Preview definition |
-| gpy     |     Preview type definition |
-| gpr     |          Preview references |
-| gpi     |     Preview implementations |
 | Space r |               Rename symbol |
 | Space k |         Hover documentation |
 | Space a |                 Code action |
@@ -89,14 +65,6 @@ The awesomest neovim config out there.
 | Space D |  Show workspace diagnostics |
 | \]d     |     Jump to next diagnostic |
 | \[d     | Jump to previous diagnostic |
-| Space ; |       Show document symbols |
-| Space : |      Show workspace symbols |
-
-### View
-
-| Key     |             Binding |
-| :------ | ------------------: |
-| Space n | Toggle line numbers |
 
 ### Tabs
 

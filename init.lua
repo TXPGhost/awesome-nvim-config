@@ -14,54 +14,49 @@ local plug = vim.fn["plug#"]
 
 -- dependencies
 plug("nvim-lua/plenary.nvim")
-
--- neovim dev environment
-plug("folke/neodev.nvim")
+log_time("plug_plenary")
 
 -- startup time
 plug("dstein64/vim-startuptime")
+log_time("plug_vim_startuptime")
 
 -- themes
 plug("rebelot/kanagawa.nvim")
+log_time("plug_kanagawa")
 
 -- lualine
 plug("nvim-lualine/lualine.nvim")
-plug("mawkler/modicator.nvim")
-plug("AndreM222/copilot-lualine")
-plug("arkav/lualine-lsp-progress")
+log_time("plug_lualine")
 
 -- comment toggling
 plug("tpope/vim-commentary")
+log_time("plug_vim_commentary")
 
 -- better fold
 plug("kevinhwang91/promise-async")
-plug("kevinhwang91/nvim-ufo")
+log_time("plug_promise_async")
 
 -- LSP
 plug("neovim/nvim-lspconfig")
-plug("smjonas/inc-rename.nvim")
 plug("weilbith/nvim-code-action-menu")
 plug("folke/trouble.nvim")
-plug("rmagatti/goto-preview")
-
--- copilot
-plug("zbirenbaum/copilot.lua")
-
--- graphviz
-plug("liuchengxu/graphviz.vim")
+log_time("plug_lsp")
 
 -- tree-sitter
 plug("nvim-treesitter/nvim-treesitter")
-plug("nvim-treesitter/nvim-treesitter-textobjects")
+log_time("plug_nvim_treesitter")
 
 -- file explorer
 plug("stevearc/oil.nvim")
+log_time("plug_oil")
 
 -- formatter
 plug("stevearc/conform.nvim")
+log_time("plug_conform")
 
 -- telescope
 plug("nvim-telescope/telescope.nvim")
+log_time("plug_telescope")
 
 -- autocompletion
 plug("hrsh7th/nvim-cmp")
@@ -69,50 +64,43 @@ plug("hrsh7th/cmp-nvim-lsp")
 plug("hrsh7th/cmp-nvim-lsp-signature-help")
 plug("hrsh7th/cmp-nvim-lsp-document-symbol")
 plug("hrsh7th/cmp-vsnip")
-plug("hrsh7th/cmp-path")
-plug("hrsh7th/cmp-buffer")
 plug("hrsh7th/cmp-cmdline")
-plug("zbirenbaum/copilot-cmp")
-plug("amarakon/nvim-cmp-lua-latex-symbols")
-plug("lukas-reineke/cmp-under-comparator")
-
--- inlay hints
-plug("lvimuser/lsp-inlayhints.nvim")
+log_time("plug_cmp")
 
 -- auto pairs
-plug("windwp/nvim-autopairs")
 plug("windwp/nvim-ts-autotag")
 plug("tpope/vim-surround")
+log_time("plug_surround")
 
 -- snippets (for autocompletion)
 plug("hrsh7th/vim-vsnip")
 plug("rafamadriz/friendly-snippets")
+log_time("plug_snippets")
 
 -- autocompletion icons
 plug("onsails/lspkind.nvim")
+log_time("plug_lspkind")
 
 -- git integration
 plug("lewis6991/gitsigns.nvim")
 plug("tpope/vim-fugitive")
+log_time("plug_fugitive")
 
 -- icons
 plug("nvim-tree/nvim-web-devicons")
-
--- latex
-plug("lervag/vimtex")
+log_time("plug_devicons")
 
 -- automatic tab type detection
 plug("tpope/vim-sleuth")
+log_time("plug_sleuth")
 
 -- rust
 plug("mrcjkb/rustaceanvim")
-plug("Saecki/crates.nvim")
+log_time("plug_rust")
 
 -- markdown
 plug("cloudsftp/peek.nvim")
-
--- colorizer
-plug("NvChad/nvim-colorizer.lua")
+log_time("plug_markdown")
 
 ---@diagnostic disable-next-line: param-type-mismatch
 vim.call("plug#end")
@@ -121,12 +109,6 @@ log_time("vimplug")
 
 -- set help window to vertical split
 vim.api.nvim_create_autocmd({ "FileType" }, { pattern = { "help" }, command = "wincmd L" })
-
--- disable startup message
-vim.opt.shm:append("I")
-
--- add wgsl filetype
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, { pattern = { "*.wgsl" }, command = "set filetype=wgsl" })
 
 -- configure diagnostics
 vim.fn.sign_define("DiagnosticSignError", { text = "" })
@@ -176,89 +158,69 @@ conform.setup({
 log_time("conform")
 
 -- lualine
-require("lualine").setup({
-	options = {
-		icons_enabled = true,
-		theme = "auto",
-		component_separators = { left = "", right = "" },
-		section_separators = { left = "", right = "" },
-		disabled_filetypes = {
-			statusline = {},
-			winbar = {},
-		},
-		ignore_focus = {},
-		always_divide_middle = true,
-		globalstatus = true,
-		refresh = {
-			statusline = 1000,
-			tabline = 1000,
-			winbar = 1000,
-		},
-	},
-	sections = {
-		lualine_a = { "mode" },
-		lualine_b = {
-			"branch",
-			{
-				"diff",
-				source = function()
-					---@diagnostic disable-next-line: undefined-field
-					local gitsigns = vim.b.gitsigns_status_dict
-					if gitsigns then
-						return {
-							added = gitsigns.added,
-							modified = gitsigns.changed,
-							removed = gitsigns.removed,
-						}
-					end
-				end,
-			},
-			"diagnostics",
-		},
-		lualine_c = { { "filename", path = 1 } },
-		lualine_x = {
-			{
-				"copilot",
-				symbols = {
-					status = {
-						icons = {
-							enabled = "",
-							sleep = "",
-							disabled = "",
-							warning = "",
-							unknown = "",
-						},
-					},
-				},
-			},
-			{
-				"lsp_progress",
-				display_components = { "lsp_client_name", "spinner", "percentage" },
-				spinner_symbols = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" },
-				timer = { progress_enddelay = 100, spinner = 100, lsp_client_name_enddelay = 0 },
-			},
-			"encoding",
-			"fileformat",
-			"filetype",
-		},
-		lualine_y = { "progress" },
-		lualine_z = { "location" },
-	},
-	inactive_sections = {
-		lualine_a = {},
-		lualine_b = {},
-		lualine_c = { "filename" },
-		lualine_x = { "location" },
-		lualine_y = {},
-		lualine_z = {},
-	},
-	tabline = {},
-	winbar = {},
-	inactive_winbar = {},
-	extensions = {},
-})
+--require("lualine").setup({
+--	options = {
+--		icons_enabled = true,
+--		theme = "auto",
+--		component_separators = { left = "", right = "" },
+--		section_separators = { left = "", right = "" },
+--		disabled_filetypes = {
+--			statusline = {},
+--			winbar = {},
+--		},
+--		ignore_focus = {},
+--		always_divide_middle = true,
+--		globalstatus = true,
+--		refresh = {
+--			statusline = 1000,
+--			tabline = 1000,
+--			winbar = 1000,
+--		},
+--	},
+--	sections = {
+--		lualine_a = { "mode" },
+--		lualine_b = {
+--			"branch",
+--			{
+--				"diff",
+--				source = function()
+--					---@diagnostic disable-next-line: undefined-field
+--					local gitsigns = vim.b.gitsigns_status_dict
+--					if gitsigns then
+--						return {
+--							added = gitsigns.added,
+--							modified = gitsigns.changed,
+--							removed = gitsigns.removed,
+--						}
+--					end
+--				end,
+--			},
+--			"diagnostics",
+--		},
+--		lualine_c = { { "filename", path = 1 } },
+--		lualine_x = {
+--			"encoding",
+--			"fileformat",
+--			"filetype",
+--		},
+--		lualine_y = { "progress" },
+--		lualine_z = { "location" },
+--	},
+--	inactive_sections = {
+--		lualine_a = {},
+--		lualine_b = {},
+--		lualine_c = { "filename" },
+--		lualine_x = { "location" },
+--		lualine_y = {},
+--		lualine_z = {},
+--	},
+--	tabline = {},
+--	winbar = {},
+--	inactive_winbar = {},
+--	extensions = {},
+--})
 
-log_time("lualine")
+--log_time("lualine")
 
 -- oil
 require("oil").setup({
@@ -286,42 +248,10 @@ vim.keymap.set("n", "-", "<cmd>Oil<cr>zz", { desc = "Open parent directory" })
 
 log_time("oil")
 
--- nvim-autopairs
-local npairs = require("nvim-autopairs")
-npairs.setup({
-	check_ts = true,
-})
-
-log_time("autopairs")
-
--- copilot
-require("copilot").setup({
-	filetypes = {
-		yaml = true,
-		markdown = true,
-		help = true,
-		gitcommit = true,
-		gitrebase = true,
-		hgcommit = true,
-		svn = true,
-		cvs = true,
-		["."] = true,
-	},
-	suggestion = { enabled = false },
-	panel = { enabled = false },
-})
-require("copilot_cmp").setup({
-	fix_pairs = true,
-})
-
 -- nvim-cmp
 local cmp = require("cmp")
 local lspkind = require("lspkind")
-lspkind.init({
-	symbol_map = {
-		Copilot = "",
-	},
-})
+lspkind.init({})
 
 local has_words_before = function()
 	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
@@ -329,8 +259,7 @@ local has_words_before = function()
 	end
 	unpack = unpack or table.unpack
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
-	-- return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 local feedkey = function(key, mode)
@@ -370,16 +299,10 @@ cmp.setup({
 		end, { "i", "s" }),
 	}),
 	sources = cmp.config.sources({
-		{ name = "copilot" },
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lsp_signature_help" },
 		{ name = "vsnip" },
-		{ name = "crates" },
-		{ name = "path" },
-		{ name = "lua-latex-symbols" },
-	}, {
-		{ name = "buffer" },
-	}),
+	}, {}),
 	formatting = {
 		format = lspkind.cmp_format({
 			mode = "symbol_text",
@@ -395,13 +318,11 @@ cmp.setup({
 		priority_weight = 2,
 		comparators = {
 			cmp.config.compare.exact,
-			require("copilot_cmp.comparators").prioritize,
 			cmp.config.compare.offset,
 			-- cmp.config.compare.scopes,
 			cmp.config.compare.score,
 			cmp.config.compare.locality,
 			cmp.config.compare.recently_used,
-			require("cmp-under-comparator").under,
 			cmp.config.compare.kind,
 			cmp.config.compare.sort_text,
 			cmp.config.compare.length,
@@ -413,19 +334,15 @@ cmp.setup({
 cmp.setup.cmdline(":", {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
-		{ name = "path" },
-	}, {
 		{ name = "cmdline" },
-	}),
+	}, {}),
 })
 
 cmp.setup.cmdline("/", {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp_document_symbol" },
-	}, {
-		{ name = "buffer" },
-	}),
+	}, {}),
 })
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -458,24 +375,11 @@ gitsigns.setup({
 
 log_time("gitsigns")
 
--- neodev
-require("neodev").setup({})
-
-log_time("neodev")
-
--- goto-preview
-local goto_preview = require("goto-preview")
-goto_preview.setup()
-
-log_time("gotopreview")
-
 -- lspconfig
 local lspconfig = require("lspconfig")
 
 lspconfig.jdtls.setup({ capabilities = capabilities })
-lspconfig.vimls.setup({ capabilities = capabilities })
 lspconfig.clangd.setup({ capabilities = capabilities })
-lspconfig.cmake.setup({ capabilities = capabilities })
 lspconfig.lua_ls.setup({
 	settings = {
 		Lua = {
@@ -492,13 +396,8 @@ lspconfig.ocamllsp.setup({
 	capabilities = capabilities,
 })
 lspconfig.texlab.setup({ capabilities = capabilities })
-lspconfig.wgsl_analyzer.setup({ capabilities = capabilities })
-lspconfig.bashls.setup({ capabilities = capabilities })
 lspconfig.jsonls.setup({ capabilities = capabilities })
 lspconfig.cssls.setup({ capabilities = capabilities })
-lspconfig.html.setup({ capabilities = capabilities })
-lspconfig.lemminx.setup({ capabilities = capabilities })
-lspconfig.yamlls.setup({ capabilities = capabilities })
 lspconfig.taplo.setup({ capabilities = capabilities })
 lspconfig.dotls.setup({ capabilities = capabilities })
 lspconfig.hls.setup({ capabilities = capabilities })
@@ -514,30 +413,6 @@ lspconfig.tsserver.setup({
 })
 
 log_time("lspconfig")
-
--- lsp inlay hints
-require("lsp-inlayhints").setup({
-	inlay_hints = {
-		type_hints = {
-			remove_colon_start = true,
-		},
-	},
-})
-vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
-vim.api.nvim_create_autocmd("LspAttach", {
-	group = "LspAttach_inlayhints",
-	callback = function(args)
-		if not (args.data and args.data.client_id) then
-			return
-		end
-
-		local bufnr = args.buf
-		local client = vim.lsp.get_client_by_id(args.data.client_id)
-		require("lsp-inlayhints").on_attach(client, bufnr)
-	end,
-})
-
-log_time("lspinlayhints")
 
 -- rustaceanvim
 
@@ -702,16 +577,7 @@ vim.g.rustaceanvim = {
 	},
 }
 
--- rust crates
-require("crates").setup({
-	src = {
-		cmp = {
-			enabled = true,
-		},
-	},
-})
-
-log_time("crates")
+log_time("rustaceanvim")
 
 -- trouble
 require("trouble").setup({
@@ -728,7 +594,7 @@ require("trouble").setup({
 	},
 })
 
-log_time("truoble")
+log_time("trouble")
 
 -- code actions
 vim.g.code_action_menu_show_action_kind = false
@@ -785,61 +651,14 @@ vim.opt.foldlevel = 99999
 
 log_time("treesitter")
 
--- ufo
-local ufo = require("ufo")
-ufo.setup()
-
-log_time("ufo")
-
--- vimtex
-vim.g.vimtex_view_general_viewer = "okular"
-vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src@line@tex"
-vim.g.vimtex_compiler_method = "tectonic"
-vim.g.vimtex_syntax_conceal = {
-	accents = 1,
-	ligatures = 1,
-	cites = 1,
-	fancy = 1,
-	spacing = 1,
-	greek = 1,
-	math_bounds = 1,
-	math_delimiters = 1,
-	math_fracs = 1,
-	math_super_sub = 1,
-	math_symbols = 1,
-	sections = 1,
-	styles = 1,
-}
-
-log_time("vimtex")
-
--- incremental rename
-require("inc_rename").setup({})
-
-log_time("increname")
-
--- colorizer
-vim.opt.termguicolors = true
-require("colorizer").setup({
-	filetypes = { "*" },
-	user_default_options = {
-		RGB = true,
-		RRGGBB = true,
-		names = false,
-		RRGGBBAA = false,
-		AARRGGBB = false,
-		rgb_fn = false,
-		hsl_fn = false,
-		css = true,
-		css_fn = true,
-
-		mode = "background",
-
-		always_update = false,
+-- telescope
+require("telescope").setup({
+	pickers = {
+		find_files = {
+			find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/" },
+		},
 	},
 })
-
-log_time("colorizer")
 
 -- KEYMAPS
 
@@ -852,39 +671,6 @@ vim.keymap.set("n", "<c-cr>", "<cmd>terminal<cr>i")
 -- easy exit terminal mode
 vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
 
--- center view on jump
-vim.keymap.set("n", "<c-o>", "<c-o>zz")
-vim.keymap.set("n", "<c-i>", "<c-i>zz")
-
--- use arrow keys to navigate windows
-vim.keymap.set("n", "<left>", "<cmd>wincmd h<cr>")
-vim.keymap.set("n", "<down>", "<cmd>wincmd j<cr>")
-vim.keymap.set("n", "<up>", "<cmd>wincmd k<cr>")
-vim.keymap.set("n", "<right>", "<cmd>wincmd l<cr>")
-
--- use shift arrow keys to move windows
-vim.keymap.set("n", "<s-left>", "<cmd>wincmd H<cr>")
-vim.keymap.set("n", "<s-down>", "<cmd>wincmd J<cr>")
-vim.keymap.set("n", "<s-up>", "<cmd>wincmd K<cr>")
-vim.keymap.set("n", "<s-right>", "<cmd>wincmd L<cr>")
-
--- toggleable line numbers
-vim.keymap.set("n", "<space>n", function()
-	local b = not vim.opt.number:get()
-	vim.opt.number = b
-	vim.opt.relativenumber = b
-	vim.opt.signcolumn = b and "yes" or "no"
-end)
-
--- telescope
-require("telescope").setup({
-	pickers = {
-		find_files = {
-			find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/" },
-		},
-	},
-})
-
 vim.keymap.set("n", "<space>f", "<cmd>Telescope fd<cr>")
 vim.keymap.set("n", "<space>b", "<cmd>Telescope buffers<cr>")
 vim.keymap.set("n", "<space>j", "<cmd>Telescope jumplist<cr>")
@@ -893,28 +679,11 @@ vim.keymap.set("n", "<space>gb", "<cmd>Telescope git_branches<cr>")
 vim.keymap.set("n", "<space>gs", "<cmd>Telescope git_stash<cr>")
 vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
 
-vim.keymap.set("n", "<space>;", "<cmd>Telescope lsp_document_symbols<cr>")
-vim.keymap.set("n", "<space>:", "<cmd>Telescope lsp_workspace_symbols<cr>")
-
--- treesitter-textobjects
-local function mktextobj(bind, obj)
-	vim.keymap.set({ "n", "v" }, "]" .. bind, "<cmd>TSTextobjectGotoNextStart " .. obj .. "<cr><cmd>norm zz<cr>")
-	vim.keymap.set({ "n", "v" }, "[" .. bind, "<cmd>TSTextobjectGotoPreviousStart" .. obj .. "<cr><cmd>norm zz<cr>")
-end
-
-mktextobj("f", "@function.outer")
-mktextobj("c", "@class.outer")
-mktextobj("s", "@statement.outer")
-
 -- git
-vim.keymap.set("n", "gb", "<cmd>Git blame<cr>")
-vim.keymap.set("n", "gB", "<cmd>Telescope git_branches<cr>")
-vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
-vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
+vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
+vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
 vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
-vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
 vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit!<cr>")
-vim.keymap.set("n", "<space>s", "<cmd>Gitsigns stage_hunk<cr>")
 
 -- lsp
 vim.keymap.set("n", "<space>k", function()
@@ -931,45 +700,25 @@ vim.keymap.set("n", "[d", function()
 	vim.diagnostic.goto_prev()
 end)
 
-vim.keymap.set("n", "<space>r", ":IncRename ")
+vim.keymap.set("n", "<space>r", function()
+	vim.lsp.buf.rename()
+end)
 vim.keymap.set("n", "gd", function()
 	vim.lsp.buf.definition()
-end) -- IDEA: open in new tab if different file
+end)
 vim.keymap.set("n", "gy", function()
 	vim.lsp.buf.type_definition()
 end)
 vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
 vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
 
-vim.keymap.set("n", "gpd", function()
-	goto_preview.goto_preview_definition()
-end)
-vim.keymap.set("n", "gpy", function()
-	goto_preview.goto_preview_type_definition()
-end)
-vim.keymap.set("n", "gpr", function()
-	goto_preview.goto_preview_references()
-end)
-vim.keymap.set("n", "gpi", function()
-	goto_preview.goto_preview_implementation()
-end)
+-- auto pair curly brace
+vim.keymap.set("i", "{<cr>", "{<cr><cr>}<esc>kcc", { noremap = true })
 
 -- tabs
 vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
 vim.keymap.set("n", "<c-h>", "<cmd>tabprev<cr>")
 vim.keymap.set("n", "<c-l>", "<cmd>tabnext<cr>")
-
--- folds (ufo)
-vim.keymap.set("n", "zR", ufo.openAllFolds)
-vim.keymap.set("n", "zM", ufo.closeAllFolds)
-vim.keymap.set("n", "zr", ufo.openFoldsExceptKinds)
-vim.keymap.set("n", "zm", ufo.closeFoldsWith)
-vim.keymap.set("n", "K", function()
-	local winid = ufo.peekFoldedLinesUnderCursor()
-	if not winid then
-		vim.lsp.buf.hover()
-	end
-end)
 
 log_time("keymaps")
 
@@ -978,15 +727,14 @@ vim.opt.compatible = false
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.swapfile = false
-vim.opt.signcolumn = "no"
-vim.opt.number = false
-vim.opt.relativenumber = false
+vim.opt.signcolumn = "yes"
+vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.wrap = false
 vim.opt.scrolloff = 5
-vim.opt.mousescroll = "ver:5,hor:6"
 vim.opt.shell = "fish"
 vim.opt.textwidth = 80
-vim.opt.conceallevel = 2
+vim.opt.cursorline = false
 
 -- disable auto comment
 vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=tqnlj")
@@ -995,13 +743,17 @@ log_time("startupcommands")
 
 -- colorscheme
 require("kanagawa").setup({
+	compile = true,
 	transparent = true,
 	overrides = function(_)
 		return {
 			LspInlayHint = { link = "Comment" },
 
+			LineNr = { fg = "#c8c093", bg = "#282727" },
 			LineNrAbove = { fg = "#625e5a", bg = "#282727" },
 			LineNrBelow = { fg = "#625e5a", bg = "#282727" },
+
+			StatusLine = { bg = "#282727" },
 
 			EndOfBuffer = { link = "NonText" },
 
@@ -1033,26 +785,8 @@ require("kanagawa").setup({
 })
 vim.cmd.colorscheme("kanagawa-dragon")
 
-log_time("colors")
-
--- modicator replacement
-local function on_mode_enter(mode, color, run_init)
-	local cmd = string.format("hi LineNr guifg=#%x", color)
-	vim.api.nvim_create_autocmd({ "ModeChanged" }, {
-		pattern = { "*:[" .. mode .. "]*" },
-		command = cmd,
-	})
-	if run_init then
-		vim.cmd(cmd)
-	end
-end
-
-on_mode_enter("n", vim.api.nvim_get_hl(0, { name = "lualine_a_normal" }).bg, true)
-on_mode_enter("i", vim.api.nvim_get_hl(0, { name = "lualine_a_insert" }).bg, false)
-on_mode_enter("vV\x16", vim.api.nvim_get_hl(0, { name = "lualine_a_visual" }).bg, false)
-on_mode_enter("c", vim.api.nvim_get_hl(0, { name = "lualine_a_command" }).bg, false)
-on_mode_enter("R", vim.api.nvim_get_hl(0, { name = "lualine_a_replace" }).bg, false)
+log_time("colorscheme")
 
 for _, name in pairs(time_names) do
-	-- vim.cmd("let " .. name)
+	vim.cmd("let " .. name)
 end
