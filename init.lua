@@ -38,9 +38,11 @@ log_time("plug_promise_async")
 
 -- LSP
 plug("neovim/nvim-lspconfig")
+log_time("plug_lspconfig")
 plug("weilbith/nvim-code-action-menu")
+log_time("plug_code_action_menu")
 plug("folke/trouble.nvim")
-log_time("plug_lsp")
+log_time("plug_trouble")
 
 -- tree-sitter
 plug("nvim-treesitter/nvim-treesitter")
@@ -722,6 +724,6 @@ vim.cmd.colorscheme("kanagawa-dragon")
 
 log_time("colorscheme")
 
--- for _, name in pairs(time_names) do
--- 	vim.cmd("let " .. name)
--- end
+for _, name in pairs(time_names) do
+	vim.cmd("let " .. name)
+end
