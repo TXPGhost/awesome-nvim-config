@@ -13,13 +13,16 @@ The awesomest neovim config out there.
 
 ### Git
 
-| Key         |                     Binding |
-| :---------- | --------------------------: |
-| ?           | Open fugitive status window |
-| g?          |              Show diff view |
-| ]h          |                   Next hunk |
-| [h          |               Previous hunk |
-| Space Space |                Preview hunk |
+| Key |                     Binding |
+| :-- | --------------------------: |
+| ?   | Open fugitive status window |
+| g?  |              Show diff view |
+| ]h  |                   Next hunk |
+| [h  |               Previous hunk |
+| ghp |                Preview hunk |
+| ghs |                  Stage hunk |
+| ghu |             Undo stage hunk |
+| ghr |                  Reset hunk |
 
 ### File navigation
 
@@ -66,6 +69,7 @@ The awesomest neovim config out there.
 | Space D |  Show workspace diagnostics |
 | \]d     |     Jump to next diagnostic |
 | \[d     | Jump to previous diagnostic |
+| Ctrl j  |   Jump to next snippet mark |
 
 ### Tabs
 

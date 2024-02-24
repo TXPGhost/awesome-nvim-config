@@ -202,8 +202,12 @@ log_time("gitsigns")
 local coq = require("coq")
 
 vim.g.coq_settings = {
-	keymap = { jump_to_mark = "c-\\" },
+	keymap = { jump_to_mark = "<c-j>" },
+	display = { pum = { fast_close = false, kind_context = { " ", "" } }, icons = { mode = "short", spacing = 0 } },
+	match = { fuzzy_cutoff = 0.8 },
 }
+
+vim.cmd("COQnow --shut-up")
 
 -- lsp
 local lspconfig = require("lspconfig")
@@ -237,8 +241,6 @@ lspconfig.denols.setup(coq.lsp_ensure_capabilities({
 lspconfig.tsserver.setup(coq.lsp_ensure_capabilities({
 	root_dir = lspconfig.util.root_pattern("package.json"),
 }))
-
-vim.cmd("COQnow --shut-up")
 
 log_time("lspconfig")
 
@@ -497,7 +499,7 @@ vim.keymap.set("n", "<esc>", "<cmd>noh<cr><cmd>TroubleClose<cr>")
 vim.keymap.set(
 	"n",
 	"<c-cr>",
-	"<cmd>terminal<cr><cmd>set nonumber<cr><cmd>set norelativenumber<cr><cmd>set signcolumn=no<cr>i"
+	"<cmd>terminal<cr><cmd>setlocal nonumber<cr><cmd>setlocal norelativenumber<cr><cmd>setlocal signcolumn=no<cr>i"
 )
 
 -- easy exit terminal mode
@@ -514,9 +516,12 @@ vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
 -- git
 vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
 vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
-vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk<cr>")
 vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
 vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit!<cr>")
+vim.keymap.set("n", "ghp", "<cmd>Gitsigns preview_hunk<cr>")
+vim.keymap.set("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
+vim.keymap.set("n", "ghu", "<cmd>Gitsigns stage_hunk<cr>")
+vim.keymap.set("n", "ghr", "<cmd>Gitsigns reset_hunk<cr>")
 
 -- lsp
 vim.keymap.set("n", "<space>k", function()
@@ -567,6 +572,7 @@ vim.opt.wrap = false
 vim.opt.shell = "fish"
 vim.opt.textwidth = 80
 vim.opt.cursorline = false
+vim.opt.scrolloff = 5
 
 -- disable auto comment
 vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=tqnlj")
