@@ -504,6 +504,7 @@ vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
 -- git
 vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
 vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
+vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk<cr>")
 vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
 vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit!<cr>")
 

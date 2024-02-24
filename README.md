@@ -13,12 +13,13 @@ The awesomest neovim config out there.
 
 ### Git
 
-| Key |                     Binding |
-| :-- | --------------------------: |
-| ?   | Open fugitive status window |
-| g?  |              Show diff view |
-| ]h  |                   Next hunk |
-| [h  |               Previous hunk |
+| Key         |                     Binding |
+| :---------- | --------------------------: |
+| ?           | Open fugitive status window |
+| g?          |              Show diff view |
+| ]h          |                   Next hunk |
+| [h          |               Previous hunk |
+| Space Space |                Preview hunk |
 
 ### File navigation
 
