@@ -198,9 +198,19 @@ gitsigns.setup({
 
 log_time("gitsigns")
 
+-- coq
+local coq = require("coq")
+
+vim.g.coq_settings = { keymap = { recommended = false } }
+vim.cmd([[ino <silent><expr> <Esc> pumvisible() ? "\<C-e><Esc>" : "\<Esc>"]])
+vim.cmd([[ino <silent><expr> <C-c> pumvisible() ? "\<C-e><C-c>" : "\<C-c>"]])
+vim.cmd([[ino <silent><expr> <BS> pumvisible() ? "\<C-e><BS>"  : "\<BS>"]])
+vim.cmd([[ino <silent><expr> <CR> pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"]])
+vim.cmd([[ino <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"]])
+vim.cmd([[ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"]])
+
 -- lsp
 local lspconfig = require("lspconfig")
-local coq = require("coq")
 
 lspconfig.jdtls.setup(coq.lsp_ensure_capabilities({}))
 lspconfig.clangd.setup(coq.lsp_ensure_capabilities({}))
