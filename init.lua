@@ -69,6 +69,9 @@ log_time("plug_cmp")
 
 -- auto pairs
 plug("windwp/nvim-ts-autotag")
+plug("RRethy/nvim-treesitter-endwise")
+
+-- surround
 plug("tpope/vim-surround")
 log_time("plug_surround")
 
@@ -180,6 +183,24 @@ vim.api.nvim_create_user_command("MarkdownPreviewOpen", peek.open, {})
 vim.api.nvim_create_user_command("MarkdownPreviewClose", peek.close, {})
 
 log_time("markdown")
+
+-- latex
+vim.api.nvim_create_user_command("LatexPreview", function()
+	local texpath = vim.fn.expand("%")
+	local pdfpath = texpath:gsub("%.%w+$", ".pdf")
+	vim.cmd("!okular " .. pdfpath .. " &")
+end, {})
+vim.api.nvim_create_user_command("LatexCompile", function()
+	local texpath = vim.fn.expand("%")
+	vim.cmd("!tectonic " .. texpath)
+end, {})
+
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	pattern = { "*.tex" },
+	command = "LatexCompile",
+})
+
+log_time("latex")
 
 -- config quick edit
 vim.api.nvim_create_user_command("Config", function()
@@ -474,23 +495,9 @@ require("nvim-treesitter.configs").setup({
 	},
 	autotag = {
 		enable = true,
-		filetypes = {
-			"html",
-			"javascript",
-			"typescript",
-			"javascriptreact",
-			"typescriptreact",
-			"svelte",
-			"vue",
-			"tsx",
-			"jsx",
-			"rescript",
-			"css",
-			"lua",
-			"xml",
-			"php",
-			"markdown",
-		},
+	},
+	endwise = {
+		enable = true,
 	},
 })
 vim.opt.foldmethod = "expr"
