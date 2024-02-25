@@ -43,6 +43,8 @@ plug("weilbith/nvim-code-action-menu")
 log_time("plug_code_action_menu")
 plug("folke/trouble.nvim")
 log_time("plug_trouble")
+plug("mrcjkb/rustaceanvim")
+log_time("plug_rust")
 
 -- tree-sitter
 plug("nvim-treesitter/nvim-treesitter")
@@ -86,11 +88,7 @@ log_time("plug_devicons")
 plug("tpope/vim-sleuth")
 log_time("plug_sleuth")
 
--- rust
-plug("mrcjkb/rustaceanvim")
-log_time("plug_rust")
-
--- markdown
+-- markdown preview
 plug("cloudsftp/peek.nvim")
 log_time("plug_markdown")
 
@@ -248,7 +246,6 @@ lspconfig.tsserver.setup(coq.lsp_ensure_capabilities({
 log_time("lspconfig")
 
 -- rustaceanvim
-
 vim.g.rustaceanvim = {
 	server = {
 		default_settings = {
@@ -541,7 +538,7 @@ vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
 vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit!<cr>")
 vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
 vim.keymap.set("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
-vim.keymap.set("n", "ghu", "<cmd>Gitsigns stage_hunk<cr>")
+vim.keymap.set("n", "ghu", "<cmd>Gitsigns undo_stage_hunk<cr>")
 vim.keymap.set("n", "ghr", "<cmd>Gitsigns reset_hunk<cr>")
 
 -- lsp
