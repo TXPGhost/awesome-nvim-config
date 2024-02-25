@@ -531,6 +531,10 @@ vim.keymap.set("n", "<space>gb", "<cmd>Telescope git_branches<cr>")
 vim.keymap.set("n", "<space>gs", "<cmd>Telescope git_stash<cr>")
 vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
 
+-- maintain visual selection when changing indent level
+vim.keymap.set("v", ">", ">gv")
+vim.keymap.set("v", "<", "<gv")
+
 -- git
 vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
 vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
