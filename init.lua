@@ -225,8 +225,7 @@ local coq = require("coq")
 
 vim.g.coq_settings = {
 	keymap = { jump_to_mark = "<c-a>" },
-	display = { pum = { fast_close = false, kind_context = { " ", "" } }, icons = { mode = "short", spacing = 0 } },
-	match = { fuzzy_cutoff = 0.8 },
+	display = { pum = { kind_context = { " ", "" } }, icons = { mode = "short", spacing = 0 } },
 }
 
 vim.cmd("COQnow --shut-up")
@@ -354,7 +353,6 @@ vim.g.rustaceanvim = {
 						"-Wclippy::needless_continue",
 						"-Wclippy::needless_for_each",
 						"-Wclippy::needless_pass_by_ref_mut",
-						"-Wclippy::needless_pass_by_value",
 						"-Wclippy::needless_raw_string_hashes",
 						"-Wclippy::needless_raw_strings",
 						"-Wclippy::negative_feature_names",
