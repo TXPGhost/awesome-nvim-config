@@ -119,6 +119,7 @@ vim.fn.sign_define("DiagnosticSignError", { text = "" })
 vim.fn.sign_define("DiagnosticSignWarn", { text = "" })
 vim.fn.sign_define("DiagnosticSignInfo", { text = "" })
 vim.fn.sign_define("DiagnosticSignHint", { text = "" })
+vim.fn.sign_define("DiagnosticSignOk", { text = "" })
 
 vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
 
@@ -624,73 +625,74 @@ require("telescope").setup({
 
 -- KEYMAPS
 
--- use esc key to exit trouble window and kill highlighting
-vim.keymap.set("n", "<esc>", "<cmd>noh<cr><cmd>TroubleClose<cr>")
+do
+	-- use esc key to exit trouble window and kill highlighting
+	vim.keymap.set("n", "<esc>", "<cmd>noh<cr><cmd>TroubleClose<cr>")
 
--- easy enter terminal mode
-vim.keymap.set(
-	"n",
-	"<c-cr>",
-	"<cmd>terminal<cr><cmd>setlocal nonumber<cr><cmd>setlocal norelativenumber<cr><cmd>setlocal signcolumn=no<cr>i"
-)
+	-- easy enter terminal mode
+	vim.keymap.set(
+		"n",
+		"<c-cr>",
+		"<cmd>terminal<cr><cmd>setlocal nonumber<cr><cmd>setlocal norelativenumber<cr><cmd>setlocal signcolumn=no<cr>i"
+	)
 
--- easy exit terminal mode
-vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
+	-- easy exit terminal mode
+	vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
 
-vim.keymap.set("n", "<space>f", "<cmd>Telescope fd<cr>")
-vim.keymap.set("n", "<space>b", "<cmd>Telescope buffers<cr>")
-vim.keymap.set("n", "<space>j", "<cmd>Telescope jumplist<cr>")
-vim.keymap.set("n", "<space>gc", "<cmd>Telescope git_commits<cr>")
-vim.keymap.set("n", "<space>gb", "<cmd>Telescope git_branches<cr>")
-vim.keymap.set("n", "<space>gs", "<cmd>Telescope git_stash<cr>")
-vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
+	vim.keymap.set("n", "<space>f", "<cmd>Telescope fd<cr>")
+	vim.keymap.set("n", "<space>b", "<cmd>Telescope buffers<cr>")
+	vim.keymap.set("n", "<space>j", "<cmd>Telescope jumplist<cr>")
+	vim.keymap.set("n", "<space>gc", "<cmd>Telescope git_commits<cr>")
+	vim.keymap.set("n", "<space>gb", "<cmd>Telescope git_branches<cr>")
+	vim.keymap.set("n", "<space>gs", "<cmd>Telescope git_stash<cr>")
+	vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
 
--- maintain visual selection when changing indent level
-vim.keymap.set("v", ">", ">gv")
-vim.keymap.set("v", "<", "<gv")
+	-- maintain visual selection when changing indent level
+	vim.keymap.set("v", ">", ">gv")
+	vim.keymap.set("v", "<", "<gv")
 
--- git
-vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
-vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
-vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
-vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit!<cr>")
-vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
-vim.keymap.set("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
-vim.keymap.set("n", "ghu", "<cmd>Gitsigns undo_stage_hunk<cr>")
-vim.keymap.set("n", "ghr", "<cmd>Gitsigns reset_hunk<cr>")
+	-- git
+	vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
+	vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
+	vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
+	vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit!<cr>")
+	vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
+	vim.keymap.set("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
+	vim.keymap.set("n", "ghu", "<cmd>Gitsigns undo_stage_hunk<cr>")
+	vim.keymap.set("n", "ghr", "<cmd>Gitsigns reset_hunk<cr>")
 
--- lsp
-vim.keymap.set("n", "<space>k", function()
-	vim.lsp.buf.hover()
-end)
-vim.keymap.set("n", "<space>d", "<cmd>TroubleToggle document_diagnostics<cr>")
-vim.keymap.set("n", "<space>D", "<cmd>TroubleToggle workspace_diagnostics<cr>")
-vim.keymap.set("n", "<space>a", "<cmd>CodeActionMenu<cr>")
+	-- lsp
+	vim.keymap.set("n", "<space>k", function()
+		vim.lsp.buf.hover()
+	end)
+	vim.keymap.set("n", "<space>d", "<cmd>TroubleToggle document_diagnostics<cr>")
+	vim.keymap.set("n", "<space>D", "<cmd>TroubleToggle workspace_diagnostics<cr>")
+	vim.keymap.set("n", "<space>a", "<cmd>CodeActionMenu<cr>")
 
-vim.keymap.set("n", "]d", function()
-	vim.diagnostic.goto_next()
-end)
-vim.keymap.set("n", "[d", function()
-	vim.diagnostic.goto_prev()
-end)
+	vim.keymap.set("n", "]d", function()
+		vim.diagnostic.goto_next()
+	end)
+	vim.keymap.set("n", "[d", function()
+		vim.diagnostic.goto_prev()
+	end)
 
-vim.keymap.set("n", "<space>r", function()
-	vim.lsp.buf.rename()
-end)
-vim.keymap.set("n", "gd", function()
-	vim.lsp.buf.definition()
-end)
-vim.keymap.set("n", "gy", function()
-	vim.lsp.buf.type_definition()
-end)
-vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
-vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
+	vim.keymap.set("n", "<space>r", function()
+		vim.lsp.buf.rename()
+	end)
+	vim.keymap.set("n", "gd", function()
+		vim.lsp.buf.definition()
+	end)
+	vim.keymap.set("n", "gy", function()
+		vim.lsp.buf.type_definition()
+	end)
+	vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
+	vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
 
--- tabs
-vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
-vim.keymap.set("n", "<c-h>", "<cmd>tabprev<cr>")
-vim.keymap.set("n", "<c-l>", "<cmd>tabnext<cr>")
-
+	-- tabs
+	vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
+	vim.keymap.set("n", "<c-h>", "<cmd>tabprev<cr>")
+	vim.keymap.set("n", "<c-l>", "<cmd>tabnext<cr>")
+end
 log_time("keymaps")
 
 -- startup commands
