@@ -68,6 +68,7 @@ plug("hrsh7th/cmp-nvim-lsp")
 plug("hrsh7th/cmp-nvim-lsp-signature-help")
 plug("hrsh7th/cmp-nvim-lsp-document-symbol")
 plug("hrsh7th/cmp-vsnip")
+plug("hrsh7th/vim-vsnip")
 plug("hrsh7th/cmp-cmdline")
 plug("onsails/lspkind.nvim")
 log_time("plug_cmp")
@@ -330,9 +331,10 @@ log_time("cmp")
 -- lsp
 local lspconfig = require("lspconfig")
 
-lspconfig.jdtls.setup({})
-lspconfig.clangd.setup({})
+lspconfig.jdtls.setup({ capabilities = capabilities })
+lspconfig.clangd.setup({ capabilities = capabilities })
 lspconfig.lua_ls.setup({
+	capabilities = capabilities,
 	settings = {
 		Lua = {
 			completion = {
@@ -341,24 +343,21 @@ lspconfig.lua_ls.setup({
 		},
 	},
 })
-lspconfig.marksman.setup({})
-lspconfig.ocamllsp.setup({
-	cmd = { "ocamllsp", "--fallback-read-dot-merlin" },
-})
-lspconfig.texlab.setup({})
-lspconfig.jsonls.setup({})
-lspconfig.cssls.setup({})
-lspconfig.taplo.setup({})
-lspconfig.dotls.setup({})
-lspconfig.hls.setup({})
-lspconfig.glslls.setup({})
-lspconfig.pylsp.setup({})
+lspconfig.marksman.setup({ capabilities = capabilities })
+lspconfig.ocamllsp.setup({ capabilities = capabilities, cmd = { "ocamllsp", "--fallback-read-dot-merlin" } })
+lspconfig.texlab.setup({ capabilities = capabilities })
+lspconfig.jsonls.setup({ capabilities = capabilities })
+lspconfig.cssls.setup({ capabilities = capabilities })
+lspconfig.taplo.setup({ capabilities = capabilities })
+lspconfig.dotls.setup({ capabilities = capabilities })
+lspconfig.hls.setup({ capabilities = capabilities })
+lspconfig.glslls.setup({ capabilities = capabilities })
+lspconfig.pylsp.setup({ capabilities = capabilities })
 lspconfig.denols.setup({
+	capabilities = capabilities,
 	root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
 })
-lspconfig.tsserver.setup({
-	root_dir = lspconfig.util.root_pattern("package.json"),
-})
+lspconfig.tsserver.setup({ capabilities = capabilities, root_dir = lspconfig.util.root_pattern("package.json") })
 
 log_time("lspconfig")
 
