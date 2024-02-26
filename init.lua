@@ -12,96 +12,99 @@ end
 vim.call("plug#begin")
 local plug = vim.fn["plug#"]
 
--- dependencies
-plug("nvim-lua/plenary.nvim")
-log_time("plug_plenary")
+-- load plugins
+do
+	-- dependencies
+	plug("nvim-lua/plenary.nvim")
+	log_time("plug_plenary")
 
--- startup time
-plug("dstein64/vim-startuptime")
-log_time("plug_vim_startuptime")
+	-- startup time
+	plug("dstein64/vim-startuptime")
+	log_time("plug_vim_startuptime")
 
--- themes
-plug("rebelot/kanagawa.nvim")
-log_time("plug_kanagawa")
+	-- themes
+	plug("rebelot/kanagawa.nvim")
+	log_time("plug_kanagawa")
 
--- lualine
-plug("nvim-lualine/lualine.nvim")
-log_time("plug_lualine")
+	-- lualine
+	plug("nvim-lualine/lualine.nvim")
+	log_time("plug_lualine")
 
--- comment toggling
-plug("tpope/vim-commentary")
-log_time("plug_vim_commentary")
+	-- comment toggling
+	plug("tpope/vim-commentary")
+	log_time("plug_vim_commentary")
 
--- better fold
-plug("kevinhwang91/promise-async")
-log_time("plug_promise_async")
+	-- better fold
+	plug("kevinhwang91/promise-async")
+	log_time("plug_promise_async")
 
--- LSP
-plug("neovim/nvim-lspconfig")
-log_time("plug_lspconfig")
-plug("weilbith/nvim-code-action-menu")
-log_time("plug_code_action_menu")
-plug("folke/trouble.nvim")
-log_time("plug_trouble")
-plug("mrcjkb/rustaceanvim")
-log_time("plug_rust")
+	-- LSP
+	plug("neovim/nvim-lspconfig")
+	log_time("plug_lspconfig")
+	plug("weilbith/nvim-code-action-menu")
+	log_time("plug_code_action_menu")
+	plug("folke/trouble.nvim")
+	log_time("plug_trouble")
+	plug("mrcjkb/rustaceanvim")
+	log_time("plug_rust")
 
--- tree-sitter
-plug("nvim-treesitter/nvim-treesitter")
-log_time("plug_nvim_treesitter")
+	-- tree-sitter
+	plug("nvim-treesitter/nvim-treesitter")
+	log_time("plug_nvim_treesitter")
 
--- file explorer
-plug("stevearc/oil.nvim")
-log_time("plug_oil")
+	-- file explorer
+	plug("stevearc/oil.nvim")
+	log_time("plug_oil")
 
--- formatter
-plug("stevearc/conform.nvim")
-log_time("plug_conform")
+	-- formatter
+	plug("stevearc/conform.nvim")
+	log_time("plug_conform")
 
--- telescope
-plug("nvim-telescope/telescope.nvim")
-log_time("plug_telescope")
+	-- telescope
+	plug("nvim-telescope/telescope.nvim")
+	log_time("plug_telescope")
 
--- autocompletion
-plug("hrsh7th/nvim-cmp")
-plug("hrsh7th/cmp-nvim-lsp")
-plug("hrsh7th/cmp-nvim-lsp-signature-help")
-plug("hrsh7th/cmp-nvim-lsp-document-symbol")
-plug("hrsh7th/cmp-vsnip")
-plug("hrsh7th/vim-vsnip")
-plug("hrsh7th/cmp-cmdline")
-plug("onsails/lspkind.nvim")
-log_time("plug_cmp")
+	-- autocompletion
+	plug("hrsh7th/nvim-cmp")
+	plug("hrsh7th/cmp-nvim-lsp")
+	plug("hrsh7th/cmp-nvim-lsp-signature-help")
+	plug("hrsh7th/cmp-nvim-lsp-document-symbol")
+	plug("hrsh7th/cmp-vsnip")
+	plug("hrsh7th/vim-vsnip")
+	plug("hrsh7th/cmp-cmdline")
+	plug("onsails/lspkind.nvim")
+	log_time("plug_cmp")
 
--- auto pairs
-plug("altermo/ultimate-autopair.nvim")
-plug("abecodes/tabout.nvim")
-plug("windwp/nvim-ts-autotag")
-plug("RRethy/nvim-treesitter-endwise")
+	-- auto pairs
+	plug("altermo/ultimate-autopair.nvim")
+	plug("abecodes/tabout.nvim")
+	plug("windwp/nvim-ts-autotag")
+	plug("RRethy/nvim-treesitter-endwise")
 
--- surround
-plug("tpope/vim-surround")
-log_time("plug_surround")
+	-- surround
+	plug("tpope/vim-surround")
+	log_time("plug_surround")
 
--- git integration
-plug("lewis6991/gitsigns.nvim")
-plug("tpope/vim-fugitive")
-log_time("plug_fugitive")
+	-- git integration
+	plug("lewis6991/gitsigns.nvim")
+	plug("tpope/vim-fugitive")
+	log_time("plug_fugitive")
 
--- better folds
-plug("kevinhwang91/nvim-ufo")
+	-- better folds
+	plug("kevinhwang91/nvim-ufo")
 
--- icons
-plug("nvim-tree/nvim-web-devicons")
-log_time("plug_devicons")
+	-- icons
+	plug("nvim-tree/nvim-web-devicons")
+	log_time("plug_devicons")
 
--- automatic tab type detection
-plug("tpope/vim-sleuth")
-log_time("plug_sleuth")
+	-- automatic tab type detection
+	plug("tpope/vim-sleuth")
+	log_time("plug_sleuth")
 
--- markdown preview
-plug("cloudsftp/peek.nvim")
-log_time("plug_markdown")
+	-- markdown preview
+	plug("cloudsftp/peek.nvim")
+	log_time("plug_markdown")
+end
 
 ---@diagnostic disable-next-line: param-type-mismatch
 vim.call("plug#end")
