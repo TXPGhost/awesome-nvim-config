@@ -63,8 +63,13 @@ plug("nvim-telescope/telescope.nvim")
 log_time("plug_telescope")
 
 -- autocompletion
-plug("ms-jpq/coq_nvim")
-plug("ms-jpq/coq.artifacts")
+plug("hrsh7th/nvim-cmp")
+plug("hrsh7th/cmp-nvim-lsp")
+plug("hrsh7th/cmp-nvim-lsp-signature-help")
+plug("hrsh7th/cmp-nvim-lsp-document-symbol")
+plug("hrsh7th/cmp-vsnip")
+plug("hrsh7th/cmp-cmdline")
+plug("onsails/lspkind.nvim")
 log_time("plug_cmp")
 
 -- auto pairs
@@ -220,22 +225,114 @@ gitsigns.setup({
 
 log_time("gitsigns")
 
--- coq
-local coq = require("coq")
+-- cmp
+-- nvim-cmp
+local cmp = require("cmp")
+local lspkind = require("lspkind")
+lspkind.init({})
 
-vim.g.coq_settings = {
-	keymap = { jump_to_mark = "<c-a>" },
-	display = { pum = { kind_context = { " ", "" } }, icons = { mode = "short", spacing = 0 } },
-}
+local has_words_before = function()
+	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+		return false
+	end
+	unpack = unpack or table.unpack
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
 
-vim.cmd("COQnow --shut-up")
+local feedkey = function(key, mode)
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+end
+
+cmp.setup({
+	snippet = {
+		expand = function(args)
+			vim.fn["vsnip#anonymous"](args.body)
+		end,
+	},
+	window = {},
+	mapping = cmp.mapping.preset.insert({
+		["<C-b>"] = cmp.mapping.scroll_docs(-4),
+		["<C-f>"] = cmp.mapping.scroll_docs(4),
+		["<C-Space>"] = cmp.mapping.complete(),
+		["<C-e>"] = cmp.mapping.abort(),
+		["<cr>"] = cmp.mapping.confirm(),
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item()
+			elseif vim.fn["vsnip#available"](1) == 1 then
+				feedkey("<Plug>(vsnip-expand-or-jump)", "")
+			elseif has_words_before() then
+				cmp.complete()
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+		["<S-Tab>"] = cmp.mapping(function()
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+				feedkey("<Plug>(vsnip-jump-prev)", "")
+			end
+		end, { "i", "s" }),
+	}),
+	sources = cmp.config.sources({
+		{ name = "nvim_lsp" },
+		{ name = "nvim_lsp_signature_help" },
+		{ name = "vsnip" },
+	}, {}),
+	formatting = {
+		format = lspkind.cmp_format({
+			mode = "symbol_text",
+			maxwidth = 10000, -- doesn't work?
+			ellipsis_char = "...",
+			show_labelDetails = true,
+			before = function(_, vim_item)
+				return vim_item
+			end,
+		}),
+	},
+	sorting = {
+		priority_weight = 2,
+		comparators = {
+			cmp.config.compare.exact,
+			cmp.config.compare.offset,
+			-- cmp.config.compare.scopes,
+			cmp.config.compare.score,
+			cmp.config.compare.locality,
+			cmp.config.compare.recently_used,
+			cmp.config.compare.kind,
+			cmp.config.compare.sort_text,
+			cmp.config.compare.length,
+			cmp.config.compare.order,
+		},
+	},
+})
+
+cmp.setup.cmdline(":", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = "cmdline" },
+	}, {}),
+})
+
+cmp.setup.cmdline("/", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = "nvim_lsp_document_symbol" },
+	}, {}),
+})
+
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+log_time("cmp")
 
 -- lsp
 local lspconfig = require("lspconfig")
 
-lspconfig.jdtls.setup(coq.lsp_ensure_capabilities({}))
-lspconfig.clangd.setup(coq.lsp_ensure_capabilities({}))
-lspconfig.lua_ls.setup(coq.lsp_ensure_capabilities({
+lspconfig.jdtls.setup({})
+lspconfig.clangd.setup({})
+lspconfig.lua_ls.setup({
 	settings = {
 		Lua = {
 			completion = {
@@ -243,25 +340,25 @@ lspconfig.lua_ls.setup(coq.lsp_ensure_capabilities({
 			},
 		},
 	},
-}))
-lspconfig.marksman.setup(coq.lsp_ensure_capabilities({}))
-lspconfig.ocamllsp.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.marksman.setup({})
+lspconfig.ocamllsp.setup({
 	cmd = { "ocamllsp", "--fallback-read-dot-merlin" },
-}))
-lspconfig.texlab.setup(coq.lsp_ensure_capabilities({}))
-lspconfig.jsonls.setup(coq.lsp_ensure_capabilities({}))
-lspconfig.cssls.setup(coq.lsp_ensure_capabilities({}))
-lspconfig.taplo.setup(coq.lsp_ensure_capabilities({}))
-lspconfig.dotls.setup(coq.lsp_ensure_capabilities({}))
-lspconfig.hls.setup(coq.lsp_ensure_capabilities({}))
-lspconfig.glslls.setup(coq.lsp_ensure_capabilities({}))
-lspconfig.pylsp.setup(coq.lsp_ensure_capabilities({}))
-lspconfig.denols.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.texlab.setup({})
+lspconfig.jsonls.setup({})
+lspconfig.cssls.setup({})
+lspconfig.taplo.setup({})
+lspconfig.dotls.setup({})
+lspconfig.hls.setup({})
+lspconfig.glslls.setup({})
+lspconfig.pylsp.setup({})
+lspconfig.denols.setup({
 	root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-}))
-lspconfig.tsserver.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.tsserver.setup({
 	root_dir = lspconfig.util.root_pattern("package.json"),
-}))
+})
 
 log_time("lspconfig")
 
@@ -609,42 +706,39 @@ log_time("startupcommands")
 -- colorscheme
 require("kanagawa").setup({
 	compile = true,
-	transparent = true,
-	overrides = function(_)
+	overrides = function(colors)
 		return {
-			LspInlayHint = { link = "Comment" },
+			LineNr = { fg = colors.theme.ui.fg_dim, bg = colors.theme.ui.bg_gutter },
+			LineNrAbove = { fg = colors.theme.ui.nontext, bg = colors.theme.ui.bg_gutter },
+			LineNrBelow = { fg = colors.theme.ui.nontext, bg = colors.theme.ui.bg_gutter },
 
-			LineNr = { fg = "#c8c093", bg = "#282727" },
-			LineNrAbove = { fg = "#625e5a", bg = "#282727" },
-			LineNrBelow = { link = "LineNrAbove" },
-
-			StatusLine = { bg = "#282727" },
+			StatusLine = { bg = colors.theme.ui.bg_gutter },
 
 			EndOfBuffer = { link = "NonText" },
 
-			["@markup.heading.1.markdown"] = { fg = "#8992a5" },
-			["@markup.heading.2.markdown"] = { fg = "#8992a5" },
-			["@markup.heading.3.markdown"] = { fg = "#8992a5" },
-			["@markup.heading.4.markdown"] = { fg = "#8992a5" },
-			["@markup.heading.5.markdown"] = { fg = "#8992a5" },
-			["@markup.heading.6.markdown"] = { fg = "#8992a5" },
+			["@markup.heading.1.markdown"] = { fg = colors.theme.syn.statement },
+			["@markup.heading.2.markdown"] = { fg = colors.theme.syn.statement },
+			["@markup.heading.3.markdown"] = { fg = colors.theme.syn.statement },
+			["@markup.heading.4.markdown"] = { fg = colors.theme.syn.statement },
+			["@markup.heading.5.markdown"] = { fg = colors.theme.syn.statement },
+			["@markup.heading.6.markdown"] = { fg = colors.theme.syn.statement },
 
-			["@markup.heading.1.marker.markdown"] = { fg = "#8992a5" },
-			["@markup.heading.2.marker.markdown"] = { fg = "#8992a5" },
-			["@markup.heading.3.marker.markdown"] = { fg = "#8992a5" },
-			["@markup.heading.4.marker.markdown"] = { fg = "#8992a5" },
-			["@markup.heading.5.marker.markdown"] = { fg = "#8992a5" },
-			["@markup.heading.6.marker.markdown"] = { fg = "#8992a5" },
+			["@markup.heading.1.marker.markdown"] = { fg = colors.theme.syn.statement },
+			["@markup.heading.2.marker.markdown"] = { fg = colors.theme.syn.statement },
+			["@markup.heading.3.marker.markdown"] = { fg = colors.theme.syn.statement },
+			["@markup.heading.4.marker.markdown"] = { fg = colors.theme.syn.statement },
+			["@markup.heading.5.marker.markdown"] = { fg = colors.theme.syn.statement },
+			["@markup.heading.6.marker.markdown"] = { fg = colors.theme.syn.statement },
 
 			["@markup.strong.markdown_inline"] = { bold = true },
 			["@markup.italic.markdown_inline"] = { italic = true },
 			["@markup.strikethrough.markdown_inline"] = { strikethrough = true },
 
-			["@markup.raw.markdown_inline"] = { fg = "#c4746e" },
-			["@markup.raw.block.markdown"] = { fg = "#c4b28a" },
+			["@markup.raw.markdown_inline"] = { fg = colors.theme.syn.regex },
+			["@markup.raw.block.markdown"] = { fg = colors.theme.syn.identifier },
 
-			["@markup.link.label.markdown_inline"] = { fg = "#8ba4b0", underline = true },
-			["@markup.link.url.markdown_inline"] = { fg = "#8992a5", underline = true },
+			["@markup.link.label.markdown_inline"] = { fg = colors.theme.syn.fun, underline = true },
+			["@markup.link.url.markdown_inline"] = { fg = colors.theme.syn.statement, underline = true },
 		}
 	end,
 })
