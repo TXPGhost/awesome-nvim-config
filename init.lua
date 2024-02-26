@@ -74,6 +74,8 @@ plug("onsails/lspkind.nvim")
 log_time("plug_cmp")
 
 -- auto pairs
+plug("altermo/ultimate-autopair.nvim")
+plug("abecodes/tabout.nvim")
 plug("windwp/nvim-ts-autotag")
 plug("RRethy/nvim-treesitter-endwise")
 
@@ -264,7 +266,8 @@ cmp.setup({
 			elseif vim.fn["vsnip#available"](1) == 1 then
 				feedkey("<Plug>(vsnip-expand-or-jump)", "")
 			elseif has_words_before() then
-				cmp.complete()
+				vim.cmd("Tabout")
+				-- cmp.complete()
 			else
 				fallback()
 			end
@@ -600,6 +603,13 @@ vim.opt.foldlevel = 99999
 
 log_time("treesitter")
 
+-- auto pairs
+require("ultimate-autopair").setup({})
+require("tabout").setup({
+	tabkey = "",
+	backwards_tabkey = "",
+})
+
 -- telescope
 require("telescope").setup({
 	pickers = {
@@ -672,9 +682,6 @@ vim.keymap.set("n", "gy", function()
 end)
 vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
 vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
-
--- auto pair curly brace
-vim.keymap.set("i", "{<cr>", "{<cr><cr>}<esc>kcc", { noremap = true })
 
 -- tabs
 vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
