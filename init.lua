@@ -47,6 +47,8 @@ do
 	log_time("plug_trouble")
 	plug("mrcjkb/rustaceanvim")
 	log_time("plug_rust")
+	plug("smjonas/inc-rename.nvim")
+	log_time("plug_inc_rename")
 
 	-- tree-sitter
 	plug("nvim-treesitter/nvim-treesitter")
@@ -223,6 +225,9 @@ vim.api.nvim_create_user_command("ConfigReload", function()
 end, {})
 
 log_time("configautocmd")
+
+-- inc-rename
+require("inc_rename").setup()
 
 -- gitsigns
 local gitsigns = require("gitsigns")
@@ -549,18 +554,25 @@ require("trouble").setup({
 log_time("trouble")
 
 -- ufo
-require("ufo").setup({
+local ufo = require("ufo")
+ufo.setup({
 	open_fold_hl_timeout = 0,
 	close_fold_kinds = { "imports", "comment" },
 })
-vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
-vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds)
-vim.keymap.set("n", "zm", require("ufo").closeFoldsWith)
-vim.keymap.set("n", "]f", require("ufo").goNextClosedFold)
-vim.keymap.set("n", "[f", require("ufo").goPreviousClosedFold)
+vim.keymap.set("n", "zR", ufo.openAllFolds)
+vim.keymap.set("n", "zM", ufo.closeAllFolds)
+vim.keymap.set("n", "zr", ufo.openFoldsExceptKinds)
+vim.keymap.set("n", "zm", ufo.closeFoldsWith)
+vim.keymap.set("n", "]f", function()
+	ufo.goNextClosedFold()
+	ufo.peekFoldedLinesUnderCursor()
+end)
+vim.keymap.set("n", "[f", function()
+	ufo.goPreviousClosedFold()
+	ufo.peekFoldedLinesUnderCursor()
+end)
 vim.keymap.set("n", "K", function()
-	local winid = require("ufo").peekFoldedLinesUnderCursor()
+	local winid = ufo.peekFoldedLinesUnderCursor()
 	if not winid then
 		vim.lsp.buf.hover()
 	end
@@ -676,9 +688,7 @@ do
 		vim.diagnostic.goto_prev()
 	end)
 
-	vim.keymap.set("n", "<space>r", function()
-		vim.lsp.buf.rename()
-	end)
+	vim.keymap.set("n", "<space>r", ":IncRename ")
 	vim.keymap.set("n", "gd", function()
 		vim.lsp.buf.definition()
 	end)
@@ -710,7 +720,7 @@ vim.opt.cursorline = false
 vim.opt.scrolloff = 5
 
 -- disable auto comment
-vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=tqnlj")
+vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=qnlj")
 
 log_time("startupcommands")
 
