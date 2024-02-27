@@ -566,6 +566,8 @@ require("lazy").setup({
 	{ "tpope/vim-fugitive" },
 	{
 		"kevinhwang91/nvim-ufo",
+		event = "BufReadPost",
+		lazy = true,
 		config = function()
 			local ufo = require("ufo")
 			ufo.setup({
