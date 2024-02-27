@@ -9,6 +9,11 @@ The awesomest neovim config out there.
 1. Clone the repo into your `.config/nvim`
 2. Open Neovim and run `:PlugInstall`
 
+## Performance
+
+Startup time is typically sub-20 millisecond (~15 on average). View startup time
+with the `:StartupTime` command.
+
 ## Keybindings
 
 ### Git
