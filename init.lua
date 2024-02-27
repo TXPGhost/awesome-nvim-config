@@ -13,37 +13,612 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{ "nvim-lua/plenary.nvim", lazy = true },
-	{ "rebelot/kanagawa.nvim", lazy = true },
-	{ "tpope/vim-commentary", lazy = true },
-	{ "kevinhwang91/promise-async" },
-	{ "neovim/nvim-lspconfig", lazy = true },
-	{ "weilbith/nvim-code-action-menu", lazy = true },
-	{ "folke/trouble.nvim", lazy = true },
-	{ "mrcjkb/rustaceanvim", ft = "rust" },
-	{ "smjonas/inc-rename.nvim", cmd = "IncRename" },
-	{ "nvim-treesitter/nvim-treesitter" },
-	{ "stevearc/oil.nvim", lazy = true },
-	{ "stevearc/conform.nvim", lazy = true },
-	{ "nvim-telescope/telescope.nvim", lazy = true },
-	{ "hrsh7th/nvim-cmp", lazy = true },
-	{ "hrsh7th/cmp-nvim-lsp", lazy = true },
-	{ "hrsh7th/cmp-nvim-lsp-signature-help", lazy = true },
-	{ "hrsh7th/cmp-nvim-lsp-document-symbol", lazy = true },
-	{ "hrsh7th/cmp-vsnip", lazy = true },
-	{ "hrsh7th/vim-vsnip", lazy = true },
-	{ "hrsh7th/cmp-cmdline", lazy = true },
-	{ "onsails/lspkind.nvim", lazy = true },
-	{ "altermo/ultimate-autopair.nvim", lazy = true },
-	{ "abecodes/tabout.nvim", lazy = true },
+	{ "kevinhwang91/promise-async", lazy = true },
+	{
+		"rebelot/kanagawa.nvim",
+		config = function()
+			require("kanagawa").setup({
+				compile = true,
+				overrides = function(colors)
+					return {
+						LineNr = { fg = colors.theme.ui.fg_dim, bg = colors.theme.ui.bg_gutter },
+						LineNrAbove = { fg = colors.theme.ui.nontext, bg = colors.theme.ui.bg_gutter },
+						LineNrBelow = { fg = colors.theme.ui.nontext, bg = colors.theme.ui.bg_gutter },
+
+						StatusLine = { bg = colors.theme.ui.bg_gutter },
+
+						EndOfBuffer = { link = "NonText" },
+
+						["@markup.heading.1.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.2.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.3.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.4.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.5.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.6.markdown"] = { fg = colors.theme.syn.statement },
+
+						["@markup.heading.1.marker.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.2.marker.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.3.marker.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.4.marker.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.5.marker.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.6.marker.markdown"] = { fg = colors.theme.syn.statement },
+
+						["@markup.strong.markdown_inline"] = { bold = true },
+						["@markup.italic.markdown_inline"] = { italic = true },
+						["@markup.strikethrough.markdown_inline"] = { strikethrough = true },
+
+						["@markup.raw.markdown_inline"] = { fg = colors.theme.syn.regex },
+						["@markup.raw.block.markdown"] = { fg = colors.theme.syn.identifier },
+
+						["@markup.link.label.markdown_inline"] = { fg = colors.theme.syn.fun, underline = true },
+						["@markup.link.url.markdown_inline"] = { fg = colors.theme.syn.statement, underline = true },
+					}
+				end,
+			})
+			vim.cmd.colorscheme("kanagawa-dragon")
+		end,
+	},
+	{ "tpope/vim-commentary" },
+	{
+		"neovim/nvim-lspconfig",
+		event = { "BufReadPost", "BufNewFile" },
+		cmd = { "LspInfo", "LspInstall", "LspUninstall" },
+		config = function()
+			local lspconfig = require("lspconfig")
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+			lspconfig.jdtls.setup({ capabilities = capabilities })
+			lspconfig.clangd.setup({ capabilities = capabilities })
+			lspconfig.lua_ls.setup({
+				capabilities = capabilities,
+				settings = {
+					Lua = {
+						completion = {
+							callSnippet = "Replace",
+						},
+					},
+				},
+			})
+			lspconfig.marksman.setup({ capabilities = capabilities })
+			lspconfig.ocamllsp.setup({ capabilities = capabilities, cmd = { "ocamllsp", "--fallback-read-dot-merlin" } })
+			lspconfig.texlab.setup({ capabilities = capabilities })
+			lspconfig.jsonls.setup({ capabilities = capabilities })
+			lspconfig.cssls.setup({ capabilities = capabilities })
+			lspconfig.taplo.setup({ capabilities = capabilities })
+			lspconfig.dotls.setup({ capabilities = capabilities })
+			lspconfig.hls.setup({ capabilities = capabilities })
+			lspconfig.glslls.setup({ capabilities = capabilities })
+			lspconfig.pylsp.setup({ capabilities = capabilities })
+			lspconfig.denols.setup({
+				capabilities = capabilities,
+				root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+			})
+			lspconfig.tsserver.setup({
+				capabilities = capabilities,
+				root_dir = lspconfig.util.root_pattern("package.json"),
+			})
+		end,
+	},
+	{
+		"weilbith/nvim-code-action-menu",
+		cmd = "CodeActionMenu",
+		config = function()
+			vim.g.code_action_menu_show_action_kind = false
+			vim.g.code_action_menu_show_details = false
+		end,
+	},
+	{
+		"folke/trouble.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			height = 20,
+			padding = false,
+			auto_close = true,
+			auto_jump = {
+				"lsp_definitions",
+				"lsp_type_definitions",
+				"lsp_references",
+				"lsp_implementations",
+				"document_diagnostics",
+				"workspace_diagnostics",
+			},
+		},
+	},
+	{
+		"mrcjkb/rustaceanvim",
+		ft = { "rust" },
+		config = function()
+			vim.g.rustaceanvim = {
+				server = {
+					default_settings = {
+						["rust-analyzer"] = {
+							check = {
+								overrideCommand = {
+									"cargo",
+									"clippy",
+									"--workspace",
+									"--message-format=json",
+									"--all-targets",
+									"--",
+									"-Wclippy::bool_to_int_with_if",
+									"-Wclippy::case_sensitive_file_extension_comparisons",
+									"-Wclippy::clear_with_drain",
+									"-Wclippy::cloned_instead_of_copied",
+									"-Wclippy::cognitive_complexity",
+									"-Wclippy::collection_is_never_read",
+									"-Wclippy::debug_assert_with_mut_call",
+									"-Wclippy::deref_by_slicing",
+									"-Wclippy::derive_partial_eq_without_eq",
+									"-Wclippy::doc_link_with_quotes",
+									"-Wclippy::doc_markdown",
+									"-Wclippy::empty_line_after_doc_comments",
+									"-Wclippy::empty_line_after_outer_attr",
+									"-Wclippy::empty_structs_with_brackets",
+									"-Wclippy::enum_glob_use",
+									"-Wclippy::equitable_if_let",
+									"-Wclippy::error_impl_error",
+									"-Wclippy::explicit_impl_clone_on_copy",
+									"-Wclippy::explicit_deref_methods",
+									"-Wclippy::explicit_into_iter",
+									"-Wclippy::explicit_iter_loop",
+									"-Wclippy::fallible_impl_from",
+									"-Wclippy::filter_map_next",
+									"-Wclippy::flat_map_option",
+									"-Wclippy::format_push_string",
+									"-Wclippy::from_iter_instead_of_collect",
+									"-Wclippy::future_not_send",
+									"-Wclippy::get_unwrap",
+									"-Wclippy::if_not_else",
+									"-Wclippy::if_then_some_else_none",
+									"-Wclippy::ignored_unit_patterns",
+									"-Wclippy::implicit_clone",
+									"-Wclippy::implied_bounds_in_impls",
+									"-Wclippy::inconsistent_struct_constructor",
+									"-Wclippy::index_refutable_slice",
+									"-Wclippy::inefficient_to_string",
+									"-Wclippy::infinite_loop",
+									"-Wclippy::into_iter_without_iter",
+									"-Wclippy::invalid_upcast_comparisons",
+									"-Wclippy::iter_not_returning_iterator",
+									"-Wclippy::iter_on_empty_collections",
+									"-Wclippy::iter_on_single_items",
+									"-Wclippy::iter_with_drain",
+									"-Wclippy::iter_without_into_iter",
+									"-Wclippy::large_digit_groups",
+									"-Wclippy::large_futures",
+									"-Wclippy::large_include_file",
+									"-Wclippy::large_stack_arrays",
+									"-Wclippy::large_stack_frames",
+									"-Wclippy::large_types_passed_by_value",
+									"-Wclippy::let_underscore_untyped",
+									"-Wclippy::macro_use_imports",
+									"-Wclippy::manual_assert",
+									"-Wclippy::manual_clamp",
+									"-Wclippy::manual_instant_elapsed",
+									"-Wclippy::manual_let_else",
+									"-Wclippy::manual_ok_or",
+									"-Wclippy::manual_string_new",
+									"-Wclippy::map_err_ignore",
+									"-Wclippy::map_unwrap_or",
+									"-Wclippy::match_on_vec_items",
+									"-Wclippy::match_same_arms",
+									"-Wclippy::match_wild_err_arm",
+									"-Wclippy::match_wildcard_for_single_variants",
+									"-Wclippy::mismatching_type_param_order",
+									"-Wclippy::missing_fields_in_debug",
+									"-Wclippy::mod_module_files",
+									"-Wclippy::mut_mut",
+									"-Wclippy::mutex_atomic",
+									"-Wclippy::mutex_integer",
+									"-Wclippy::needless_bitwise_bool",
+									"-Wclippy::needless_collect",
+									"-Wclippy::needless_continue",
+									"-Wclippy::needless_for_each",
+									"-Wclippy::needless_pass_by_ref_mut",
+									"-Wclippy::needless_raw_string_hashes",
+									"-Wclippy::needless_raw_strings",
+									"-Wclippy::negative_feature_names",
+									"-Wclippy::no_mangle_with_rust_abi",
+									"-Wclippy::non_send_fields_in_send_ty",
+									"-Wclippy::nonstandard_macro_braces",
+									"-Wclippy::option_option",
+									"-Wclippy::or_fun_call",
+									"-Wclippy::panic_in_result_fn",
+									"-Wclippy::path_buf_push_overwrite",
+									"-Wclippy::range_minus_one",
+									"-Wclippy::range_plus_one",
+									"-Wclippy::rc_buffer",
+									"-Wclippy::rc_mutex",
+									"-Wclippy::read_zero_byte_vec",
+									"-Wclippy::readonly_write_lock",
+									"-Wclippy::redundant_clone",
+									"-Wclippy::redundant_closure_for_method_calls",
+									"-Wclippy::redundant_feature_names",
+									"-Wclippy::redundant_pub_crate",
+									"-Wclippy::redundant_type_annotations",
+									"-Wclippy::ref_binding_to_reference",
+									"-Wclippy::ref_option_ref",
+									"-Wclippy::ref_patterns",
+									"-Wclippy::rest_pat_in_fully_bound_structs",
+									"-Wclippy::return_self_not_must_use",
+									"-Wclippy::same_functions_in_if_condition",
+									"-Wclippy::same_name_method",
+									"-Wclippy::semicolon_if_nothing_returned",
+									"-Wclippy::semicolon_outside_block",
+									"-Wclippy::similar_names",
+									"-Wclippy::str_to_string",
+									"-Wclippy::string_to_string",
+									"-Wclippy::suboptimal_flops",
+									"-Wclippy::suspicious_operation_groupings",
+									"-Wclippy::suspicious_xor_used_as_pow",
+									"-Wclippy::tests_outside_test_module",
+									"-Wclippy::trait_duplication_in_bounds",
+									"-Wclippy::trivial_regex",
+									"-Wclippy::trivially_copy_pass_by_ref",
+									"-Wclippy::try_err",
+									"-Wclippy::type_repetition_in_bounds",
+									"-Wclippy::undocumented_unsafe_bloks",
+									"-Wclippy::unnecessary_box_returns",
+									"-Wclippy::unnecessary_join",
+									"-Wclippy::unnecessary_safety_comment",
+									"-Wclippy::unnecessary_safety_doc",
+									"-Wclippy::unnecessary_self_imports",
+									"-Wclippy::unnecessary_struct_initialization",
+									"-Wclippy::unnecessary_wraps",
+									"-Wclippy::unneeded_field_pattern",
+									"-Wclippy::unnested_or_patterns",
+									"-Wclippy::unreadable_literal",
+									"-Wclippy::unseparated_literal_suffix",
+									"-Wclippy::unused_async",
+									"-Wclippy::unused_peekable",
+									"-Wclippy::unused_rounding",
+									"-Wclippy::unused_self",
+									"-Wclippy::unwrap_in_result",
+									"-Wclippy::use_self",
+									"-Wclippy::useless_let_if_seq",
+									"-Wclippy::verbose_bit_mask",
+									"-Wclippy::verbose_file_reads",
+									"-Wclippy::wildcard_dependencies",
+									"-Wclippy::wildcard_imports",
+									"-Wclippy::zero_sized_map_values",
+								},
+							},
+						},
+					},
+				},
+			}
+		end,
+	},
+	{
+		"smjonas/inc-rename.nvim",
+		cmd = "IncRename",
+		keys = { "<space>r" },
+		config = function()
+			require("inc_rename").setup({})
+			vim.keymap.set("n", "<space>r", ":IncRename ")
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter",
+		lazy = true,
+		config = function()
+			require("nvim-treesitter.configs").setup({
+
+				auto_install = true,
+				highlight = {
+					enable = true,
+					disable = { "tex", "latex" },
+				},
+				incremental_selection = {
+					enable = true,
+					keymaps = {
+						init_selection = "<cr>",
+						scope_incremental = "<cr>",
+						node_incremental = "<Tab>",
+						node_decremental = "<S-Tab>",
+					},
+				},
+				indent = {
+					enable = true,
+				},
+				beacon = {
+					enable = false,
+				},
+				autotag = {
+					enable = true,
+				},
+				endwise = {
+					enable = true,
+				},
+			})
+			vim.opt.foldmethod = "expr"
+			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+			vim.opt.foldlevel = 99999
+		end,
+	},
+	{
+		"stevearc/oil.nvim",
+		lazy = true,
+		opts = {
+			keymaps = {
+				["g?"] = "actions.show_help",
+				["<CR>"] = "actions.select",
+				["<C-s>"] = "actions.select_vsplit",
+				-- ["<C-h>"] = "actions.select_split",
+				["<C-t>"] = "actions.select_tab",
+				["<C-p>"] = "actions.preview",
+				["<C-c>"] = "actions.close",
+				-- ["<C-l>"] = "actions.refresh",
+				["-"] = "actions.parent",
+				["_"] = "actions.open_cwd",
+				["`"] = "actions.cd",
+				["~"] = "actions.tcd",
+				["gs"] = "actions.change_sort",
+				["gx"] = "actions.open_external",
+				["g."] = "actions.toggle_hidden",
+				["g\\"] = "actions.toggle_trash",
+			},
+			use_default_keymaps = false,
+		},
+		config = function()
+			vim.keymap.set("n", "-", "<cmd>Oil<cr>zz", { desc = "Open parent directory" })
+		end,
+	},
+	{
+		"stevearc/conform.nvim",
+		event = "BufWritePre",
+		opts = {
+			notify_on_error = false,
+			formatters_by_ft = {
+				javascript = { "deno_fmt" },
+				javascriptreact = { "deno_fmt" },
+				json = { "deno_fmt" },
+				typescript = { "deno_fmt" },
+				html = { "deno_fmt" },
+				css = { "deno_fmt" },
+				scss = { "deno_fmt" },
+				vue = { "deno_fmt" },
+				markdown = { "deno_fmt" },
+				yaml = { "deno_fmt" },
+				rust = { "rustfmt" },
+				c = { "clang_format" },
+				cpp = { "clang_format" },
+				lua = { "stylua" },
+				ocaml = { "ocamlformat" },
+				haskell = { "ormolu" },
+				_ = { "trim_whitespace" },
+			},
+			format_on_save = {
+				timeout_ms = 500,
+				lsp_fallback = true,
+			},
+			formatters = {
+				["ocamlformat"] = {
+					command = "ocamlformat",
+					args = {
+						"--doc-comments=before",
+						"--wrap-comments",
+						"--parse-docstrings",
+						"--name",
+						"$FILENAME",
+						"-",
+					},
+				},
+			},
+		},
+	},
+	{
+		"nvim-telescope/telescope.nvim",
+		cmd = "Telescope",
+		opts = {
+			pickers = {
+				find_files = {
+					find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/" },
+				},
+			},
+		},
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
+	{
+		"hrsh7th/nvim-cmp",
+		lazy = true,
+		config = function()
+			local cmp = require("cmp")
+			local lspkind = require("lspkind")
+			lspkind.init({})
+
+			local has_words_before = function()
+				if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+					return false
+				end
+				unpack = unpack or table.unpack
+				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+				return col ~= 0
+					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+			end
+
+			local feedkey = function(key, mode)
+				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+			end
+
+			cmp.setup({
+				snippet = {
+					expand = function(args)
+						vim.fn["vsnip#anonymous"](args.body)
+					end,
+				},
+				window = {},
+				mapping = cmp.mapping.preset.insert({
+					["<C-b>"] = cmp.mapping.scroll_docs(-4),
+					["<C-f>"] = cmp.mapping.scroll_docs(4),
+					["<C-Space>"] = cmp.mapping.complete(),
+					["<C-e>"] = cmp.mapping.abort(),
+					["<cr>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.confirm()
+							if vim.fn["vsnip#available"](1) == 1 then
+								feedkey("<Plug>(vsnip-expand-or-jump)", "")
+							end
+						else
+							fallback()
+						end
+					end),
+					["<Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_next_item()
+						elseif vim.fn["vsnip#available"](1) == 1 then
+							feedkey("<Plug>(vsnip-expand-or-jump)", "")
+						elseif has_words_before() then
+							vim.cmd("Tabout")
+						-- cmp.complete()
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+					["<S-Tab>"] = cmp.mapping(function()
+						if cmp.visible() then
+							cmp.select_prev_item()
+						elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+							feedkey("<Plug>(vsnip-jump-prev)", "")
+						end
+					end, { "i", "s" }),
+				}),
+				sources = cmp.config.sources({
+					{ name = "copilot" },
+					{ name = "nvim_lsp" },
+					{ name = "nvim_lsp_signature_help" },
+					{ name = "vsnip" },
+				}, {}),
+				formatting = {
+					format = lspkind.cmp_format({
+						mode = "symbol_text",
+						maxwidth = 10000, -- doesn't work?
+						ellipsis_char = "...",
+						show_labelDetails = true,
+						before = function(_, vim_item)
+							return vim_item
+						end,
+					}),
+				},
+				sorting = {
+					priority_weight = 2,
+					comparators = {
+						cmp.config.compare.exact,
+						cmp.config.compare.offset,
+						-- cmp.config.compare.scopes,
+						cmp.config.compare.score,
+						cmp.config.compare.locality,
+						cmp.config.compare.recently_used,
+						cmp.config.compare.kind,
+						cmp.config.compare.sort_text,
+						cmp.config.compare.length,
+						cmp.config.compare.order,
+					},
+				},
+			})
+
+			cmp.setup.cmdline(":", {
+				mapping = cmp.mapping.preset.cmdline(),
+				sources = cmp.config.sources({
+					{ name = "cmdline" },
+				}, {}),
+			})
+
+			cmp.setup.cmdline("/", {
+				mapping = cmp.mapping.preset.cmdline(),
+				sources = cmp.config.sources({
+					{ name = "nvim_lsp_document_symbol" },
+				}, {}),
+			})
+		end,
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lsp-signature-help",
+			"hrsh7th/cmp-nvim-lsp-document-symbol",
+			"hrsh7th/cmp-vsnip",
+			"hrsh7th/vim-vsnip",
+			"hrsh7th/cmp-cmdline",
+			"onsails/lspkind.nvim",
+			"zbirenbaum/copilot.lua",
+			"zbirenbaum/copilot-cmp",
+		},
+	},
+	{
+		"altermo/ultimate-autopair.nvim",
+		event = { "InsertEnter", "CmdlineEnter" },
+		opts = {
+			--Config goes here
+		},
+	},
+	{ "abecodes/tabout.nvim", lazy = true, opts = {
+		tabkey = "",
+		backwards_tabkey = "",
+	} },
 	{ "windwp/nvim-ts-autotag", lazy = true },
 	{ "RRethy/nvim-treesitter-endwise", lazy = true },
 	{ "tpope/vim-surround", lazy = true },
-	{ "lewis6991/gitsigns.nvim", lazy = true },
+	{
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("gitsigns").setup({ update_debounce = 0 })
+		end,
+	},
 	{ "tpope/vim-fugitive" },
-	{ "kevinhwang91/nvim-ufo", lazy = true },
+	{
+		"kevinhwang91/nvim-ufo",
+		config = function()
+			local ufo = require("ufo")
+			ufo.setup({
+				open_fold_hl_timeout = 0,
+				close_fold_kinds = { "imports", "comment" },
+			})
+			vim.keymap.set("n", "zR", ufo.openAllFolds)
+			vim.keymap.set("n", "zM", ufo.closeAllFolds)
+			vim.keymap.set("n", "zr", ufo.openFoldsExceptKinds)
+			vim.keymap.set("n", "zm", ufo.closeFoldsWith)
+			vim.keymap.set("n", "]f", function()
+				ufo.goNextClosedFold()
+				ufo.peekFoldedLinesUnderCursor()
+			end)
+			vim.keymap.set("n", "[f", function()
+				ufo.goPreviousClosedFold()
+				ufo.peekFoldedLinesUnderCursor()
+			end)
+			vim.keymap.set("n", "K", function()
+				local winid = ufo.peekFoldedLinesUnderCursor()
+				if not winid then
+					vim.lsp.buf.hover()
+				end
+			end)
+			vim.opt.foldlevel = 99999
+		end,
+	},
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	{ "tpope/vim-sleuth", lazy = true },
-	{ "cloudsftp/peek.nvim", lazy = true },
+	{
+		"cloudsftp/peek.nvim",
+		config = function()
+			vim.api.nvim_create_user_command("MarkdownPreviewOpen", require("peek").open, {})
+			vim.api.nvim_create_user_command("MarkdownPreviewClose", require("peek").close, {})
+		end,
+	},
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			require("copilot").setup({
+				suggestion = { enabled = false },
+				panel = { enabled = false },
+			})
+		end,
+	},
+	{
+		"zbirenbaum/copilot-cmp",
+		config = function()
+			require("copilot_cmp").setup()
+		end,
+	},
 })
 
 -- set help window to vertical split
@@ -57,71 +632,6 @@ vim.fn.sign_define("DiagnosticSignHint", { text = "" })
 vim.fn.sign_define("DiagnosticSignOk", { text = "" })
 
 vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
-
--- enable format on save
-local conform = require("conform")
-conform.setup({
-	notify_on_error = false,
-	formatters_by_ft = {
-		javascript = { "deno_fmt" },
-		javascriptreact = { "deno_fmt" },
-		json = { "deno_fmt" },
-		typescript = { "deno_fmt" },
-		html = { "deno_fmt" },
-		css = { "deno_fmt" },
-		scss = { "deno_fmt" },
-		vue = { "deno_fmt" },
-		markdown = { "deno_fmt" },
-		yaml = { "deno_fmt" },
-		rust = { "rustfmt" },
-		c = { "clang_format" },
-		cpp = { "clang_format" },
-		lua = { "stylua" },
-		ocaml = { "ocamlformat" },
-		haskell = { "ormolu" },
-		_ = { "trim_whitespace" },
-	},
-	format_on_save = {
-		timeout_ms = 500,
-		lsp_fallback = true,
-	},
-	formatters = {
-		["ocamlformat"] = {
-			command = "ocamlformat",
-			args = { "--doc-comments=before", "--wrap-comments", "--parse-docstrings", "--name", "$FILENAME", "-" },
-		},
-	},
-})
-
--- oil
-require("oil").setup({
-	keymaps = {
-		["g?"] = "actions.show_help",
-		["<CR>"] = "actions.select",
-		["<C-s>"] = "actions.select_vsplit",
-		-- ["<C-h>"] = "actions.select_split",
-		["<C-t>"] = "actions.select_tab",
-		["<C-p>"] = "actions.preview",
-		["<C-c>"] = "actions.close",
-		-- ["<C-l>"] = "actions.refresh",
-		["-"] = "actions.parent",
-		["_"] = "actions.open_cwd",
-		["`"] = "actions.cd",
-		["~"] = "actions.tcd",
-		["gs"] = "actions.change_sort",
-		["gx"] = "actions.open_external",
-		["g."] = "actions.toggle_hidden",
-		["g\\"] = "actions.toggle_trash",
-	},
-	use_default_keymaps = false,
-})
-vim.keymap.set("n", "-", "<cmd>Oil<cr>zz", { desc = "Open parent directory" })
-
--- markdown preview
-local peek = require("peek")
-peek.setup({})
-vim.api.nvim_create_user_command("MarkdownPreviewOpen", peek.open, {})
-vim.api.nvim_create_user_command("MarkdownPreviewClose", peek.close, {})
 
 -- latex
 vim.api.nvim_create_user_command("LatexPreview", function()
@@ -146,410 +656,6 @@ end, {})
 vim.api.nvim_create_user_command("ConfigReload", function()
 	vim.cmd("so ~/.config/nvim/init.lua")
 end, {})
-
--- inc-rename
-require("inc_rename").setup()
-
--- gitsigns
-local gitsigns = require("gitsigns")
-gitsigns.setup({
-	update_debounce = 0,
-})
-
--- cmp
--- nvim-cmp
-local cmp = require("cmp")
-local lspkind = require("lspkind")
-lspkind.init({})
-
-local has_words_before = function()
-	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-		return false
-	end
-	unpack = unpack or table.unpack
-	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
-local feedkey = function(key, mode)
-	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-end
-
-cmp.setup({
-	snippet = {
-		expand = function(args)
-			vim.fn["vsnip#anonymous"](args.body)
-		end,
-	},
-	window = {},
-	mapping = cmp.mapping.preset.insert({
-		["<C-b>"] = cmp.mapping.scroll_docs(-4),
-		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete(),
-		["<C-e>"] = cmp.mapping.abort(),
-		["<cr>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.confirm()
-				if vim.fn["vsnip#available"](1) == 1 then
-					feedkey("<Plug>(vsnip-expand-or-jump)", "")
-				end
-			else
-				fallback()
-			end
-		end),
-		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			elseif vim.fn["vsnip#available"](1) == 1 then
-				feedkey("<Plug>(vsnip-expand-or-jump)", "")
-			elseif has_words_before() then
-				vim.cmd("Tabout")
-				-- cmp.complete()
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-		["<S-Tab>"] = cmp.mapping(function()
-			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-				feedkey("<Plug>(vsnip-jump-prev)", "")
-			end
-		end, { "i", "s" }),
-	}),
-	sources = cmp.config.sources({
-		{ name = "nvim_lsp" },
-		{ name = "nvim_lsp_signature_help" },
-		{ name = "vsnip" },
-	}, {}),
-	formatting = {
-		format = lspkind.cmp_format({
-			mode = "symbol_text",
-			maxwidth = 10000, -- doesn't work?
-			ellipsis_char = "...",
-			show_labelDetails = true,
-			before = function(_, vim_item)
-				return vim_item
-			end,
-		}),
-	},
-	sorting = {
-		priority_weight = 2,
-		comparators = {
-			cmp.config.compare.exact,
-			cmp.config.compare.offset,
-			-- cmp.config.compare.scopes,
-			cmp.config.compare.score,
-			cmp.config.compare.locality,
-			cmp.config.compare.recently_used,
-			cmp.config.compare.kind,
-			cmp.config.compare.sort_text,
-			cmp.config.compare.length,
-			cmp.config.compare.order,
-		},
-	},
-})
-
-cmp.setup.cmdline(":", {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = cmp.config.sources({
-		{ name = "cmdline" },
-	}, {}),
-})
-
-cmp.setup.cmdline("/", {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = cmp.config.sources({
-		{ name = "nvim_lsp_document_symbol" },
-	}, {}),
-})
-
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
--- lsp
-local lspconfig = require("lspconfig")
-
-lspconfig.jdtls.setup({ capabilities = capabilities })
-lspconfig.clangd.setup({ capabilities = capabilities })
-lspconfig.lua_ls.setup({
-	capabilities = capabilities,
-	settings = {
-		Lua = {
-			completion = {
-				callSnippet = "Replace",
-			},
-		},
-	},
-})
-lspconfig.marksman.setup({ capabilities = capabilities })
-lspconfig.ocamllsp.setup({ capabilities = capabilities, cmd = { "ocamllsp", "--fallback-read-dot-merlin" } })
-lspconfig.texlab.setup({ capabilities = capabilities })
-lspconfig.jsonls.setup({ capabilities = capabilities })
-lspconfig.cssls.setup({ capabilities = capabilities })
-lspconfig.taplo.setup({ capabilities = capabilities })
-lspconfig.dotls.setup({ capabilities = capabilities })
-lspconfig.hls.setup({ capabilities = capabilities })
-lspconfig.glslls.setup({ capabilities = capabilities })
-lspconfig.pylsp.setup({ capabilities = capabilities })
-lspconfig.denols.setup({
-	capabilities = capabilities,
-	root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-})
-lspconfig.tsserver.setup({ capabilities = capabilities, root_dir = lspconfig.util.root_pattern("package.json") })
-
--- rustaceanvim
-vim.g.rustaceanvim = {
-	server = {
-		default_settings = {
-			["rust-analyzer"] = {
-				check = {
-					overrideCommand = {
-						"cargo",
-						"clippy",
-						"--workspace",
-						"--message-format=json",
-						"--all-targets",
-						"--",
-						"-Wclippy::bool_to_int_with_if",
-						"-Wclippy::case_sensitive_file_extension_comparisons",
-						"-Wclippy::clear_with_drain",
-						"-Wclippy::cloned_instead_of_copied",
-						"-Wclippy::cognitive_complexity",
-						"-Wclippy::collection_is_never_read",
-						"-Wclippy::debug_assert_with_mut_call",
-						"-Wclippy::deref_by_slicing",
-						"-Wclippy::derive_partial_eq_without_eq",
-						"-Wclippy::doc_link_with_quotes",
-						"-Wclippy::doc_markdown",
-						"-Wclippy::empty_line_after_doc_comments",
-						"-Wclippy::empty_line_after_outer_attr",
-						"-Wclippy::empty_structs_with_brackets",
-						"-Wclippy::enum_glob_use",
-						"-Wclippy::equitable_if_let",
-						"-Wclippy::error_impl_error",
-						"-Wclippy::explicit_impl_clone_on_copy",
-						"-Wclippy::explicit_deref_methods",
-						"-Wclippy::explicit_into_iter",
-						"-Wclippy::explicit_iter_loop",
-						"-Wclippy::fallible_impl_from",
-						"-Wclippy::filter_map_next",
-						"-Wclippy::flat_map_option",
-						"-Wclippy::format_push_string",
-						"-Wclippy::from_iter_instead_of_collect",
-						"-Wclippy::future_not_send",
-						"-Wclippy::get_unwrap",
-						"-Wclippy::if_not_else",
-						"-Wclippy::if_then_some_else_none",
-						"-Wclippy::ignored_unit_patterns",
-						"-Wclippy::implicit_clone",
-						"-Wclippy::implied_bounds_in_impls",
-						"-Wclippy::inconsistent_struct_constructor",
-						"-Wclippy::index_refutable_slice",
-						"-Wclippy::inefficient_to_string",
-						"-Wclippy::infinite_loop",
-						"-Wclippy::into_iter_without_iter",
-						"-Wclippy::invalid_upcast_comparisons",
-						"-Wclippy::iter_not_returning_iterator",
-						"-Wclippy::iter_on_empty_collections",
-						"-Wclippy::iter_on_single_items",
-						"-Wclippy::iter_with_drain",
-						"-Wclippy::iter_without_into_iter",
-						"-Wclippy::large_digit_groups",
-						"-Wclippy::large_futures",
-						"-Wclippy::large_include_file",
-						"-Wclippy::large_stack_arrays",
-						"-Wclippy::large_stack_frames",
-						"-Wclippy::large_types_passed_by_value",
-						"-Wclippy::let_underscore_untyped",
-						"-Wclippy::macro_use_imports",
-						"-Wclippy::manual_assert",
-						"-Wclippy::manual_clamp",
-						"-Wclippy::manual_instant_elapsed",
-						"-Wclippy::manual_let_else",
-						"-Wclippy::manual_ok_or",
-						"-Wclippy::manual_string_new",
-						"-Wclippy::map_err_ignore",
-						"-Wclippy::map_unwrap_or",
-						"-Wclippy::match_on_vec_items",
-						"-Wclippy::match_same_arms",
-						"-Wclippy::match_wild_err_arm",
-						"-Wclippy::match_wildcard_for_single_variants",
-						"-Wclippy::mismatching_type_param_order",
-						"-Wclippy::missing_fields_in_debug",
-						"-Wclippy::mod_module_files",
-						"-Wclippy::mut_mut",
-						"-Wclippy::mutex_atomic",
-						"-Wclippy::mutex_integer",
-						"-Wclippy::needless_bitwise_bool",
-						"-Wclippy::needless_collect",
-						"-Wclippy::needless_continue",
-						"-Wclippy::needless_for_each",
-						"-Wclippy::needless_pass_by_ref_mut",
-						"-Wclippy::needless_raw_string_hashes",
-						"-Wclippy::needless_raw_strings",
-						"-Wclippy::negative_feature_names",
-						"-Wclippy::no_mangle_with_rust_abi",
-						"-Wclippy::non_send_fields_in_send_ty",
-						"-Wclippy::nonstandard_macro_braces",
-						"-Wclippy::option_option",
-						"-Wclippy::or_fun_call",
-						"-Wclippy::panic_in_result_fn",
-						"-Wclippy::path_buf_push_overwrite",
-						"-Wclippy::range_minus_one",
-						"-Wclippy::range_plus_one",
-						"-Wclippy::rc_buffer",
-						"-Wclippy::rc_mutex",
-						"-Wclippy::read_zero_byte_vec",
-						"-Wclippy::readonly_write_lock",
-						"-Wclippy::redundant_clone",
-						"-Wclippy::redundant_closure_for_method_calls",
-						"-Wclippy::redundant_feature_names",
-						"-Wclippy::redundant_pub_crate",
-						"-Wclippy::redundant_type_annotations",
-						"-Wclippy::ref_binding_to_reference",
-						"-Wclippy::ref_option_ref",
-						"-Wclippy::ref_patterns",
-						"-Wclippy::rest_pat_in_fully_bound_structs",
-						"-Wclippy::return_self_not_must_use",
-						"-Wclippy::same_functions_in_if_condition",
-						"-Wclippy::same_name_method",
-						"-Wclippy::semicolon_if_nothing_returned",
-						"-Wclippy::semicolon_outside_block",
-						"-Wclippy::similar_names",
-						"-Wclippy::str_to_string",
-						"-Wclippy::string_to_string",
-						"-Wclippy::suboptimal_flops",
-						"-Wclippy::suspicious_operation_groupings",
-						"-Wclippy::suspicious_xor_used_as_pow",
-						"-Wclippy::tests_outside_test_module",
-						"-Wclippy::trait_duplication_in_bounds",
-						"-Wclippy::trivial_regex",
-						"-Wclippy::trivially_copy_pass_by_ref",
-						"-Wclippy::try_err",
-						"-Wclippy::type_repetition_in_bounds",
-						"-Wclippy::undocumented_unsafe_bloks",
-						"-Wclippy::unnecessary_box_returns",
-						"-Wclippy::unnecessary_join",
-						"-Wclippy::unnecessary_safety_comment",
-						"-Wclippy::unnecessary_safety_doc",
-						"-Wclippy::unnecessary_self_imports",
-						"-Wclippy::unnecessary_struct_initialization",
-						"-Wclippy::unnecessary_wraps",
-						"-Wclippy::unneeded_field_pattern",
-						"-Wclippy::unnested_or_patterns",
-						"-Wclippy::unreadable_literal",
-						"-Wclippy::unseparated_literal_suffix",
-						"-Wclippy::unused_async",
-						"-Wclippy::unused_peekable",
-						"-Wclippy::unused_rounding",
-						"-Wclippy::unused_self",
-						"-Wclippy::unwrap_in_result",
-						"-Wclippy::use_self",
-						"-Wclippy::useless_let_if_seq",
-						"-Wclippy::verbose_bit_mask",
-						"-Wclippy::verbose_file_reads",
-						"-Wclippy::wildcard_dependencies",
-						"-Wclippy::wildcard_imports",
-						"-Wclippy::zero_sized_map_values",
-					},
-				},
-			},
-		},
-	},
-}
-
--- trouble
-require("trouble").setup({
-	height = 20,
-	padding = false,
-	auto_close = true,
-	auto_jump = {
-		"lsp_definitions",
-		"lsp_type_definitions",
-		"lsp_references",
-		"lsp_implementations",
-		"document_diagnostics",
-		"workspace_diagnostics",
-	},
-})
-
--- ufo
-local ufo = require("ufo")
-ufo.setup({
-	open_fold_hl_timeout = 0,
-	close_fold_kinds = { "imports", "comment" },
-})
-vim.keymap.set("n", "zR", ufo.openAllFolds)
-vim.keymap.set("n", "zM", ufo.closeAllFolds)
-vim.keymap.set("n", "zr", ufo.openFoldsExceptKinds)
-vim.keymap.set("n", "zm", ufo.closeFoldsWith)
-vim.keymap.set("n", "]f", function()
-	ufo.goNextClosedFold()
-	ufo.peekFoldedLinesUnderCursor()
-end)
-vim.keymap.set("n", "[f", function()
-	ufo.goPreviousClosedFold()
-	ufo.peekFoldedLinesUnderCursor()
-end)
-vim.keymap.set("n", "K", function()
-	local winid = ufo.peekFoldedLinesUnderCursor()
-	if not winid then
-		vim.lsp.buf.hover()
-	end
-end)
-
--- code actions
-vim.g.code_action_menu_show_action_kind = false
-vim.g.code_action_menu_show_details = false
-
--- tree-sitter
-require("nvim-treesitter.configs").setup({
-	auto_install = true,
-	highlight = {
-		enable = true,
-		disable = { "tex", "latex" },
-	},
-	incremental_selection = {
-		enable = true,
-		keymaps = {
-			init_selection = "<cr>",
-			scope_incremental = "<cr>",
-			node_incremental = "<Tab>",
-			node_decremental = "<S-Tab>",
-		},
-	},
-	indent = {
-		enable = true,
-	},
-	beacon = {
-		enable = false,
-	},
-	autotag = {
-		enable = true,
-	},
-	endwise = {
-		enable = true,
-	},
-})
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldlevel = 99999
-
--- auto pairs
-require("ultimate-autopair").setup({})
-require("tabout").setup({
-	tabkey = "",
-	backwards_tabkey = "",
-})
-
--- telescope
-require("telescope").setup({
-	pickers = {
-		find_files = {
-			find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/" },
-		},
-	},
-})
 
 -- KEYMAPS
 
@@ -604,7 +710,6 @@ do
 		vim.diagnostic.goto_prev()
 	end)
 
-	vim.keymap.set("n", "<space>r", ":IncRename ")
 	vim.keymap.set("n", "gd", function()
 		vim.lsp.buf.definition()
 	end)
@@ -638,42 +743,3 @@ vim.opt.scrolloff = 5
 vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=qnlj")
 
 -- colorscheme
-require("kanagawa").setup({
-	compile = true,
-	overrides = function(colors)
-		return {
-			LineNr = { fg = colors.theme.ui.fg_dim, bg = colors.theme.ui.bg_gutter },
-			LineNrAbove = { fg = colors.theme.ui.nontext, bg = colors.theme.ui.bg_gutter },
-			LineNrBelow = { fg = colors.theme.ui.nontext, bg = colors.theme.ui.bg_gutter },
-
-			StatusLine = { bg = colors.theme.ui.bg_gutter },
-
-			EndOfBuffer = { link = "NonText" },
-
-			["@markup.heading.1.markdown"] = { fg = colors.theme.syn.statement },
-			["@markup.heading.2.markdown"] = { fg = colors.theme.syn.statement },
-			["@markup.heading.3.markdown"] = { fg = colors.theme.syn.statement },
-			["@markup.heading.4.markdown"] = { fg = colors.theme.syn.statement },
-			["@markup.heading.5.markdown"] = { fg = colors.theme.syn.statement },
-			["@markup.heading.6.markdown"] = { fg = colors.theme.syn.statement },
-
-			["@markup.heading.1.marker.markdown"] = { fg = colors.theme.syn.statement },
-			["@markup.heading.2.marker.markdown"] = { fg = colors.theme.syn.statement },
-			["@markup.heading.3.marker.markdown"] = { fg = colors.theme.syn.statement },
-			["@markup.heading.4.marker.markdown"] = { fg = colors.theme.syn.statement },
-			["@markup.heading.5.marker.markdown"] = { fg = colors.theme.syn.statement },
-			["@markup.heading.6.marker.markdown"] = { fg = colors.theme.syn.statement },
-
-			["@markup.strong.markdown_inline"] = { bold = true },
-			["@markup.italic.markdown_inline"] = { italic = true },
-			["@markup.strikethrough.markdown_inline"] = { strikethrough = true },
-
-			["@markup.raw.markdown_inline"] = { fg = colors.theme.syn.regex },
-			["@markup.raw.block.markdown"] = { fg = colors.theme.syn.identifier },
-
-			["@markup.link.label.markdown_inline"] = { fg = colors.theme.syn.fun, underline = true },
-			["@markup.link.url.markdown_inline"] = { fg = colors.theme.syn.statement, underline = true },
-		}
-	end,
-})
-vim.cmd.colorscheme("kanagawa-dragon")
