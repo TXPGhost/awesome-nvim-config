@@ -13,7 +13,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	"nvim-lua/plenary.nvim",
-	"dstein64/vim-startuptime",
 	"rebelot/kanagawa.nvim",
 	"nvim-lualine/lualine.nvim",
 	"tpope/vim-commentary",
