@@ -657,8 +657,7 @@ vim.api.nvim_create_user_command("ConfigReload", function()
 	vim.cmd("so ~/.config/nvim/init.lua")
 end, {})
 
--- KEYMAPS
-
+-- keymaps
 do
 	local map = vim.keymap.set
 
@@ -743,5 +742,3 @@ vim.opt.scrolloff = 5
 
 -- disable auto comment
 vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=qnlj")
-
--- colorscheme
