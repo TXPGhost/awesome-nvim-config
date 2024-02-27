@@ -1,117 +1,57 @@
----@diagnostic disable-next-line: param-type-mismatch
-vim.cmd("let start_time = reltime()")
-
-local time_names = {}
-local function log_time(name)
-	vim.cmd("let t_" .. name .. " = reltimefloat(reltime(start_time))")
-	table.insert(time_names, "t_" .. name)
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+	"nvim-lua/plenary.nvim",
+	"dstein64/vim-startuptime",
+	"rebelot/kanagawa.nvim",
+	"nvim-lualine/lualine.nvim",
+	"tpope/vim-commentary",
+	"kevinhwang91/promise-async",
+	"neovim/nvim-lspconfig",
+	"weilbith/nvim-code-action-menu",
+	"folke/trouble.nvim",
+	"mrcjkb/rustaceanvim",
+	"smjonas/inc-rename.nvim",
+	"nvim-treesitter/nvim-treesitter",
+	"stevearc/oil.nvim",
+	"stevearc/conform.nvim",
+	"nvim-telescope/telescope.nvim",
+	"hrsh7th/nvim-cmp",
+	"hrsh7th/cmp-nvim-lsp",
+	"hrsh7th/cmp-nvim-lsp-signature-help",
+	"hrsh7th/cmp-nvim-lsp-document-symbol",
+	"hrsh7th/cmp-vsnip",
+	"hrsh7th/vim-vsnip",
+	"hrsh7th/cmp-cmdline",
+	"onsails/lspkind.nvim",
+	"altermo/ultimate-autopair.nvim",
+	"abecodes/tabout.nvim",
+	"windwp/nvim-ts-autotag",
+	"RRethy/nvim-treesitter-endwise",
+	"tpope/vim-surround",
+	"lewis6991/gitsigns.nvim",
+	"tpope/vim-fugitive",
+	"kevinhwang91/nvim-ufo",
+	"nvim-tree/nvim-web-devicons",
+	"tpope/vim-sleuth",
+	"cloudsftp/peek.nvim",
+})
 
 -- vim-plug
 ---@diagnostic disable-next-line: param-type-mismatch
 vim.call("plug#begin")
 local plug = vim.fn["plug#"]
-
--- load plugins
-do
-	-- dependencies
-	plug("nvim-lua/plenary.nvim")
-	log_time("plug_plenary")
-
-	-- startup time
-	plug("dstein64/vim-startuptime")
-	log_time("plug_vim_startuptime")
-
-	-- themes
-	plug("rebelot/kanagawa.nvim")
-	log_time("plug_kanagawa")
-
-	-- lualine
-	plug("nvim-lualine/lualine.nvim")
-	log_time("plug_lualine")
-
-	-- comment toggling
-	plug("tpope/vim-commentary")
-	log_time("plug_vim_commentary")
-
-	-- better fold
-	plug("kevinhwang91/promise-async")
-	log_time("plug_promise_async")
-
-	-- LSP
-	plug("neovim/nvim-lspconfig")
-	log_time("plug_lspconfig")
-	plug("weilbith/nvim-code-action-menu")
-	log_time("plug_code_action_menu")
-	plug("folke/trouble.nvim")
-	log_time("plug_trouble")
-	plug("mrcjkb/rustaceanvim")
-	log_time("plug_rust")
-	plug("smjonas/inc-rename.nvim")
-	log_time("plug_inc_rename")
-
-	-- tree-sitter
-	plug("nvim-treesitter/nvim-treesitter")
-	log_time("plug_nvim_treesitter")
-
-	-- file explorer
-	plug("stevearc/oil.nvim")
-	log_time("plug_oil")
-
-	-- formatter
-	plug("stevearc/conform.nvim")
-	log_time("plug_conform")
-
-	-- telescope
-	plug("nvim-telescope/telescope.nvim")
-	log_time("plug_telescope")
-
-	-- autocompletion
-	plug("hrsh7th/nvim-cmp")
-	plug("hrsh7th/cmp-nvim-lsp")
-	plug("hrsh7th/cmp-nvim-lsp-signature-help")
-	plug("hrsh7th/cmp-nvim-lsp-document-symbol")
-	plug("hrsh7th/cmp-vsnip")
-	plug("hrsh7th/vim-vsnip")
-	plug("hrsh7th/cmp-cmdline")
-	plug("onsails/lspkind.nvim")
-	log_time("plug_cmp")
-
-	-- auto pairs
-	plug("altermo/ultimate-autopair.nvim")
-	plug("abecodes/tabout.nvim")
-	plug("windwp/nvim-ts-autotag")
-	plug("RRethy/nvim-treesitter-endwise")
-
-	-- surround
-	plug("tpope/vim-surround")
-	log_time("plug_surround")
-
-	-- git integration
-	plug("lewis6991/gitsigns.nvim")
-	plug("tpope/vim-fugitive")
-	log_time("plug_fugitive")
-
-	-- better folds
-	plug("kevinhwang91/nvim-ufo")
-
-	-- icons
-	plug("nvim-tree/nvim-web-devicons")
-	log_time("plug_devicons")
-
-	-- automatic tab type detection
-	plug("tpope/vim-sleuth")
-	log_time("plug_sleuth")
-
-	-- markdown preview
-	plug("cloudsftp/peek.nvim")
-	log_time("plug_markdown")
-end
-
----@diagnostic disable-next-line: param-type-mismatch
-vim.call("plug#end")
-
-log_time("vimplug")
 
 -- set help window to vertical split
 vim.api.nvim_create_autocmd({ "FileType" }, { pattern = { "help" }, command = "wincmd L" })
@@ -124,8 +64,6 @@ vim.fn.sign_define("DiagnosticSignHint", { text = "" })
 vim.fn.sign_define("DiagnosticSignOk", { text = "" })
 
 vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
-
-log_time("misc")
 
 -- enable format on save
 local conform = require("conform")
@@ -162,8 +100,6 @@ conform.setup({
 	},
 })
 
-log_time("conform")
-
 -- oil
 require("oil").setup({
 	keymaps = {
@@ -188,15 +124,11 @@ require("oil").setup({
 })
 vim.keymap.set("n", "-", "<cmd>Oil<cr>zz", { desc = "Open parent directory" })
 
-log_time("oil")
-
 -- markdown preview
 local peek = require("peek")
 peek.setup({})
 vim.api.nvim_create_user_command("MarkdownPreviewOpen", peek.open, {})
 vim.api.nvim_create_user_command("MarkdownPreviewClose", peek.close, {})
-
-log_time("markdown")
 
 -- latex
 vim.api.nvim_create_user_command("LatexPreview", function()
@@ -214,8 +146,6 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	command = "LatexCompile",
 })
 
-log_time("latex")
-
 -- config quick edit
 vim.api.nvim_create_user_command("Config", function()
 	vim.cmd("e ~/.config/nvim/init.lua")
@@ -223,8 +153,6 @@ end, {})
 vim.api.nvim_create_user_command("ConfigReload", function()
 	vim.cmd("so ~/.config/nvim/init.lua")
 end, {})
-
-log_time("configautocmd")
 
 -- inc-rename
 require("inc_rename").setup()
@@ -234,8 +162,6 @@ local gitsigns = require("gitsigns")
 gitsigns.setup({
 	update_debounce = 0,
 })
-
-log_time("gitsigns")
 
 -- cmp
 -- nvim-cmp
@@ -347,8 +273,6 @@ cmp.setup.cmdline("/", {
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-log_time("cmp")
-
 -- lsp
 local lspconfig = require("lspconfig")
 
@@ -379,8 +303,6 @@ lspconfig.denols.setup({
 	root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
 })
 lspconfig.tsserver.setup({ capabilities = capabilities, root_dir = lspconfig.util.root_pattern("package.json") })
-
-log_time("lspconfig")
 
 -- rustaceanvim
 vim.g.rustaceanvim = {
@@ -543,8 +465,6 @@ vim.g.rustaceanvim = {
 	},
 }
 
-log_time("rustaceanvim")
-
 -- trouble
 require("trouble").setup({
 	height = 20,
@@ -559,8 +479,6 @@ require("trouble").setup({
 		"workspace_diagnostics",
 	},
 })
-
-log_time("trouble")
 
 -- ufo
 local ufo = require("ufo")
@@ -590,8 +508,6 @@ end)
 -- code actions
 vim.g.code_action_menu_show_action_kind = false
 vim.g.code_action_menu_show_details = false
-
-log_time("actions")
 
 -- tree-sitter
 require("nvim-treesitter.configs").setup({
@@ -625,8 +541,6 @@ require("nvim-treesitter.configs").setup({
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99999
-
-log_time("treesitter")
 
 -- auto pairs
 require("ultimate-autopair").setup({})
@@ -712,7 +626,6 @@ do
 	vim.keymap.set("n", "<c-h>", "<cmd>tabprev<cr>")
 	vim.keymap.set("n", "<c-l>", "<cmd>tabnext<cr>")
 end
-log_time("keymaps")
 
 -- startup commands
 vim.opt.compatible = false
@@ -730,8 +643,6 @@ vim.opt.scrolloff = 5
 
 -- disable auto comment
 vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=qnlj")
-
-log_time("startupcommands")
 
 -- colorscheme
 require("kanagawa").setup({
@@ -773,9 +684,3 @@ require("kanagawa").setup({
 	end,
 })
 vim.cmd.colorscheme("kanagawa-dragon")
-
-log_time("colorscheme")
-
--- for _, name in pairs(time_names) do
--- 	vim.cmd("let " .. name)
--- end
