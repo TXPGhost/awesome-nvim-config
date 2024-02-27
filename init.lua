@@ -268,7 +268,16 @@ cmp.setup({
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<C-e>"] = cmp.mapping.abort(),
-		["<cr>"] = cmp.mapping.confirm(),
+		["<cr>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.confirm()
+				if vim.fn["vsnip#available"](1) == 1 then
+					feedkey("<Plug>(vsnip-expand-or-jump)", "")
+				end
+			else
+				fallback()
+			end
+		end),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
