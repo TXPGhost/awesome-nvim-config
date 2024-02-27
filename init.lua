@@ -660,69 +660,71 @@ end, {})
 -- KEYMAPS
 
 do
+	local map = vim.keymap.set
+
 	-- use esc key to exit trouble window and kill highlighting
-	vim.keymap.set("n", "<esc>", "<cmd>noh<cr><cmd>TroubleClose<cr>")
+	map("n", "<esc>", "<cmd>noh<cr><cmd>TroubleClose<cr>")
 
 	-- easy enter terminal mode
-	vim.keymap.set(
+	map(
 		"n",
 		"<c-cr>",
 		"<cmd>terminal<cr><cmd>setlocal nonumber<cr><cmd>setlocal norelativenumber<cr><cmd>setlocal signcolumn=no<cr>i"
 	)
 
 	-- easy exit terminal mode
-	vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
+	map("t", "<c-a>", "<c-\\><c-n>")
 
-	vim.keymap.set("n", "<space>f", "<cmd>Telescope fd<cr>")
-	vim.keymap.set("n", "<space>b", "<cmd>Telescope buffers<cr>")
-	vim.keymap.set("n", "<space>j", "<cmd>Telescope jumplist<cr>")
-	vim.keymap.set("n", "<space>gc", "<cmd>Telescope git_commits<cr>")
-	vim.keymap.set("n", "<space>gb", "<cmd>Telescope git_branches<cr>")
-	vim.keymap.set("n", "<space>gs", "<cmd>Telescope git_stash<cr>")
-	vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
+	map("n", "<space>f", "<cmd>Telescope fd<cr>")
+	map("n", "<space>b", "<cmd>Telescope buffers<cr>")
+	map("n", "<space>j", "<cmd>Telescope jumplist<cr>")
+	map("n", "<space>gc", "<cmd>Telescope git_commits<cr>")
+	map("n", "<space>gb", "<cmd>Telescope git_branches<cr>")
+	map("n", "<space>gs", "<cmd>Telescope git_stash<cr>")
+	map("n", "<space>/", "<cmd>Telescope live_grep<cr>")
 
 	-- maintain visual selection when changing indent level
-	vim.keymap.set("v", ">", ">gv")
-	vim.keymap.set("v", "<", "<gv")
+	map("v", ">", ">gv")
+	map("v", "<", "<gv")
 
 	-- git
-	vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
-	vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
-	vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
-	vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit!<cr>")
-	vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
-	vim.keymap.set("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
-	vim.keymap.set("n", "ghu", "<cmd>Gitsigns undo_stage_hunk<cr>")
-	vim.keymap.set("n", "ghr", "<cmd>Gitsigns reset_hunk<cr>")
+	map("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
+	map("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
+	map("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
+	map("n", "g?", "<cmd>Gvdiffsplit!<cr>")
+	map("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
+	map("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
+	map("n", "ghu", "<cmd>Gitsigns undo_stage_hunk<cr>")
+	map("n", "ghr", "<cmd>Gitsigns reset_hunk<cr>")
 
 	-- lsp
-	vim.keymap.set("n", "<space>k", function()
+	map("n", "<space>k", function()
 		vim.lsp.buf.hover()
 	end)
-	vim.keymap.set("n", "<space>d", "<cmd>TroubleToggle document_diagnostics<cr>")
-	vim.keymap.set("n", "<space>D", "<cmd>TroubleToggle workspace_diagnostics<cr>")
-	vim.keymap.set("n", "<space>a", "<cmd>CodeActionMenu<cr>")
+	map("n", "<space>d", "<cmd>TroubleToggle document_diagnostics<cr>")
+	map("n", "<space>D", "<cmd>TroubleToggle workspace_diagnostics<cr>")
+	map("n", "<space>a", "<cmd>CodeActionMenu<cr>")
 
-	vim.keymap.set("n", "]d", function()
+	map("n", "]d", function()
 		vim.diagnostic.goto_next()
 	end)
-	vim.keymap.set("n", "[d", function()
+	map("n", "[d", function()
 		vim.diagnostic.goto_prev()
 	end)
 
-	vim.keymap.set("n", "gd", function()
+	map("n", "gd", function()
 		vim.lsp.buf.definition()
 	end)
-	vim.keymap.set("n", "gy", function()
+	map("n", "gy", function()
 		vim.lsp.buf.type_definition()
 	end)
-	vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
-	vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
+	map("n", "gr", "<cmd>Trouble lsp_references<cr>")
+	map("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
 
 	-- tabs
-	vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
-	vim.keymap.set("n", "<c-h>", "<cmd>tabprev<cr>")
-	vim.keymap.set("n", "<c-l>", "<cmd>tabnext<cr>")
+	map("n", "<c-t>", "<cmd>tabnew<cr>")
+	map("n", "<c-h>", "<cmd>tabprev<cr>")
+	map("n", "<c-l>", "<cmd>tabnext<cr>")
 end
 
 -- startup commands
