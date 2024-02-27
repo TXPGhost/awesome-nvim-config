@@ -61,7 +61,7 @@ require("lazy").setup({
 	{ "tpope/vim-commentary" },
 	{
 		"neovim/nvim-lspconfig",
-		event = { "BufReadPost", "BufNewFile", "CmdlineEnter" },
+		event = { "BufReadPost", "BufNewFile" },
 		cmd = { "LspInfo", "LspInstall", "LspUninstall" },
 		config = function()
 			local lspconfig = require("lspconfig")
@@ -427,6 +427,7 @@ require("lazy").setup({
 	{
 		"hrsh7th/nvim-cmp",
 		lazy = true,
+		event = "CmdlineEnter",
 		config = function()
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
