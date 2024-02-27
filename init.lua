@@ -339,30 +339,34 @@ require("lazy").setup({
 	{
 		"stevearc/oil.nvim",
 		lazy = true,
-		opts = {
-			keymaps = {
-				["g?"] = "actions.show_help",
-				["<CR>"] = "actions.select",
-				["<C-s>"] = "actions.select_vsplit",
-				-- ["<C-h>"] = "actions.select_split",
-				["<C-t>"] = "actions.select_tab",
-				["<C-p>"] = "actions.preview",
-				["<C-c>"] = "actions.close",
-				-- ["<C-l>"] = "actions.refresh",
-				["-"] = "actions.parent",
-				["_"] = "actions.open_cwd",
-				["`"] = "actions.cd",
-				["~"] = "actions.tcd",
-				["gs"] = "actions.change_sort",
-				["gx"] = "actions.open_external",
-				["g."] = "actions.toggle_hidden",
-				["g\\"] = "actions.toggle_trash",
-			},
-			use_default_keymaps = false,
-		},
+		cmd = "Oil",
+		keys = { "-" },
 		config = function()
 			vim.keymap.set("n", "-", "<cmd>Oil<cr>zz", { desc = "Open parent directory" })
+			require("oil").setup({
+
+				keymaps = {
+					["g?"] = "actions.show_help",
+					["<CR>"] = "actions.select",
+					["<C-s>"] = "actions.select_vsplit",
+					-- ["<C-h>"] = "actions.select_split",
+					["<C-t>"] = "actions.select_tab",
+					["<C-p>"] = "actions.preview",
+					["<C-c>"] = "actions.close",
+					-- ["<C-l>"] = "actions.refresh",
+					["-"] = "actions.parent",
+					["_"] = "actions.open_cwd",
+					["`"] = "actions.cd",
+					["~"] = "actions.tcd",
+					["gs"] = "actions.change_sort",
+					["gx"] = "actions.open_external",
+					["g."] = "actions.toggle_hidden",
+					["g\\"] = "actions.toggle_trash",
+				},
+				use_default_keymaps = false,
+			})
 		end,
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 	{
 		"stevearc/conform.nvim",
@@ -546,14 +550,7 @@ require("lazy").setup({
 	{
 		"altermo/ultimate-autopair.nvim",
 		event = { "InsertEnter", "CmdlineEnter" },
-		opts = {
-			--Config goes here
-		},
 	},
-	{ "abecodes/tabout.nvim", lazy = true, opts = {
-		tabkey = "",
-		backwards_tabkey = "",
-	} },
 	{ "windwp/nvim-ts-autotag", lazy = true },
 	{ "RRethy/nvim-treesitter-endwise", lazy = true },
 	{ "tpope/vim-surround", lazy = true },
