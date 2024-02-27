@@ -61,7 +61,7 @@ require("lazy").setup({
 	{ "tpope/vim-commentary" },
 	{
 		"neovim/nvim-lspconfig",
-		event = { "BufReadPost", "BufNewFile" },
+		event = { "BufReadPost", "BufNewFile", "CmdlineEnter" },
 		cmd = { "LspInfo", "LspInstall", "LspUninstall" },
 		config = function()
 			local lspconfig = require("lspconfig")
@@ -109,6 +109,7 @@ require("lazy").setup({
 	},
 	{
 		"folke/trouble.nvim",
+		cmd = { "Trouble", "TroubleToggle", "TroubleClose" },
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
 			height = 20,
@@ -550,6 +551,7 @@ require("lazy").setup({
 	{
 		"altermo/ultimate-autopair.nvim",
 		event = { "InsertEnter", "CmdlineEnter" },
+		opts = {},
 	},
 	{ "windwp/nvim-ts-autotag", lazy = true },
 	{ "RRethy/nvim-treesitter-endwise", lazy = true },
@@ -615,6 +617,10 @@ require("lazy").setup({
 		config = function()
 			require("copilot_cmp").setup()
 		end,
+	},
+	{
+		"dstein64/vim-startuptime",
+		cmd = "StartupTime",
 	},
 })
 
