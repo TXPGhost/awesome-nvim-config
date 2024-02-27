@@ -739,6 +739,7 @@ vim.opt.shell = "fish"
 vim.opt.textwidth = 80
 vim.opt.cursorline = false
 vim.opt.scrolloff = 5
+vim.opt.clipboard = "unnamedplus"
 
 -- disable auto comment
 vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=qnlj")
