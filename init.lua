@@ -460,7 +460,7 @@ require("lazy").setup({
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
 					["<cr>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
+						if cmp.get_selected_entry() ~= nil then
 							cmp.confirm()
 							if vim.fn["vsnip#available"](1) == 1 then
 								feedkey("<Plug>(vsnip-expand-or-jump)", "")
@@ -605,7 +605,7 @@ require("lazy").setup({
 		end,
 	},
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
-	{ "tpope/vim-sleuth", lazy = true },
+	{ "tpope/vim-sleuth", event = "BufRead" },
 	{
 		"cloudsftp/peek.nvim",
 		config = function()
