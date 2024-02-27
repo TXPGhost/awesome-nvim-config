@@ -563,7 +563,15 @@ require("lazy").setup({
 			require("gitsigns").setup({ update_debounce = 0 })
 		end,
 	},
-	{ "tpope/vim-fugitive" },
+	{
+		"tpope/vim-fugitive",
+		lazy = true,
+		keys = { "?" },
+		cmd = "Git",
+		config = function()
+			vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
+		end,
+	},
 	{
 		"kevinhwang91/nvim-ufo",
 		event = "BufReadPost",
@@ -695,7 +703,6 @@ do
 	-- git
 	map("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
 	map("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
-	map("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
 	map("n", "g?", "<cmd>Gvdiffsplit!<cr>")
 	map("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
 	map("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
