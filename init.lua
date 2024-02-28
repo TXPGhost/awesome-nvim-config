@@ -301,7 +301,7 @@ require("lazy").setup({
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
-		lazy = true,
+		event = "BufRead",
 		config = function()
 			require("nvim-treesitter.configs").setup({
 
@@ -315,8 +315,8 @@ require("lazy").setup({
 					keymaps = {
 						init_selection = "<cr>",
 						scope_incremental = "<cr>",
-						node_incremental = "<Tab>",
-						node_decremental = "<S-Tab>",
+						node_incremental = "<tab>",
+						node_decremental = "<s-tab>",
 					},
 				},
 				indent = {
@@ -339,13 +339,9 @@ require("lazy").setup({
 	},
 	{
 		"stevearc/oil.nvim",
-		lazy = true,
-		cmd = "Oil",
-		keys = { "-" },
 		config = function()
 			vim.keymap.set("n", "-", "<cmd>Oil<cr>zz", { desc = "Open parent directory" })
 			require("oil").setup({
-
 				keymaps = {
 					["g?"] = "actions.show_help",
 					["<CR>"] = "actions.select",
