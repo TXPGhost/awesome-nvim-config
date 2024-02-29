@@ -70,10 +70,6 @@ require("lazy").setup({
 				variables = { italic = false },
 			},
 			custom_highlights = function(_, palette)
-				for k, v in pairs(palette) do
-					print(k, v)
-				end
-
 				return {
 					["LineNr"] = { fg = palette.fg },
 					["LineNrAbove"] = { fg = palette.bg4 },
