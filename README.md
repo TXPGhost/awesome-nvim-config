@@ -50,6 +50,8 @@ with the `:StartupTime` command.
 | Enter     |   Init selection |
 | Tab       |   Grow selection |
 | Shift Tab | Shrink Selection |
+| Ctrl j    |       Split code |
+| Ctrl k    |        Join code |
 
 ### LSP
 
