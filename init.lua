@@ -84,12 +84,12 @@ require("lazy").setup({
 
 					["@markup.quote.markdown"] = { fg = palette.yellow, italic = true },
 
-					["@markup.heading.1.markdown"] = { fg = palette.blue, underline = true },
-					["@markup.heading.2.markdown"] = { fg = palette.blue, underline = true },
-					["@markup.heading.3.markdown"] = { fg = palette.blue, underline = true },
-					["@markup.heading.4.markdown"] = { fg = palette.blue, underline = true },
-					["@markup.heading.5.markdown"] = { fg = palette.blue, underline = true },
-					["@markup.heading.6.markdown"] = { fg = palette.blue, underline = true },
+					["@markup.heading.1.markdown"] = { fg = palette.blue, underline = true, bold = true },
+					["@markup.heading.2.markdown"] = { fg = palette.blue, underline = true, bold = true },
+					["@markup.heading.3.markdown"] = { fg = palette.blue, underline = true, bold = true },
+					["@markup.heading.4.markdown"] = { fg = palette.blue, underline = true, bold = true },
+					["@markup.heading.5.markdown"] = { fg = palette.blue, underline = true, bold = true },
+					["@markup.heading.6.markdown"] = { fg = palette.blue, underline = true, bold = true },
 
 					["@markup.link.label.markdown_inline"] = { fg = palette.blue, underline = true },
 					["@markup.link.url.markdown_inline"] = { fg = palette.cyan },
@@ -105,9 +105,9 @@ require("lazy").setup({
 
 					["@punctuation.special.markdown"] = { fg = palette.red },
 
-					["@markup.strong.markdown_inline"] = { fg = palette.red, bold = true },
-					["@markup.italic.markdown_inline"] = { fg = palette.red, italic = true },
-					["@markup.strikethrough.markdown_inline"] = { fg = palette.red, strikethrough = true },
+					["@markup.strong.markdown_inline"] = { fg = palette.orange, bold = true },
+					["@markup.italic.markdown_inline"] = { fg = palette.orange, italic = true },
+					["@markup.strikethrough.markdown_inline"] = { fg = palette.orange, strikethrough = true },
 				}
 			end,
 			terminal_colors = false,
