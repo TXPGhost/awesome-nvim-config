@@ -96,7 +96,3 @@ with the `:StartupTime` command.
 | K   |                       Preview current fold |
 | ]f  |                      Goto next closed fold |
 | [f  |                  Goto previous closed fold |
-
-## Additional Features
-
-When searching the buffer using `/`, use `@` to search LSP document symbols.
