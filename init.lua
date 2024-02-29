@@ -126,7 +126,9 @@ require("lazy").setup({
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 			lspconfig.jdtls.setup({ capabilities = capabilities })
+			lspconfig.vimls.setup({ capabilities = capabilities })
 			lspconfig.clangd.setup({ capabilities = capabilities })
+			lspconfig.cmake.setup({ capabilities = capabilities })
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
 				settings = {
@@ -140,8 +142,13 @@ require("lazy").setup({
 			lspconfig.marksman.setup({ capabilities = capabilities })
 			lspconfig.ocamllsp.setup({ capabilities = capabilities, cmd = { "ocamllsp", "--fallback-read-dot-merlin" } })
 			lspconfig.texlab.setup({ capabilities = capabilities })
+			lspconfig.wgsl_analyzer.setup({ capabilities = capabilities })
+			lspconfig.bashls.setup({ capabilities = capabilities })
 			lspconfig.jsonls.setup({ capabilities = capabilities })
 			lspconfig.cssls.setup({ capabilities = capabilities })
+			lspconfig.html.setup({ capabilities = capabilities })
+			lspconfig.lemminx.setup({ capabilities = capabilities })
+			lspconfig.yamlls.setup({ capabilities = capabilities })
 			lspconfig.taplo.setup({ capabilities = capabilities })
 			lspconfig.dotls.setup({ capabilities = capabilities })
 			lspconfig.hls.setup({ capabilities = capabilities })
@@ -678,6 +685,17 @@ require("lazy").setup({
 			require("copilot").setup({
 				suggestion = { enabled = false },
 				panel = { enabled = false },
+				filetypes = {
+					yaml = true,
+					markdown = true,
+					help = true,
+					gitcommit = true,
+					gitrebase = true,
+					hgcommit = true,
+					svn = true,
+					cvs = true,
+					["."] = true,
+				},
 			})
 		end,
 	},
