@@ -14,48 +14,64 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "kevinhwang91/promise-async", lazy = true },
+	-- {
+	-- 	"rebelot/kanagawa.nvim",
+	-- 	config = function()
+	-- 		require("kanagawa").setup({
+	-- 			compile = true,
+	-- 			overrides = function(colors)
+	-- 				return {
+	-- 					LineNr = { fg = colors.theme.ui.fg_dim, bg = colors.theme.ui.bg_gutter },
+	-- 					LineNrAbove = { fg = colors.theme.ui.nontext, bg = colors.theme.ui.bg_gutter },
+	-- 					LineNrBelow = { fg = colors.theme.ui.nontext, bg = colors.theme.ui.bg_gutter },
+
+	-- 					StatusLine = { bg = colors.theme.ui.bg_gutter },
+
+	-- 					EndOfBuffer = { link = "NonText" },
+
+	-- 					["@markup.heading.1.markdown"] = { fg = colors.theme.syn.statement },
+	-- 					["@markup.heading.2.markdown"] = { fg = colors.theme.syn.statement },
+	-- 					["@markup.heading.3.markdown"] = { fg = colors.theme.syn.statement },
+	-- 					["@markup.heading.4.markdown"] = { fg = colors.theme.syn.statement },
+	-- 					["@markup.heading.5.markdown"] = { fg = colors.theme.syn.statement },
+	-- 					["@markup.heading.6.markdown"] = { fg = colors.theme.syn.statement },
+
+	-- 					["@markup.heading.1.marker.markdown"] = { fg = colors.theme.syn.statement },
+	-- 					["@markup.heading.2.marker.markdown"] = { fg = colors.theme.syn.statement },
+	-- 					["@markup.heading.3.marker.markdown"] = { fg = colors.theme.syn.statement },
+	-- 					["@markup.heading.4.marker.markdown"] = { fg = colors.theme.syn.statement },
+	-- 					["@markup.heading.5.marker.markdown"] = { fg = colors.theme.syn.statement },
+	-- 					["@markup.heading.6.marker.markdown"] = { fg = colors.theme.syn.statement },
+
+	-- 					["@markup.strong.markdown_inline"] = { bold = true },
+	-- 					["@markup.italic.markdown_inline"] = { italic = true },
+	-- 					["@markup.strikethrough.markdown_inline"] = { strikethrough = true },
+
+	-- 					["@markup.raw.markdown_inline"] = { fg = colors.theme.syn.regex },
+	-- 					["@markup.raw.block.markdown"] = { fg = colors.theme.syn.identifier },
+
+	-- 					["@markup.link.label.markdown_inline"] = { fg = colors.theme.syn.fun, underline = true },
+	-- 					["@markup.link.url.markdown_inline"] = { fg = colors.theme.syn.statement, underline = true },
+	-- 				}
+	-- 			end,
+	-- 		})
+	-- 		vim.cmd.colorscheme("kanagawa-dragon")
+	-- 	end,
+	-- },
 	{
-		"rebelot/kanagawa.nvim",
-		config = function()
-			require("kanagawa").setup({
-				compile = true,
-				overrides = function(colors)
-					return {
-						LineNr = { fg = colors.theme.ui.fg_dim, bg = colors.theme.ui.bg_gutter },
-						LineNrAbove = { fg = colors.theme.ui.nontext, bg = colors.theme.ui.bg_gutter },
-						LineNrBelow = { fg = colors.theme.ui.nontext, bg = colors.theme.ui.bg_gutter },
-
-						StatusLine = { bg = colors.theme.ui.bg_gutter },
-
-						EndOfBuffer = { link = "NonText" },
-
-						["@markup.heading.1.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.2.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.3.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.4.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.5.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.6.markdown"] = { fg = colors.theme.syn.statement },
-
-						["@markup.heading.1.marker.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.2.marker.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.3.marker.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.4.marker.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.5.marker.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.6.marker.markdown"] = { fg = colors.theme.syn.statement },
-
-						["@markup.strong.markdown_inline"] = { bold = true },
-						["@markup.italic.markdown_inline"] = { italic = true },
-						["@markup.strikethrough.markdown_inline"] = { strikethrough = true },
-
-						["@markup.raw.markdown_inline"] = { fg = colors.theme.syn.regex },
-						["@markup.raw.block.markdown"] = { fg = colors.theme.syn.identifier },
-
-						["@markup.link.label.markdown_inline"] = { fg = colors.theme.syn.fun, underline = true },
-						["@markup.link.url.markdown_inline"] = { fg = colors.theme.syn.statement, underline = true },
-					}
-				end,
-			})
-			vim.cmd.colorscheme("kanagawa-dragon")
+		"tiagovla/tokyodark.nvim",
+		opts = {
+			custom_highlights = function(_, palette)
+				return {
+					["LineNr"] = { fg = palette.fg },
+					["LineNrAbove"] = { fg = palette.bg4 },
+					["LineNrBelow"] = { fg = palette.bg4 },
+				}
+			end,
+		},
+		config = function(_, opts)
+			require("tokyodark").setup(opts) -- calling setup is optional
+			vim.cmd([[colorscheme tokyodark]])
 		end,
 	},
 	{ "tpope/vim-commentary" },
