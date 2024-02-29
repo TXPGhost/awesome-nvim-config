@@ -60,6 +60,7 @@ require("lazy").setup({
 	},
 	{
 		"tiagovla/tokyodark.nvim",
+		priority = 1000,
 		opts = {
 			transparent_background = true,
 			styles = {
@@ -841,6 +842,7 @@ vim.opt.textwidth = 80
 vim.opt.cursorline = false
 vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
+vim.opt.shada = ""
 
 -- disable auto comment
 vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=qnlj")
