@@ -5,7 +5,7 @@ if not vim.loop.fs_stat(lazypath) then
 		"clone",
 		"--filter=blob:none",
 		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
+		"--branch=stable",
 		lazypath,
 	})
 end
@@ -163,6 +163,14 @@ require("lazy").setup({
 				capabilities = capabilities,
 				root_dir = lspconfig.util.root_pattern("package.json"),
 			})
+
+			vim.fn.sign_define("DiagnosticSignError", { text = "" })
+			vim.fn.sign_define("DiagnosticSignWarn", { text = "" })
+			vim.fn.sign_define("DiagnosticSignInfo", { text = "" })
+			vim.fn.sign_define("DiagnosticSignHint", { text = "" })
+			vim.fn.sign_define("DiagnosticSignOk", { text = "" })
+
+			vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
 		end,
 	},
 	{
@@ -731,15 +739,6 @@ require("lazy").setup({
 -- set help window to vertical split
 vim.api.nvim_create_autocmd({ "FileType" }, { pattern = { "help" }, command = "wincmd L" })
 
--- configure diagnostics
-vim.fn.sign_define("DiagnosticSignError", { text = "" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = "" })
-vim.fn.sign_define("DiagnosticSignInfo", { text = "" })
-vim.fn.sign_define("DiagnosticSignHint", { text = "" })
-vim.fn.sign_define("DiagnosticSignOk", { text = "" })
-
-vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
-
 -- latex
 vim.api.nvim_create_user_command("LatexPreview", function()
 	local texpath = vim.fn.expand("%")
@@ -750,7 +749,6 @@ vim.api.nvim_create_user_command("LatexCompile", function()
 	local texpath = vim.fn.expand("%")
 	vim.cmd("!tectonic " .. texpath)
 end, {})
-
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	pattern = { "*.tex" },
 	command = "LatexCompile",
@@ -760,6 +758,9 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 vim.api.nvim_create_user_command("Config", function()
 	vim.cmd("e ~/.config/nvim/init.lua")
 end, {})
+
+-- disable auto comment
+vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=qnlj")
 
 -- keymaps
 do
@@ -843,6 +844,3 @@ vim.opt.cursorline = false
 vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.shada = ""
-
--- disable auto comment
-vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=qnlj")
