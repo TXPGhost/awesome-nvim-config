@@ -70,10 +70,47 @@ require("lazy").setup({
 				variables = { italic = false },
 			},
 			custom_highlights = function(_, palette)
+				for k, v in pairs(palette) do
+					print(k, v)
+				end
+
 				return {
 					["LineNr"] = { fg = palette.fg },
 					["LineNrAbove"] = { fg = palette.bg4 },
 					["LineNrBelow"] = { fg = palette.bg4 },
+
+					["@conceal.markdown_inline"] = { fg = palette.bg3 },
+					["@markup.raw.delimiter.markdown"] = { fg = palette.bg3 },
+					["@markup.raw.block.markdown"] = { fg = palette.green },
+
+					["@markup.heading.markdown"] = { fg = palette.blue },
+
+					["@markup.quote.markdown"] = { fg = palette.yellow, italic = true },
+
+					["@markup.heading.1.markdown"] = { fg = palette.blue, underline = true },
+					["@markup.heading.2.markdown"] = { fg = palette.blue, underline = true },
+					["@markup.heading.3.markdown"] = { fg = palette.blue, underline = true },
+					["@markup.heading.4.markdown"] = { fg = palette.blue, underline = true },
+					["@markup.heading.5.markdown"] = { fg = palette.blue, underline = true },
+					["@markup.heading.6.markdown"] = { fg = palette.blue, underline = true },
+
+					["@markup.link.label.markdown_inline"] = { fg = palette.blue, underline = true },
+					["@markup.link.url.markdown_inline"] = { fg = palette.cyan },
+
+					["@markup.list.markdown"] = { fg = palette.purple, bold = true },
+
+					["@markup.heading.1.marker.markdown"] = { fg = palette.bg3 },
+					["@markup.heading.2.marker.markdown"] = { fg = palette.bg3 },
+					["@markup.heading.3.marker.markdown"] = { fg = palette.bg3 },
+					["@markup.heading.4.marker.markdown"] = { fg = palette.bg3 },
+					["@markup.heading.5.marker.markdown"] = { fg = palette.bg3 },
+					["@markup.heading.6.marker.markdown"] = { fg = palette.bg3 },
+
+					["@punctuation.special.markdown"] = { fg = palette.red },
+
+					["@markup.strong.markdown_inline"] = { fg = palette.red, bold = true },
+					["@markup.italic.markdown_inline"] = { fg = palette.red, italic = true },
+					["@markup.strikethrough.markdown_inline"] = { fg = palette.red, strikethrough = true },
 				}
 			end,
 			terminal_colors = false,
