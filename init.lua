@@ -61,6 +61,7 @@ require("lazy").setup({
 	{
 		"tiagovla/tokyodark.nvim",
 		opts = {
+			transparent_background = true,
 			custom_highlights = function(_, palette)
 				return {
 					["LineNr"] = { fg = palette.fg },
