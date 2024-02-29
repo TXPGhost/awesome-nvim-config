@@ -552,7 +552,7 @@ require("lazy").setup({
 	},
 	{ "windwp/nvim-ts-autotag", lazy = true },
 	{ "RRethy/nvim-treesitter-endwise", lazy = true },
-	{ "tpope/vim-surround", lazy = true },
+	{ "tpope/vim-surround", event = "VeryLazy" },
 	{
 		"lewis6991/gitsigns.nvim",
 		config = function()
@@ -603,8 +603,11 @@ require("lazy").setup({
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	{ "tpope/vim-sleuth", event = "BufRead" },
 	{
-		"cloudsftp/peek.nvim",
+		"toppair/peek.nvim",
+		event = { "VeryLazy" },
+		build = "deno task --quiet build:fast",
 		config = function()
+			require("peek").setup()
 			vim.api.nvim_create_user_command("MarkdownPreviewOpen", require("peek").open, {})
 			vim.api.nvim_create_user_command("MarkdownPreviewClose", require("peek").close, {})
 		end,
