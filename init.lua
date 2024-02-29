@@ -62,6 +62,13 @@ require("lazy").setup({
 		"tiagovla/tokyodark.nvim",
 		opts = {
 			transparent_background = true,
+			styles = {
+				comments = { italic = true },
+				keywords = { italic = true },
+				identifiers = { italic = false },
+				functions = { italic = false },
+				variables = { italic = false },
+			},
 			custom_highlights = function(_, palette)
 				return {
 					["LineNr"] = { fg = palette.fg },
@@ -69,6 +76,7 @@ require("lazy").setup({
 					["LineNrBelow"] = { fg = palette.bg4 },
 				}
 			end,
+			terminal_colors = false,
 		},
 		config = function(_, opts)
 			require("tokyodark").setup(opts) -- calling setup is optional
@@ -683,9 +691,6 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 -- config quick edit
 vim.api.nvim_create_user_command("Config", function()
 	vim.cmd("e ~/.config/nvim/init.lua")
-end, {})
-vim.api.nvim_create_user_command("ConfigReload", function()
-	vim.cmd("so ~/.config/nvim/init.lua")
 end, {})
 
 -- keymaps
