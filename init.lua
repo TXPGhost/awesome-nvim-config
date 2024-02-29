@@ -14,50 +14,50 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "kevinhwang91/promise-async", lazy = true },
-	-- {
-	-- 	"rebelot/kanagawa.nvim",
-	-- 	config = function()
-	-- 		require("kanagawa").setup({
-	-- 			compile = true,
-	-- 			overrides = function(colors)
-	-- 				return {
-	-- 					LineNr = { fg = colors.theme.ui.fg_dim, bg = colors.theme.ui.bg_gutter },
-	-- 					LineNrAbove = { fg = colors.theme.ui.nontext, bg = colors.theme.ui.bg_gutter },
-	-- 					LineNrBelow = { fg = colors.theme.ui.nontext, bg = colors.theme.ui.bg_gutter },
+	{
+		"rebelot/kanagawa.nvim",
+		lazy = true,
+		config = function()
+			require("kanagawa").setup({
+				compile = true,
+				overrides = function(colors)
+					return {
+						LineNr = { fg = colors.theme.ui.fg_dim, bg = colors.theme.ui.bg_gutter },
+						LineNrAbove = { fg = colors.theme.ui.nontext, bg = colors.theme.ui.bg_gutter },
+						LineNrBelow = { fg = colors.theme.ui.nontext, bg = colors.theme.ui.bg_gutter },
 
-	-- 					StatusLine = { bg = colors.theme.ui.bg_gutter },
+						StatusLine = { bg = colors.theme.ui.bg_gutter },
 
-	-- 					EndOfBuffer = { link = "NonText" },
+						EndOfBuffer = { link = "NonText" },
 
-	-- 					["@markup.heading.1.markdown"] = { fg = colors.theme.syn.statement },
-	-- 					["@markup.heading.2.markdown"] = { fg = colors.theme.syn.statement },
-	-- 					["@markup.heading.3.markdown"] = { fg = colors.theme.syn.statement },
-	-- 					["@markup.heading.4.markdown"] = { fg = colors.theme.syn.statement },
-	-- 					["@markup.heading.5.markdown"] = { fg = colors.theme.syn.statement },
-	-- 					["@markup.heading.6.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.1.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.2.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.3.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.4.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.5.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.6.markdown"] = { fg = colors.theme.syn.statement },
 
-	-- 					["@markup.heading.1.marker.markdown"] = { fg = colors.theme.syn.statement },
-	-- 					["@markup.heading.2.marker.markdown"] = { fg = colors.theme.syn.statement },
-	-- 					["@markup.heading.3.marker.markdown"] = { fg = colors.theme.syn.statement },
-	-- 					["@markup.heading.4.marker.markdown"] = { fg = colors.theme.syn.statement },
-	-- 					["@markup.heading.5.marker.markdown"] = { fg = colors.theme.syn.statement },
-	-- 					["@markup.heading.6.marker.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.1.marker.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.2.marker.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.3.marker.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.4.marker.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.5.marker.markdown"] = { fg = colors.theme.syn.statement },
+						["@markup.heading.6.marker.markdown"] = { fg = colors.theme.syn.statement },
 
-	-- 					["@markup.strong.markdown_inline"] = { bold = true },
-	-- 					["@markup.italic.markdown_inline"] = { italic = true },
-	-- 					["@markup.strikethrough.markdown_inline"] = { strikethrough = true },
+						["@markup.strong.markdown_inline"] = { bold = true },
+						["@markup.italic.markdown_inline"] = { italic = true },
+						["@markup.strikethrough.markdown_inline"] = { strikethrough = true },
 
-	-- 					["@markup.raw.markdown_inline"] = { fg = colors.theme.syn.regex },
-	-- 					["@markup.raw.block.markdown"] = { fg = colors.theme.syn.identifier },
+						["@markup.raw.markdown_inline"] = { fg = colors.theme.syn.regex },
+						["@markup.raw.block.markdown"] = { fg = colors.theme.syn.identifier },
 
-	-- 					["@markup.link.label.markdown_inline"] = { fg = colors.theme.syn.fun, underline = true },
-	-- 					["@markup.link.url.markdown_inline"] = { fg = colors.theme.syn.statement, underline = true },
-	-- 				}
-	-- 			end,
-	-- 		})
-	-- 		vim.cmd.colorscheme("kanagawa-dragon")
-	-- 	end,
-	-- },
+						["@markup.link.label.markdown_inline"] = { fg = colors.theme.syn.fun, underline = true },
+						["@markup.link.url.markdown_inline"] = { fg = colors.theme.syn.statement, underline = true },
+					}
+				end,
+			})
+		end,
+	},
 	{
 		"tiagovla/tokyodark.nvim",
 		opts = {
@@ -116,7 +116,7 @@ require("lazy").setup({
 			vim.cmd([[colorscheme tokyodark]])
 		end,
 	},
-	{ "tpope/vim-commentary" },
+	{ "tpope/vim-commentary", event = "BufRead" },
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPost", "BufNewFile" },
@@ -404,6 +404,7 @@ require("lazy").setup({
 	},
 	{
 		"stevearc/oil.nvim",
+		event = "VeryLazy",
 		config = function()
 			vim.keymap.set("n", "-", "<cmd>Oil<cr>zz", { desc = "Open parent directory" })
 			require("oil").setup({
@@ -620,6 +621,7 @@ require("lazy").setup({
 	{ "tpope/vim-surround", event = "VeryLazy" },
 	{
 		"lewis6991/gitsigns.nvim",
+		event = "BufRead",
 		config = function()
 			require("gitsigns").setup({ update_debounce = 0 })
 		end,
@@ -701,6 +703,7 @@ require("lazy").setup({
 	},
 	{
 		"zbirenbaum/copilot-cmp",
+		lazy = true,
 		config = function()
 			require("copilot_cmp").setup()
 		end,
@@ -708,6 +711,18 @@ require("lazy").setup({
 	{
 		"dstein64/vim-startuptime",
 		cmd = "StartupTime",
+	},
+	{
+		"Wansmer/treesj",
+		keys = { "<c-j>", "<c-k>" },
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		config = function()
+			require("treesj").setup({
+				use_default_keymaps = false,
+			})
+			vim.keymap.set("n", "<c-j>", "<cmd>TSJSplit<cr>")
+			vim.keymap.set("n", "<c-k>", "<cmd>TSJJoin<cr>")
+		end,
 	},
 })
 
