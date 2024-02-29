@@ -404,7 +404,7 @@ require("lazy").setup({
 	},
 	{
 		"stevearc/oil.nvim",
-		event = "VeryLazy",
+		event = "BufRead",
 		config = function()
 			vim.keymap.set("n", "-", "<cmd>Oil<cr>zz", { desc = "Open parent directory" })
 			require("oil").setup({
