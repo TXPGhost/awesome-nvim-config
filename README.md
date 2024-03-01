@@ -100,13 +100,12 @@ with the `:StartupTime` command.
 
 Begin debugging with the `:Debug` command.
 
-| Key         |           Binding |
-| :---------- | ----------------: |
-| Space Space | Toggle breakpoint |
-| Down        |         Step Over |
-| Right       |         Step Into |
-| Up          |          Step Out |
-| Left        |          Step Out |
-| Space c     |          Continue |
-
-> For Java, make sure to run `:JdtUpdateDebugConfig`
+| Key         |                    Binding |
+| :---------- | -------------------------: |
+| Space Space |          Toggle breakpoint |
+| Down        |                  Step Into |
+| Right       |                  Step Over |
+| Up          |                   Step Out |
+| Left        |                  Step Back |
+| Space c     | Start Debugging / Continue |
+| Space C     |            Close Debug GUI |
