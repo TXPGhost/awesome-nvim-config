@@ -126,7 +126,6 @@ require("lazy").setup({
 			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			lspconfig.jdtls.setup({ capabilities = capabilities })
 			lspconfig.vimls.setup({ capabilities = capabilities })
 			lspconfig.clangd.setup({ capabilities = capabilities })
 			lspconfig.cmake.setup({ capabilities = capabilities })
@@ -198,6 +197,22 @@ require("lazy").setup({
 				"workspace_diagnostics",
 			},
 		},
+	},
+	{
+		"mfussenegger/nvim-jdtls",
+		ft = { "java" },
+		config = function()
+			vim.api.nvim_create_autocmd({ "FileType" }, {
+				pattern = { "java" },
+				callback = function()
+					local config = {
+						cmd = { "/usr/bin/jdtls" },
+						root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnw" }, { upward = true })[1]),
+					}
+					require("jdtls").start_or_attach(config)
+				end,
+			})
+		end,
 	},
 	{
 		"mrcjkb/rustaceanvim",
@@ -729,6 +744,20 @@ require("lazy").setup({
 			})
 			vim.keymap.set("n", "<c-j>", "<cmd>TSJSplit<cr>")
 			vim.keymap.set("n", "<c-k>", "<cmd>TSJJoin<cr>")
+		end,
+	},
+	{
+		"mfussenegger/nvim-dap",
+		event = "VeryLazy",
+		config = function()
+			local dap = require("dap")
+			dap.adapters.java = function(callback)
+				callback({
+					type = "server",
+					host = "127.0.0.1",
+					port = port,
+				})
+			end
 		end,
 	},
 })
