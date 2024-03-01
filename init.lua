@@ -789,8 +789,8 @@ do
 	map("v", "<", "<gv")
 
 	-- git
-	map("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
-	map("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk<cr>")
+	map("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
+	map("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
 	map("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
 	map("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
 	map("n", "ghu", "<cmd>Gitsigns undo_stage_hunk<cr>")
