@@ -811,15 +811,9 @@ require("lazy").setup({
 				dap.step_into()
 			end)
 
-			vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "DiffDelete" })
-			vim.fn.sign_define(
-				"DapBreakpointCondition",
-				{ text = "", texthl = "DiagnosticSignError", linehl = "DiffAdd" }
-			)
-			vim.fn.sign_define(
-				"DapBreakpointRejected",
-				{ text = "󰅙", texthl = "DiagnosticSignError", linehl = "DiffDelete" }
-			)
+			vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError" })
+			vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DiagnosticSignError" })
+			vim.fn.sign_define("DapBreakpointRejected", { text = "󰅙", texthl = "DiagnosticSignError" })
 
 			dapui.setup({})
 			vim.keymap.set("n", "<space>c", function()
