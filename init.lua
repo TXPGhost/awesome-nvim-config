@@ -410,6 +410,7 @@ require("lazy").setup({
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 			vim.opt.foldlevel = 99999
 		end,
+		dependencies = { "RRethy/nvim-treesitter-endwise", "windwp/nvim-ts-autotag" },
 	},
 	{
 		"stevearc/oil.nvim",
@@ -626,8 +627,6 @@ require("lazy").setup({
 		event = { "InsertEnter", "CmdlineEnter" },
 		opts = {},
 	},
-	{ "windwp/nvim-ts-autotag", lazy = true },
-	{ "RRethy/nvim-treesitter-endwise", lazy = true },
 	{ "tpope/vim-surround", event = "VeryLazy" },
 	{
 		"lewis6991/gitsigns.nvim",
