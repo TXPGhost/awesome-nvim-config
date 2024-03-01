@@ -226,6 +226,11 @@ require("lazy").setup({
 		ft = { "rust" },
 		config = function()
 			vim.g.rustaceanvim = {
+				dap = {
+					adapter = {
+						cfg.get_codelldb_adapter("/usr/bin/codelldb"),
+					},
+				},
 				server = {
 					default_settings = {
 						["rust-analyzer"] = {
@@ -756,28 +761,47 @@ require("lazy").setup({
 	{
 		"mfussenegger/nvim-dap",
 		event = "VeryLazy",
+		keys = { "<space>c", "<space>C" },
 		config = function()
-			require("dap")
+			local dap = require("dap")
+			local dapui = require("dapui")
 			require("nvim-dap-virtual-text").setup()
 
 			vim.keymap.set("n", "<space><space>", "<cmd>DapToggleBreakpoint<cr>")
 			vim.keymap.set("n", "<up>", "<cmd>DapStepOut<cr>")
 			vim.keymap.set("n", "<down>", "<cmd>DapStepOver<cr>")
 			vim.keymap.set("n", "<right>", "<cmd>DapStepInto<cr>")
-			vim.keymap.set("n", "<left>", "<cmd>DapContinue<cr>")
+			vim.keymap.set("n", "<space>c", "<cmd>DapContinue<cr>")
 
 			vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError" })
 
-			vim.api.nvim_create_user_command("Debug", function()
-				if vim.bo.filetype == "java" then
-					require("jdtls.dap").setup_dap_main_class_configs()
-					vim.cmd("DapContinue")
-				else
-					print("Unsupported filetype.")
-				end
-			end, {})
+			dapui.setup({})
+			vim.keymap.set("n", "<space>c", function()
+				dapui.open()
+				vim.cmd("DapContinue")
+			end)
+			vim.keymap.set("n", "<space>C", function()
+				dapui.close()
+			end)
+
+			dap.listeners.before.attach.dapui_config = function()
+				dapui.open()
+			end
+			dap.listeners.before.launch.dapui_config = function()
+				dapui.open()
+			end
+			dap.listeners.before.event_terminated.dapui_config = function()
+				dapui.close()
+			end
+			dap.listeners.before.event_exited.dapui_config = function()
+				dapui.close()
+			end
 		end,
-		dependencies = { "theHamsta/nvim-dap-virtual-text" },
+		dependencies = { "theHamsta/nvim-dap-virtual-text", "rcarriga/nvim-dap-ui" },
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		lazy = true,
 	},
 })
 

@@ -106,4 +106,6 @@ Begin debugging with the `:Debug` command.
 | Down        |         Step Over |
 | Right       |         Step Into |
 | Up          |          Step Out |
-| Left        |          Continue |
+| Space c     |          Continue |
+
+> For Java, make sure to run `:JdtUpdateDebugConfig`
