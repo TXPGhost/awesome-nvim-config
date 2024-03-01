@@ -786,6 +786,7 @@ require("lazy").setup({
 					stopOnEntry = false,
 				},
 			}
+			dap.configurations.cpp = dap.configurations.c
 
 			vim.keymap.set("n", "<space><space>", function()
 				dap.toggle_breakpoint()
