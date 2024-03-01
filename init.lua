@@ -762,6 +762,31 @@ require("lazy").setup({
 
 			require("nvim-dap-virtual-text").setup()
 
+			dap.adapters.codelldb = {
+				type = "server",
+				port = "13000",
+				executable = {
+					-- CHANGE THIS to your path!
+					command = "/usr/lib/codelldb/adapter/codelldb",
+					args = { "--port", "13000" },
+
+					-- On windows you may have to uncomment this:
+					-- detached = false,
+				},
+			}
+			dap.configurations.c = {
+				{
+					name = "Launch file",
+					type = "codelldb",
+					request = "launch",
+					program = function()
+						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+					end,
+					cwd = "${workspaceFolder}",
+					stopOnEntry = false,
+				},
+			}
+
 			vim.keymap.set("n", "<space><space>", function()
 				dap.toggle_breakpoint()
 			end)
@@ -785,6 +810,10 @@ require("lazy").setup({
 			vim.fn.sign_define(
 				"DapBreakpointCondition",
 				{ text = "", texthl = "DiagnosticSignError", linehl = "DiffAdd" }
+			)
+			vim.fn.sign_define(
+				"DapBreakpointRejected",
+				{ text = "󰅙", texthl = "DiagnosticSignError", linehl = "DiffDelete" }
 			)
 
 			dapui.setup({})
