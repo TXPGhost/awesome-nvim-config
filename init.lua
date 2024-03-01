@@ -660,7 +660,7 @@ require("lazy").setup({
 	{
 		"tpope/vim-fugitive",
 		lazy = true,
-		keys = { "?" },
+		keys = { "?", "g?" },
 		cmd = "Git",
 		config = function()
 			vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
@@ -766,6 +766,9 @@ require("lazy").setup({
 			vim.keymap.set("n", "<space><space>", function()
 				dap.toggle_breakpoint()
 			end)
+			vim.keymap.set("n", "<space>?<space>", function()
+				dap.set_breakpoint(vim.fn.input("Condition: "))
+			end)
 			vim.keymap.set("n", "<up>", function()
 				dap.step_out()
 			end)
@@ -780,6 +783,10 @@ require("lazy").setup({
 			end)
 
 			vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "DiffDelete" })
+			vim.fn.sign_define(
+				"DapBreakpointCondition",
+				{ text = "", texthl = "DiagnosticSignError", linehl = "DiffAdd" }
+			)
 
 			dapui.setup({})
 			vim.keymap.set("n", "<space>c", function()
