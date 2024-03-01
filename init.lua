@@ -769,6 +769,7 @@ require("lazy").setup({
 
 			vim.keymap.set("n", "<space><space>", "<cmd>DapToggleBreakpoint<cr>")
 			vim.keymap.set("n", "<up>", "<cmd>DapStepOut<cr>")
+			vim.keymap.set("n", "<left>", "<cmd>DapStepOut<cr>")
 			vim.keymap.set("n", "<down>", "<cmd>DapStepOver<cr>")
 			vim.keymap.set("n", "<right>", "<cmd>DapStepInto<cr>")
 			vim.keymap.set("n", "<space>c", "<cmd>DapContinue<cr>")
