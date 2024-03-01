@@ -226,11 +226,6 @@ require("lazy").setup({
 		ft = { "rust" },
 		config = function()
 			vim.g.rustaceanvim = {
-				dap = {
-					adapter = {
-						cfg.get_codelldb_adapter("/usr/bin/codelldb"),
-					},
-				},
 				server = {
 					default_settings = {
 						["rust-analyzer"] = {
@@ -783,9 +778,6 @@ require("lazy").setup({
 			vim.keymap.set("n", "<down>", function()
 				dap.step_into()
 			end)
-			vim.keymap.set("n", "<space>c", function()
-				dap.continue()
-			end)
 
 			vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "DiffDelete" })
 
@@ -793,6 +785,9 @@ require("lazy").setup({
 			vim.keymap.set("n", "<space>c", function()
 				if vim.bo.filetype == "java" then
 					require("jdtls.dap").setup_dap_main_class_configs()
+				elseif vim.bo.filetype == "rust" then
+					vim.cmd("RustLsp debuggables")
+					return
 				end
 				dapui.open()
 				vim.cmd("DapContinue")
