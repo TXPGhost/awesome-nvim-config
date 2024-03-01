@@ -766,12 +766,8 @@ require("lazy").setup({
 				type = "server",
 				port = "13000",
 				executable = {
-					-- CHANGE THIS to your path!
 					command = "/usr/lib/codelldb/adapter/codelldb",
 					args = { "--port", "13000" },
-
-					-- On windows you may have to uncomment this:
-					-- detached = false,
 				},
 			}
 			dap.configurations.c = {
