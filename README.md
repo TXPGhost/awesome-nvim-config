@@ -108,4 +108,4 @@ Begin debugging with the `:Debug` command.
 | Up          |                   Step Out |
 | Left        |                  Step Back |
 | Space c     | Start Debugging / Continue |
-| Space C     |            Close Debug GUI |
+| Space C     |             Stop Debugging |

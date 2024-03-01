@@ -794,6 +794,7 @@ require("lazy").setup({
 			end)
 			vim.keymap.set("n", "<space>C", function()
 				dapui.close()
+				dap.terminate()
 			end)
 
 			dap.listeners.before.attach.dapui_config = function()
