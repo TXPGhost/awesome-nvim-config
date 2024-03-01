@@ -18,16 +18,15 @@ with the `:StartupTime` command.
 
 ### Git
 
-| Key         |                     Binding |
-| :---------- | --------------------------: |
-| ?           | Open fugitive status window |
-| g?          |              Show diff view |
-| ]h          |                   Next hunk |
-| [h          |               Previous hunk |
-| Space Space |                Preview hunk |
-| ghs         |                  Stage hunk |
-| ghu         |             Undo stage hunk |
-| ghr         |                  Reset hunk |
+| Key |                     Binding |
+| :-- | --------------------------: |
+| ?   | Open fugitive status window |
+| g?  |              Show diff view |
+| ]h  |                   Next hunk |
+| [h  |               Previous hunk |
+| ghs |                  Stage hunk |
+| ghu |             Undo stage hunk |
+| ghr |                  Reset hunk |
 
 ### File navigation
 
@@ -96,3 +95,15 @@ with the `:StartupTime` command.
 | K   |                       Preview current fold |
 | ]f  |                      Goto next closed fold |
 | [f  |                  Goto previous closed fold |
+
+## DAP
+
+Begin debugging with the `:Debug` command.
+
+| Key         |           Binding |
+| :---------- | ----------------: |
+| Space Space | Toggle breakpoint |
+| Down        |         Step Over |
+| Right       |         Step Into |
+| Up          |          Step Out |
+| Left        |          Continue |

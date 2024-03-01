@@ -202,17 +202,24 @@ require("lazy").setup({
 		"mfussenegger/nvim-jdtls",
 		ft = { "java" },
 		config = function()
+			local jdtls = require("jdtls")
+			local config = {
+				cmd = { "/usr/bin/jdtls" },
+				root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnw" }, { upward = true })[1]),
+				init_options = {
+					bundles = {
+						vim.fn.glob("/usr/share/java-debug/com.microsoft.java.debug.plugin.jar", 1),
+					},
+				},
+			}
 			vim.api.nvim_create_autocmd({ "FileType" }, {
 				pattern = { "java" },
 				callback = function()
-					local config = {
-						cmd = { "/usr/bin/jdtls" },
-						root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnw" }, { upward = true })[1]),
-					}
 					require("jdtls").start_or_attach(config)
 				end,
 			})
 		end,
+		dependencies = { "mfussenegger/nvim-dap" },
 	},
 	{
 		"mrcjkb/rustaceanvim",
@@ -750,15 +757,27 @@ require("lazy").setup({
 		"mfussenegger/nvim-dap",
 		event = "VeryLazy",
 		config = function()
-			local dap = require("dap")
-			dap.adapters.java = function(callback)
-				callback({
-					type = "server",
-					host = "127.0.0.1",
-					port = port,
-				})
-			end
+			require("dap")
+			require("nvim-dap-virtual-text").setup()
+
+			vim.keymap.set("n", "<space><space>", "<cmd>DapToggleBreakpoint<cr>")
+			vim.keymap.set("n", "<up>", "<cmd>DapStepOut<cr>")
+			vim.keymap.set("n", "<down>", "<cmd>DapStepOver<cr>")
+			vim.keymap.set("n", "<right>", "<cmd>DapStepInto<cr>")
+			vim.keymap.set("n", "<left>", "<cmd>DapContinue<cr>")
+
+			vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError" })
+
+			vim.api.nvim_create_user_command("Debug", function()
+				if vim.bo.filetype == "java" then
+					require("jdtls.dap").setup_dap_main_class_configs()
+					vim.cmd("DapContinue")
+				else
+					print("Unsupported filetype.")
+				end
+			end, {})
 		end,
+		dependencies = { "theHamsta/nvim-dap-virtual-text" },
 	},
 })
 
@@ -820,7 +839,6 @@ do
 	-- git
 	map("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
 	map("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
-	map("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
 	map("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
 	map("n", "ghu", "<cmd>Gitsigns undo_stage_hunk<cr>")
 	map("n", "ghr", "<cmd>Gitsigns reset_hunk<cr>")
