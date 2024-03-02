@@ -127,6 +127,9 @@ require("lazy").setup({
 					["LineNrAbove"] = { fg = colors.guide_normal },
 					["LineNrBelow"] = { fg = colors.guide_normal },
 					["TreesitterContext"] = { link = "Folded" },
+					-- ["IlluminatedWordText"] = { bg = colors.panel_bg },
+					-- ["IlluminatedWordRead"] = { bg = colors.panel_bg },
+					-- ["IlluminatedWordWrite"] = { bg = colors.panel_bg },
 				},
 			})
 			vim.cmd.colorscheme("ayu")
@@ -921,6 +924,18 @@ require("lazy").setup({
 		},
 		config = function(_, opts)
 			require("mini.move").setup(opts)
+		end,
+	},
+	{
+		"utilyre/sentiment.nvim",
+		version = "*",
+		event = "VeryLazy", -- keep for lazy loading
+		opts = {
+			-- config
+		},
+		init = function()
+			-- `matchparen.vim` needs to be disabled manually in case of lazy loading
+			vim.g.loaded_matchparen = 1
 		end,
 	},
 })
