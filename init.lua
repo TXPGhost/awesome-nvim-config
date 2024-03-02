@@ -19,7 +19,6 @@ require("lazy").setup({
 		lazy = true,
 		config = function()
 			require("kanagawa").setup({
-				compile = true,
 				overrides = function(colors)
 					return {
 						LineNr = { fg = colors.theme.ui.fg_dim, bg = colors.theme.ui.bg_gutter },
@@ -60,7 +59,7 @@ require("lazy").setup({
 	},
 	{
 		"tiagovla/tokyodark.nvim",
-		priority = 1000,
+		lazy = true,
 		opts = {
 			transparent_background = true,
 			styles = {
@@ -113,8 +112,23 @@ require("lazy").setup({
 			terminal_colors = false,
 		},
 		config = function(_, opts)
-			require("tokyodark").setup(opts) -- calling setup is optional
-			vim.cmd([[colorscheme tokyodark]])
+			require("tokyodark").setup(opts)
+		end,
+	},
+	{
+		"Shatur/neovim-ayu",
+		priority = 1000,
+		config = function()
+			local colors = require("ayu.colors")
+			colors.generate()
+			require("ayu").setup({
+				overrides = {
+					["LineNr"] = { fg = colors.guide_active },
+					["LineNrAbove"] = { fg = colors.guide_normal },
+					["LineNrBelow"] = { fg = colors.guide_normal },
+				},
+			})
+			vim.cmd.colorscheme("ayu")
 		end,
 	},
 	{ "tpope/vim-commentary", event = "BufRead" },
@@ -170,6 +184,11 @@ require("lazy").setup({
 			vim.fn.sign_define("DiagnosticSignOk", { text = "" })
 
 			vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
+
+			vim.lsp.handlers["textDocument/publishDiagnostics"] =
+				vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+					virtual_text = false,
+				})
 		end,
 	},
 	{
@@ -399,7 +418,6 @@ require("lazy").setup({
 		event = "BufRead",
 		config = function()
 			require("nvim-treesitter.configs").setup({
-
 				auto_install = true,
 				highlight = {
 					enable = true,
@@ -733,7 +751,9 @@ require("lazy").setup({
 		"zbirenbaum/copilot-cmp",
 		lazy = true,
 		config = function()
-			require("copilot_cmp").setup()
+			require("copilot_cmp").setup({
+				fix_pairs = false,
+			})
 		end,
 	},
 	{
@@ -754,8 +774,7 @@ require("lazy").setup({
 	},
 	{
 		"mfussenegger/nvim-dap",
-		event = "VeryLazy",
-		keys = { "<space>c", "<space>C" },
+		keys = { "<space>c", "<space>C", "<space><space>", "<space>?<space>" },
 		config = function()
 			local dap = require("dap")
 			local dapui = require("dapui")
@@ -807,9 +826,15 @@ require("lazy").setup({
 				dap.step_into()
 			end)
 
-			vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError" })
-			vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DiagnosticSignError" })
-			vim.fn.sign_define("DapBreakpointRejected", { text = "󰅙", texthl = "DiagnosticSignError" })
+			vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "DiffDelete" })
+			vim.fn.sign_define(
+				"DapBreakpointCondition",
+				{ text = "", texthl = "DiagnosticSignError", linehl = "DiffAdd" }
+			)
+			vim.fn.sign_define(
+				"DapBreakpointRejected",
+				{ text = "󰅙", texthl = "DiagnosticSignError", linehl = "DiffDelete" }
+			)
 
 			dapui.setup({})
 			vim.keymap.set("n", "<space>c", function()
@@ -845,6 +870,19 @@ require("lazy").setup({
 	{
 		"rcarriga/nvim-dap-ui",
 		lazy = true,
+	},
+	{
+		"RRethy/vim-illuminate",
+		event = "VeryLazy",
+		config = function()
+			require("illuminate").configure({
+				delay = 0,
+				providers = {
+					"lsp",
+					"treesitter",
+				},
+			})
+		end,
 	},
 })
 
@@ -955,3 +993,4 @@ vim.opt.cursorline = false
 vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.shada = ""
+vim.opt.foldlevel = 99999
