@@ -437,9 +437,6 @@ require("lazy").setup({
 						node_decremental = "<s-tab>",
 					},
 				},
-				indent = {
-					enable = true,
-				},
 				beacon = {
 					enable = false,
 				},
