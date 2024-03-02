@@ -790,6 +790,7 @@ require("lazy").setup({
 		config = function()
 			local dap = require("dap")
 			local dapui = require("dapui")
+			local breakpoints = require("goto-breakpoints")
 
 			require("nvim-dap-virtual-text").setup()
 
@@ -838,6 +839,9 @@ require("lazy").setup({
 				dap.step_into()
 			end)
 
+			vim.keymap.set("n", "]b", breakpoints.next)
+			vim.keymap.set("n", "[b", breakpoints.prev)
+
 			vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "DiffDelete" })
 			vim.fn.sign_define(
 				"DapBreakpointCondition",
@@ -877,7 +881,7 @@ require("lazy").setup({
 				dapui.close()
 			end
 		end,
-		dependencies = { "theHamsta/nvim-dap-virtual-text", "rcarriga/nvim-dap-ui" },
+		dependencies = { "theHamsta/nvim-dap-virtual-text", "rcarriga/nvim-dap-ui", "ofirgall/goto-breakpoints.nvim" },
 	},
 	{
 		"rcarriga/nvim-dap-ui",

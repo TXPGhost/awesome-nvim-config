@@ -100,12 +100,14 @@ with the `:StartupTime` command.
 
 Begin debugging with the `:Debug` command.
 
-| Key         |                    Binding |
-| :---------- | -------------------------: |
-| Space Space |          Toggle breakpoint |
-| Down        |                  Step Into |
-| Right       |                  Step Over |
-| Up          |                   Step Out |
-| Left        |                  Step Back |
-| Space c     | Start Debugging / Continue |
-| Space C     |             Stop Debugging |
+| Key         |                     Binding |
+| :---------- | --------------------------: |
+| Space Space |           Toggle breakpoint |
+| Down        |                   Step Into |
+| Right       |                   Step Over |
+| Up          |                    Step Out |
+| Left        |                   Step Back |
+| Space c     |  Start Debugging / Continue |
+| Space C     |              Stop Debugging |
+| ]b          |     Jump to next breakpoint |
+| [b          | Jump to previous breakpoint |
