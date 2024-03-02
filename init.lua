@@ -364,7 +364,6 @@ require("lazy").setup({
 									"-Wclippy::same_functions_in_if_condition",
 									"-Wclippy::same_name_method",
 									"-Wclippy::semicolon_if_nothing_returned",
-									"-Wclippy::semicolon_outside_block",
 									"-Wclippy::similar_names",
 									"-Wclippy::str_to_string",
 									"-Wclippy::string_to_string",
