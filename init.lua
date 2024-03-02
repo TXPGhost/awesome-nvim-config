@@ -900,6 +900,29 @@ require("lazy").setup({
 			})
 		end,
 	},
+	{
+		"echasnovski/mini.move",
+		event = "VeryLazy",
+		opts = {
+			mappings = {
+				left = "<",
+				right = ">",
+				down = ",",
+				up = ".",
+				line_left = "<m-h>",
+				line_right = "<m-l>",
+				line_down = "<m-j>",
+				line_up = "<m-k>",
+			},
+
+			options = {
+				reindent_linewise = true,
+			},
+		},
+		config = function(_, opts)
+			require("mini.move").setup(opts)
+		end,
+	},
 })
 
 -- set help window to vertical split
@@ -952,10 +975,6 @@ do
 	map("n", "<space>gb", "<cmd>Telescope git_branches<cr>")
 	map("n", "<space>gs", "<cmd>Telescope git_stash<cr>")
 	map("n", "<space>/", "<cmd>Telescope live_grep<cr>")
-
-	-- maintain visual selection when changing indent level
-	map("v", ">", ">gv")
-	map("v", "<", "<gv")
 
 	-- git
 	map("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")

@@ -96,6 +96,15 @@ with the `:StartupTime` command.
 | ]f  |                      Goto next closed fold |
 | [f  |                  Goto previous closed fold |
 
+## Selection
+
+| Key |   Binding |
+| :-- | --------: |
+| >   |    Indent |
+| <   |    Dedent |
+| .   |   Move up |
+| ,   | Move down |
+
 ## DAP
 
 Begin debugging with the `:Debug` command.
