@@ -127,9 +127,8 @@ require("lazy").setup({
 					["LineNrAbove"] = { fg = colors.guide_normal },
 					["LineNrBelow"] = { fg = colors.guide_normal },
 					["TreesitterContext"] = { link = "Folded" },
-					-- ["IlluminatedWordText"] = { bg = colors.panel_bg },
-					-- ["IlluminatedWordRead"] = { bg = colors.panel_bg },
-					-- ["IlluminatedWordWrite"] = { bg = colors.panel_bg },
+					["CursorLine"] = { bg = colors.panel_bg },
+					["CursorLineNr"] = { fg = colors.guide_active },
 				},
 			})
 			vim.cmd.colorscheme("ayu")
@@ -194,6 +193,22 @@ require("lazy").setup({
 				vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 					virtual_text = false,
 				})
+
+			local border = {
+				{ "╭", "FloatBorder" },
+				{ "─", "FloatBorder" },
+				{ "╮", "FloatBorder" },
+				{ "│", "FloatBorder" },
+				{ "╯", "FloatBorder" },
+				{ "─", "FloatBorder" },
+				{ "╰", "FloatBorder" },
+				{ "│", "FloatBorder" },
+			}
+
+			-- LSP settings (for overriding per client)
+			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
+			vim.lsp.handlers["textDocument/signatureHelp"] =
+				vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
 		end,
 	},
 	{
