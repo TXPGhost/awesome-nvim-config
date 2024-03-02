@@ -126,6 +126,7 @@ require("lazy").setup({
 					["LineNr"] = { fg = colors.guide_active },
 					["LineNrAbove"] = { fg = colors.guide_normal },
 					["LineNrBelow"] = { fg = colors.guide_normal },
+					["TreesitterContext"] = { link = "Folded" },
 				},
 			})
 			vim.cmd.colorscheme("ayu")
@@ -445,11 +446,16 @@ require("lazy").setup({
 					enable = true,
 				},
 			})
+			require("treesitter-context").setup({})
 			vim.opt.foldmethod = "expr"
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 			vim.opt.foldlevel = 99999
 		end,
-		dependencies = { "RRethy/nvim-treesitter-endwise", "windwp/nvim-ts-autotag" },
+		dependencies = {
+			"RRethy/nvim-treesitter-endwise",
+			"windwp/nvim-ts-autotag",
+			"nvim-treesitter/nvim-treesitter-context",
+		},
 	},
 	{
 		"stevearc/oil.nvim",
@@ -666,7 +672,13 @@ require("lazy").setup({
 		event = { "InsertEnter", "CmdlineEnter" },
 		opts = {},
 	},
-	{ "tpope/vim-surround", event = "VeryLazy" },
+	{
+		"kylechui/nvim-surround",
+		event = "InsertChange",
+		config = function()
+			require("nvim-surround").setup({})
+		end,
+	},
 	{
 		"lewis6991/gitsigns.nvim",
 		event = "BufRead",
@@ -873,7 +885,7 @@ require("lazy").setup({
 	},
 	{
 		"RRethy/vim-illuminate",
-		event = "VeryLazy",
+		event = "BufRead",
 		config = function()
 			require("illuminate").configure({
 				delay = 0,
