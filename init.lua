@@ -143,6 +143,7 @@ require("lazy").setup({
 		config = function()
 			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			capabilities.offsetEncoding = { "utf-16" }
 
 			lspconfig.vimls.setup({ capabilities = capabilities })
 			lspconfig.clangd.setup({ capabilities = capabilities })
