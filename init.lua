@@ -939,7 +939,6 @@ require("lazy").setup({
 	},
 	{
 		"utilyre/sentiment.nvim",
-		version = "*",
 		event = "VeryLazy", -- keep for lazy loading
 		opts = {
 			-- config
@@ -947,6 +946,19 @@ require("lazy").setup({
 		init = function()
 			-- `matchparen.vim` needs to be disabled manually in case of lazy loading
 			vim.g.loaded_matchparen = 1
+		end,
+	},
+	{
+		"rmagatti/goto-preview",
+		keys = { "gpd", "gpr", "gpi", "gpy" },
+		config = function()
+			local goto_preview = require("goto-preview")
+			goto_preview.setup({})
+
+			vim.keymap.set("n", "gpd", goto_preview.goto_preview_definition)
+			vim.keymap.set("n", "gpr", goto_preview.goto_preview_references)
+			vim.keymap.set("n", "gpi", goto_preview.goto_preview_implementation)
+			vim.keymap.set("n", "gpy", goto_preview.goto_preview_type_definition)
 		end,
 	},
 })

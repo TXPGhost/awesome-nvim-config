@@ -60,6 +60,10 @@ with the `:StartupTime` command.
 | gy      |                    Goto type definition |
 | gr      |                         Goto references |
 | gi      |                    Goto implementations |
+| gpd     |                      Preview definition |
+| gpy     |                 Preview type definition |
+| gpr     |                      Preview references |
+| gpi     |                 Preview implementations |
 | Space r |                           Rename symbol |
 | Space k |                     Hover documentation |
 | Space a |                             Code action |
