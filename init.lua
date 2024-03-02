@@ -461,7 +461,9 @@ require("lazy").setup({
 					enable = true,
 				},
 			})
-			require("treesitter-context").setup({})
+			require("treesitter-context").setup({
+				multiline_threshold = 1,
+			})
 			vim.opt.foldmethod = "expr"
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 			vim.opt.foldlevel = 99999
@@ -713,7 +715,7 @@ require("lazy").setup({
 	},
 	{
 		"kevinhwang91/nvim-ufo",
-		event = "BufReadPost",
+		event = "BufRead",
 		lazy = true,
 		config = function()
 			local ufo = require("ufo")
