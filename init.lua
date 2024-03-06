@@ -126,9 +126,10 @@ require("lazy").setup({
 					["LineNr"] = { fg = colors.guide_active },
 					["LineNrAbove"] = { fg = colors.guide_normal },
 					["LineNrBelow"] = { fg = colors.guide_normal },
-					["TreesitterContext"] = { link = "Folded" },
+					["TreesitterContext"] = { bg = colors.panel_bg },
 					["CursorLine"] = { bg = colors.panel_bg },
 					["CursorLineNr"] = { fg = colors.guide_active },
+					["DapStopped"] = { bg = colors.guide_normal },
 				},
 			})
 			vim.cmd.colorscheme("ayu")
@@ -646,10 +647,10 @@ require("lazy").setup({
 					comparators = {
 						cmp.config.compare.exact,
 						cmp.config.compare.offset,
-						-- cmp.config.compare.scopes,
 						cmp.config.compare.score,
-						cmp.config.compare.locality,
+						require("cmp-under-comparator").under,
 						cmp.config.compare.recently_used,
+						cmp.config.compare.locality,
 						cmp.config.compare.kind,
 						cmp.config.compare.sort_text,
 						cmp.config.compare.length,
@@ -682,6 +683,7 @@ require("lazy").setup({
 			"onsails/lspkind.nvim",
 			"zbirenbaum/copilot.lua",
 			"zbirenbaum/copilot-cmp",
+			"lukas-reineke/cmp-under-comparator",
 		},
 	},
 	{
@@ -691,7 +693,7 @@ require("lazy").setup({
 	},
 	{
 		"kylechui/nvim-surround",
-		event = "InsertChange",
+		event = "InsertEnter",
 		config = function()
 			require("nvim-surround").setup({})
 		end,
@@ -859,15 +861,10 @@ require("lazy").setup({
 			vim.keymap.set("n", "]b", breakpoints.next)
 			vim.keymap.set("n", "[b", breakpoints.prev)
 
-			vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "DiffDelete" })
-			vim.fn.sign_define(
-				"DapBreakpointCondition",
-				{ text = "", texthl = "DiagnosticSignError", linehl = "DiffAdd" }
-			)
-			vim.fn.sign_define(
-				"DapBreakpointRejected",
-				{ text = "󰅙", texthl = "DiagnosticSignError", linehl = "DiffDelete" }
-			)
+			vim.fn.sign_define("DapStopped", { linehl = "CursorLine" })
+			vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError" })
+			vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DiagnosticSignError" })
+			vim.fn.sign_define("DapBreakpointRejected", { text = "󰅙", texthl = "DiagnosticSignError" })
 
 			dapui.setup({})
 			vim.keymap.set("n", "<space>c", function()
