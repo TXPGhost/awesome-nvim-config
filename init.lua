@@ -190,10 +190,10 @@ require("lazy").setup({
 
 			vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
 
-			vim.lsp.handlers["textDocument/publishDiagnostics"] =
-				vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-					virtual_text = false,
-				})
+			-- vim.lsp.handlers["textDocument/publishDiagnostics"] =
+			-- 	vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+			-- 		virtual_text = false,
+			-- 	})
 
 			local border = {
 				{ "╭", "FloatBorder" },
@@ -805,7 +805,7 @@ require("lazy").setup({
 	},
 	{
 		"mfussenegger/nvim-dap",
-		keys = { "<space>c", "<space>C", "<space><space>", "<space>?<space>" },
+		keys = { "<space>c", "<space>C", "<leader>b", "<space>?<space>" },
 		config = function()
 			local dap = require("dap")
 			local dapui = require("dapui")
@@ -839,7 +839,7 @@ require("lazy").setup({
 			}
 			dap.configurations.cpp = dap.configurations.c
 
-			vim.keymap.set("n", "<space><space>", function()
+			vim.keymap.set("n", "<leader>b", function()
 				dap.toggle_breakpoint()
 			end)
 			vim.keymap.set("n", "<space>?<space>", function()
@@ -974,7 +974,7 @@ vim.api.nvim_create_user_command("LatexPreview", function()
 end, {})
 vim.api.nvim_create_user_command("LatexCompile", function()
 	local texpath = vim.fn.expand("%")
-	vim.cmd("!tectonic " .. texpath)
+	vim.cmd("silent! !tectonic " .. texpath)
 end, {})
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	pattern = { "*.tex" },
@@ -1015,6 +1015,7 @@ do
 	map("n", "<space>/", "<cmd>Telescope live_grep<cr>")
 
 	-- git
+	map("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
 	map("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
 	map("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
 	map("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
