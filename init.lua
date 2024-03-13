@@ -974,7 +974,7 @@ vim.api.nvim_create_user_command("LatexPreview", function()
 end, {})
 vim.api.nvim_create_user_command("LatexCompile", function()
 	local texpath = vim.fn.expand("%")
-	vim.cmd("silent! !tectonic " .. texpath)
+	vim.cmd("!tectonic " .. texpath)
 end, {})
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	pattern = { "*.tex" },
