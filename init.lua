@@ -611,8 +611,7 @@ require("lazy").setup({
 						elseif vim.fn["vsnip#available"](1) == 1 then
 							feedkey("<Plug>(vsnip-expand-or-jump)", "")
 						elseif has_words_before() then
-							vim.cmd("Tabout")
-						-- cmp.complete()
+							cmp.complete()
 						else
 							fallback()
 						end
@@ -940,7 +939,7 @@ require("lazy").setup({
 		"utilyre/sentiment.nvim",
 		event = "VeryLazy", -- keep for lazy loading
 		opts = {
-			-- config
+			delay = 0,
 		},
 		init = function()
 			-- `matchparen.vim` needs to be disabled manually in case of lazy loading
