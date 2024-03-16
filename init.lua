@@ -312,7 +312,6 @@ require("lazy").setup({
 									"-Wclippy::inconsistent_struct_constructor",
 									"-Wclippy::index_refutable_slice",
 									"-Wclippy::inefficient_to_string",
-									"-Wclippy::infinite_loop",
 									"-Wclippy::into_iter_without_iter",
 									"-Wclippy::invalid_upcast_comparisons",
 									"-Wclippy::iter_not_returning_iterator",
