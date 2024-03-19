@@ -188,7 +188,8 @@ require("lazy").setup({
 			vim.fn.sign_define("DiagnosticSignHint", { text = "" })
 			vim.fn.sign_define("DiagnosticSignOk", { text = "" })
 
-			vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
+			-- vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
+			vim.diagnostic.config({ severity_sort = true, virtual_text = false })
 
 			-- vim.lsp.handlers["textDocument/publishDiagnostics"] =
 			-- 	vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -1062,3 +1063,4 @@ vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.shada = ""
 vim.opt.foldlevel = 99999
+vim.opt.pumheight = 6
