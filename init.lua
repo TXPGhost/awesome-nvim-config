@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	{ "nvim-lua/plenary.nvim", lazy = true },
+	{ "nvim-lua/plenary.nvim",      lazy = true },
 	{ "kevinhwang91/promise-async", lazy = true },
 	{
 		"rebelot/kanagawa.nvim",
@@ -135,7 +135,7 @@ require("lazy").setup({
 			vim.cmd.colorscheme("ayu")
 		end,
 	},
-	{ "tpope/vim-commentary", event = "BufRead" },
+	{ "tpope/vim-commentary",        event = "BufRead" },
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPost", "BufNewFile" },
@@ -298,7 +298,6 @@ require("lazy").setup({
 									"-Wclippy::explicit_deref_methods",
 									"-Wclippy::explicit_into_iter",
 									"-Wclippy::explicit_iter_loop",
-									"-Wclippy::fallible_impl_from",
 									"-Wclippy::filter_map_next",
 									"-Wclippy::flat_map_option",
 									"-Wclippy::format_push_string",
@@ -722,7 +721,7 @@ require("lazy").setup({
 			local ufo = require("ufo")
 			ufo.setup({
 				open_fold_hl_timeout = 0,
-				close_fold_kinds = { "imports", "comment" },
+				close_fold_kinds_for_ft = { default = { "imports", "comment" } },
 			})
 			vim.keymap.set("n", "zR", ufo.openAllFolds)
 			vim.keymap.set("n", "zM", ufo.closeAllFolds)
@@ -744,7 +743,7 @@ require("lazy").setup({
 		end,
 	},
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
-	{ "tpope/vim-sleuth", event = "BufRead" },
+	{ "tpope/vim-sleuth",            event = "BufRead" },
 	{
 		"toppair/peek.nvim",
 		event = { "VeryLazy" },
