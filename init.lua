@@ -117,7 +117,7 @@ require("lazy").setup({
 	},
 	{
 		"Shatur/neovim-ayu",
-		priority = 1000,
+		lazy = true,
 		config = function()
 			local colors = require("ayu.colors")
 			colors.generate()
@@ -134,6 +134,20 @@ require("lazy").setup({
 			})
 			vim.cmd.colorscheme("ayu")
 		end,
+	},
+	{
+		"kepano/flexoki-neovim",
+		priority = 1000,
+		config = function()
+			require("flexoki").setup({})
+			vim.cmd.colorscheme("flexoki-dark")
+			vim.cmd.hi("Normal", "guibg=none")
+			vim.cmd.hi("GitSignsAdd", "guifg=#879a39", "guibg=none")
+			vim.cmd.hi("GitSignsChange", "guifg=#8b7ec8", "guibg=none")
+			vim.cmd.hi("GitSignsDelete", "guifg=#d14d41", "guibg=none")
+			vim.cmd.hi("clear", "Folded")
+			vim.cmd.hi("link", "Folded", "CursorLine")
+		end
 	},
 	{ "tpope/vim-commentary",        event = "BufRead" },
 	{
@@ -407,11 +421,9 @@ require("lazy").setup({
 									"-Wclippy::unused_peekable",
 									"-Wclippy::unused_rounding",
 									"-Wclippy::unused_self",
-									"-Wclippy::unwrap_in_result",
 									"-Wclippy::use_self",
 									"-Wclippy::useless_let_if_seq",
 									"-Wclippy::verbose_bit_mask",
-									"-Wclippy::verbose_file_reads",
 									"-Wclippy::wildcard_dependencies",
 									"-Wclippy::wildcard_imports",
 									"-Wclippy::zero_sized_map_values",
@@ -790,18 +802,6 @@ require("lazy").setup({
 		cmd = "StartupTime",
 	},
 	{
-		"Wansmer/treesj",
-		keys = { "<c-j>", "<c-k>" },
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		config = function()
-			require("treesj").setup({
-				use_default_keymaps = false,
-			})
-			vim.keymap.set("n", "<c-j>", "<cmd>TSJSplit<cr>")
-			vim.keymap.set("n", "<c-k>", "<cmd>TSJJoin<cr>")
-		end,
-	},
-	{
 		"mfussenegger/nvim-dap",
 		keys = { "<space>c", "<space>C", "<leader>b", "<space>?<space>" },
 		config = function()
@@ -900,18 +900,6 @@ require("lazy").setup({
 		lazy = true,
 	},
 	{
-		"RRethy/vim-illuminate",
-		event = "BufRead",
-		config = function()
-			require("illuminate").configure({
-				providers = {
-					"lsp",
-					"treesitter",
-				},
-			})
-		end,
-	},
-	{
 		"echasnovski/mini.move",
 		event = "VeryLazy",
 		opts = {
@@ -932,17 +920,6 @@ require("lazy").setup({
 		},
 		config = function(_, opts)
 			require("mini.move").setup(opts)
-		end,
-	},
-	{
-		"utilyre/sentiment.nvim",
-		event = "VeryLazy", -- keep for lazy loading
-		opts = {
-			delay = 0,
-		},
-		init = function()
-			-- `matchparen.vim` needs to be disabled manually in case of lazy loading
-			vim.g.loaded_matchparen = 1
 		end,
 	},
 	{
