@@ -821,8 +821,8 @@ require("lazy").setup({
 			theme.normal.a.fg = theme.insert.a.fg
 			theme.normal.a.bg = theme.insert.a.bg
 			theme.normal.b.fg = theme.insert.b.fg
-			theme.insert.a.bg = "#879a39"
-			theme.insert.b.fg = "#879a39"
+			theme.insert.a.bg = "#8b7ec8"
+			theme.insert.b.fg = "#8b7ec8"
 			require("lualine").setup({
 				options = { theme = theme }
 			})
