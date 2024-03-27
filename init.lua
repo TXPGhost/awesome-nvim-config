@@ -15,127 +15,6 @@ require("lazy").setup({
 	{ "nvim-lua/plenary.nvim",      lazy = true },
 	{ "kevinhwang91/promise-async", lazy = true },
 	{
-		"rebelot/kanagawa.nvim",
-		lazy = true,
-		config = function()
-			require("kanagawa").setup({
-				overrides = function(colors)
-					return {
-						LineNr = { fg = colors.theme.ui.fg_dim, bg = colors.theme.ui.bg_gutter },
-						LineNrAbove = { fg = colors.theme.ui.nontext, bg = colors.theme.ui.bg_gutter },
-						LineNrBelow = { fg = colors.theme.ui.nontext, bg = colors.theme.ui.bg_gutter },
-
-						StatusLine = { bg = colors.theme.ui.bg_gutter },
-
-						EndOfBuffer = { link = "NonText" },
-
-						["@markup.heading.1.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.2.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.3.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.4.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.5.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.6.markdown"] = { fg = colors.theme.syn.statement },
-
-						["@markup.heading.1.marker.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.2.marker.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.3.marker.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.4.marker.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.5.marker.markdown"] = { fg = colors.theme.syn.statement },
-						["@markup.heading.6.marker.markdown"] = { fg = colors.theme.syn.statement },
-
-						["@markup.strong.markdown_inline"] = { bold = true },
-						["@markup.italic.markdown_inline"] = { italic = true },
-						["@markup.strikethrough.markdown_inline"] = { strikethrough = true },
-
-						["@markup.raw.markdown_inline"] = { fg = colors.theme.syn.regex },
-						["@markup.raw.block.markdown"] = { fg = colors.theme.syn.identifier },
-
-						["@markup.link.label.markdown_inline"] = { fg = colors.theme.syn.fun, underline = true },
-						["@markup.link.url.markdown_inline"] = { fg = colors.theme.syn.statement, underline = true },
-					}
-				end,
-			})
-		end,
-	},
-	{
-		"tiagovla/tokyodark.nvim",
-		lazy = true,
-		opts = {
-			transparent_background = true,
-			styles = {
-				comments = { italic = true },
-				keywords = { italic = true },
-				identifiers = { italic = false },
-				functions = { italic = false },
-				variables = { italic = false },
-			},
-			custom_highlights = function(_, palette)
-				return {
-					["LineNr"] = { fg = palette.fg },
-					["LineNrAbove"] = { fg = palette.bg4 },
-					["LineNrBelow"] = { fg = palette.bg4 },
-
-					["@conceal.markdown_inline"] = { fg = palette.bg3 },
-					["@markup.raw.delimiter.markdown"] = { fg = palette.bg3 },
-					["@markup.raw.block.markdown"] = { fg = palette.green },
-
-					["@markup.heading.markdown"] = { fg = palette.blue },
-
-					["@markup.quote.markdown"] = { fg = palette.yellow, italic = true },
-
-					["@markup.heading.1.markdown"] = { fg = palette.blue, underline = true, bold = true },
-					["@markup.heading.2.markdown"] = { fg = palette.blue, underline = true, bold = true },
-					["@markup.heading.3.markdown"] = { fg = palette.blue, underline = true, bold = true },
-					["@markup.heading.4.markdown"] = { fg = palette.blue, underline = true, bold = true },
-					["@markup.heading.5.markdown"] = { fg = palette.blue, underline = true, bold = true },
-					["@markup.heading.6.markdown"] = { fg = palette.blue, underline = true, bold = true },
-
-					["@markup.link.label.markdown_inline"] = { fg = palette.blue, underline = true },
-					["@markup.link.url.markdown_inline"] = { fg = palette.cyan },
-
-					["@markup.list.markdown"] = { fg = palette.purple, bold = true },
-
-					["@markup.heading.1.marker.markdown"] = { fg = palette.bg3 },
-					["@markup.heading.2.marker.markdown"] = { fg = palette.bg3 },
-					["@markup.heading.3.marker.markdown"] = { fg = palette.bg3 },
-					["@markup.heading.4.marker.markdown"] = { fg = palette.bg3 },
-					["@markup.heading.5.marker.markdown"] = { fg = palette.bg3 },
-					["@markup.heading.6.marker.markdown"] = { fg = palette.bg3 },
-
-					["@punctuation.special.markdown"] = { fg = palette.red },
-
-					["@markup.strong.markdown_inline"] = { fg = palette.orange, bold = true },
-					["@markup.italic.markdown_inline"] = { fg = palette.orange, italic = true },
-					["@markup.strikethrough.markdown_inline"] = { fg = palette.orange, strikethrough = true },
-				}
-			end,
-			terminal_colors = false,
-		},
-		config = function(_, opts)
-			require("tokyodark").setup(opts)
-		end,
-	},
-	{
-		"Shatur/neovim-ayu",
-		lazy = true,
-		config = function()
-			local colors = require("ayu.colors")
-			colors.generate()
-			require("ayu").setup({
-				overrides = {
-					["LineNr"] = { fg = colors.guide_active },
-					["LineNrAbove"] = { fg = colors.guide_normal },
-					["LineNrBelow"] = { fg = colors.guide_normal },
-					["TreesitterContext"] = { bg = colors.panel_bg },
-					["CursorLine"] = { bg = colors.panel_bg },
-					["CursorLineNr"] = { fg = colors.guide_active },
-					["DapStopped"] = { bg = colors.guide_normal },
-				},
-			})
-			vim.cmd.colorscheme("ayu")
-		end,
-	},
-	{
 		"kepano/flexoki-neovim",
 		priority = 1000,
 		config = function()
@@ -933,6 +812,21 @@ require("lazy").setup({
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		ft = { "markdown" },
 		build = function() vim.fn["mkdp#util#install"]() end,
+	},
+	{
+		'nvim-lualine/lualine.nvim',
+		dependencies = { 'nvim-tree/nvim-web-devicons' },
+		config = function()
+			local theme = require("lualine.themes.auto")
+			theme.normal.a.fg = theme.insert.a.fg
+			theme.normal.a.bg = theme.insert.a.bg
+			theme.normal.b.fg = theme.insert.b.fg
+			theme.insert.a.bg = "#879a39"
+			theme.insert.b.fg = "#879a39"
+			require("lualine").setup({
+				options = { theme = theme }
+			})
+		end
 	}
 })
 
