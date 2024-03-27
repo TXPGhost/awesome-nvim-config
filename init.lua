@@ -145,6 +145,8 @@ require("lazy").setup({
 			vim.cmd.hi("GitSignsAdd", "guifg=#879a39", "guibg=none")
 			vim.cmd.hi("GitSignsChange", "guifg=#8b7ec8", "guibg=none")
 			vim.cmd.hi("GitSignsDelete", "guifg=#d14d41", "guibg=none")
+			vim.cmd.hi("clear", "EndOfBuffer")
+			vim.cmd.hi("link", "EndOfBuffer", "Comment")
 			vim.cmd.hi("clear", "Folded")
 			vim.cmd.hi("link", "Folded", "CursorLine")
 		end
@@ -942,11 +944,6 @@ require("lazy").setup({
 vim.api.nvim_create_autocmd({ "FileType" }, { pattern = { "help" }, command = "wincmd L" })
 
 -- latex
-vim.api.nvim_create_user_command("LatexPreview", function()
-	local texpath = vim.fn.expand("%")
-	local pdfpath = texpath:gsub("%.%w+$", ".pdf")
-	vim.cmd("!okular " .. pdfpath .. " &")
-end, {})
 vim.api.nvim_create_user_command("LatexCompile", function()
 	local texpath = vim.fn.expand("%")
 	vim.cmd("!tectonic " .. texpath)
