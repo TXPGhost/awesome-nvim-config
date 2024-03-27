@@ -759,16 +759,6 @@ require("lazy").setup({
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	{ "tpope/vim-sleuth",            event = "BufRead" },
 	{
-		"toppair/peek.nvim",
-		event = { "VeryLazy" },
-		build = "deno task --quiet build:fast",
-		config = function()
-			require("peek").setup()
-			vim.api.nvim_create_user_command("MarkdownPreviewOpen", require("peek").open, {})
-			vim.api.nvim_create_user_command("MarkdownPreviewClose", require("peek").close, {})
-		end,
-	},
-	{
 		"zbirenbaum/copilot.lua",
 		cmd = "Copilot",
 		event = "InsertEnter",
@@ -938,6 +928,12 @@ require("lazy").setup({
 			vim.keymap.set("n", "gP", goto_preview.close_all_win)
 		end,
 	},
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
+		build = function() vim.fn["mkdp#util#install"]() end,
+	}
 })
 
 -- set help window to vertical split
