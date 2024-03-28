@@ -347,6 +347,9 @@ require("lazy").setup({
 				beacon = {
 					enable = false,
 				},
+				indent = {
+					enable = true
+				},
 				autotag = {
 					enable = true,
 				},
