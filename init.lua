@@ -767,7 +767,7 @@ require("lazy").setup({
 				dapui.close()
 			end
 		end,
-		dependencies = { "theHamsta/nvim-dap-virtual-text", "rcarriga/nvim-dap-ui", "ofirgall/goto-breakpoints.nvim" },
+		dependencies = { "theHamsta/nvim-dap-virtual-text", "rcarriga/nvim-dap-ui", "ofirgall/goto-breakpoints.nvim", "nvim-neotest/nvim-nio" },
 	},
 	{
 		"rcarriga/nvim-dap-ui",
