@@ -42,6 +42,11 @@ with the `:StartupTime` command.
 | Space b   |       Search project buffers |
 | Space j   |              Search jumplist |
 | Space /   | Search project file contents |
+| Ctrl r    |                Refresh files |
+| Ctrl p    |               Toggle preview |
+| Ctrl t    |         Open file in new tab |
+| Ctrl s    |  Open file in vertical split |
+| gx        |     Open in external program |
 
 ### Tree-Sitter
 
