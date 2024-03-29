@@ -129,19 +129,3 @@ with the `:StartupTime` command.
 | :---- | ---------------------------: |
 | Alt e |      Fast warp next end pair |
 | Alt E | Undo fast warp next end pair |
-
-## DAP
-
-Begin debugging with the `:Debug` command.
-
-| Key         |                     Binding |
-| :---------- | --------------------------: |
-| Backslash B |           Toggle breakpoint |
-| Down        |                   Step Into |
-| Right       |                   Step Over |
-| Up          |                    Step Out |
-| Left        |                   Step Back |
-| Space c     |  Start Debugging / Continue |
-| Space C     |              Stop Debugging |
-| ]b          |     Jump to next breakpoint |
-| [b          | Jump to previous breakpoint |
