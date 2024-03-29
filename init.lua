@@ -120,7 +120,8 @@ require("lazy").setup({
 		config = function()
 			local config = {
 				cmd = { "/usr/bin/jdtls" },
-				root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnw" }, { upward = true })[1]),
+				root_dir = vim.fs.dirname(vim.fs.find({ "build.gradle", "gradlew", ".git", "mvnw" }, { upward = true })
+					[1]),
 				init_options = {
 					bundles = {
 						vim.fn.glob("/usr/share/java-debug/com.microsoft.java.debug.plugin.jar", 1),
@@ -413,7 +414,11 @@ require("lazy").setup({
 	{
 		"altermo/ultimate-autopair.nvim",
 		event = { "InsertEnter", "CmdlineEnter" },
-		opts = {},
+		opts = {
+			fastwarp = {
+				faster = true,
+			}
+		},
 	},
 	{
 		"kylechui/nvim-surround",
