@@ -414,11 +414,7 @@ require("lazy").setup({
 	{
 		"altermo/ultimate-autopair.nvim",
 		event = { "InsertEnter", "CmdlineEnter" },
-		opts = {
-			fastwarp = {
-				faster = true,
-			}
-		},
+		opts = {},
 	},
 	{
 		"kylechui/nvim-surround",
