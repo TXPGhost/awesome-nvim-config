@@ -93,12 +93,8 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"weilbith/nvim-code-action-menu",
-		cmd = "CodeActionMenu",
-		config = function()
-			vim.g.code_action_menu_show_action_kind = false
-			vim.g.code_action_menu_show_details = false
-		end,
+		'stevearc/dressing.nvim',
+		opts = {},
 	},
 	{
 		"folke/trouble.nvim",
@@ -621,7 +617,7 @@ do
 	end)
 	map("n", "<space>d", "<cmd>TroubleToggle document_diagnostics<cr>")
 	map("n", "<space>D", "<cmd>TroubleToggle workspace_diagnostics<cr>")
-	map("n", "<space>a", "<cmd>CodeActionMenu<cr>")
+	map("n", "<space>a", function() vim.lsp.buf.code_action() end)
 
 	map("n", "]d", vim.diagnostic.goto_next)
 	map("n", "[d", vim.diagnostic.goto_prev)
