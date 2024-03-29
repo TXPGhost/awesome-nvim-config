@@ -190,6 +190,18 @@ require("lazy").setup({
 		},
 	},
 	{
+		"Wansmer/treesj",
+		keys = { "<c-j>", "<c-k>" },
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		config = function()
+			require("treesj").setup({
+				use_default_keymaps = false,
+			})
+			vim.keymap.set("n", "<c-j>", "<cmd>TSJSplit<cr>")
+			vim.keymap.set("n", "<c-k>", "<cmd>TSJJoin<cr>")
+		end,
+	},
+	{
 		"stevearc/oil.nvim",
 		keys = { "-" },
 		event = "BufRead",
