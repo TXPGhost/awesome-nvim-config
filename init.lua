@@ -341,9 +341,6 @@ require("lazy").setup({
 					enable = true,
 				},
 			})
-			require("treesitter-context").setup({
-				multiline_threshold = 1,
-			})
 			vim.opt.foldmethod = "expr"
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 			vim.opt.foldlevel = 99999
@@ -351,7 +348,6 @@ require("lazy").setup({
 		dependencies = {
 			"RRethy/nvim-treesitter-endwise",
 			"windwp/nvim-ts-autotag",
-			"nvim-treesitter/nvim-treesitter-context",
 		},
 	},
 	{
@@ -804,33 +800,9 @@ require("lazy").setup({
 		'nvim-lualine/lualine.nvim',
 		dependencies = { 'nvim-tree/nvim-web-devicons' },
 		config = function()
-			local theme = require("lualine.themes.auto")
-			-- theme.normal.a.fg = theme.insert.a.fg
-			-- theme.normal.a.bg = theme.insert.a.bg
-			-- theme.normal.b.fg = theme.insert.b.fg
-			-- theme.insert.a.bg = "#8b7ec8"
-			-- theme.insert.b.fg = "#8b7ec8"
-			require("lualine").setup({
-				options = { theme = theme }
-			})
+			require("lualine").setup({})
 		end
 	},
-	-- {
-	-- 	"kepano/flexoki-neovim",
-	-- 	priority = 1000,
-	-- 	config = function()
-	-- 		require("flexoki").setup({})
-	-- 		vim.cmd.colorscheme("flexoki-dark")
-	-- 		vim.cmd.hi("Normal", "guibg=none")
-	-- 		vim.cmd.hi("GitSignsAdd", "guifg=#879a39", "guibg=none")
-	-- 		vim.cmd.hi("GitSignsChange", "guifg=#8b7ec8", "guibg=none")
-	-- 		vim.cmd.hi("GitSignsDelete", "guifg=#d14d41", "guibg=none")
-	-- 		vim.cmd.hi("clear", "EndOfBuffer")
-	-- 		vim.cmd.hi("link", "EndOfBuffer", "Comment")
-	-- 		vim.cmd.hi("clear", "Folded")
-	-- 		vim.cmd.hi("link", "Folded", "CursorLine")
-	-- 	end
-	-- },
 	{
 		"olimorris/onedarkpro.nvim",
 		priority = 1000,
@@ -942,3 +914,4 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.shada = ""
 vim.opt.foldlevel = 99999
 vim.opt.pumheight = 10
+vim.opt.shortmess:append("I")
