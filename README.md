@@ -123,6 +123,13 @@ with the `:StartupTime` command.
 | .   |   Move up |
 | ,   | Move down |
 
+## Pairs
+
+| Key   |                      Binding |
+| :---- | ---------------------------: |
+| Alt e |      Fast warp next end pair |
+| Alt E | Undo fast warp next end pair |
+
 ## DAP
 
 Begin debugging with the `:Debug` command.
