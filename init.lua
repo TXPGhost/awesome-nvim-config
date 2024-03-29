@@ -138,7 +138,6 @@ require("lazy").setup({
 				end,
 			})
 		end,
-		dependencies = { "mfussenegger/nvim-dap" },
 	},
 	{
 		"mrcjkb/rustaceanvim",
@@ -654,104 +653,6 @@ require("lazy").setup({
 	{
 		"dstein64/vim-startuptime",
 		cmd = "StartupTime",
-	},
-	{
-		"mfussenegger/nvim-dap",
-		keys = { "<space>c", "<space>C", "<leader>b", "<space>?<space>" },
-		config = function()
-			local dap = require("dap")
-			local dapui = require("dapui")
-			local breakpoints = require("goto-breakpoints")
-
-			require("nvim-dap-virtual-text").setup()
-
-			dap.adapters.codelldb = {
-				type = "server",
-				port = "13000",
-				executable = {
-					command = "/usr/lib/codelldb/adapter/codelldb",
-					args = { "--port", "13000" },
-				},
-			}
-			dap.configurations.c = {
-				{
-					name = "Launch file",
-					type = "codelldb",
-					request = "launch",
-					program = function()
-						return vim.fn.input(
-							"Path to executable (must copmiled with debug symbols): ",
-							vim.fn.getcwd() .. "/",
-							"file"
-						)
-					end,
-					cwd = "${workspaceFolder}",
-					stopOnEntry = false,
-				},
-			}
-			dap.configurations.cpp = dap.configurations.c
-
-			vim.keymap.set("n", "<leader>b", function()
-				dap.toggle_breakpoint()
-			end)
-			vim.keymap.set("n", "<space>?<space>", function()
-				dap.set_breakpoint(vim.fn.input("Condition: "))
-			end)
-			vim.keymap.set("n", "<up>", function()
-				dap.step_out()
-			end)
-			vim.keymap.set("n", "<left>", function()
-				dap.step_back()
-			end)
-			vim.keymap.set("n", "<right>", function()
-				dap.step_over()
-			end)
-			vim.keymap.set("n", "<down>", function()
-				dap.step_into()
-			end)
-
-			vim.keymap.set("n", "]b", breakpoints.next)
-			vim.keymap.set("n", "[b", breakpoints.prev)
-
-			vim.fn.sign_define("DapStopped", { linehl = "CursorLine" })
-			vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError" })
-			vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DiagnosticSignError" })
-			vim.fn.sign_define("DapBreakpointRejected", { text = "󰅙", texthl = "DiagnosticSignError" })
-
-			dapui.setup({})
-			vim.keymap.set("n", "<space>c", function()
-				if vim.bo.filetype == "java" then
-					require("jdtls.dap").setup_dap_main_class_configs()
-				elseif vim.bo.filetype == "rust" then
-					vim.cmd("RustLsp debuggables")
-					return
-				end
-				dapui.open()
-				vim.cmd("DapContinue")
-			end)
-			vim.keymap.set("n", "<space>C", function()
-				dapui.close()
-				dap.terminate()
-			end)
-
-			dap.listeners.before.attach.dapui_config = function()
-				dapui.open()
-			end
-			dap.listeners.before.launch.dapui_config = function()
-				dapui.open()
-			end
-			dap.listeners.before.event_terminated.dapui_config = function()
-				dapui.close()
-			end
-			dap.listeners.before.event_exited.dapui_config = function()
-				dapui.close()
-			end
-		end,
-		dependencies = { "theHamsta/nvim-dap-virtual-text", "rcarriga/nvim-dap-ui", "ofirgall/goto-breakpoints.nvim", "nvim-neotest/nvim-nio" },
-	},
-	{
-		"rcarriga/nvim-dap-ui",
-		lazy = true,
 	},
 	{
 		"echasnovski/mini.move",
