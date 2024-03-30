@@ -497,9 +497,7 @@ require("lazy").setup({
 		"zbirenbaum/copilot-cmp",
 		lazy = true,
 		config = function()
-			require("copilot_cmp").setup({
-				fix_pairs = false,
-			})
+			require("copilot_cmp").setup({})
 		end,
 	},
 	{
@@ -557,15 +555,14 @@ require("lazy").setup({
 		end
 	},
 	{
-		"olimorris/onedarkpro.nvim",
+		"navarasu/onedark.nvim",
 		priority = 1000,
 		config = function()
-			require("onedarkpro").setup({
-				options = {
-					transparency = true
-				}
+			require('onedark').setup({
+				style = "darker",
+				transparent = true,
 			})
-			vim.cmd.colorscheme("onedark_vivid")
+			require('onedark').load()
 		end
 	}
 })
