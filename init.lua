@@ -381,7 +381,6 @@ require("lazy").setup({
 				},
 				window = {},
 				mapping = cmp.mapping.preset.insert({
-					["<esc>"] = cmp.mapping.abort(),
 					["<cr>"] = cmp.mapping(function(fallback)
 						if cmp.get_selected_entry() ~= nil then
 							cmp.confirm()
@@ -389,7 +388,7 @@ require("lazy").setup({
 							fallback()
 						end
 					end),
-					["<Tab>"] = cmp.mapping(function(fallback)
+					["<tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_next_item()
 						elseif luasnip.expand_or_jumpable() then
@@ -400,7 +399,7 @@ require("lazy").setup({
 							fallback()
 						end
 					end, { "i", "s" }),
-					["<S-Tab>"] = cmp.mapping(function()
+					["<s-tab>"] = cmp.mapping(function()
 						if cmp.visible() then
 							cmp.select_prev_item()
 						elseif luasnip.jumpable(-1) then
