@@ -414,7 +414,7 @@ require("lazy").setup({
 					{ name = "luasnip" },
 					{ name = "fonts" },
 					{ name = "path" },
-					{ name = "rg" },
+					{ name = "rg",                      keyword_length = 3 },
 				}, {}),
 				formatting = {
 					format = lspkind.cmp_format({
