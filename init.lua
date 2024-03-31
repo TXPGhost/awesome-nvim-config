@@ -229,9 +229,6 @@ require("lazy").setup({
 				beacon = {
 					enable = false,
 				},
-				indent = {
-					enable = true
-				},
 				autotag = {
 					enable = true,
 				},
@@ -361,6 +358,9 @@ require("lazy").setup({
 		config = function()
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
+			local luasnip = require("luasnip")
+			require("luasnip.loaders.from_vscode").lazy_load()
+
 			lspkind.init({})
 
 			local has_words_before = function()
@@ -373,28 +373,18 @@ require("lazy").setup({
 					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
 
-			local feedkey = function(key, mode)
-				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-			end
-
 			cmp.setup({
 				snippet = {
 					expand = function(args)
-						vim.fn["vsnip#anonymous"](args.body)
+						luasnip.lsp_expand(args.body)
 					end,
 				},
 				window = {},
 				mapping = cmp.mapping.preset.insert({
-					["<C-b>"] = cmp.mapping.scroll_docs(-4),
-					["<C-f>"] = cmp.mapping.scroll_docs(4),
-					["<C-Space>"] = cmp.mapping.complete(),
-					["<C-e>"] = cmp.mapping.abort(),
+					["<esc>"] = cmp.mapping.abort(),
 					["<cr>"] = cmp.mapping(function(fallback)
 						if cmp.get_selected_entry() ~= nil then
 							cmp.confirm()
-							if vim.fn["vsnip#available"](1) == 1 then
-								feedkey("<Plug>(vsnip-expand-or-jump)", "")
-							end
 						else
 							fallback()
 						end
@@ -402,8 +392,8 @@ require("lazy").setup({
 					["<Tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_next_item()
-						elseif vim.fn["vsnip#available"](1) == 1 then
-							feedkey("<Plug>(vsnip-expand-or-jump)", "")
+						elseif luasnip.expand_or_jumpable() then
+							luasnip.expand_or_jump()
 						elseif has_words_before() then
 							cmp.complete()
 						else
@@ -413,8 +403,8 @@ require("lazy").setup({
 					["<S-Tab>"] = cmp.mapping(function()
 						if cmp.visible() then
 							cmp.select_prev_item()
-						elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-							feedkey("<Plug>(vsnip-jump-prev)", "")
+						elseif luasnip.jumpable(-1) then
+							luasnip.jump(-1)
 						end
 					end, { "i", "s" }),
 				}),
@@ -422,7 +412,7 @@ require("lazy").setup({
 					{ name = "copilot" },
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
-					{ name = "vsnip" },
+					{ name = "luasnip" },
 				}, {}),
 				formatting = {
 					format = lspkind.cmp_format({
@@ -470,14 +460,19 @@ require("lazy").setup({
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"hrsh7th/cmp-nvim-lsp-document-symbol",
-			"hrsh7th/cmp-vsnip",
-			"hrsh7th/vim-vsnip",
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
+			"rafamadriz/friendly-snippets",
 			"hrsh7th/cmp-cmdline",
 			"onsails/lspkind.nvim",
 			"zbirenbaum/copilot.lua",
 			"zbirenbaum/copilot-cmp",
 			"lukas-reineke/cmp-under-comparator",
 		},
+	},
+	{
+		"L3MON4D3/LuaSnip",
+		build = "make install_jsregexp"
 	},
 	{
 		"altermo/ultimate-autopair.nvim",

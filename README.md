@@ -102,7 +102,7 @@ with `:Lazy profile`.
 | zM      |                            Close all folds |
 | zr      | Open all folds except comments and imports |
 | zm      |                 Close all folds with level |
-| Space k |                       Preview current fold |
+| Space r |                       Preview current fold |
 | ]f      |                      Goto next closed fold |
 | [f      |                  Goto previous closed fold |
 
