@@ -138,6 +138,15 @@ require("lazy").setup({
 			ufo.setup({
 				open_fold_hl_timeout = 0,
 				close_fold_kinds_for_ft = { default = { "imports", "comment" } },
+				preview = {
+					win_config = {
+						winhighlight = "Pmenu:Pmenu",
+						winblend = 0,
+					},
+					mappings = {
+						switch = "<space>k"
+					}
+				},
 			})
 		end,
 		dependencies = { "kevinhwang91/nvim-ufo" }
