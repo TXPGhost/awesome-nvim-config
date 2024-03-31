@@ -11,8 +11,8 @@ The awesomest neovim config out there.
 
 ## Performance
 
-Startup time is typically sub-20 millisecond (~12 on average). View startup time
-with the `:StartupTime` command.
+Startup time is typically around 20 milliseconds. You can view the startup time
+with `:Lazy profile`.
 
 ## Keybindings
 
