@@ -408,7 +408,6 @@ require("lazy").setup({
 					end, { "i", "s" }),
 				}),
 				sources = cmp.config.sources({
-					{ name = "copilot" },
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "luasnip" },
@@ -464,8 +463,6 @@ require("lazy").setup({
 			"rafamadriz/friendly-snippets",
 			"hrsh7th/cmp-cmdline",
 			"onsails/lspkind.nvim",
-			"zbirenbaum/copilot.lua",
-			"zbirenbaum/copilot-cmp",
 			"lukas-reineke/cmp-under-comparator",
 		},
 	},
@@ -515,8 +512,6 @@ require("lazy").setup({
 		event = "VeryLazy",
 		config = function()
 			require("copilot").setup({
-				suggestion = { enabled = false },
-				panel = { enabled = false },
 				filetypes = {
 					yaml = true,
 					markdown = true,
@@ -529,13 +524,6 @@ require("lazy").setup({
 					["."] = true,
 				},
 			})
-		end,
-	},
-	{
-		"zbirenbaum/copilot-cmp",
-		lazy = true,
-		config = function()
-			require("copilot_cmp").setup({})
 		end,
 	},
 	{
