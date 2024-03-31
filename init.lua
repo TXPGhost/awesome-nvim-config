@@ -410,7 +410,10 @@ require("lazy").setup({
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
+					{ name = 'nvim_lsp_document_symbol' },
 					{ name = "luasnip" },
+					{ name = "path" },
+					{ name = "buffer" },
 				}, {}),
 				formatting = {
 					format = lspkind.cmp_format({
@@ -443,14 +446,8 @@ require("lazy").setup({
 			cmp.setup.cmdline(":", {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = cmp.config.sources({
+					{ name = "cmdline_history" },
 					{ name = "cmdline" },
-				}, {}),
-			})
-
-			cmp.setup.cmdline("/", {
-				mapping = cmp.mapping.preset.cmdline(),
-				sources = cmp.config.sources({
-					{ name = "nvim_lsp_document_symbol" },
 				}, {}),
 			})
 		end,
@@ -462,8 +459,11 @@ require("lazy").setup({
 			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets",
 			"hrsh7th/cmp-cmdline",
+			"dmitmel/cmp-cmdline-history",
 			"onsails/lspkind.nvim",
 			"lukas-reineke/cmp-under-comparator",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-buffer",
 		},
 	},
 	{
@@ -655,7 +655,6 @@ vim.opt.textwidth = 80
 vim.opt.cursorline = false
 vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
-vim.opt.shada = ""
 vim.opt.foldlevel = 99999
 vim.opt.pumheight = 10
 vim.opt.shortmess:append("I")
