@@ -513,19 +513,7 @@ require("lazy").setup({
 		"zbirenbaum/copilot.lua",
 		event = "VeryLazy",
 		config = function()
-			require("copilot").setup({
-				filetypes = {
-					yaml = true,
-					markdown = true,
-					help = true,
-					gitcommit = true,
-					gitrebase = true,
-					hgcommit = true,
-					svn = true,
-					cvs = true,
-					["."] = true,
-				},
-			})
+			require("copilot").setup({})
 		end,
 	},
 	{
