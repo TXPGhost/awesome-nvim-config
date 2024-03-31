@@ -565,7 +565,6 @@ require("lazy").setup({
 				},
 				highlights = {
 					["@markup.math.latex"] = { fg = "$yellow" },
-					["Folded"] = { bg = "$bg1" },
 				}
 			})
 			require('onedark').load()
