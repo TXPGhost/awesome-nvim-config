@@ -412,8 +412,9 @@ require("lazy").setup({
 					{ name = "nvim_lsp_signature_help" },
 					{ name = 'nvim_lsp_document_symbol' },
 					{ name = "luasnip" },
+					{ name = "fonts" },
 					{ name = "path" },
-					{ name = "buffer" },
+					{ name = "rg" },
 				}, {}),
 				formatting = {
 					format = lspkind.cmp_format({
@@ -463,7 +464,8 @@ require("lazy").setup({
 			"onsails/lspkind.nvim",
 			"lukas-reineke/cmp-under-comparator",
 			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-buffer",
+			"amarakon/nvim-cmp-fonts",
+			"lukas-reineke/cmp-rg",
 		},
 	},
 	{
@@ -594,6 +596,13 @@ require("lazy").setup({
 			})
 			require('onedark').load()
 		end
+	},
+	{
+		'saecki/crates.nvim',
+		event = "BufRead Cargo.toml",
+		config = function()
+			require('crates').setup()
+		end,
 	}
 })
 
