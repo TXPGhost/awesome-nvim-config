@@ -96,15 +96,15 @@ with `:Lazy profile`.
 
 ## Folds
 
-| Key |                                    Binding |
-| :-- | -----------------------------------------: |
-| zR  |                             Open all folds |
-| zM  |                            Close all folds |
-| zr  | Open all folds except comments and imports |
-| zm  |                 Close all folds with level |
-| K   |                       Preview current fold |
-| ]f  |                      Goto next closed fold |
-| [f  |                  Goto previous closed fold |
+| Key     |                                    Binding |
+| :------ | -----------------------------------------: |
+| zR      |                             Open all folds |
+| zM      |                            Close all folds |
+| zr      | Open all folds except comments and imports |
+| zm      |                 Close all folds with level |
+| Space k |                       Preview current fold |
+| ]f      |                      Goto next closed fold |
+| [f      |                  Goto previous closed fold |
 
 ## Selection
 
