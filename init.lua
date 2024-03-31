@@ -23,9 +23,17 @@ require("lazy").setup({
 		event = { "VeryLazy" },
 		cmd = { "LspInfo", "LspInstall", "LspUninstall" },
 		config = function()
+			local ufo = require("ufo")
+
+			vim.opt.foldlevel = 99999
+
 			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			capabilities.offsetEncoding = { "utf-16" }
+			capabilities.textDocument.foldingRange = {
+				dynamicRegistration = false,
+				lineFoldingOnly = true,
+			}
 
 			lspconfig.vimls.setup({ capabilities = capabilities })
 			lspconfig.clangd.setup({ capabilities = capabilities })
@@ -93,7 +101,46 @@ require("lazy").setup({
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
 			vim.lsp.handlers["textDocument/signatureHelp"] =
 				vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
+
+			vim.keymap.set("n", "zR", ufo.openAllFolds)
+			vim.keymap.set("n", "zM", ufo.closeAllFolds)
+			vim.keymap.set("n", "zr", ufo.openFoldsExceptKinds)
+			vim.keymap.set("n", "zm", ufo.closeFoldsWith)
+			vim.keymap.set("n", "]f", function()
+				ufo.goNextClosedFold()
+			end)
+			vim.keymap.set("n", "[f", function()
+				ufo.goPreviousClosedFold()
+			end)
+			vim.keymap.set("n", "<space>k", function()
+				local winid = ufo.peekFoldedLinesUnderCursor()
+				if not winid then
+					vim.lsp.buf.hover()
+				end
+			end)
+
+			vim.keymap.set("n", "<space>d", "<cmd>TroubleToggle document_diagnostics<cr>")
+			vim.keymap.set("n", "<space>D", "<cmd>TroubleToggle workspace_diagnostics<cr>")
+			vim.keymap.set("n", "<space>a", function() vim.lsp.buf.code_action() end)
+
+			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+
+			vim.keymap.set("n", "gd", function()
+				vim.lsp.buf.definition()
+			end)
+			vim.keymap.set("n", "gy", function()
+				vim.lsp.buf.type_definition()
+			end)
+			vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
+			vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
+
+			ufo.setup({
+				open_fold_hl_timeout = 0,
+				close_fold_kinds_for_ft = { default = { "imports", "comment" } },
+			})
 		end,
+		dependencies = { "kevinhwang91/nvim-ufo" }
 	},
 	{
 		'stevearc/dressing.nvim',
@@ -288,6 +335,15 @@ require("lazy").setup({
 			},
 		},
 		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			vim.keymap.set("n", "<space>f", "<cmd>Telescope fd<cr>")
+			vim.keymap.set("n", "<space>b", "<cmd>Telescope buffers<cr>")
+			vim.keymap.set("n", "<space>j", "<cmd>Telescope jumplist<cr>")
+			vim.keymap.set("n", "<space>gc", "<cmd>Telescope git_commits<cr>")
+			vim.keymap.set("n", "<space>gb", "<cmd>Telescope git_branches<cr>")
+			vim.keymap.set("n", "<space>gs", "<cmd>Telescope git_stash<cr>")
+			vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
+		end
 	},
 	{
 		"hrsh7th/nvim-cmp",
@@ -431,6 +487,13 @@ require("lazy").setup({
 		event = "VeryLazy",
 		config = function()
 			require("gitsigns").setup({ update_debounce = 0 })
+
+			vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
+			vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
+			vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
+			vim.keymap.set("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
+			vim.keymap.set("n", "ghu", "<cmd>Gitsigns undo_stage_hunk<cr>")
+			vim.keymap.set("n", "ghr", "<cmd>Gitsigns reset_hunk<cr>")
 		end,
 	},
 	{
@@ -440,35 +503,6 @@ require("lazy").setup({
 		config = function()
 			vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
 			vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit!<cr>")
-		end,
-	},
-	{
-		"kevinhwang91/nvim-ufo",
-		event = "VeryLazy",
-		lazy = true,
-		config = function()
-			local ufo = require("ufo")
-			ufo.setup({
-				open_fold_hl_timeout = 0,
-				close_fold_kinds_for_ft = { default = { "imports", "comment" } },
-			})
-			vim.keymap.set("n", "zR", ufo.openAllFolds)
-			vim.keymap.set("n", "zM", ufo.closeAllFolds)
-			vim.keymap.set("n", "zr", ufo.openFoldsExceptKinds)
-			vim.keymap.set("n", "zm", ufo.closeFoldsWith)
-			vim.keymap.set("n", "]f", function()
-				ufo.goNextClosedFold()
-			end)
-			vim.keymap.set("n", "[f", function()
-				ufo.goPreviousClosedFold()
-			end)
-			vim.keymap.set("n", "K", function()
-				local winid = ufo.peekFoldedLinesUnderCursor()
-				if not winid then
-					vim.lsp.buf.hover()
-				end
-			end)
-			vim.opt.foldlevel = 99999
 		end,
 	},
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
@@ -609,42 +643,6 @@ do
 
 	-- easy exit terminal mode
 	map("t", "<c-a>", "<c-\\><c-n>")
-
-	map("n", "<space>f", "<cmd>Telescope fd<cr>")
-	map("n", "<space>b", "<cmd>Telescope buffers<cr>")
-	map("n", "<space>j", "<cmd>Telescope jumplist<cr>")
-	map("n", "<space>gc", "<cmd>Telescope git_commits<cr>")
-	map("n", "<space>gb", "<cmd>Telescope git_branches<cr>")
-	map("n", "<space>gs", "<cmd>Telescope git_stash<cr>")
-	map("n", "<space>/", "<cmd>Telescope live_grep<cr>")
-
-	-- git
-	map("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
-	map("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
-	map("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
-	map("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
-	map("n", "ghu", "<cmd>Gitsigns undo_stage_hunk<cr>")
-	map("n", "ghr", "<cmd>Gitsigns reset_hunk<cr>")
-
-	-- lsp
-	map("n", "<space>k", function()
-		vim.lsp.buf.hover()
-	end)
-	map("n", "<space>d", "<cmd>TroubleToggle document_diagnostics<cr>")
-	map("n", "<space>D", "<cmd>TroubleToggle workspace_diagnostics<cr>")
-	map("n", "<space>a", function() vim.lsp.buf.code_action() end)
-
-	map("n", "]d", vim.diagnostic.goto_next)
-	map("n", "[d", vim.diagnostic.goto_prev)
-
-	map("n", "gd", function()
-		vim.lsp.buf.definition()
-	end)
-	map("n", "gy", function()
-		vim.lsp.buf.type_definition()
-	end)
-	map("n", "gr", "<cmd>Trouble lsp_references<cr>")
-	map("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
 
 	-- tabs
 	map("n", "<c-t>", "<cmd>tabnew<cr>")
