@@ -14,7 +14,10 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	{ "nvim-lua/plenary.nvim",      lazy = true },
 	{ "kevinhwang91/promise-async", lazy = true },
-	{ "tpope/vim-commentary",       event = "BufRead" },
+	{
+		"tpope/vim-commentary",
+		event = "BufRead",
+	},
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPost", "BufNewFile" },
@@ -157,7 +160,6 @@ require("lazy").setup({
 				auto_install = true,
 				highlight = {
 					enable = true,
-					disable = { "tex", "latex" },
 				},
 				incremental_selection = {
 					enable = true,
@@ -559,8 +561,16 @@ require("lazy").setup({
 		priority = 1000,
 		config = function()
 			require('onedark').setup({
-				style = "darker",
+				style = "deep",
 				transparent = true,
+				colors = {
+					["bg1"] = "#1c1f26",
+					["bg2"] = "#262933",
+					["bg3"] = "#2f343f",
+				},
+				highlights = {
+					["@markup.math.latex"] = { fg = "$yellow" }
+				}
 			})
 			require('onedark').load()
 		end
