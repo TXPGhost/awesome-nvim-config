@@ -384,6 +384,9 @@ require("lazy").setup({
 					["<cr>"] = cmp.mapping(function(fallback)
 						if cmp.get_selected_entry() ~= nil then
 							cmp.confirm()
+							if luasnip.expand_or_jumpable() then
+								luasnip.expand_or_jump()
+							end
 						else
 							fallback()
 						end
@@ -414,7 +417,7 @@ require("lazy").setup({
 					{ name = "luasnip" },
 					{ name = "fonts" },
 					{ name = "path" },
-					{ name = "rg",                      keyword_length = 3 },
+					{ name = "buffer" },
 				}, {}),
 				formatting = {
 					format = lspkind.cmp_format({
@@ -464,8 +467,8 @@ require("lazy").setup({
 			"onsails/lspkind.nvim",
 			"lukas-reineke/cmp-under-comparator",
 			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-buffer",
 			"amarakon/nvim-cmp-fonts",
-			"lukas-reineke/cmp-rg",
 		},
 	},
 	{
