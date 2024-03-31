@@ -152,7 +152,7 @@ require("lazy").setup({
 		dependencies = { "kevinhwang91/nvim-ufo" }
 	},
 	{
-		'stevearc/dressing.nvim',
+		"stevearc/dressing.nvim",
 		event = "VeryLazy",
 		opts = {},
 	},
@@ -384,9 +384,6 @@ require("lazy").setup({
 					["<cr>"] = cmp.mapping(function(fallback)
 						if cmp.get_selected_entry() ~= nil then
 							cmp.confirm()
-							if luasnip.expand_or_jumpable() then
-								luasnip.expand_or_jump()
-							end
 						else
 							fallback()
 						end
@@ -413,7 +410,7 @@ require("lazy").setup({
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
-					{ name = 'nvim_lsp_document_symbol' },
+					{ name = "nvim_lsp_document_symbol" },
 					{ name = "luasnip" },
 					{ name = "fonts" },
 					{ name = "path" },
@@ -422,7 +419,7 @@ require("lazy").setup({
 				formatting = {
 					format = lspkind.cmp_format({
 						mode = "symbol_text",
-						maxwidth = 10000, -- doesn't work?
+						maxwidth = 10000,
 						ellipsis_char = "...",
 						show_labelDetails = true,
 						before = function(_, vim_item)
@@ -575,17 +572,35 @@ require("lazy").setup({
 		build = function() vim.fn["mkdp#util#install"]() end,
 	},
 	{
-		'nvim-lualine/lualine.nvim',
-		dependencies = { 'nvim-tree/nvim-web-devicons' },
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons", "linrongbin16/lsp-progress.nvim" },
 		config = function()
-			require("lualine").setup({})
+			require("lsp-progress").setup({
+				client_format = function(client_name, spinner, series_messages)
+					return #series_messages > 0
+						and ("[" .. client_name .. "] " .. spinner)
+						or nil
+				end,
+			})
+			require("lualine").setup({
+				sections = {
+					lualine_x = { require("lsp-progress").progress, 'encoding', 'fileformat', 'filetype' },
+				}
+			})
+
+			vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
+			vim.api.nvim_create_autocmd("User", {
+				group = "lualine_augroup",
+				pattern = "LspProgressStatusUpdated",
+				callback = require("lualine").refresh,
+			})
 		end
 	},
 	{
 		"navarasu/onedark.nvim",
 		priority = 1000,
 		config = function()
-			require('onedark').setup({
+			require("onedark").setup({
 				style = "deep",
 				transparent = true,
 				colors = {
@@ -597,14 +612,14 @@ require("lazy").setup({
 					["@markup.math.latex"] = { fg = "$yellow" },
 				}
 			})
-			require('onedark').load()
+			require("onedark").load()
 		end
 	},
 	{
-		'saecki/crates.nvim',
+		"saecki/crates.nvim",
 		event = "BufRead Cargo.toml",
 		config = function()
-			require('crates').setup()
+			require("crates").setup()
 		end,
 	}
 })
