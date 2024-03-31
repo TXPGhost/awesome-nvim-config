@@ -60,37 +60,25 @@ with `:Lazy profile`.
 
 ### LSP
 
-| Key     |                                  Binding |
-| :------ | ---------------------------------------: |
-| gd      |                          Goto definition |
-| gy      |                     Goto type definition |
-| gr      |                          Goto references |
-| gi      |                     Goto implementations |
-| gpd     |                       Preview definition |
-| gpy     |                  Preview type definition |
-| gpr     |                       Preview references |
-| gpi     |                  Preview implementations |
-| gP      |                Close all preview windows |
-| gtd     |               Goto definition in new tab |
-| gty     |          Goto type definition in new tab |
-| gtr     |               Goto references in new tab |
-| gti     |          Goto implementations in new tab |
-| gsd     |      Goto definition in horizontal split |
-| gsy     | Goto type definition in horizontal split |
-| gsr     |      Goto references in horizontal split |
-| gsi     | Goto implementations in horizontal split |
-| gvd     |        Goto definition in vertical split |
-| gvy     |   Goto type definition in vertical split |
-| gvr     |        Goto references in vertical split |
-| gvi     |   Goto implementations in vertical split |
-| Space r |                            Rename symbol |
-| Space k |                      Hover documentation |
-| Space a |                              Code action |
-| Space d |                Show document diagnostics |
-| Space D |               Show workspace diagnostics |
-| \]d     |                  Jump to next diagnostic |
-| \[d     |              Jump to previous diagnostic |
-| Ctrl a  |  Jump to next snippet mark (Insert mode) |
+| Key     |                                 Binding |
+| :------ | --------------------------------------: |
+| gd      |                         Goto definition |
+| gy      |                    Goto type definition |
+| gr      |                         Goto references |
+| gi      |                    Goto implementations |
+| gpd     |                      Preview definition |
+| gpy     |                 Preview type definition |
+| gpr     |                      Preview references |
+| gpi     |                 Preview implementations |
+| gP      |               Close all preview windows |
+| Space r |                           Rename symbol |
+| Space k |                     Hover documentation |
+| Space a |                             Code action |
+| Space d |               Show document diagnostics |
+| Space D |              Show workspace diagnostics |
+| \]d     |                 Jump to next diagnostic |
+| \[d     |             Jump to previous diagnostic |
+| Ctrl a  | Jump to next snippet mark (Insert mode) |
 
 ### Tabs
 
