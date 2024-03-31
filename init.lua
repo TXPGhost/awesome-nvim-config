@@ -16,11 +16,11 @@ require("lazy").setup({
 	{ "kevinhwang91/promise-async", lazy = true },
 	{
 		"tpope/vim-commentary",
-		event = "BufRead",
+		event = "VeryLazy",
 	},
 	{
 		"neovim/nvim-lspconfig",
-		event = { "BufReadPost", "BufNewFile" },
+		event = { "VeryLazy" },
 		cmd = { "LspInfo", "LspInstall", "LspUninstall" },
 		config = function()
 			local lspconfig = require("lspconfig")
@@ -97,11 +97,12 @@ require("lazy").setup({
 	},
 	{
 		'stevearc/dressing.nvim',
+		event = "VeryLazy",
 		opts = {},
 	},
 	{
 		"folke/trouble.nvim",
-		cmd = { "Trouble", "TroubleToggle", "TroubleClose" },
+		event = "VeryLazy",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
 			height = 20,
@@ -119,7 +120,7 @@ require("lazy").setup({
 	},
 	{
 		"mfussenegger/nvim-jdtls",
-		ft = { "java" },
+		event = "VeryLazy",
 		config = function()
 			local config = {
 				cmd = { "/usr/bin/jdtls" },
@@ -141,12 +142,11 @@ require("lazy").setup({
 	},
 	{
 		"mrcjkb/rustaceanvim",
-		ft = { "rust" },
+		event = "VeryLazy",
 	},
 	{
 		"smjonas/inc-rename.nvim",
-		cmd = "IncRename",
-		keys = { "<space>r" },
+		event = "VeryLazy",
 		config = function()
 			require("inc_rename").setup({})
 			vim.keymap.set("n", "<space>r", ":IncRename ")
@@ -154,7 +154,7 @@ require("lazy").setup({
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = "BufRead",
+		event = "VeryLazy",
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				auto_install = true,
@@ -194,6 +194,7 @@ require("lazy").setup({
 	},
 	{
 		"Wansmer/treesj",
+		event = "VeryLazy",
 		keys = { "<c-j>", "<c-k>" },
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
@@ -207,7 +208,7 @@ require("lazy").setup({
 	{
 		"stevearc/oil.nvim",
 		keys = { "-" },
-		event = "BufRead",
+		event = "VeryLazy",
 		config = function()
 			vim.keymap.set("n", "-", "<cmd>Oil<cr>zz", { desc = "Open parent directory" })
 			require("oil").setup({
@@ -235,7 +236,7 @@ require("lazy").setup({
 	},
 	{
 		"stevearc/conform.nvim",
-		event = "BufWritePre",
+		event = "VeryLazy",
 		opts = {
 			notify_on_error = false,
 			formatters_by_ft = {
@@ -278,7 +279,7 @@ require("lazy").setup({
 	},
 	{
 		"nvim-telescope/telescope.nvim",
-		cmd = "Telescope",
+		event = "VeryLazy",
 		opts = {
 			pickers = {
 				find_files = {
@@ -291,7 +292,7 @@ require("lazy").setup({
 	{
 		"hrsh7th/nvim-cmp",
 		lazy = true,
-		event = "CmdlineEnter",
+		event = "VeryLazy",
 		config = function()
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
@@ -415,19 +416,19 @@ require("lazy").setup({
 	},
 	{
 		"altermo/ultimate-autopair.nvim",
-		event = { "InsertEnter", "CmdlineEnter" },
+		event = "VeryLazy",
 		opts = {},
 	},
 	{
 		"kylechui/nvim-surround",
-		event = "InsertEnter",
+		event = "VeryLazy",
 		config = function()
 			require("nvim-surround").setup({})
 		end,
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-		event = "BufRead",
+		event = "VeryLazy",
 		config = function()
 			require("gitsigns").setup({ update_debounce = 0 })
 		end,
@@ -435,8 +436,7 @@ require("lazy").setup({
 	{
 		"tpope/vim-fugitive",
 		lazy = true,
-		keys = { "?", "g?" },
-		cmd = "Git",
+		event = "VeryLazy",
 		config = function()
 			vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
 			vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit!<cr>")
@@ -444,7 +444,7 @@ require("lazy").setup({
 	},
 	{
 		"kevinhwang91/nvim-ufo",
-		event = "BufRead",
+		event = "VeryLazy",
 		lazy = true,
 		config = function()
 			local ufo = require("ufo")
@@ -472,11 +472,10 @@ require("lazy").setup({
 		end,
 	},
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
-	{ "tpope/vim-sleuth",            event = "BufRead" },
+	{ "tpope/vim-sleuth",            event = "VeryLazy" },
 	{
 		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
-		event = "InsertEnter",
+		event = "VeryLazy",
 		config = function()
 			require("copilot").setup({
 				suggestion = { enabled = false },
@@ -503,10 +502,6 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"dstein64/vim-startuptime",
-		cmd = "StartupTime",
-	},
-	{
 		"echasnovski/mini.move",
 		event = "VeryLazy",
 		opts = {
@@ -531,7 +526,7 @@ require("lazy").setup({
 	},
 	{
 		"rmagatti/goto-preview",
-		keys = { "gpd", "gpr", "gpi", "gpy" },
+		event = "VeryLazy",
 		config = function()
 			local goto_preview = require("goto-preview")
 			goto_preview.setup({})
