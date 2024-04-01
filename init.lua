@@ -473,7 +473,14 @@ require("lazy").setup({
 	{
 		"altermo/ultimate-autopair.nvim",
 		event = "VeryLazy",
-		opts = {},
+		opts = {
+			fastwarp = {
+				map = { "<a-]>" },
+				rmap = { "<a-[>" },
+				cmap = { "<a-]>" },
+				rcmap = { "<a-[>" },
+			}
+		},
 	},
 	{
 		"kylechui/nvim-surround",
