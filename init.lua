@@ -466,12 +466,10 @@ require("lazy").setup({
 					["<a-]>"] = cmp.mapping.abort(),
 					["<a-[>"] = cmp.mapping.abort(),
 					["<cr>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							local entry = cmp.get_selected_entry()
-							if not entry then
-								cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-							end
-							cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert })
+						if cmp.get_selected_entry() ~= nil then
+							cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace })
+						elseif luasnip.expand_or_jumpable() then
+							luasnip.expand_or_jump()
 						else
 							fallback()
 						end
@@ -481,8 +479,6 @@ require("lazy").setup({
 							cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 						elseif luasnip.expand_or_jumpable() then
 							luasnip.expand_or_jump()
-						elseif has_words_before() then
-							cmp.complete()
 						else
 							fallback()
 						end
@@ -493,7 +489,7 @@ require("lazy").setup({
 						elseif luasnip.jumpable(-1) then
 							luasnip.jump(-1)
 						else
-							fallbcak()
+							fallback()
 						end
 					end, { "i", "s" }),
 				}),
@@ -760,5 +756,4 @@ vim.opt.cursorline = false
 vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.foldlevel = 99999
-vim.opt.pumheight = 6
 vim.opt.shortmess:append("I")
