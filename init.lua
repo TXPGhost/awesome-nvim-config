@@ -410,7 +410,6 @@ require("lazy").setup({
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "nvim_lsp_document_symbol" },
 					{ name = "luasnip" },
-					{ name = "fonts" },
 					{ name = "path" },
 					{ name = "buffer" },
 				}, {}),
@@ -463,7 +462,6 @@ require("lazy").setup({
 			"lukas-reineke/cmp-under-comparator",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-buffer",
-			"amarakon/nvim-cmp-fonts",
 		},
 	},
 	{
