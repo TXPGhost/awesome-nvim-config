@@ -30,6 +30,23 @@ with `:Lazy profile`.
 | Space g     |               Change branch |
 | Space Space |                Preview hunk |
 
+### Autocompletion
+
+| Key       |                            Binding |
+| :-------- | ---------------------------------: |
+| Enter     |          Complete or jump forwards |
+| Tab       |  Select next item or jump forwards |
+| Shift Tab | Select next item or jump backwards |
+
+### Copilot
+
+| Key   |                  Binding |
+| :---- | -----------------------: |
+| Alt ] |     Show next suggestion |
+| Alt ] | Show previous suggestion |
+| Alt l |        Accept suggestion |
+| Alt m |        Reject suggestion |
+
 ### File navigation
 
 | Key       |                      Binding |
