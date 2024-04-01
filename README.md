@@ -122,3 +122,5 @@ with `:Lazy profile`.
 | :---- | ---------------------------: |
 | Alt ] |      Fast warp next end pair |
 | Alt [ | Undo fast warp next end pair |
+| Alt 0 |      Fast warp next end pair |
+| Alt 9 | Undo fast warp next end pair |
