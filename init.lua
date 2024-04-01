@@ -235,6 +235,9 @@ require("lazy").setup({
 				endwise = {
 					enable = true,
 				},
+				indent = {
+					enable = true,
+				}
 			})
 			vim.opt.foldmethod = "expr"
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
@@ -358,7 +361,6 @@ require("lazy").setup({
 			local lspkind = require("lspkind")
 			local luasnip = require("luasnip")
 			require("luasnip.loaders.from_vscode").lazy_load()
-			require("copilot_cmp").setup()
 
 			local has_words_before = function()
 				if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
@@ -382,11 +384,7 @@ require("lazy").setup({
 				mapping = cmp.mapping.preset.insert({
 					["<cr>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
-							local entry = cmp.get_selected_entry()
-							if not entry then
-								cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-							end
-							cmp.confirm()
+							cmp.confirm({ select = true })
 							if luasnip.jumpable(1) then
 								luasnip.jump(1)
 							end
@@ -416,25 +414,22 @@ require("lazy").setup({
 					end, { "i", "s" }),
 				}),
 				sources = cmp.config.sources({
-					{ name = "copilot",                 group_index = 2 },
-					{ name = "nvim_lsp",                group_index = 2 },
-					{ name = "nvim_lsp_signature_help", group_index = 2 },
-					{ name = "luasnip",                 group_index = 2 },
-					{ name = "path",                    group_index = 2 },
-					{ name = "buffer",                  group_index = 2 },
+					{ name = "nvim_lsp" },
+					{ name = "nvim_lsp_signature_help" },
+					{ name = "luasnip" },
+					{ name = "path" },
+					{ name = "buffer" },
 				}, {}),
 				formatting = {
 					format = lspkind.cmp_format({
 						mode = "symbol_text",
-						maxwidth = 30,
+						maxwidth = 80,
 						ellipsis_char = "…",
-						symbol_map = { Copilot = "" }
 					}),
 				},
 				sorting = {
 					priority_weight = 2,
 					comparators = {
-						require("copilot_cmp.comparators").prioritize,
 						cmp.config.compare.exact,
 						cmp.config.compare.offset,
 						cmp.config.compare.score,
@@ -458,8 +453,6 @@ require("lazy").setup({
 			})
 		end,
 		dependencies = {
-			"zbirenbaum/copilot.lua",
-			"zbirenbaum/copilot-cmp",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"L3MON4D3/LuaSnip",
@@ -518,10 +511,7 @@ require("lazy").setup({
 		"zbirenbaum/copilot.lua",
 		event = "VeryLazy",
 		config = function()
-			require("copilot").setup({
-				suggestion = { enabled = false },
-				panel = { enabled = false },
-			})
+			require("copilot").setup({})
 		end,
 	},
 	{
@@ -606,7 +596,6 @@ require("lazy").setup({
 				},
 				highlights = {
 					["@markup.math.latex"] = { fg = "$yellow" },
-					["CmpItemKindCopilot"] = { fg = "$green" }
 				}
 			})
 			require("onedark").load()
