@@ -471,10 +471,7 @@ require("lazy").setup({
 							if not entry then
 								cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 							end
-							cmp.confirm()
-							if luasnip.jumpable(1) then
-								luasnip.jump(1)
-							end
+							cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert })
 						else
 							fallback()
 						end
