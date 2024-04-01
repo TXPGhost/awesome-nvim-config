@@ -383,6 +383,16 @@ require("lazy").setup({
 					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
 
+			local should_expand = function()
+				if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+					return false
+				end
+				unpack = unpack or table.unpack
+				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+				local current_char = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col)
+				return col ~= 0 and current_char ~= "{" and current_char ~= "(" and current_char ~= "["
+			end
+
 			local item_kind = {
 				Text = 1,
 				Method = 2,
@@ -462,13 +472,16 @@ require("lazy").setup({
 				experimental = {
 					ghost_text = true,
 				},
+				completion = {
+					completeopt = 'menu,menuone,noinsert'
+				},
 				mapping = cmp.mapping.preset.insert({
 					["<a-]>"] = cmp.mapping.abort(),
 					["<a-[>"] = cmp.mapping.abort(),
 					["<cr>"] = cmp.mapping(function(fallback)
 						if cmp.get_selected_entry() ~= nil then
 							cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace })
-						elseif luasnip.expand_or_jumpable() then
+						elseif should_expand() and luasnip.expand_or_jumpable() then
 							luasnip.expand_or_jump()
 						else
 							fallback()
