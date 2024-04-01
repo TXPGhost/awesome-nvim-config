@@ -27,6 +27,7 @@ with `:Lazy profile`.
 | ghs         |                  Stage hunk |
 | ghu         |             Undo stage hunk |
 | ghr         |                  Reset hunk |
+| Space g     |               Change branch |
 | Space Space |                Preview hunk |
 
 ### File navigation
