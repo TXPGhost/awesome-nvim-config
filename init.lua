@@ -246,9 +246,6 @@ require("lazy").setup({
 				endwise = {
 					enable = true,
 				},
-				indent = {
-					enable = true,
-				}
 			})
 			vim.opt.foldmethod = "expr"
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
@@ -471,7 +468,7 @@ require("lazy").setup({
 					["<cr>"] = cmp.mapping(function(fallback)
 						if cmp.get_selected_entry() ~= nil then
 							cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace })
-						elseif should_expand() and luasnip.expand_or_jumpable() then
+						elseif should_expand() and luasnip.expand_or_locally_jumpable() then
 							luasnip.expand_or_jump()
 						else
 							fallback()
