@@ -463,6 +463,8 @@ require("lazy").setup({
 					ghost_text = true,
 				},
 				mapping = cmp.mapping.preset.insert({
+					["<a-]>"] = cmp.mapping.abort(),
+					["<a-[>"] = cmp.mapping.abort(),
 					["<cr>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							local entry = cmp.get_selected_entry()
@@ -519,8 +521,8 @@ require("lazy").setup({
 						cmp.config.compare.offset,
 						cmp.config.compare.score,
 						cmp.config.compare.recently_used,
-						kind_comparator,
 						cmp.config.compare.locality,
+						kind_comparator,
 						require("cmp-under-comparator").under,
 						cmp.config.compare.length,
 						cmp.config.compare.sort_text,
