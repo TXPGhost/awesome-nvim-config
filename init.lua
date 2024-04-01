@@ -199,6 +199,17 @@ require("lazy").setup({
 	{
 		"mrcjkb/rustaceanvim",
 		event = "VeryLazy",
+		config = function()
+			vim.g.rustaceanvim = {
+				server = {
+					capabilities = {
+						experimental = {
+							snippetTextEdit = false
+						}
+					}
+				}
+			}
+		end
 	},
 	{
 		"smjonas/inc-rename.nvim",
