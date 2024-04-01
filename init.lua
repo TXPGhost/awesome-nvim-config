@@ -373,24 +373,14 @@ require("lazy").setup({
 			local luasnip = require("luasnip")
 			require("luasnip.loaders.from_vscode").lazy_load()
 
-			local has_words_before = function()
-				if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-					return false
-				end
-				unpack = unpack or table.unpack
-				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-				return col ~= 0
-					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-			end
-
 			local should_expand = function()
 				if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
 					return false
 				end
 				unpack = unpack or table.unpack
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-				local current_char = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col)
-				return col ~= 0 and current_char ~= "{" and current_char ~= "(" and current_char ~= "["
+				local char = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col)
+				return col ~= 0 and char ~= "{" and char ~= "(" and char ~= "["
 			end
 
 			local item_kind = {
@@ -473,7 +463,7 @@ require("lazy").setup({
 					ghost_text = true,
 				},
 				completion = {
-					completeopt = 'menu,menuone,noinsert'
+					completeopt = 'menu,menuone,noinsert',
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<a-]>"] = cmp.mapping.abort(),
@@ -508,7 +498,6 @@ require("lazy").setup({
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
-					{ name = "nvim_lsp_signature_help" },
 					{ name = "luasnip" },
 					{ name = "path" },
 					{ name = "buffer" },
@@ -547,7 +536,6 @@ require("lazy").setup({
 		end,
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets",
@@ -558,6 +546,17 @@ require("lazy").setup({
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-buffer",
 		},
+	},
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "VeryLazy",
+		opts = {
+			doc_lines = 0,
+			floating_window = false,
+			hint_prefix = " ",
+			hint_scheme = "Comment",
+		},
+		config = function(_, opts) require 'lsp_signature'.setup(opts) end
 	},
 	{
 		"L3MON4D3/LuaSnip",
