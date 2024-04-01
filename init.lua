@@ -383,6 +383,76 @@ require("lazy").setup({
 					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
 
+			local item_kind = {
+				Text = 1,
+				Method = 2,
+				Function = 3,
+				Constructor = 4,
+				Field = 5,
+				Variable = 6,
+				Class = 7,
+				Interface = 8,
+				Module = 9,
+				Property = 10,
+				Unit = 11,
+				Value = 12,
+				Enum = 13,
+				Keyword = 14,
+				Snippet = 15,
+				Color = 16,
+				File = 17,
+				Reference = 18,
+				Folder = 19,
+				EnumMember = 20,
+				Constant = 21,
+				Struct = 22,
+				Event = 23,
+				Operator = 24,
+				TypeParameter = 25,
+			}
+
+			local item_kind_rankings = {
+				[item_kind.Field] = 0,
+				[item_kind.Property] = 1,
+				[item_kind.Method] = 2,
+				[item_kind.Function] = 3,
+				[item_kind.Constructor] = 4,
+				[item_kind.Keyword] = 5,
+				[item_kind.TypeParameter] = 6,
+				[item_kind.Variable] = 7,
+				[item_kind.Class] = 8,
+				[item_kind.Interface] = 9,
+				[item_kind.Struct] = 10,
+				[item_kind.Enum] = 11,
+				[item_kind.EnumMember] = 12,
+				[item_kind.Value] = 13,
+				[item_kind.Unit] = 14,
+				[item_kind.Module] = 15,
+				[item_kind.Constant] = 16,
+				[item_kind.Snippet] = 17,
+				[item_kind.Color] = 18,
+				[item_kind.File] = 19,
+				[item_kind.Reference] = 20,
+				[item_kind.Folder] = 21,
+				[item_kind.Event] = 22,
+				[item_kind.Operator] = 23,
+				[item_kind.Text] = 24,
+			}
+
+			local kind_comparator = function(entry1, entry2)
+				local kind1 = entry1:get_kind()
+				local kind2 = entry2:get_kind()
+				if kind1 ~= kind2 then
+					local diff = item_kind_rankings[kind1] - item_kind_rankings[kind2]
+					if diff < 0 then
+						return true
+					elseif diff > 0 then
+						return false
+					end
+				end
+				return nil
+			end
+
 			cmp.setup({
 				snippet = {
 					expand = function(args)
@@ -395,7 +465,11 @@ require("lazy").setup({
 				mapping = cmp.mapping.preset.insert({
 					["<cr>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
-							cmp.confirm({ select = true })
+							local entry = cmp.get_selected_entry()
+							if not entry then
+								cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+							end
+							cmp.confirm()
 							if luasnip.jumpable(1) then
 								luasnip.jump(1)
 							end
@@ -444,12 +518,12 @@ require("lazy").setup({
 						cmp.config.compare.exact,
 						cmp.config.compare.offset,
 						cmp.config.compare.score,
-						require("cmp-under-comparator").under,
 						cmp.config.compare.recently_used,
+						kind_comparator,
 						cmp.config.compare.locality,
-						cmp.config.compare.kind,
-						cmp.config.compare.sort_text,
+						require("cmp-under-comparator").under,
 						cmp.config.compare.length,
+						cmp.config.compare.sort_text,
 						cmp.config.compare.order,
 					},
 				},
