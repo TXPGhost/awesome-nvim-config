@@ -120,5 +120,5 @@ with `:Lazy profile`.
 
 | Key   |                      Binding |
 | :---- | ---------------------------: |
-| Alt e |      Fast warp next end pair |
-| Alt E | Undo fast warp next end pair |
+| Alt ] |      Fast warp next end pair |
+| Alt [ | Undo fast warp next end pair |
