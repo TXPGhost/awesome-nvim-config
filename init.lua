@@ -450,6 +450,9 @@ require("lazy").setup({
 						luasnip.lsp_expand(args.body)
 					end,
 				},
+				completion = {
+					completeopt = 'menu,menuone,noinsert'
+				},
 				mapping = cmp.mapping.preset.insert({
 					["<a-]>"] = cmp.mapping.abort(),
 					["<a-[>"] = cmp.mapping.abort(),
@@ -497,8 +500,8 @@ require("lazy").setup({
 				formatting = {
 					fields = { cmp.ItemField.Abbr, cmp.ItemField.Kind },
 					format = lspkind.cmp_format({
-						mode = 'symbol_text',
-						maxwidth = 50,
+						mode = 'symbol',
+						maxwidth = 30,
 						ellipsis_char = '…',
 						before = function(_, vim_item)
 							vim_item.menu = ''
