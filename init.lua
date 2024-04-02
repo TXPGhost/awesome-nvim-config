@@ -240,9 +240,6 @@ require("lazy").setup({
 				endwise = {
 					enable = true,
 				},
-				indent = {
-					enable = true,
-				}
 			})
 			vim.opt.foldmethod = "expr"
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
@@ -495,6 +492,7 @@ require("lazy").setup({
 					{ name = 'nvim_lsp_signature_help' },
 					{ name = "luasnip" },
 					{ name = "path" },
+					{ name = "buffer" },
 				}, {}),
 				formatting = {
 					fields = { cmp.ItemField.Abbr, cmp.ItemField.Kind },
@@ -543,6 +541,7 @@ require("lazy").setup({
 			"lukas-reineke/cmp-under-comparator",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
+			"hrsh7th/cmp-buffer"
 		},
 	},
 	{
@@ -760,4 +759,4 @@ vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.foldlevel = 99999
 vim.opt.shortmess:append("I")
-vim.opt.pumheight = 6
+vim.opt.pumheight = 5
