@@ -78,13 +78,7 @@ require("lazy").setup({
 			vim.fn.sign_define("DiagnosticSignHint", { text = "" })
 			vim.fn.sign_define("DiagnosticSignOk", { text = "" })
 
-			-- vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
 			vim.diagnostic.config({ severity_sort = true, virtual_text = false })
-
-			-- vim.lsp.handlers["textDocument/publishDiagnostics"] =
-			-- 	vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-			-- 		virtual_text = false,
-			-- 	})
 
 			local border = {
 				{ "╭", "FloatBorder" },
@@ -368,7 +362,6 @@ require("lazy").setup({
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
 			local luasnip = require("luasnip")
-			require("luasnip.loaders.from_vscode").lazy_load()
 
 			local should_expand = function()
 				if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
@@ -378,7 +371,7 @@ require("lazy").setup({
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 				local char = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col)
 				return col ~= 0 and char ~= "{" and char ~= "(" and char ~= "[" and char ~= ',' and char ~= '\\' and
-				char ~= '$'
+					char ~= '$'
 			end
 
 			local item_kind = {
@@ -457,9 +450,6 @@ require("lazy").setup({
 						luasnip.lsp_expand(args.body)
 					end,
 				},
-				experimental = {
-					ghost_text = true,
-				},
 				completion = {
 					completeopt = 'menu,menuone,noinsert',
 				},
@@ -468,7 +458,7 @@ require("lazy").setup({
 					["<a-[>"] = cmp.mapping.abort(),
 					["<cr>"] = cmp.mapping(function(fallback)
 						if cmp.get_selected_entry() ~= nil then
-							cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace })
+							cmp.confirm()
 						elseif should_expand() and luasnip.expand_or_locally_jumpable() then
 							luasnip.expand_or_jump()
 						else
@@ -477,7 +467,7 @@ require("lazy").setup({
 					end),
 					["<tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
-							cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+							cmp.select_next_item()
 						elseif luasnip.expand_or_jumpable() then
 							luasnip.expand_or_jump()
 						else
@@ -486,7 +476,7 @@ require("lazy").setup({
 					end, { "i", "s" }),
 					["<s-tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
-							cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+							cmp.select_prev_item()
 						elseif luasnip.jumpable(-1) then
 							luasnip.jump(-1)
 						else
@@ -495,10 +485,14 @@ require("lazy").setup({
 					end, { "i", "s" }),
 				}),
 				sources = cmp.config.sources({
-					{ name = "nvim_lsp" },
+					{
+						name = "nvim_lsp",
+						entry_filter = function(entry, ctx)
+							return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Snippet"
+						end
+					},
 					{ name = "luasnip" },
 					{ name = "path" },
-					{ name = "buffer" },
 				}, {}),
 				formatting = {
 					format = lspkind.cmp_format({
@@ -536,13 +530,11 @@ require("lazy").setup({
 			"hrsh7th/cmp-nvim-lsp",
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
-			"rafamadriz/friendly-snippets",
 			"hrsh7th/cmp-cmdline",
 			"dmitmel/cmp-cmdline-history",
 			"onsails/lspkind.nvim",
 			"lukas-reineke/cmp-under-comparator",
 			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-buffer",
 		},
 	},
 	{
@@ -552,7 +544,7 @@ require("lazy").setup({
 			doc_lines = 0,
 			floating_window = false,
 			hint_prefix = " ",
-			hint_scheme = "Comment",
+			-- hint_scheme = "Comment",
 		},
 		config = function(_, opts) require 'lsp_signature'.setup(opts) end
 	},
@@ -767,4 +759,4 @@ vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.foldlevel = 99999
 vim.opt.shortmess:append("I")
-vim.opt.pumheight = 8
+vim.opt.pumheight = 20
