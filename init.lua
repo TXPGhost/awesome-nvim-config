@@ -240,6 +240,9 @@ require("lazy").setup({
 				endwise = {
 					enable = true,
 				},
+				indent = {
+					enable = true,
+				}
 			})
 			vim.opt.foldmethod = "expr"
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
@@ -487,19 +490,25 @@ require("lazy").setup({
 				sources = cmp.config.sources({
 					{
 						name = "nvim_lsp",
-						entry_filter = function(entry, ctx)
-							return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Snippet"
+						entry_filter = function(entry, _)
+							local kind = require("cmp.types").lsp.CompletionItemKind[entry:get_kind()]
+							return kind ~= "Snippet" and kind ~= "Text"
 						end
 					},
 					{ name = "luasnip" },
 					{ name = "path" },
 				}, {}),
 				formatting = {
+					fields = { cmp.ItemField.Abbr, cmp.ItemField.Kind },
 					format = lspkind.cmp_format({
-						mode = "symbol_text",
-						maxwidth = 80,
-						ellipsis_char = "…",
-					}),
+						mode = 'symbol_text',
+						maxwidth = 50,
+						ellipsis_char = '…',
+						before = function(_, vim_item)
+							vim_item.menu = ''
+							return vim_item
+						end
+					})
 				},
 				sorting = {
 					priority_weight = 2,
@@ -685,6 +694,10 @@ require("lazy").setup({
 				},
 				highlights = {
 					["@markup.math.latex"] = { fg = "$yellow" },
+					["DiagnosticUnnecessary"] = { sp = "$grey", fmt = "underline" }
+				},
+				diagnostics = {
+					undercurl = false,
 				}
 			})
 			require("onedark").load()
@@ -759,4 +772,4 @@ vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.foldlevel = 99999
 vim.opt.shortmess:append("I")
-vim.opt.pumheight = 20
+vim.opt.pumheight = 6
