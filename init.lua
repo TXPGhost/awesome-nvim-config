@@ -453,9 +453,6 @@ require("lazy").setup({
 						luasnip.lsp_expand(args.body)
 					end,
 				},
-				completion = {
-					completeopt = 'menu,menuone,noinsert',
-				},
 				mapping = cmp.mapping.preset.insert({
 					["<a-]>"] = cmp.mapping.abort(),
 					["<a-[>"] = cmp.mapping.abort(),
@@ -470,7 +467,7 @@ require("lazy").setup({
 					end),
 					["<tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
-							cmp.select_next_item()
+							cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 						elseif luasnip.expand_or_jumpable() then
 							luasnip.expand_or_jump()
 						else
@@ -479,7 +476,7 @@ require("lazy").setup({
 					end, { "i", "s" }),
 					["<s-tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
-							cmp.select_prev_item()
+							cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
 						elseif luasnip.jumpable(-1) then
 							luasnip.jump(-1)
 						else
@@ -495,6 +492,7 @@ require("lazy").setup({
 							return kind ~= "Snippet" and kind ~= "Text"
 						end
 					},
+					{ name = 'nvim_lsp_signature_help' },
 					{ name = "luasnip" },
 					{ name = "path" },
 				}, {}),
@@ -544,18 +542,8 @@ require("lazy").setup({
 			"onsails/lspkind.nvim",
 			"lukas-reineke/cmp-under-comparator",
 			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-nvim-lsp-signature-help",
 		},
-	},
-	{
-		"ray-x/lsp_signature.nvim",
-		event = "VeryLazy",
-		opts = {
-			doc_lines = 0,
-			floating_window = false,
-			hint_prefix = " ",
-			-- hint_scheme = "Comment",
-		},
-		config = function(_, opts) require 'lsp_signature'.setup(opts) end
 	},
 	{
 		"L3MON4D3/LuaSnip",
