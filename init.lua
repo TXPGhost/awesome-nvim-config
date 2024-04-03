@@ -450,9 +450,8 @@ require("lazy").setup({
 						luasnip.lsp_expand(args.body)
 					end,
 				},
-				completion = {
-					completeopt = 'menu,menuone,noinsert'
-				},
+				preselect = cmp.PreselectMode.None,
+				completion = { completeopt = "menu,menuone,noselect" },
 				mapping = cmp.mapping.preset.insert({
 					["<a-]>"] = cmp.mapping.abort(),
 					["<a-[>"] = cmp.mapping.abort(),
@@ -709,7 +708,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, { pattern = { "help" }, command = "w
 -- latex
 vim.api.nvim_create_user_command("LatexCompile", function()
 	local texpath = vim.fn.expand("%")
-	vim.cmd("!tectonic " .. texpath)
+	vim.cmd("silent !tectonic " .. texpath)
 end, {})
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	pattern = { "*.tex" },
