@@ -686,7 +686,7 @@ require("lazy").setup({
 				style = "deep",
 				transparent = true,
 				colors = {
-					["bg0"] = "#141414",
+					["bg0"] = "#121212",
 					["bg1"] = "#151515",
 					["bg2"] = "#181818",
 					["bg3"] = "#1A1A1A",
