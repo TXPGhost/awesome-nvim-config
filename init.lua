@@ -370,8 +370,8 @@ require("lazy").setup({
 				unpack = unpack or table.unpack
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 				local char = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col)
-				return col ~= 0 and char ~= "{" and char ~= "(" and char ~= "[" and char ~= ',' and char ~= '\\' and
-					char ~= '$'
+				return col ~= 0 and char ~= "{" and char ~= "(" and char ~= "[" and char ~= "," and char ~= "\\" and
+					char ~= "$"
 			end
 
 			local item_kind = {
@@ -491,18 +491,28 @@ require("lazy").setup({
 							return kind ~= "Snippet" and kind ~= "Text"
 						end
 					},
-					{ name = 'nvim_lsp_signature_help' },
+					{ name = "nvim_lsp_signature_help" },
 					{ name = "luasnip" },
 					{ name = "path" },
 				}, {}),
 				formatting = {
 					fields = { cmp.ItemField.Abbr, cmp.ItemField.Kind },
 					format = lspkind.cmp_format({
-						mode = 'symbol',
+						mode = "symbol",
 						maxwidth = 30,
-						ellipsis_char = '…',
+						ellipsis_char = "…",
 						before = function(_, vim_item)
-							vim_item.menu = ''
+							local index = 0
+							for i = 1, string.len(vim_item.abbr) do
+								local char = string.sub(vim_item.abbr, i, i)
+								if string.match(char, "%w") then
+									index = i
+									break
+								end
+							end
+
+							vim_item.abbr = string.sub(vim_item.abbr, index);
+							vim_item.menu = ""
 							return vim_item
 						end
 					})
@@ -656,7 +666,7 @@ require("lazy").setup({
 			})
 			require("lualine").setup({
 				sections = {
-					lualine_x = { require("lsp-progress").progress, 'encoding', 'fileformat', 'filetype' },
+					lualine_x = { require("lsp-progress").progress, "encoding", "fileformat", "filetype" },
 				}
 			})
 
