@@ -494,7 +494,6 @@ require("lazy").setup({
 					{ name = 'nvim_lsp_signature_help' },
 					{ name = "luasnip" },
 					{ name = "path" },
-					{ name = "buffer" },
 				}, {}),
 				formatting = {
 					fields = { cmp.ItemField.Abbr, cmp.ItemField.Kind },
@@ -544,7 +543,6 @@ require("lazy").setup({
 			"lukas-reineke/cmp-under-comparator",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
-			"hrsh7th/cmp-buffer"
 		},
 	},
 	{
