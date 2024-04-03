@@ -686,13 +686,17 @@ require("lazy").setup({
 				style = "deep",
 				transparent = true,
 				colors = {
-					["bg1"] = "#1c1f26",
-					["bg2"] = "#262933",
-					["bg3"] = "#2f343f",
+					["bg0"] = "#181818",
+					["bg1"] = "#1A1A1A",
+					["bg2"] = "#1C1C1C",
+					["bg3"] = "#1E1E1E",
+					["grey"] = "#5A5B5E",
+					["light_grey"] = "#818387",
 				},
 				highlights = {
 					["@markup.math.latex"] = { fg = "$yellow" },
-					["DiagnosticUnnecessary"] = { sp = "$grey", fmt = "underline" }
+					["DiagnosticUnnecessary"] = { sp = "$grey", fmt = "underline" },
+					["EndOfBuffer"] = { fg = "$bg3" },
 				},
 				diagnostics = {
 					undercurl = false,
