@@ -528,10 +528,11 @@ require("lazy").setup({
 
 			cmp.setup.cmdline(":", {
 				mapping = cmp.mapping.preset.cmdline(),
-				sources = cmp.config.sources({
-					{ name = "cmdline_history" },
+				sources = cmp.config.sources({ { name = "cmdline_history" },
 					{ name = "cmdline" },
 				}, {}),
+				preselect = cmp.PreselectMode.None,
+				completion = { completeopt = "menu,menuone,noselect" },
 			})
 		end,
 		dependencies = {
