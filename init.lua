@@ -698,6 +698,10 @@ require("lazy").setup({
 					["@markup.math.latex"] = { fg = "$yellow" },
 					["DiagnosticUnnecessary"] = { sp = "$grey", fmt = "underline" },
 					["EndOfBuffer"] = { fg = "$bg2" },
+					["TelescopeBorder"] = { fg = "$grey" },
+					["TelescopeResultsBorder"] = { fg = "$grey" },
+					["TelescopePreviewBorder"] = { fg = "$grey" },
+					["TelescopePromptBorder"] = { fg = "$grey" },
 				},
 				diagnostics = {
 					undercurl = false,
