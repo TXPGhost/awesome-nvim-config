@@ -697,7 +697,7 @@ require("lazy").setup({
 				highlights = {
 					["@markup.math.latex"] = { fg = "$yellow" },
 					["DiagnosticUnnecessary"] = { sp = "$grey", fmt = "underline" },
-					["EndOfBuffer"] = { fg = "$bg3" },
+					["EndOfBuffer"] = { fg = "$bg2" },
 				},
 				diagnostics = {
 					undercurl = false,
