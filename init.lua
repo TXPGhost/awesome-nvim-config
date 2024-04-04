@@ -363,17 +363,6 @@ require("lazy").setup({
 			local lspkind = require("lspkind")
 			local luasnip = require("luasnip")
 
-			local should_expand = function()
-				if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-					return false
-				end
-				unpack = unpack or table.unpack
-				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-				local char = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col)
-				return col ~= 0 and char ~= "{" and char ~= "(" and char ~= "[" and char ~= "," and char ~= "\\" and
-					char ~= "$"
-			end
-
 			local item_kind = {
 				Text = 1,
 				Method = 2,
@@ -450,38 +439,52 @@ require("lazy").setup({
 						luasnip.lsp_expand(args.body)
 					end,
 				},
-				preselect = cmp.PreselectMode.None,
-				completion = { completeopt = "menu,menuone,noselect" },
+				experimental = {
+					ghost_text = true
+				},
+				completion = {
+					completeopt = 'menu,menuone,noinsert'
+				},
 				mapping = cmp.mapping.preset.insert({
 					["<a-]>"] = cmp.mapping.abort(),
 					["<a-[>"] = cmp.mapping.abort(),
 					["<cr>"] = cmp.mapping(function(fallback)
-						if cmp.get_selected_entry() ~= nil then
+						if cmp.visible() and cmp.get_selected_entry() then
 							cmp.confirm()
-						elseif should_expand() and luasnip.expand_or_locally_jumpable() then
-							luasnip.expand_or_jump()
-						else
-							fallback()
-						end
-					end),
-					["<tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 						elseif luasnip.expand_or_jumpable() then
 							luasnip.expand_or_jump()
 						else
 							fallback()
 						end
 					end, { "i", "s" }),
+					["<tab>"] = cmp.mapping(function(fallback)
+						if luasnip.expand_or_jumpable() then
+							luasnip.expand_or_jump()
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
 					["<s-tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-						elseif luasnip.jumpable(-1) then
+						if luasnip.jumpable(-1) then
 							luasnip.jump(-1)
 						else
 							fallback()
 						end
 					end, { "i", "s" }),
+					["<c-j>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_next_item()
+						else
+							fallback()
+						end
+					end),
+					["<c-k>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_prev_item()
+						else
+							fallback()
+						end
+					end)
 				}),
 				sources = cmp.config.sources({
 					{
@@ -759,8 +762,8 @@ do
 
 	-- tabs
 	map("n", "<c-t>", "<cmd>tabnew<cr>")
-	map("n", "<c-h>", "<cmd>tabprev<cr>")
-	map("n", "<c-l>", "<cmd>tabnext<cr>")
+	map("n", "J", "<cmd>tabprev<cr>")
+	map("n", "K", "<cmd>tabnext<cr>")
 end
 
 -- startup commands

@@ -32,11 +32,13 @@ with `:Lazy profile`.
 
 ### Autocompletion
 
-| Key       |                            Binding |
-| :-------- | ---------------------------------: |
-| Enter     |          Complete or jump forwards |
-| Tab       |  Select next item or jump forwards |
-| Shift Tab | Select next item or jump backwards |
+| Key       |              Binding |
+| :-------- | -------------------: |
+| Enter     |             Complete |
+| Ctrl j    |     Select next item |
+| Ctrl k    | Select previous item |
+| Tab       |        Jump forwards |
+| Shift Tab |       Jump backwards |
 
 ### Copilot
 
@@ -102,8 +104,8 @@ with `:Lazy profile`.
 | Key    |           Binding |
 | :----- | ----------------: |
 | Ctrl t |    Create new tab |
-| Ctrl h | Goto previous tab |
-| Ctrl l |     Goto next tab |
+| J      | Goto previous tab |
+| K      |     Goto next tab |
 
 ### Terminal
 
