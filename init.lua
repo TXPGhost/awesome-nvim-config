@@ -362,6 +362,15 @@ require("lazy").setup({
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
 			local luasnip = require("luasnip")
+			local copilot_cmp = require("copilot_cmp")
+
+			copilot_cmp.setup({})
+
+			lspkind.init({
+				symbol_map = {
+					Copilot = "",
+				},
+			})
 
 			local item_kind = {
 				Text = 1,
@@ -460,6 +469,8 @@ require("lazy").setup({
 					["<tab>"] = cmp.mapping(function(fallback)
 						if luasnip.expand_or_jumpable() then
 							luasnip.expand_or_jump()
+						elseif cmp.visible() and cmp.get_selected_entry() then
+							cmp.confirm()
 						else
 							fallback()
 						end
@@ -487,6 +498,7 @@ require("lazy").setup({
 					end)
 				}),
 				sources = cmp.config.sources({
+					{ name = "copilot" },
 					{
 						name = "nvim_lsp",
 						entry_filter = function(entry, _)
@@ -508,7 +520,7 @@ require("lazy").setup({
 							local index = 0
 							for i = 1, string.len(vim_item.abbr) do
 								local char = string.sub(vim_item.abbr, i, i)
-								if string.match(char, "%w") then
+								if string.match(char, "[%w/\\#]") then
 									index = i
 									break
 								end
@@ -523,6 +535,7 @@ require("lazy").setup({
 				sorting = {
 					priority_weight = 2,
 					comparators = {
+						require("copilot_cmp.comparators").prioritize,
 						cmp.config.compare.exact,
 						cmp.config.compare.offset,
 						cmp.config.compare.score,
@@ -556,6 +569,7 @@ require("lazy").setup({
 			"lukas-reineke/cmp-under-comparator",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
+			"zbirenbaum/copilot-cmp",
 		},
 	},
 	{
@@ -610,7 +624,10 @@ require("lazy").setup({
 		"zbirenbaum/copilot.lua",
 		event = "VeryLazy",
 		config = function()
-			require("copilot").setup({})
+			require("copilot").setup({
+				suggestion = { enabled = false },
+				panel = { enabled = false },
+			})
 		end,
 	},
 	{
@@ -705,6 +722,7 @@ require("lazy").setup({
 					["TelescopeResultsBorder"] = { fg = "$grey" },
 					["TelescopePreviewBorder"] = { fg = "$grey" },
 					["TelescopePromptBorder"] = { fg = "$grey" },
+					["CmpItemKindCopilot"] = { fg = "$green" }
 				},
 				diagnostics = {
 					undercurl = false,
