@@ -11,6 +11,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+
+
 require("lazy").setup({
 	{ "nvim-lua/plenary.nvim",      lazy = true },
 	{ "kevinhwang91/promise-async", lazy = true },
@@ -28,11 +30,21 @@ require("lazy").setup({
 			vim.opt.foldlevel = 99999
 
 			local lspconfig = require("lspconfig")
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			capabilities.offsetEncoding = { "utf-16" }
-			capabilities.textDocument.foldingRange = {
-				dynamicRegistration = false,
-				lineFoldingOnly = true,
+			-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			-- capabilities.offsetEncoding = { "utf-16" }
+			-- capabilities.textDocument.foldingRange = {
+			-- 	dynamicRegistration = false,
+			-- 	lineFoldingOnly = true,
+			-- }
+
+			local capabilities = {
+				offsetEncoding = { "utf-16" },
+				textDocument = {
+					foldingRange = {
+						dynamicRegistration = false,
+						lineFoldOnly = true,
+					}
+				}
 			}
 
 			lspconfig.vimls.setup({ capabilities = capabilities })
@@ -361,7 +373,14 @@ require("lazy").setup({
 		config = function()
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
-			local luasnip = require("luasnip")
+			local snippy = require("snippy")
+			require("copilot_cmp").setup()
+
+			lspkind.init({
+				symbol_map = {
+					Copilot = "",
+				},
+			})
 
 			local item_kind = {
 				Text = 1,
@@ -433,84 +452,50 @@ require("lazy").setup({
 				return nil
 			end
 
-			local should_complete = function()
-				if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-					return false
-				end
-				unpack = unpack or table.unpack
-				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-				local char = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col)
-				return col ~= 0 and char ~= "{" and char ~= "(" and char ~= "[" and char ~= "," and char ~= "\\" and
-					char ~= "$"
-			end
-
 			cmp.setup({
 				snippet = {
 					expand = function(args)
-						luasnip.lsp_expand(args.body)
+						snippy.expand_snippet(args.body)
 					end,
 				},
-				completion = {
-					completeopt = 'menu,menuone,noinsert'
-				},
 				mapping = cmp.mapping.preset.insert({
-					["<a-]>"] = cmp.mapping.abort(),
-					["<a-[>"] = cmp.mapping.abort(),
 					["<cr>"] = cmp.mapping(function(fallback)
-						if should_complete() then
-							if cmp.visible() and cmp.get_selected_entry() then
-								cmp.confirm()
-							elseif luasnip.expand_or_jumpable() then
-								luasnip.expand_or_jump()
-							else
-								fallback()
-							end
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-					["<tab>"] = cmp.mapping(function(fallback)
-						if luasnip.expand_or_jumpable() then
-							luasnip.expand_or_jump()
-						elseif cmp.visible() and cmp.get_selected_entry() then
+						if cmp.visible() and cmp.get_active_entry() then
 							cmp.confirm()
 						else
 							fallback()
 						end
-					end, { "i", "s" }),
-					["<s-tab>"] = cmp.mapping(function(fallback)
-						if luasnip.jumpable(-1) then
-							luasnip.jump(-1)
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-					["<c-j>"] = cmp.mapping(function(fallback)
+					end),
+					["<tab>"] = cmp.mapping(function(_)
 						if cmp.visible() then
 							cmp.select_next_item()
 						else
-							fallback()
+							cmp.complete()
 						end
-					end),
-					["<c-k>"] = cmp.mapping(function(fallback)
+					end, { "i", "s" }),
+					["<s-tab>"] = cmp.mapping(function(_)
 						if cmp.visible() then
 							cmp.select_prev_item()
-						else
-							fallback()
 						end
-					end)
+					end, { "i", "s" }),
 				}),
+				experimental = {
+					ghost_text = true
+				},
+				completion = {
+					autocomplete = false,
+				},
 				sources = cmp.config.sources({
+					{ name = "copilot" },
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
-					{ name = "luasnip" },
 					{ name = "path" },
 				}, {}),
 				formatting = {
 					fields = { cmp.ItemField.Abbr, cmp.ItemField.Kind },
 					format = lspkind.cmp_format({
-						mode = "symbol",
-						maxwidth = 30,
+						mode = "symbol_text",
+						maxwidth = 50,
 						ellipsis_char = "…",
 						before = function(_, vim_item)
 							local index = 0
@@ -556,14 +541,14 @@ require("lazy").setup({
 		end,
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
-			"L3MON4D3/LuaSnip",
-			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-cmdline",
 			"dmitmel/cmp-cmdline-history",
 			"onsails/lspkind.nvim",
 			"lukas-reineke/cmp-under-comparator",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
+			"dcampos/nvim-snippy",
+			"zbirenbaum/copilot-cmp",
 		},
 	},
 	{
@@ -618,7 +603,10 @@ require("lazy").setup({
 		"zbirenbaum/copilot.lua",
 		event = "VeryLazy",
 		config = function()
-			require("copilot").setup({})
+			require("copilot").setup({
+				suggestion = { enabled = false },
+				panel = { enabled = false },
+			})
 		end,
 	},
 	{
@@ -774,6 +762,9 @@ do
 	map("n", "K", "<cmd>tabnext<cr>")
 	map("n", "H", "<cmd>wincmd W<cr>")
 	map("n", "L", "<cmd>wincmd w<cr>")
+
+	map("n", "<tab>", ">>")
+	map("n", "<s-tab>", "<<")
 end
 
 -- startup commands
