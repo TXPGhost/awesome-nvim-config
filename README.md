@@ -32,13 +32,11 @@ with `:Lazy profile`.
 
 ### Autocompletion
 
-| Key       |              Binding |
-| :-------- | -------------------: |
-| Enter     |             Complete |
-| Ctrl j    |     Select next item |
-| Ctrl k    | Select previous item |
-| Tab       |        Jump forwards |
-| Shift Tab |       Jump backwards |
+| Key       |                              Binding |
+| :-------- | -----------------------------------: |
+| Tab       | Invoke Completion / Select next item |
+| Shift Tab |                 Select previous item |
+| Enter     |                             Complete |
 
 ### Copilot
 
