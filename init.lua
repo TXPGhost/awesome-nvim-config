@@ -11,8 +11,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
-
 require("lazy").setup({
 	{ "nvim-lua/plenary.nvim",      lazy = true },
 	{ "kevinhwang91/promise-async", lazy = true },
@@ -328,10 +326,12 @@ require("lazy").setup({
 				haskell = { "ormolu" },
 				_ = { "trim_whitespace" },
 			},
-			format_on_save = {
-				timeout_ms = 500,
-				lsp_fallback = true,
-			},
+			format_on_save = function(bufnr)
+				if not vim.api.nvim_buf_get_option(bufnr, "modified") then
+					return
+				end
+				return { timeout_ms = 500, lsp_fallback = true }
+			end,
 			formatters = {
 				["ocamlformat"] = {
 					command = "ocamlformat",
@@ -606,6 +606,17 @@ require("lazy").setup({
 			require("copilot").setup({
 				suggestion = { enabled = false },
 				panel = { enabled = false },
+				filetypes = {
+					yaml = true,
+					markdown = true,
+					help = true,
+					gitcommit = true,
+					gitrebase = true,
+					hgcommit = true,
+					svn = true,
+					cvs = true,
+					["."] = true,
+				},
 			})
 		end,
 	},
