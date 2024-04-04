@@ -713,7 +713,6 @@ require("lazy").setup({
 					["TelescopeResultsBorder"] = { fg = "$grey" },
 					["TelescopePreviewBorder"] = { fg = "$grey" },
 					["TelescopePromptBorder"] = { fg = "$grey" },
-					["CmpItemKindCopilot"] = { fg = "$green" }
 				},
 				diagnostics = {
 					undercurl = false,
