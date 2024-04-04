@@ -362,15 +362,6 @@ require("lazy").setup({
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
 			local luasnip = require("luasnip")
-			local copilot_cmp = require("copilot_cmp")
-
-			copilot_cmp.setup({})
-
-			lspkind.init({
-				symbol_map = {
-					Copilot = "",
-				},
-			})
 
 			local item_kind = {
 				Text = 1,
@@ -498,7 +489,6 @@ require("lazy").setup({
 					end)
 				}),
 				sources = cmp.config.sources({
-					{ name = "copilot" },
 					{
 						name = "nvim_lsp",
 						entry_filter = function(entry, _)
@@ -535,7 +525,6 @@ require("lazy").setup({
 				sorting = {
 					priority_weight = 2,
 					comparators = {
-						require("copilot_cmp.comparators").prioritize,
 						cmp.config.compare.exact,
 						cmp.config.compare.offset,
 						cmp.config.compare.score,
@@ -569,7 +558,6 @@ require("lazy").setup({
 			"lukas-reineke/cmp-under-comparator",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
-			"zbirenbaum/copilot-cmp",
 		},
 	},
 	{
@@ -624,10 +612,7 @@ require("lazy").setup({
 		"zbirenbaum/copilot.lua",
 		event = "VeryLazy",
 		config = function()
-			require("copilot").setup({
-				suggestion = { enabled = false },
-				panel = { enabled = false },
-			})
+			require("copilot").setup({)
 		end,
 	},
 	{
