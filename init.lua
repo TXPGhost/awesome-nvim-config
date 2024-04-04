@@ -433,14 +433,22 @@ require("lazy").setup({
 				return nil
 			end
 
+			local should_complete = function()
+				if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+					return false
+				end
+				unpack = unpack or table.unpack
+				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+				local char = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col)
+				return col ~= 0 and char ~= "{" and char ~= "(" and char ~= "[" and char ~= "," and char ~= "\\" and
+					char ~= "$"
+			end
+
 			cmp.setup({
 				snippet = {
 					expand = function(args)
 						luasnip.lsp_expand(args.body)
 					end,
-				},
-				experimental = {
-					ghost_text = true
 				},
 				completion = {
 					completeopt = 'menu,menuone,noinsert'
@@ -449,10 +457,14 @@ require("lazy").setup({
 					["<a-]>"] = cmp.mapping.abort(),
 					["<a-[>"] = cmp.mapping.abort(),
 					["<cr>"] = cmp.mapping(function(fallback)
-						if cmp.visible() and cmp.get_selected_entry() then
-							cmp.confirm()
-						elseif luasnip.expand_or_jumpable() then
-							luasnip.expand_or_jump()
+						if should_complete() then
+							if cmp.visible() and cmp.get_selected_entry() then
+								cmp.confirm()
+							elseif luasnip.expand_or_jumpable() then
+								luasnip.expand_or_jump()
+							else
+								fallback()
+							end
 						else
 							fallback()
 						end
@@ -489,13 +501,7 @@ require("lazy").setup({
 					end)
 				}),
 				sources = cmp.config.sources({
-					{
-						name = "nvim_lsp",
-						entry_filter = function(entry, _)
-							local kind = require("cmp.types").lsp.CompletionItemKind[entry:get_kind()]
-							return kind ~= "Snippet" and kind ~= "Text"
-						end
-					},
+					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "luasnip" },
 					{ name = "path" },
@@ -569,10 +575,10 @@ require("lazy").setup({
 		event = "VeryLazy",
 		opts = {
 			fastwarp = {
-				map = "<a-0>",
-				rmap = "<a-9>",
-				cmap = "<a-0>",
-				rcmap = "<a-9>",
+				map = "<c-l>",
+				rmap = "<c-h>",
+				cmap = "<c-l>",
+				rcmap = "<c-h>",
 			}
 		},
 	},
@@ -612,7 +618,7 @@ require("lazy").setup({
 		"zbirenbaum/copilot.lua",
 		event = "VeryLazy",
 		config = function()
-			require("copilot").setup({)
+			require("copilot").setup({})
 		end,
 	},
 	{
