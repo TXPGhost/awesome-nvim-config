@@ -99,13 +99,15 @@ with `:Lazy profile`.
 | \]d     |     Jump to next diagnostic |
 | \[d     | Jump to previous diagnostic |
 
-### Tabs
+### Navigation
 
-| Key    |           Binding |
-| :----- | ----------------: |
-| Ctrl t |    Create new tab |
-| J      | Goto previous tab |
-| K      |     Goto next tab |
+| Key    |              Binding |
+| :----- | -------------------: |
+| Ctrl t |       Create new tab |
+| J      |    Goto previous tab |
+| K      |        Goto next tab |
+| L      |     Goto next window |
+| H      | Goto previous window |
 
 ### Terminal
 

@@ -764,6 +764,8 @@ do
 	map("n", "<c-t>", "<cmd>tabnew<cr>")
 	map("n", "J", "<cmd>tabprev<cr>")
 	map("n", "K", "<cmd>tabnext<cr>")
+	map("n", "H", "<cmd>wincmd W<cr>")
+	map("n", "L", "<cmd>wincmd w<cr>")
 end
 
 -- startup commands
