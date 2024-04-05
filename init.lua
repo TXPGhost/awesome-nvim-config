@@ -460,23 +460,34 @@ require("lazy").setup({
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<cr>"] = cmp.mapping(function(fallback)
-						if cmp.visible() and cmp.get_active_entry() then
+						if cmp.visible() and cmp.get_selected_entry() ~= nil then
 							cmp.confirm()
+							cmp.close()
 						else
 							fallback()
 						end
 					end),
 					["<tab>"] = cmp.mapping(function(_)
 						if cmp.visible() then
-							cmp.select_next_item()
+							cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+						elseif snippy.can_expand_or_advance() then
+							snippy.expand_or_advance()
 						else
 							cmp.complete()
 						end
 					end, { "i", "s" }),
 					["<s-tab>"] = cmp.mapping(function(_)
 						if cmp.visible() then
-							cmp.select_prev_item()
+							cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+						elseif snippy.can_jump(-1) then
+							snippy.previous()
 						end
+					end, { "i", "s" }),
+					["<esc>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.abort()
+						end
+						fallback()
 					end, { "i", "s" }),
 				}),
 				experimental = {
@@ -712,6 +723,7 @@ require("lazy").setup({
 					["TelescopeResultsBorder"] = { fg = "$grey" },
 					["TelescopePreviewBorder"] = { fg = "$grey" },
 					["TelescopePromptBorder"] = { fg = "$grey" },
+					["CmpItemKindCopilot"] = { fg = "$green" },
 				},
 				diagnostics = {
 					undercurl = false,
@@ -786,7 +798,7 @@ vim.opt.swapfile = false
 vim.opt.signcolumn = "yes"
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.wrap = false
+vim.opt.linebreak = true
 vim.opt.shell = "fish"
 vim.opt.textwidth = 80
 vim.opt.cursorline = false
