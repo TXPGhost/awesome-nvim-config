@@ -46,7 +46,10 @@ require("lazy").setup({
 			}
 
 			lspconfig.vimls.setup({ capabilities = capabilities })
-			lspconfig.clangd.setup({ capabilities = capabilities })
+			lspconfig.clangd.setup({
+				capabilities = capabilities,
+				cmd = { "clangd", "--query-driver=/usr/bin/arm-none-eabi-g++" }
+			})
 			lspconfig.cmake.setup({ capabilities = capabilities })
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
@@ -611,19 +614,7 @@ require("lazy").setup({
 		"zbirenbaum/copilot.lua",
 		event = "VeryLazy",
 		config = function()
-			require("copilot").setup({
-				filetypes = {
-					yaml = true,
-					markdown = true,
-					help = true,
-					gitcommit = true,
-					gitrebase = true,
-					hgcommit = true,
-					svn = true,
-					cvs = true,
-					["."] = true,
-				},
-			})
+			require("copilot").setup({})
 		end,
 	},
 	{
