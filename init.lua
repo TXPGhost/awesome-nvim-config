@@ -662,7 +662,7 @@ require("lazy").setup({
 	},
 	{
 		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons", "linrongbin16/lsp-progress.nvim" },
+		dependencies = { "nvim-tree/nvim-web-devicons", "linrongbin16/lsp-progress.nvim", "AndreM222/copilot-lualine" },
 		config = function()
 			require("lsp-progress").setup({
 				client_format = function(client_name, spinner, series_messages)
@@ -673,7 +673,7 @@ require("lazy").setup({
 			})
 			require("lualine").setup({
 				sections = {
-					lualine_x = { require("lsp-progress").progress, "encoding", "fileformat", "filetype" },
+					lualine_x = { "copilot", require("lsp-progress").progress, "encoding", "fileformat", "filetype" },
 				}
 			})
 
