@@ -374,13 +374,6 @@ require("lazy").setup({
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
 			local snippy = require("snippy")
-			require("copilot_cmp").setup()
-
-			lspkind.init({
-				symbol_map = {
-					Copilot = "",
-				},
-			})
 
 			local item_kind = {
 				Text = 1,
@@ -460,7 +453,9 @@ require("lazy").setup({
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<cr>"] = cmp.mapping(function(fallback)
-						if cmp.visible() and cmp.get_selected_entry() ~= nil then
+						if require("copilot.suggestion").is_visible() then
+							require("copilot.suggestion").accept({})
+						elseif cmp.visible() and cmp.get_selected_entry() ~= nil then
 							cmp.confirm()
 							cmp.close()
 						else
@@ -468,7 +463,9 @@ require("lazy").setup({
 						end
 					end),
 					["<tab>"] = cmp.mapping(function(_)
-						if cmp.visible() then
+						if require("copilot.suggestion").is_visible() then
+							require("copilot.suggestion").next()
+						elseif cmp.visible() then
 							cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 						elseif snippy.can_expand_or_advance() then
 							snippy.expand_or_advance()
@@ -481,6 +478,8 @@ require("lazy").setup({
 							cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
 						elseif snippy.can_jump(-1) then
 							snippy.previous()
+						else
+							require("copilot.suggestion").prev()
 						end
 					end, { "i", "s" }),
 					["<esc>"] = cmp.mapping(function(fallback)
@@ -497,7 +496,6 @@ require("lazy").setup({
 					autocomplete = false,
 				},
 				sources = cmp.config.sources({
-					{ name = "copilot" },
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "path" },
@@ -559,7 +557,6 @@ require("lazy").setup({
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"dcampos/nvim-snippy",
-			"zbirenbaum/copilot-cmp",
 		},
 	},
 	{
@@ -615,8 +612,6 @@ require("lazy").setup({
 		event = "VeryLazy",
 		config = function()
 			require("copilot").setup({
-				suggestion = { enabled = false },
-				panel = { enabled = false },
 				filetypes = {
 					yaml = true,
 					markdown = true,
@@ -723,7 +718,6 @@ require("lazy").setup({
 					["TelescopeResultsBorder"] = { fg = "$grey" },
 					["TelescopePreviewBorder"] = { fg = "$grey" },
 					["TelescopePromptBorder"] = { fg = "$grey" },
-					["CmpItemKindCopilot"] = { fg = "$green" },
 				},
 				diagnostics = {
 					undercurl = false,
