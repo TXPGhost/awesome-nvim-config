@@ -28,21 +28,11 @@ require("lazy").setup({
 			vim.opt.foldlevel = 99999
 
 			local lspconfig = require("lspconfig")
-			-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			-- capabilities.offsetEncoding = { "utf-16" }
-			-- capabilities.textDocument.foldingRange = {
-			-- 	dynamicRegistration = false,
-			-- 	lineFoldingOnly = true,
-			-- }
-
-			local capabilities = {
-				offsetEncoding = { "utf-16" },
-				textDocument = {
-					foldingRange = {
-						dynamicRegistration = false,
-						lineFoldOnly = true,
-					}
-				}
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			capabilities.offsetEncoding = { "utf-16" }
+			capabilities.textDocument.foldingRange = {
+				dynamicRegistration = false,
+				lineFoldingOnly = true,
 			}
 
 			lspconfig.vimls.setup({ capabilities = capabilities })
@@ -234,6 +224,9 @@ require("lazy").setup({
 				auto_install = true,
 				highlight = {
 					enable = true,
+				},
+				indent = {
+					enable = true
 				},
 				incremental_selection = {
 					enable = true,
@@ -493,7 +486,7 @@ require("lazy").setup({
 					end, { "i", "s" }),
 				}),
 				experimental = {
-					ghost_text = true
+					ghost_text = true,
 				},
 				completion = {
 					autocomplete = false,
@@ -544,7 +537,7 @@ require("lazy").setup({
 
 			cmp.setup.cmdline(":", {
 				mapping = cmp.mapping.preset.cmdline(),
-				sources = cmp.config.sources({ { name = "cmdline_history" },
+				sources = cmp.config.sources({
 					{ name = "cmdline" },
 				}, {}),
 				preselect = cmp.PreselectMode.None,
@@ -554,17 +547,12 @@ require("lazy").setup({
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-cmdline",
-			"dmitmel/cmp-cmdline-history",
 			"onsails/lspkind.nvim",
 			"lukas-reineke/cmp-under-comparator",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"dcampos/nvim-snippy",
 		},
-	},
-	{
-		"L3MON4D3/LuaSnip",
-		build = "make install_jsregexp"
 	},
 	{
 		"altermo/ultimate-autopair.nvim",
@@ -709,6 +697,7 @@ require("lazy").setup({
 					["TelescopeResultsBorder"] = { fg = "$grey" },
 					["TelescopePreviewBorder"] = { fg = "$grey" },
 					["TelescopePromptBorder"] = { fg = "$grey" },
+					["Folded"] = { bg = "$bg1" },
 				},
 				diagnostics = {
 					undercurl = false,
@@ -770,9 +759,6 @@ do
 	map("n", "K", "<cmd>tabnext<cr>")
 	map("n", "H", "<cmd>wincmd W<cr>")
 	map("n", "L", "<cmd>wincmd w<cr>")
-
-	map("n", "<tab>", ">>")
-	map("n", "<s-tab>", "<<")
 end
 
 -- startup commands
@@ -791,4 +777,4 @@ vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.foldlevel = 99999
 vim.opt.shortmess:append("I")
-vim.opt.pumheight = 5
+vim.opt.pumheight = 8
