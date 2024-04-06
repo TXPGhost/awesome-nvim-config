@@ -616,31 +616,6 @@ require("lazy").setup({
 		build = function() vim.fn["mkdp#util#install"]() end,
 	},
 	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons", "linrongbin16/lsp-progress.nvim", "AndreM222/copilot-lualine" },
-		config = function()
-			require("lsp-progress").setup({
-				client_format = function(client_name, spinner, series_messages)
-					return #series_messages > 0
-						and ("[" .. client_name .. "] " .. spinner)
-						or nil
-				end,
-			})
-			require("lualine").setup({
-				sections = {
-					lualine_x = { "copilot", require("lsp-progress").progress, "encoding", "fileformat", "filetype" },
-				}
-			})
-
-			vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
-			vim.api.nvim_create_autocmd("User", {
-				group = "lualine_augroup",
-				pattern = "LspProgressStatusUpdated",
-				callback = require("lualine").refresh,
-			})
-		end
-	},
-	{
 		"navarasu/onedark.nvim",
 		priority = 1000,
 		config = function()
