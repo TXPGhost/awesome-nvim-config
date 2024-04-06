@@ -587,8 +587,7 @@ require("lazy").setup({
 			vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit!<cr>")
 		end,
 	},
-	{ "nvim-tree/nvim-web-devicons", lazy = true },
-	{ "tpope/vim-sleuth",            event = "VeryLazy" },
+	{ "tpope/vim-sleuth", event = "VeryLazy" },
 	{
 		"zbirenbaum/copilot.lua",
 		event = "VeryLazy",
