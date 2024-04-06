@@ -620,7 +620,7 @@ require("lazy").setup({
 		priority = 1000,
 		config = function()
 			require("onedark").setup({
-				style = "deep",
+				style = "warmer",
 				transparent = true,
 				colors = {
 					["bg0"] = "#121212",
