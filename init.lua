@@ -228,15 +228,6 @@ require("lazy").setup({
 				indent = {
 					enable = true
 				},
-				incremental_selection = {
-					enable = true,
-					keymaps = {
-						init_selection = "<cr>",
-						scope_incremental = "<cr>",
-						node_incremental = "<tab>",
-						node_decremental = "<s-tab>",
-					},
-				},
 				beacon = {
 					enable = false,
 				},
