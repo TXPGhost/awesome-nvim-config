@@ -559,10 +559,10 @@ require("lazy").setup({
 		event = "VeryLazy",
 		opts = {
 			fastwarp = {
-				map = "<c-l>",
-				rmap = "<c-h>",
-				cmap = "<c-l>",
-				rcmap = "<c-h>",
+				map = "<c-0>",
+				rmap = "<c-9>",
+				cmap = "<c-0>",
+				rcmap = "<c-9>",
 			}
 		},
 	},
@@ -732,10 +732,8 @@ do
 
 	-- tabs
 	map("n", "<c-t>", "<cmd>tabnew<cr>")
-	map("n", "J", "<cmd>tabprev<cr>")
-	map("n", "K", "<cmd>tabnext<cr>")
-	map("n", "H", "<cmd>wincmd W<cr>")
-	map("n", "L", "<cmd>wincmd w<cr>")
+	map("n", "<c-h>", "<cmd>tabprev<cr>")
+	map("n", "<c-l>", "<cmd>tabnext<cr>")
 end
 
 -- startup commands

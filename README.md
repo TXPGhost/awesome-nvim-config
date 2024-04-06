@@ -99,13 +99,11 @@ with `:Lazy profile`.
 
 ### Navigation
 
-| Key    |              Binding |
-| :----- | -------------------: |
-| Ctrl t |       Create new tab |
-| J      |    Goto previous tab |
-| K      |        Goto next tab |
-| L      |     Goto next window |
-| H      | Goto previous window |
+| Key    |           Binding |
+| :----- | ----------------: |
+| Ctrl t |    Create new tab |
+| Ctrl h | Goto previous tab |
+| Ctrl l |     Goto next tab |
 
 ### Terminal
 
@@ -122,22 +120,13 @@ with `:Lazy profile`.
 | zM      |                            Close all folds |
 | zr      | Open all folds except comments and imports |
 | zm      |                 Close all folds with level |
-| Space r |                       Preview current fold |
+| Space k |                       Preview current fold |
 | ]f      |                      Goto next closed fold |
 | [f      |                  Goto previous closed fold |
-
-## Selection
-
-| Key |   Binding |
-| :-- | --------: |
-| >   |    Indent |
-| <   |    Dedent |
-| .   |   Move up |
-| ,   | Move down |
 
 ## Pairs
 
 | Key   |                      Binding |
 | :---- | ---------------------------: |
-| Alt l |      Fast warp next end pair |
-| Alt h | Undo fast warp next end pair |
+| Alt 0 |      Fast warp next end pair |
+| Alt 9 | Undo fast warp next end pair |
