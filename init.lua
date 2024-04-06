@@ -606,29 +606,6 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"echasnovski/mini.move",
-		event = "VeryLazy",
-		opts = {
-			mappings = {
-				left = "<",
-				right = ">",
-				down = ",",
-				up = ".",
-				line_left = "<m-h>",
-				line_right = "<m-l>",
-				line_down = "<m-j>",
-				line_up = "<m-k>",
-			},
-
-			options = {
-				reindent_linewise = true,
-			},
-		},
-		config = function(_, opts)
-			require("mini.move").setup(opts)
-		end,
-	},
-	{
 		"rmagatti/goto-preview",
 		event = "VeryLazy",
 		config = function()
