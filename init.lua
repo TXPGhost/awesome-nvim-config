@@ -550,10 +550,10 @@ require("lazy").setup({
 		event = "VeryLazy",
 		opts = {
 			fastwarp = {
-				map = "<c-0>",
-				rmap = "<c-9>",
-				cmap = "<c-0>",
-				rcmap = "<c-9>",
+				map = "<a-0>",
+				rmap = "<a-9>",
+				cmap = "<a-0>",
+				rcmap = "<a-9>",
 			}
 		},
 	},
