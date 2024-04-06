@@ -680,25 +680,23 @@ vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=qnlj")
 
 -- keymaps
 do
-	local map = vim.keymap.set
-
 	-- use esc key to exit trouble window and kill highlighting
-	map("n", "<esc>", "<cmd>noh<cr><cmd>TroubleClose<cr>")
+	vim.keymap.set("n", "<esc>", "<cmd>noh<cr><cmd>TroubleClose<cr>")
 
 	-- easy enter terminal mode
-	map(
+	vim.keymap.set(
 		"n",
 		"<c-cr>",
 		"<cmd>terminal<cr><cmd>setlocal nonumber<cr><cmd>setlocal norelativenumber<cr><cmd>setlocal signcolumn=no<cr>i"
 	)
 
 	-- easy exit terminal mode
-	map("t", "<c-a>", "<c-\\><c-n>")
+	vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
 
 	-- tabs
-	map("n", "<c-t>", "<cmd>tabnew<cr>")
-	map("n", "<c-h>", "<cmd>tabprev<cr>")
-	map("n", "<c-l>", "<cmd>tabnext<cr>")
+	vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
+	vim.keymap.set("n", "<c-h>", "<cmd>tabprev<cr>")
+	vim.keymap.set("n", "<c-l>", "<cmd>tabnext<cr>")
 end
 
 -- startup commands
