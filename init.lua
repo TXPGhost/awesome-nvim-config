@@ -760,6 +760,7 @@ local fggggg = "#2e2f30"
 local bg = "#121212"
 local bgg = "#151515"
 local bggg = "#181818"
+local bgggg = "#1A1A1A"
 
 local blue = "#466793"
 local lightblue = "#839BAF"
