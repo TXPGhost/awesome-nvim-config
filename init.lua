@@ -635,66 +635,14 @@ require("lazy").setup({
 		ft = { "markdown" },
 		build = function() vim.fn["mkdp#util#install"]() end,
 	},
-	-- {
-	-- 	"navarasu/onedark.nvim",
-	-- 	priority = 1000,
-	-- 	config = function()
-	-- 		require("onedark").setup({
-	-- 			style = "warmer",
-	-- 			transparent = true,
-	-- 			colors = {
-	-- 				["bg0"] = "#121212",
-	-- 				["bg1"] = "#151515",
-	-- 				["bg2"] = "#181818",
-	-- 				["bg3"] = "#1A1A1A",
-	-- 				["fg"] = "#A7AAB0",
-	-- 				["grey"] = "#5A5B5E",
-	-- 				["light_grey"] = "#818387",
-	-- 			},
-	-- 			highlights = {
-	-- 				["@markup.math.latex"] = { fg = "$yellow" },
-	-- 				["DiagnosticUnnecessary"] = { sp = "$grey", fmt = "underline" },
-	-- 				["EndOfBuffer"] = { fg = "$bg2" },
-	-- 				["TelescopeBorder"] = { fg = "$grey" },
-	-- 				["TelescopeResultsBorder"] = { fg = "$grey" },
-	-- 				["TelescopePreviewBorder"] = { fg = "$grey" },
-	-- 				["TelescopePromptBorder"] = { fg = "$grey" },
-	-- 				["Folded"] = { bg = "$bg1" },
-	-- 			},
-	-- 			diagnostics = {
-	-- 				undercurl = false,
-	-- 			}
-	-- 		})
-	-- 		-- require("onedark").load()
-	-- 	end
-	-- },
-	-- {
-	-- 	"rebelot/kanagawa.nvim",
-	-- 	priority = 1000,
-	-- 	config = function()
-	-- 		require("kanagawa").setup({
-	-- 			compile = true,
-	-- 			undercurl = false,
-	-- 			colors = {
-	-- 				theme = {
-	-- 					all = {
-	-- 						ui = {
-	-- 							bg_gutter = "none"
-	-- 						}
-	-- 					}
-	-- 				}
-	-- 			}
-	-- 		})
-	-- 		-- vim.cmd.colorscheme("kanagawa-dragon")
-	-- 	end
-	-- },
-	-- {
-	-- 	"aktersnurra/no-clown-fiesta.nvim",
-	-- 	priority = 1000,
-	-- 	config = function()
-	-- 		-- vim.cmd.colorscheme("no-clown-fiesta")
-	-- 	end
-	-- },
+	{
+		"norcalli/nvim-colorizer.lua",
+		event = "VeryLazy",
+		config = function()
+			vim.opt.termguicolors = true
+			require("colorizer").setup()
+		end
+	},
 	{
 		"saecki/crates.nvim",
 		event = "BufRead Cargo.toml",
@@ -813,7 +761,7 @@ vim.api.nvim_set_hl(0, "StatusLineNC", { fg = fggg, bg = bgg })
 vim.api.nvim_set_hl(0, "WinSeparator", { fg = bggg })
 vim.api.nvim_set_hl(0, "Visual", { bg = bggg })
 vim.api.nvim_set_hl(0, "Search", { reverse = true })
-vim.api.nvim_set_hl(0, "CursorLine", {})
+vim.api.nvim_set_hl(0, "CursorLine", { bg = bgg })
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = fggg })
 vim.api.nvim_set_hl(0, "Folded", { bg = bgg })
 vim.api.nvim_set_hl(0, "Title", { fg = cyan, bold = true })
