@@ -819,11 +819,13 @@ vim.api.nvim_set_hl(0, "Title", { bold = true })
 vim.api.nvim_set_hl(0, "MatchParen", { bg = bggg, bold = true })
 
 vim.api.nvim_set_hl(0, "diffAdded", { fg = green })
+vim.api.nvim_set_hl(0, "diffChanged", { fg = blue })
+vim.api.nvim_set_hl(0, "diffRemoved", { fg = red })
+vim.api.nvim_set_hl(0, "diffLine", { fg = fggg })
+
 vim.api.nvim_set_hl(0, "DiffAdd", { fg = green })
 vim.api.nvim_set_hl(0, "DiffChange", { fg = blue })
-vim.api.nvim_set_hl(0, "diffChanged", { fg = blue })
 vim.api.nvim_set_hl(0, "DiffDelete", { fg = red })
-vim.api.nvim_set_hl(0, "diffRemoved", { fg = red })
 
 vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { sp = fggg, underline = true })
 
@@ -877,3 +879,9 @@ vim.api.nvim_set_hl(0, "@module.latex", { fg = cyan })
 
 vim.api.nvim_set_hl(0, "GitSignsAddPreview", { bg = redbg })
 vim.api.nvim_set_hl(0, "GitSignsDeleteVirtLn", { fg = red, bg = bluebg, italic = true })
+
+vim.api.nvim_set_hl(0, "fugitiveSymbolicRef", { fg = cyan })
+vim.api.nvim_set_hl(0, "fugitiveHelpTag", { fg = gold })
+
+vim.api.nvim_set_hl(0, "@markup.link.gitcommit", { fg = cyan })
+vim.api.nvim_set_hl(0, "@string.special.url.gitcommit", { fg = fg })
