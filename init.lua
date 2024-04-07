@@ -855,9 +855,6 @@ vim.api.nvim_set_hl(0, "@variable.parameter", { fg = lightblue })
 vim.api.nvim_set_hl(0, "@lsp.type.parameter", { fg = lightblue })
 vim.api.nvim_set_hl(0, "@lsp.typemod.parameter", { fg = lightblue })
 
--- vim.api.nvim_set_hl(0, "@constant.builtin", { fg = gold, italic = true })
--- vim.api.nvim_set_hl(0, "@variable.builtin", { fg = blue, italic = true })
--- vim.api.nvim_set_hl(0, "@function.builtin", { fg = lightblue, italic = true })
 vim.api.nvim_set_hl(0, "@function.macro", { fg = purple, bold = true })
 
 vim.api.nvim_set_hl(0, "@lsp.type", { link = "Type" })
