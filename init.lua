@@ -501,7 +501,7 @@ require("lazy").setup({
 							local index = 0
 							for i = 1, string.len(vim_item.abbr) do
 								local char = string.sub(vim_item.abbr, i, i)
-								if string.match(char, "[%w/\\#]") then
+								if string.match(char, "[%w/\\\\#]") then
 									index = i
 									break
 								end
@@ -777,6 +777,7 @@ vim.api.nvim_set_hl(0, "Constant", { fg = gold })
 vim.api.nvim_set_hl(0, "Special", {})
 vim.api.nvim_set_hl(0, "Comment", { fg = fggg, italic = true })
 vim.api.nvim_set_hl(0, "Pmenu", { bg = bgg })
+vim.api.nvim_set_hl(0, "PmenuSel", { bg = bggg })
 vim.api.nvim_set_hl(0, "Type", { fg = cyan })
 vim.api.nvim_set_hl(0, "PreProc", { fg = purple })
 vim.api.nvim_set_hl(0, "String", { fg = green })
