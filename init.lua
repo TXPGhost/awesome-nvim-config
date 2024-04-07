@@ -65,7 +65,24 @@ require("lazy").setup({
 			lspconfig.dotls.setup({ capabilities = capabilities })
 			lspconfig.hls.setup({ capabilities = capabilities })
 			lspconfig.glslls.setup({ capabilities = capabilities })
-			lspconfig.pylsp.setup({ capabilities = capabilities })
+			lspconfig.pylsp.setup({
+				capabilities = capabilities,
+				settings = {
+					pylsp = {
+						plugins = {
+							black = { enabled = true },
+							autopep8 = { enabled = false },
+							yapf = { enabled = false },
+							pylint = { enabled = true, executable = "pylint" },
+							pyflakes = { enabled = false },
+							pycodestyle = { enabled = false },
+							pylsp_mypy = { enabled = true },
+							jedi_completion = { fuzzy = true },
+							pyls_isort = { enabled = true },
+						}
+					}
+				}
+			})
 			lspconfig.denols.setup({
 				capabilities = capabilities,
 				root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
@@ -315,6 +332,7 @@ require("lazy").setup({
 				lua = { "stylua" },
 				ocaml = { "ocamlformat" },
 				haskell = { "ormolu" },
+				python = { "black", "isort" },
 				_ = { "trim_whitespace" },
 			},
 			format_on_save = function(bufnr)
@@ -575,8 +593,8 @@ require("lazy").setup({
 			require("gitsigns").setup({ update_debounce = 0 })
 
 			vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
-			vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
-			vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
+			vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>zz")
+			vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>zz")
 			vim.keymap.set("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
 			vim.keymap.set("n", "ghu", "<cmd>Gitsigns undo_stage_hunk<cr>")
 			vim.keymap.set("n", "ghr", "<cmd>Gitsigns reset_hunk<cr>")
@@ -770,6 +788,9 @@ local gold = "#BC9636"
 local purple = "#A26FC6"
 local red = "#C6706F"
 
+local redbg = "#121c12"
+local bluebg = "#1c1212"
+
 vim.api.nvim_set_hl(0, "Normal", { fg = fg, bg = bg })
 vim.api.nvim_set_hl(0, "Identifier", {})
 vim.api.nvim_set_hl(0, "Statement", {})
@@ -853,3 +874,6 @@ vim.api.nvim_set_hl(0, "@markup.strong.markdown_inline", { bold = true })
 vim.api.nvim_set_hl(0, "@markup.italic.markdown_inline", { italic = true })
 
 vim.api.nvim_set_hl(0, "@module.latex", { fg = cyan })
+
+vim.api.nvim_set_hl(0, "GitSignsAddPreview", { bg = redbg })
+vim.api.nvim_set_hl(0, "GitSignsDeleteVirtLn", { fg = red, bg = bluebg, italic = true })
