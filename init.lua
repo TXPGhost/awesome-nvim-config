@@ -449,6 +449,8 @@ require("lazy").setup({
 						elseif cmp.visible() and cmp.get_selected_entry() ~= nil then
 							cmp.confirm()
 							cmp.close()
+						elseif snippy.can_expand_or_advance() then
+							snippy.expand_or_advance()
 						else
 							fallback()
 						end
@@ -458,8 +460,6 @@ require("lazy").setup({
 							require("copilot.suggestion").next()
 						elseif cmp.visible() then
 							cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-						elseif snippy.can_expand_or_advance() then
-							snippy.expand_or_advance()
 						else
 							cmp.complete()
 						end
@@ -777,7 +777,7 @@ vim.api.nvim_set_hl(0, "Constant", { fg = gold })
 vim.api.nvim_set_hl(0, "Special", {})
 vim.api.nvim_set_hl(0, "Comment", { fg = fggg, italic = true })
 vim.api.nvim_set_hl(0, "Pmenu", { bg = bgg })
-vim.api.nvim_set_hl(0, "PmenuSel", { bg = bggg })
+vim.api.nvim_set_hl(0, "PmenuSel", { bg = bgggg })
 vim.api.nvim_set_hl(0, "Type", { fg = cyan })
 vim.api.nvim_set_hl(0, "PreProc", { fg = purple })
 vim.api.nvim_set_hl(0, "String", { fg = green })

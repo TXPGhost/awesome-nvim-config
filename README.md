@@ -34,9 +34,9 @@ with `:Lazy profile`.
 
 | Key       |                               Binding |
 | :-------- | ------------------------------------: |
-| Tab       |  Invoke Completion / Select next item |
+| Tab       |                     Invoke Completion |
 | Shift Tab | Invoke Copilot / Select previous item |
-| Enter     |                              Complete |
+| Enter     |           Complete / Select next item |
 
 ### Copilot
 
