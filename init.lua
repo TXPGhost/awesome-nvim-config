@@ -748,6 +748,7 @@ vim.opt.foldlevel = 99999
 vim.opt.shortmess:append("I")
 vim.opt.pumheight = 8
 vim.opt.termguicolors = true
+vim.opt.cursorline = true
 
 -- colorscheme
 local fg = "#A7AAB0"
@@ -788,7 +789,8 @@ vim.api.nvim_set_hl(0, "StatusLineNC", { fg = fggg, bg = bgg })
 vim.api.nvim_set_hl(0, "WinSeparator", { fg = bggg })
 vim.api.nvim_set_hl(0, "Visual", { bg = bggg })
 vim.api.nvim_set_hl(0, "Search", { reverse = true })
-vim.api.nvim_set_hl(0, "CursorLine", { bg = bgg })
+vim.api.nvim_set_hl(0, "CursorLine", {})
+vim.api.nvim_set_hl(0, "CursorLineNr", { fg = fggg })
 vim.api.nvim_set_hl(0, "Folded", { bg = bgg })
 vim.api.nvim_set_hl(0, "Title", { bold = true })
 vim.api.nvim_set_hl(0, "MatchParen", { bg = bggg, bold = true })
