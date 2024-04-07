@@ -793,13 +793,14 @@ vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { sp = fggg, underline = true })
 vim.api.nvim_set_hl(0, "@punctuation", { fg = fgg })
 vim.api.nvim_set_hl(0, "@operator", { fg = fgg })
 vim.api.nvim_set_hl(0, "@keyword", { fg = blue, bold = true })
-vim.api.nvim_set_hl(0, "@function", { fg = lightblue })
 vim.api.nvim_set_hl(0, "@keyword.directive", { fg = purple, bold = true })
 vim.api.nvim_set_hl(0, "@keyword.import", { fg = purple, bold = true })
 
-vim.api.nvim_set_hl(0, "@variable.parameter", { fg = lightblue })
-vim.api.nvim_set_hl(0, "@lsp.type.parameter", { fg = lightblue })
-vim.api.nvim_set_hl(0, "@lsp.typemod.parameter", { fg = lightblue })
+vim.api.nvim_set_hl(0, "@variable.member", { fg = lightblue })
+vim.api.nvim_set_hl(0, "@lsp.type.property", { fg = lightblue })
+vim.api.nvim_set_hl(0, "@lsp.typemod.property", { fg = lightblue })
+
+vim.api.nvim_set_hl(0, "@variable.builtin", { fg = blue })
 
 vim.api.nvim_set_hl(0, "@function.macro", { fg = purple, bold = true })
 
