@@ -788,7 +788,12 @@ vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = red })
 vim.api.nvim_set_hl(0, "GitSignsAddPreview", { link = "diffAdded" })
 vim.api.nvim_set_hl(0, "GitSignsDeleteVirtLn", { link = "diffRemoved" })
 
-vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { sp = fggg, underline = true })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineOk", {})
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", {})
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", {})
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { sp = gold, undercurl = true })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { sp = red, undercurl = true })
+vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { sp = fggg, undercurl = true })
 
 vim.api.nvim_set_hl(0, "@punctuation", { fg = fgg })
 vim.api.nvim_set_hl(0, "@operator", { fg = fgg })
