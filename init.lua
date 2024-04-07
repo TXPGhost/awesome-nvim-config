@@ -238,6 +238,9 @@ require("lazy").setup({
 					enable = true,
 				},
 			})
+
+			require("treesitter-context").setup({})
+
 			vim.opt.foldmethod = "expr"
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 			vim.opt.foldlevel = 99999
@@ -245,6 +248,7 @@ require("lazy").setup({
 		dependencies = {
 			"RRethy/nvim-treesitter-endwise",
 			"windwp/nvim-ts-autotag",
+			"nvim-treesitter/nvim-treesitter-context",
 		},
 	},
 	{
@@ -615,46 +619,73 @@ require("lazy").setup({
 		ft = { "markdown" },
 		build = function() vim.fn["mkdp#util#install"]() end,
 	},
-	{
-		"navarasu/onedark.nvim",
-		priority = 1000,
-		config = function()
-			require("onedark").setup({
-				style = "warmer",
-				transparent = true,
-				colors = {
-					["bg0"] = "#121212",
-					["bg1"] = "#151515",
-					["bg2"] = "#181818",
-					["bg3"] = "#1A1A1A",
-					["fg"] = "#A7AAB0",
-					["grey"] = "#5A5B5E",
-					["light_grey"] = "#818387",
-				},
-				highlights = {
-					["@markup.math.latex"] = { fg = "$yellow" },
-					["DiagnosticUnnecessary"] = { sp = "$grey", fmt = "underline" },
-					["EndOfBuffer"] = { fg = "$bg2" },
-					["TelescopeBorder"] = { fg = "$grey" },
-					["TelescopeResultsBorder"] = { fg = "$grey" },
-					["TelescopePreviewBorder"] = { fg = "$grey" },
-					["TelescopePromptBorder"] = { fg = "$grey" },
-					["Folded"] = { bg = "$bg1" },
-				},
-				diagnostics = {
-					undercurl = false,
-				}
-			})
-			require("onedark").load()
-		end
-	},
+	-- {
+	-- 	"navarasu/onedark.nvim",
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		require("onedark").setup({
+	-- 			style = "warmer",
+	-- 			transparent = true,
+	-- 			colors = {
+	-- 				["bg0"] = "#121212",
+	-- 				["bg1"] = "#151515",
+	-- 				["bg2"] = "#181818",
+	-- 				["bg3"] = "#1A1A1A",
+	-- 				["fg"] = "#A7AAB0",
+	-- 				["grey"] = "#5A5B5E",
+	-- 				["light_grey"] = "#818387",
+	-- 			},
+	-- 			highlights = {
+	-- 				["@markup.math.latex"] = { fg = "$yellow" },
+	-- 				["DiagnosticUnnecessary"] = { sp = "$grey", fmt = "underline" },
+	-- 				["EndOfBuffer"] = { fg = "$bg2" },
+	-- 				["TelescopeBorder"] = { fg = "$grey" },
+	-- 				["TelescopeResultsBorder"] = { fg = "$grey" },
+	-- 				["TelescopePreviewBorder"] = { fg = "$grey" },
+	-- 				["TelescopePromptBorder"] = { fg = "$grey" },
+	-- 				["Folded"] = { bg = "$bg1" },
+	-- 			},
+	-- 			diagnostics = {
+	-- 				undercurl = false,
+	-- 			}
+	-- 		})
+	-- 		-- require("onedark").load()
+	-- 	end
+	-- },
+	-- {
+	-- 	"rebelot/kanagawa.nvim",
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		require("kanagawa").setup({
+	-- 			compile = true,
+	-- 			undercurl = false,
+	-- 			colors = {
+	-- 				theme = {
+	-- 					all = {
+	-- 						ui = {
+	-- 							bg_gutter = "none"
+	-- 						}
+	-- 					}
+	-- 				}
+	-- 			}
+	-- 		})
+	-- 		-- vim.cmd.colorscheme("kanagawa-dragon")
+	-- 	end
+	-- },
+	-- {
+	-- 	"aktersnurra/no-clown-fiesta.nvim",
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		-- vim.cmd.colorscheme("no-clown-fiesta")
+	-- 	end
+	-- },
 	{
 		"saecki/crates.nvim",
 		event = "BufRead Cargo.toml",
 		config = function()
 			require("crates").setup()
 		end,
-	}
+	},
 })
 
 -- set help window to vertical split
@@ -716,3 +747,86 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.foldlevel = 99999
 vim.opt.shortmess:append("I")
 vim.opt.pumheight = 8
+vim.opt.termguicolors = true
+
+-- colorscheme
+local fg = "#A7AAB0"
+local fgg = "#76787C"
+local fggg = "#5e6063"
+local fgggg = "#464749"
+local fggggg = "#2e2f30"
+
+local bg = "#121212"
+local bgg = "#151515"
+local bggg = "#181818"
+
+local blue = "#466793"
+local lightblue = "#839BAF"
+local cyan = "#568FA5"
+local green = "#56A56b"
+local gold = "#BC9636"
+local purple = "#A26FC6"
+local red = "#C6706F"
+
+vim.api.nvim_set_hl(0, "Normal", { fg = fg, bg = bg })
+vim.api.nvim_set_hl(0, "Identifier", {})
+vim.api.nvim_set_hl(0, "Statement", {})
+vim.api.nvim_set_hl(0, "LineNr", {})
+vim.api.nvim_set_hl(0, "Constant", { fg = gold })
+vim.api.nvim_set_hl(0, "Special", {})
+vim.api.nvim_set_hl(0, "Comment", { fg = fggg, italic = true })
+vim.api.nvim_set_hl(0, "Pmenu", { bg = bgg })
+vim.api.nvim_set_hl(0, "Type", { fg = cyan })
+vim.api.nvim_set_hl(0, "PreProc", { fg = purple })
+vim.api.nvim_set_hl(0, "String", { fg = green })
+vim.api.nvim_set_hl(0, "SignColumn", {})
+vim.api.nvim_set_hl(0, "Directory", { fg = cyan })
+vim.api.nvim_set_hl(0, "LineNr", { fg = fgggg })
+vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = fggggg })
+vim.api.nvim_set_hl(0, "StatusLine", { fg = fggg, bg = bggg })
+vim.api.nvim_set_hl(0, "StatusLineNC", { fg = fggg, bg = bgg })
+vim.api.nvim_set_hl(0, "WinSeparator", { fg = bggg })
+vim.api.nvim_set_hl(0, "Visual", { bg = bggg })
+vim.api.nvim_set_hl(0, "Search", { reverse = true })
+vim.api.nvim_set_hl(0, "CursorLine", { bg = bgg })
+vim.api.nvim_set_hl(0, "Folded", { bg = bgg })
+vim.api.nvim_set_hl(0, "Title", { bold = true })
+vim.api.nvim_set_hl(0, "MatchParen", { bg = bggg, bold = true })
+
+vim.api.nvim_set_hl(0, "diffAdded", { fg = green })
+vim.api.nvim_set_hl(0, "DiffAdd", { fg = green })
+vim.api.nvim_set_hl(0, "DiffChange", { fg = blue })
+vim.api.nvim_set_hl(0, "diffChanged", { fg = blue })
+vim.api.nvim_set_hl(0, "DiffDelete", { fg = red })
+vim.api.nvim_set_hl(0, "diffRemoved", { fg = red })
+
+vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { sp = fggg, underline = true })
+
+vim.api.nvim_set_hl(0, "@punctuation", { fg = fgg })
+vim.api.nvim_set_hl(0, "@operator", { fg = fgg })
+vim.api.nvim_set_hl(0, "@keyword", { fg = blue, bold = true })
+vim.api.nvim_set_hl(0, "@function", { fg = lightblue })
+vim.api.nvim_set_hl(0, "@keyword.directive", { fg = purple })
+vim.api.nvim_set_hl(0, "@keyword.import", { fg = purple })
+
+vim.api.nvim_set_hl(0, "@variable.parameter", { fg = lightblue })
+vim.api.nvim_set_hl(0, "@lsp.type.parameter", { fg = lightblue })
+vim.api.nvim_set_hl(0, "@lsp.typemod.parameter", { fg = lightblue })
+
+vim.api.nvim_set_hl(0, "@constant.builtin", { fg = gold, italic = true })
+vim.api.nvim_set_hl(0, "@variable.builtin", { fg = blue, italic = true })
+vim.api.nvim_set_hl(0, "@function.builtin", { fg = lightblue, italic = true })
+vim.api.nvim_set_hl(0, "@function.macro", { fg = purple, bold = true })
+
+vim.api.nvim_set_hl(0, "@lsp.type", { link = "Type" })
+vim.api.nvim_set_hl(0, "@lsp.type.operator", { link = "Operator" })
+vim.api.nvim_set_hl(0, "@lsp.type.selfKeyword", { link = "@variable.builtin" })
+vim.api.nvim_set_hl(0, "@lsp.type.namespace", { link = "@module" })
+vim.api.nvim_set_hl(0, "@lsp.type.keyword", { link = "@keyword" })
+vim.api.nvim_set_hl(0, "@lsp.type.modifier", { link = "@keyword" })
+vim.api.nvim_set_hl(0, "@lsp.type.annotation", { link = "PreProc" })
+vim.api.nvim_set_hl(0, "@string.escape", { link = "Character" })
+
+vim.api.nvim_set_hl(0, "@lsp.type.attributeBracket", {})
+vim.api.nvim_set_hl(0, "@lsp.type.builtinAttribute", {})
+vim.api.nvim_set_hl(0, "@lsp.type.generic", {})
