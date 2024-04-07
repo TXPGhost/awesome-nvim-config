@@ -508,6 +508,7 @@ require("lazy").setup({
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "path" },
+					{ name = "buffer" },
 				}, {}),
 				formatting = {
 					fields = { cmp.ItemField.Abbr, cmp.ItemField.Kind },
@@ -565,6 +566,7 @@ require("lazy").setup({
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"dcampos/nvim-snippy",
+			"hrsh7th/cmp-buffer",
 		},
 	},
 	{
@@ -759,14 +761,12 @@ vim.opt.relativenumber = true
 vim.opt.linebreak = true
 vim.opt.shell = "fish"
 vim.opt.textwidth = 80
-vim.opt.cursorline = false
 vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.foldlevel = 99999
 vim.opt.shortmess:append("I")
 vim.opt.pumheight = 8
 vim.opt.termguicolors = true
-vim.opt.cursorline = true
 
 -- colorscheme
 local fg = "#A7AAB0"
@@ -803,12 +803,14 @@ vim.api.nvim_set_hl(0, "Comment", { fg = fggg, italic = true })
 vim.api.nvim_set_hl(0, "Pmenu", { bg = bgg })
 vim.api.nvim_set_hl(0, "PmenuSel", { bg = bgggg })
 vim.api.nvim_set_hl(0, "Type", { fg = cyan })
-vim.api.nvim_set_hl(0, "PreProc", { fg = purple })
+vim.api.nvim_set_hl(0, "PreProc", { fg = purple, bold = true })
 vim.api.nvim_set_hl(0, "String", { fg = green })
 vim.api.nvim_set_hl(0, "SignColumn", {})
 vim.api.nvim_set_hl(0, "FoldColumn", {})
 vim.api.nvim_set_hl(0, "Directory", { fg = cyan })
-vim.api.nvim_set_hl(0, "LineNr", { fg = fgggg })
+vim.api.nvim_set_hl(0, "LineNr", { fg = fggg })
+vim.api.nvim_set_hl(0, "LineNrAbove", { fg = fgggg })
+vim.api.nvim_set_hl(0, "LineNrBelow", { fg = fgggg })
 vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = fggggg })
 vim.api.nvim_set_hl(0, "StatusLine", { fg = fggg, bg = bggg })
 vim.api.nvim_set_hl(0, "StatusLineNC", { fg = fggg, bg = bgg })
@@ -820,6 +822,8 @@ vim.api.nvim_set_hl(0, "CursorLineNr", { fg = fggg })
 vim.api.nvim_set_hl(0, "Folded", { bg = bgg })
 vim.api.nvim_set_hl(0, "Title", { bold = true })
 vim.api.nvim_set_hl(0, "MatchParen", { bg = bggg, bold = true })
+vim.api.nvim_set_hl(0, "Error", { fg = red, bg = redbg })
+vim.api.nvim_set_hl(0, "ErrorMsg", { fg = red, bg = redbg })
 
 vim.api.nvim_set_hl(0, "diffAdded", { fg = green, bg = greenbg })
 vim.api.nvim_set_hl(0, "diffChanged", { fg = blue, bg = bluebg })
@@ -844,8 +848,8 @@ vim.api.nvim_set_hl(0, "@punctuation", { fg = fgg })
 vim.api.nvim_set_hl(0, "@operator", { fg = fgg })
 vim.api.nvim_set_hl(0, "@keyword", { fg = blue, bold = true })
 vim.api.nvim_set_hl(0, "@function", { fg = lightblue })
-vim.api.nvim_set_hl(0, "@keyword.directive", { fg = purple })
-vim.api.nvim_set_hl(0, "@keyword.import", { fg = purple })
+vim.api.nvim_set_hl(0, "@keyword.directive", { fg = purple, bold = true })
+vim.api.nvim_set_hl(0, "@keyword.import", { fg = purple, bold = true })
 
 vim.api.nvim_set_hl(0, "@variable.parameter", { fg = lightblue })
 vim.api.nvim_set_hl(0, "@lsp.type.parameter", { fg = lightblue })
