@@ -140,12 +140,8 @@ require("lazy").setup({
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 
-			vim.keymap.set("n", "gd", function()
-				vim.lsp.buf.definition()
-			end)
-			vim.keymap.set("n", "gy", function()
-				vim.lsp.buf.type_definition()
-			end)
+			vim.keymap.set("n", "gd", "<cmd>Trouble lsp_definitions<cr>")
+			vim.keymap.set("n", "gy", "<cmd>Trouble lsp_type_definitions<cr>")
 			vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
 			vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
 
