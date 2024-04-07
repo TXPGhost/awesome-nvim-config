@@ -770,6 +770,7 @@ vim.api.nvim_set_hl(0, "Title", { fg = cyan, bold = true })
 vim.api.nvim_set_hl(0, "MatchParen", { bg = bggg, bold = true })
 vim.api.nvim_set_hl(0, "Error", { fg = red, bg = redbg })
 vim.api.nvim_set_hl(0, "ErrorMsg", { fg = red, bg = redbg })
+vim.api.nvim_set_hl(0, "NonText", { fg = fggg })
 
 vim.api.nvim_set_hl(0, "diffAdded", { fg = green, bg = greenbg })
 vim.api.nvim_set_hl(0, "diffChanged", { fg = blue, bg = bluebg })
