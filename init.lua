@@ -829,6 +829,26 @@ vim.api.nvim_set_hl(0, "@lsp.type.modifier", { link = "@keyword" })
 vim.api.nvim_set_hl(0, "@lsp.type.annotation", { link = "PreProc" })
 vim.api.nvim_set_hl(0, "@string.escape", { link = "Character" })
 
+vim.api.nvim_set_hl(0, "@lsp.type.macro.c", {})
+vim.api.nvim_set_hl(0, "@lsp.type.macro.cpp", {})
+
 vim.api.nvim_set_hl(0, "@lsp.type.attributeBracket", {})
 vim.api.nvim_set_hl(0, "@lsp.type.builtinAttribute", {})
 vim.api.nvim_set_hl(0, "@lsp.type.generic", {})
+
+vim.api.nvim_set_hl(0, "@markup.heading.markdown", { fg = lightblue })
+vim.api.nvim_set_hl(0, "@markup.heading.1.markdown", { fg = cyan })
+vim.api.nvim_set_hl(0, "@markup.heading.2.markdown", { fg = cyan })
+vim.api.nvim_set_hl(0, "@markup.heading.3.markdown", { fg = cyan })
+vim.api.nvim_set_hl(0, "@markup.heading.4.markdown", { fg = cyan })
+vim.api.nvim_set_hl(0, "@markup.heading.5.markdown", { fg = cyan })
+vim.api.nvim_set_hl(0, "@markup.heading.6.markdown", { fg = cyan })
+
+vim.api.nvim_set_hl(0, "@markup.list.markdown", { fg = blue })
+vim.api.nvim_set_hl(0, "@markup.math.latex", { fg = gold })
+vim.api.nvim_set_hl(0, "@markup.raw.block.markdown", { fg = green })
+
+vim.api.nvim_set_hl(0, "@markup.strong.markdown_inline", { bold = true })
+vim.api.nvim_set_hl(0, "@markup.italic.markdown_inline", { italic = true })
+
+vim.api.nvim_set_hl(0, "@module.latex", { fg = cyan })
