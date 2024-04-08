@@ -854,3 +854,5 @@ vim.api.nvim_set_hl(0, "@markup.link.gitcommit", { fg = cyan })
 vim.api.nvim_set_hl(0, "@string.special.url.gitcommit", { fg = fg })
 
 vim.api.nvim_set_hl(0, "tutorSectionBullet", { fg = cyan })
+
+vim.api.nvim_set_hl(0, "@function.make", { fg = cyan })
