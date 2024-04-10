@@ -53,7 +53,7 @@ vim.api.nvim_set_hl(0, "Visual", { bg = bggg })
 vim.api.nvim_set_hl(0, "Search", { reverse = true })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = bgg })
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = fggg })
-vim.api.nvim_set_hl(0, "Folded", { bg = bgg })
+vim.api.nvim_set_hl(0, "Folded", { fg = fggg, bg = bgg })
 vim.api.nvim_set_hl(0, "Title", { fg = cyan, bold = true })
 vim.api.nvim_set_hl(0, "MatchParen", { bg = bggg, bold = true })
 vim.api.nvim_set_hl(0, "Error", { fg = red, bg = redbg })
@@ -132,6 +132,10 @@ vim.api.nvim_set_hl(0, "@markup.raw.block.markdown", { fg = green })
 
 vim.api.nvim_set_hl(0, "@markup.strong.markdown_inline", { bold = true })
 vim.api.nvim_set_hl(0, "@markup.italic.markdown_inline", { italic = true })
+vim.api.nvim_set_hl(0, "@markup.strikethrough.markdown_inline", { strikethrough = true })
+vim.api.nvim_set_hl(0, "@markup.link.markdown_inline", { link = "Punctuation" })
+vim.api.nvim_set_hl(0, "@markup.link.url.markdown_inline", { fg = lightblue, underline = true })
+vim.api.nvim_set_hl(0, "@markup.link.label.markdown_inline", { fg = cyan, bold = true })
 
 vim.api.nvim_set_hl(0, "@module.latex", { fg = cyan })
 
@@ -144,3 +148,6 @@ vim.api.nvim_set_hl(0, "@string.special.url.gitcommit", { fg = fg })
 vim.api.nvim_set_hl(0, "tutorSectionBullet", { fg = cyan })
 
 vim.api.nvim_set_hl(0, "@function.make", { fg = cyan })
+vim.api.nvim_set_hl(0, "@function.latex", { fg = lightblue })
+
+vim.api.nvim_set_hl(0, "@comment.todo.comment", { bg = bggg, bold = true })

@@ -157,6 +157,37 @@ require("lazy").setup({
 						switch = "<space>k"
 					}
 				},
+				enable_get_fold_virt_text = true,
+				fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate, ctx)
+					-- include the bottom line in folded text for additional context
+					local filling = ' ⋯ '
+					local sufWidth = vim.fn.strdisplaywidth(suffix)
+					local targetWidth = width - sufWidth
+					local curWidth = 0
+					table.insert(virtText, { filling, 'Folded' })
+					local endVirtText = ctx.get_fold_virt_text(endLnum)
+					for i, chunk in ipairs(endVirtText) do
+						local chunkText = chunk[1]
+						local hlGroup = chunk[2]
+						if i == 1 then
+							chunkText = chunkText:gsub("^%s+", "")
+						end
+						local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+						if targetWidth > curWidth + chunkWidth then
+							table.insert(virtText, { chunkText, hlGroup })
+						else
+							chunkText = truncate(chunkText, targetWidth - curWidth)
+							table.insert(virtText, { chunkText, hlGroup })
+							chunkWidth = vim.fn.strdisplaywidth(chunkText)
+							if curWidth + chunkWidth < targetWidth then
+								suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+							end
+							break
+						end
+						curWidth = curWidth + chunkWidth
+					end
+					return virtText
+				end,
 			})
 		end,
 		dependencies = { "kevinhwang91/nvim-ufo" }
@@ -436,6 +467,13 @@ require("lazy").setup({
 				[item_kind.Text] = 24,
 			}
 
+			local has_words_before = function()
+				unpack = unpack or table.unpack
+				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+				return col ~= 0 and
+					vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+			end
+
 			local kind_comparator = function(entry1, entry2)
 				local kind1 = entry1:get_kind()
 				local kind2 = entry2:get_kind()
@@ -460,8 +498,8 @@ require("lazy").setup({
 					["<cr>"] = cmp.mapping(function(fallback)
 						if require("copilot.suggestion").is_visible() then
 							require("copilot.suggestion").accept({})
-						elseif cmp.visible() and cmp.get_selected_entry() ~= nil then
-							cmp.confirm()
+						elseif cmp.visible() then
+							cmp.confirm({ select = true })
 							cmp.close()
 						elseif snippy.can_expand_or_advance() then
 							snippy.expand_or_advance()
@@ -469,16 +507,18 @@ require("lazy").setup({
 							fallback()
 						end
 					end),
-					["<tab>"] = cmp.mapping(function(_)
+					["<tab>"] = cmp.mapping(function(fallback)
 						if require("copilot.suggestion").is_visible() then
 							require("copilot.suggestion").next()
 						elseif cmp.visible() then
 							cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-						else
+						elseif has_words_before() then
 							cmp.complete()
+						else
+							fallback()
 						end
 					end, { "i", "s" }),
-					["<s-tab>"] = cmp.mapping(function(_)
+					["<s-tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
 						elseif snippy.can_jump(-1) then
@@ -650,6 +690,104 @@ require("lazy").setup({
 			require("crates").setup()
 		end,
 	},
+	{
+		"mfussenegger/nvim-dap",
+		keys = { "<space>c", "<space>C", "<leader>b", "<space>?<space>" },
+		config = function()
+			local dap = require("dap")
+			local dapui = require("dapui")
+			local breakpoints = require("goto-breakpoints")
+
+			require("nvim-dap-virtual-text").setup()
+
+			dap.adapters.gdb = {
+				type = "executable",
+				command = "gdb",
+				args = { "-i", "dap" },
+			}
+			dap.configurations.c = {
+				{
+					name = "Launch",
+					type = "gdb",
+					request = "launch",
+					program = function()
+						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+					end,
+					args = function()
+						local args = {}
+						for arg in string.gmatch(vim.fn.input("Command arguments: "), "%S+") do
+							table.insert(args, arg)
+						end
+						return args
+					end,
+					cwd = "${workspaceFolder}",
+					stopAtBeginningOfMainSubprogram = false,
+				},
+			}
+			dap.configurations.cpp = dap.configurations.c
+
+			vim.keymap.set("n", "<leader>b", function()
+				dap.toggle_breakpoint()
+			end)
+			vim.keymap.set("n", "<space>?<space>", function()
+				dap.set_breakpoint(vim.fn.input("Condition: "))
+			end)
+			vim.keymap.set("n", "<up>", function()
+				dap.step_out()
+			end)
+			vim.keymap.set("n", "<left>", function()
+				dap.step_back()
+			end)
+			vim.keymap.set("n", "<right>", function()
+				dap.step_over()
+			end)
+			vim.keymap.set("n", "<down>", function()
+				dap.step_into()
+			end)
+
+			vim.keymap.set("n", "]b", breakpoints.next)
+			vim.keymap.set("n", "[b", breakpoints.prev)
+
+			vim.fn.sign_define("DapStopped", { linehl = "CursorLine" })
+			vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError" })
+			vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DiagnosticSignError" })
+			vim.fn.sign_define("DapBreakpointRejected", { text = "󰅙", texthl = "DiagnosticSignError" })
+
+			dapui.setup({})
+			vim.keymap.set("n", "<space>c", function()
+				if vim.bo.filetype == "java" then
+					require("jdtls.dap").setup_dap_main_class_configs()
+				elseif vim.bo.filetype == "rust" then
+					vim.cmd("RustLsp debuggables")
+					return
+				end
+				dapui.open()
+				vim.cmd("DapContinue")
+			end)
+			vim.keymap.set("n", "<space>C", function()
+				dapui.close()
+				dap.terminate()
+			end)
+
+			dap.listeners.before.attach.dapui_config = function()
+				dapui.open()
+			end
+			dap.listeners.before.launch.dapui_config = function()
+				dapui.open()
+			end
+			dap.listeners.before.event_terminated.dapui_config = function()
+				dapui.close()
+			end
+			dap.listeners.before.event_exited.dapui_config = function()
+				dapui.close()
+			end
+		end,
+		dependencies = { "theHamsta/nvim-dap-virtual-text", "rcarriga/nvim-dap-ui", "ofirgall/goto-breakpoints.nvim", "nvim-neotest/nvim-nio" },
+	},
+	{
+		"rcarriga/nvim-dap-ui",
+		lazy = true,
+	},
 })
 
 -- set help window to vertical split
@@ -660,9 +798,13 @@ vim.api.nvim_create_user_command("LatexCompile", function()
 	local texpath = vim.fn.expand("%")
 	vim.cmd("!tectonic -Z continue-on-errors " .. texpath)
 end, {})
+vim.api.nvim_create_user_command("LatexCompileBackground", function()
+	local texpath = vim.fn.expand("%")
+	vim.cmd("silent !tmux new -d \"tectonic -Z continue-on-errors " .. texpath .. "\"")
+end, {})
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	pattern = { "*.tex" },
-	command = "LatexCompile",
+	command = "LatexCompileBackground",
 })
 
 -- config quick edit
