@@ -1,23 +1,23 @@
 local dark = vim.opt.background._value == "dark"
 
 -- colorscheme
-local fg = dark and "#A7AAB0" or "#000000"
-local fgg = dark and "#76787C" or "#444444"
-local fggg = dark and "#5e6063" or "#888888"
-local fgggg = dark and "#464749" or "#AAAAAA"
-local fggggg = dark and "#2e2f30" or "#CCCCCC"
+local fg = dark and "#A7AAB0" or "#1F3333"
+local fgg = dark and "#76787C" or "#364c4c"
+local fggg = dark and "#5e6063" or "#526666"
+local fgggg = dark and "#464749" or "#747f7f"
+local fggggg = dark and "#2e2f30" or "#999999"
 
 local bg = dark and "#121212" or "#FFFFFF"
 local bgg = dark and "#151515" or "#FAFAFA"
 local bggg = dark and "#181818" or "#F7F7F7"
 local bgggg = dark and "#1A1A1A" or "#EEEEEE"
 
-local blue = dark and "#466793" or "#3A567A"
-local lightblue = dark and "#839BAF" or "#567289"
-local cyan = "#568FA5"
-local green = dark and "#56A56B" or "#3B724A"
-local gold = "#BC9636"
-local purple = "#A26FC6"
+local blue = dark and "#466793" or "#3558A3"
+local lightblue = dark and "#839BAF" or "#436EBC"
+local cyan = dark and "#568FA5" or "#245c72"
+local green = dark and "#56A56B" or "#317e3d"
+local gold = dark and "#BC9636" or "#9e6b24"
+local purple = "#9e5fcc"
 local red = "#C6706F"
 
 local redbg = dark and "#1C1212" or "#FFEEEE"
@@ -96,10 +96,11 @@ vim.api.nvim_set_hl(0, "@lsp.type.parameter", { italic = true })
 vim.api.nvim_set_hl(0, "@lsp.typemod.parameter", { italic = true })
 
 vim.api.nvim_set_hl(0, "@variable.member", { fg = lightblue })
-vim.api.nvim_set_hl(0, "@lsp.type.property", { fg = lightblue })
-vim.api.nvim_set_hl(0, "@lsp.typemod.property", { fg = lightblue })
+vim.api.nvim_set_hl(0, "@lsp.type.property", { link = "@variable.member" })
+vim.api.nvim_set_hl(0, "@lsp.typemod.property", { link = "@variable.member" })
 
-vim.api.nvim_set_hl(0, "@variable.builtin", { fg = blue })
+vim.api.nvim_set_hl(0, "@variable.builtin", { link = "@variable.member" })
+vim.api.nvim_set_hl(0, "@lsp.type.selfKeyword", { link = "@variable.builtin" })
 
 vim.api.nvim_set_hl(0, "@function.macro", { fg = purple, bold = true })
 

@@ -140,6 +140,18 @@ require("lazy").setup({
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 
+			-- -- TODO: fallback on `vim.lsp.buf.definition()` if cursor doesn't move
+			-- vim.keymap.set("n", "gd", function()
+			-- 	local old_row, old_col = table.unpack(vim.api.nvim_win_get_cursor(0))
+			-- 	local old_bufnr = vim.api.nvim_get_current_buf()
+			-- 	vim.cmd("Trouble lsp_definitions")
+			-- 	local new_row, new_col = table.unpack(vim.api.nvim_win_get_cursor(0))
+			-- 	local new_bufnr = vim.api.nvim_get_current_buf()
+
+			-- 	if old_row == new_row and old_col == new_col and old_bufnr == new_bufnr then
+			-- 		print("error")
+			-- 	end
+			-- end)
 			vim.keymap.set("n", "gd", "<cmd>Trouble lsp_definitions<cr>")
 			vim.keymap.set("n", "gy", "<cmd>Trouble lsp_type_definitions<cr>")
 			vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
@@ -674,6 +686,9 @@ require("lazy").setup({
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		ft = { "markdown" },
 		build = function() vim.fn["mkdp#util#install"]() end,
+		config = function()
+			vim.g.mkdp_theme = "light"
+		end
 	},
 	{
 		"norcalli/nvim-colorizer.lua",
