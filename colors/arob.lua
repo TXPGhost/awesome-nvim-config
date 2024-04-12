@@ -149,6 +149,7 @@ vim.api.nvim_set_hl(0, "@string.special.url.gitcommit", { fg = fg })
 vim.api.nvim_set_hl(0, "tutorSectionBullet", { fg = cyan })
 
 vim.api.nvim_set_hl(0, "@function.make", { fg = cyan })
+vim.api.nvim_set_hl(0, "@function.cmake", { fg = cyan })
 vim.api.nvim_set_hl(0, "@function.latex", { fg = lightblue })
 
 vim.api.nvim_set_hl(0, "@comment.todo.comment", { bg = bggg, bold = true })
