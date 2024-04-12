@@ -508,9 +508,7 @@ require("lazy").setup({
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<cr>"] = cmp.mapping(function(fallback)
-						if require("copilot.suggestion").is_visible() then
-							require("copilot.suggestion").accept({})
-						elseif cmp.visible() then
+						if cmp.visible() then
 							cmp.confirm({ select = true })
 							cmp.close()
 						elseif snippy.can_expand_or_advance() then
@@ -520,9 +518,7 @@ require("lazy").setup({
 						end
 					end),
 					["<tab>"] = cmp.mapping(function(fallback)
-						if require("copilot.suggestion").is_visible() then
-							require("copilot.suggestion").next()
-						elseif cmp.visible() then
+						if cmp.visible() then
 							cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 						elseif has_words_before() then
 							cmp.complete()
@@ -536,7 +532,7 @@ require("lazy").setup({
 						elseif snippy.can_jump(-1) then
 							snippy.previous()
 						else
-							require("copilot.suggestion").prev()
+							fallback()
 						end
 					end, { "i", "s" }),
 					["<esc>"] = cmp.mapping(function(fallback)
@@ -660,13 +656,6 @@ require("lazy").setup({
 		end,
 	},
 	{ "tpope/vim-sleuth", event = "VeryLazy" },
-	{
-		"zbirenbaum/copilot.lua",
-		event = "VeryLazy",
-		config = function()
-			require("copilot").setup({})
-		end,
-	},
 	{
 		"rmagatti/goto-preview",
 		event = "VeryLazy",
