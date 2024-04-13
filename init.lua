@@ -646,14 +646,6 @@ require("lazy").setup({
 		end
 	},
 	{
-		"norcalli/nvim-colorizer.lua",
-		event = "VeryLazy",
-		config = function()
-			vim.opt.termguicolors = true
-			require("colorizer").setup()
-		end
-	},
-	{
 		"saecki/crates.nvim",
 		event = "BufRead Cargo.toml",
 		config = function()
