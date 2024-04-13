@@ -35,11 +35,13 @@ require("lazy").setup({
 				lineFoldingOnly = true,
 			}
 
-			lspconfig.vimls.setup({ capabilities = capabilities })
 			lspconfig.clangd.setup({
 				capabilities = capabilities,
 				cmd = { "clangd", "--query-driver=/usr/bin/arm-none-eabi-g++" }
 			})
+			vim.keymap.set("n", "<tab>", "<cmd>ClangdSwitchSourceHeader<cr>")
+
+			lspconfig.vimls.setup({ capabilities = capabilities })
 			lspconfig.cmake.setup({ capabilities = capabilities })
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
@@ -514,14 +516,10 @@ require("lazy").setup({
 				experimental = {
 					ghost_text = true,
 				},
-				completion = {
-					autocomplete = false,
-				},
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "path" },
-					{ name = "buffer" },
 				}, {}),
 				formatting = {
 					fields = { cmp.ItemField.Abbr, cmp.ItemField.Kind },
@@ -579,7 +577,6 @@ require("lazy").setup({
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"dcampos/nvim-snippy",
-			"hrsh7th/cmp-buffer",
 		},
 	},
 	{
@@ -829,11 +826,3 @@ vim.opt.termguicolors = true
 
 -- colorscheme
 vim.cmd.colorscheme("arob")
-vim.api.nvim_create_user_command("LightMode", function()
-	vim.opt.background = "light"
-	vim.cmd.colorscheme("arob")
-end, {})
-vim.api.nvim_create_user_command("DarkMode", function()
-	vim.opt.background = "dark"
-	vim.cmd.colorscheme("arob")
-end, {})

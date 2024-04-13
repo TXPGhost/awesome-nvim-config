@@ -1,29 +1,27 @@
-local dark = vim.opt.background._value == "dark"
-
 -- colorscheme
-local fg = dark and "#A7AAB0" or "#1F3333"
-local fgg = dark and "#76787C" or "#364c4c"
-local fggg = dark and "#5e6063" or "#526666"
-local fgggg = dark and "#464749" or "#747f7f"
-local fggggg = dark and "#2e2f30" or "#999999"
+local fg = "#A7AAB0"
+local fgg = "#76787C"
+local fggg = "#5e6063"
+local fgggg = "#464749"
+local fggggg = "#2e2f30"
 
-local bg = dark and "#121212" or "#FFFFFF"
-local bgg = dark and "#151515" or "#FAFAFA"
-local bggg = dark and "#181818" or "#F7F7F7"
-local bgggg = dark and "#1A1A1A" or "#EEEEEE"
+local bg = "#121212"
+local bgg = "#151515"
+local bggg = "#181818"
+local bgggg = "#1A1A1A"
 
-local blue = dark and "#466793" or "#3558A3"
-local lightblue = dark and "#839BAF" or "#436EBC"
-local cyan = dark and "#568FA5" or "#245c72"
-local green = dark and "#56A56B" or "#317e3d"
-local gold = dark and "#BC9636" or "#9e6b24"
+local blue = "#466793"
+local lightblue = "#839BAF"
+local cyan = "#568FA5"
+local green = "#56A56B"
+local gold = "#BC9636"
 local purple = "#9e5fcc"
 local red = "#C6706F"
 
-local redbg = dark and "#1C1212" or "#FFEEEE"
-local greenbg = dark and "#121C12" or "#EEFFEE"
-local bluebg = dark and "#12121C" or "#EEEEFF"
-local bluebgg = dark and "#17172B" or "#DDDDFF"
+local redbg = "#1C1212"
+local greenbg = "#121C12"
+local bluebg = "#12121C"
+local bluebgg = "#17172B"
 
 vim.api.nvim_set_hl(0, "Normal", { fg = fg, bg = bg })
 vim.api.nvim_set_hl(0, "Identifier", {})
@@ -99,8 +97,10 @@ vim.api.nvim_set_hl(0, "@variable.member", { fg = lightblue })
 vim.api.nvim_set_hl(0, "@lsp.type.property", { link = "@variable.member" })
 vim.api.nvim_set_hl(0, "@lsp.typemod.property", { link = "@variable.member" })
 
-vim.api.nvim_set_hl(0, "@variable.builtin", { link = "@variable.member" })
+vim.api.nvim_set_hl(0, "@variable.builtin", { fg = lightblue, italic = true })
 vim.api.nvim_set_hl(0, "@lsp.type.selfKeyword", { link = "@variable.builtin" })
+
+vim.api.nvim_set_hl(0, "@constant.builtin", { link = "Constant" })
 
 vim.api.nvim_set_hl(0, "@function.macro", { fg = purple, bold = true })
 
@@ -153,3 +153,5 @@ vim.api.nvim_set_hl(0, "@function.cmake", { fg = cyan })
 vim.api.nvim_set_hl(0, "@function.latex", { fg = lightblue })
 
 vim.api.nvim_set_hl(0, "@comment.todo.comment", { bg = bggg, bold = true })
+
+vim.api.nvim_set_hl(0, "@function.call.rust", { fg = fg })
