@@ -97,7 +97,7 @@ vim.api.nvim_set_hl(0, "@variable.member", { fg = lightblue })
 vim.api.nvim_set_hl(0, "@lsp.type.property", { link = "@variable.member" })
 vim.api.nvim_set_hl(0, "@lsp.typemod.property", { link = "@variable.member" })
 
-vim.api.nvim_set_hl(0, "@variable.builtin", { fg = lightblue, italic = true })
+vim.api.nvim_set_hl(0, "@variable.builtin", { link = "@variable.member" })
 vim.api.nvim_set_hl(0, "@lsp.type.selfKeyword", { link = "@variable.builtin" })
 
 vim.api.nvim_set_hl(0, "@constant.builtin", { link = "Constant" })
