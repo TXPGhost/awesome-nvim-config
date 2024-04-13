@@ -138,12 +138,12 @@ vim.api.nvim_set_hl(0, "@markup.link.markdown_inline", { link = "Punctuation" })
 vim.api.nvim_set_hl(0, "@markup.link.url.markdown_inline", { fg = lightblue, underline = true })
 vim.api.nvim_set_hl(0, "@markup.link.label.markdown_inline", { fg = cyan, bold = true })
 
-vim.api.nvim_set_hl(0, "@module.latex", { fg = cyan })
+vim.api.nvim_set_hl(0, "@module.latex", { link = "Type" })
 
-vim.api.nvim_set_hl(0, "fugitiveSymbolicRef", { fg = cyan })
+vim.api.nvim_set_hl(0, "fugitiveSymbolicRef", { link = "Directory" })
 vim.api.nvim_set_hl(0, "fugitiveHelpTag", { link = "Character" })
 
-vim.api.nvim_set_hl(0, "@markup.link.gitcommit", { fg = cyan })
+vim.api.nvim_set_hl(0, "@markup.link.gitcommit", { link = "Type" })
 vim.api.nvim_set_hl(0, "@string.special.url.gitcommit", { fg = fg })
 
 vim.api.nvim_set_hl(0, "tutorSectionBullet", { fg = cyan })
@@ -155,3 +155,6 @@ vim.api.nvim_set_hl(0, "@function.latex", { fg = lightblue })
 vim.api.nvim_set_hl(0, "@comment.todo.comment", { bg = bggg, bold = true })
 
 vim.api.nvim_set_hl(0, "@function.call.rust", { fg = fg })
+
+vim.api.nvim_set_hl(0, "@tag.html", { link = "Type" })
+vim.api.nvim_set_hl(0, "@tag.xml", { link = "Type" })
