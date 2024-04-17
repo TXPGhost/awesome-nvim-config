@@ -94,6 +94,8 @@ vim.api.nvim_set_hl(0, "@lsp.type.parameter", { italic = true })
 vim.api.nvim_set_hl(0, "@lsp.typemod.parameter", { italic = true })
 
 vim.api.nvim_set_hl(0, "@variable.member", { fg = lightblue })
+vim.api.nvim_set_hl(0, "@property", { link = "@variable.member" })
+vim.api.nvim_set_hl(0, "@function.method.call", { link = "@variable.member" })
 vim.api.nvim_set_hl(0, "@lsp.type.property", { link = "@variable.member" })
 vim.api.nvim_set_hl(0, "@lsp.typemod.property", { link = "@variable.member" })
 
@@ -158,3 +160,5 @@ vim.api.nvim_set_hl(0, "@function.call.rust", { fg = fg })
 
 vim.api.nvim_set_hl(0, "@tag.html", { link = "Type" })
 vim.api.nvim_set_hl(0, "@tag.xml", { link = "Type" })
+
+vim.api.nvim_set_hl(0, "@attribute.gdscript", { link = "PreProc" })

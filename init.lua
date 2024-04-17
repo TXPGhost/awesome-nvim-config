@@ -93,6 +93,7 @@ require("lazy").setup({
 				capabilities = capabilities,
 				root_dir = lspconfig.util.root_pattern("package.json"),
 			})
+			lspconfig.gdscript.setup({ capabilities = capabilities })
 
 			vim.fn.sign_define("DiagnosticSignError", { text = "" })
 			vim.fn.sign_define("DiagnosticSignWarn", { text = "" })
@@ -245,7 +246,6 @@ require("lazy").setup({
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = "VeryLazy",
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				auto_install = true,
@@ -280,7 +280,6 @@ require("lazy").setup({
 	},
 	{
 		"Wansmer/treesj",
-		event = "VeryLazy",
 		keys = { "<c-j>", "<c-k>" },
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
@@ -618,10 +617,18 @@ require("lazy").setup({
 		event = "VeryLazy",
 		config = function()
 			vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
-			vim.keymap.set("n", "g?", "<cmd>Gvdiffsplit!<cr>")
+			vim.keymap.set("n", "g?",
+				"<cmd>Gvdiffsplit!<cr><cmd>set foldcolumn=0<cr><cmd>wincmd h<cr><cmd>set foldcolumn=0<cr><cmd>wincmd l<cr>")
 		end,
 	},
-	{ "tpope/vim-sleuth", event = "VeryLazy" },
+	{
+		"NMAC427/guess-indent.nvim",
+		event = "VeryLazy",
+		config = function()
+			vim.opt.tabstop = 4
+			vim.opt.shiftwidth = 4
+		end
+	},
 	{
 		"rmagatti/goto-preview",
 		event = "VeryLazy",
@@ -800,8 +807,6 @@ end
 
 -- startup commands
 vim.opt.compatible = false
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
 vim.opt.swapfile = false
 vim.opt.signcolumn = "yes"
 vim.opt.number = true
