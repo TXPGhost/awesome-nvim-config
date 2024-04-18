@@ -615,6 +615,7 @@ require("lazy").setup({
 		config = function()
 			vim.opt.tabstop = 4
 			vim.opt.shiftwidth = 4
+			require('guess-indent').setup({})
 		end
 	},
 	{
@@ -741,22 +742,6 @@ require("lazy").setup({
 		end,
 		dependencies = { "theHamsta/nvim-dap-virtual-text", "rcarriga/nvim-dap-ui", "ofirgall/goto-breakpoints.nvim", "nvim-neotest/nvim-nio" },
 	},
-	-- {
-	-- 	"nvim-tree/nvim-web-devicons",
-	-- 	lazy = true,
-	-- 	config = function()
-	-- 		require("nvim-web-devicons").setup({
-	-- 			override = {
-	-- 				fish = {
-	-- 					icon = "",
-	-- 					color = "#428850",
-	-- 					cterm_color = "65",
-	-- 					name = "Fish"
-	-- 				}
-	-- 			}
-	-- 		})
-	-- 	end,
-	-- },
 	{
 		"nanozuki/tabby.nvim",
 		event = "VimEnter",
@@ -790,6 +775,7 @@ require("lazy").setup({
 							local icon, color = require('nvim-web-devicons').get_icon_color(name, extension,
 								{ default = true })
 
+							-- TODO: fix background color
 							table.insert(icons, line.sep(icon, { bg = color }, theme.fill))
 							num_wins = num_wins + 1
 						end)
