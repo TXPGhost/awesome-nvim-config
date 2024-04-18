@@ -143,18 +143,6 @@ require("lazy").setup({
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 
-			-- -- TODO: fallback on `vim.lsp.buf.definition()` if cursor doesn't move
-			-- vim.keymap.set("n", "gd", function()
-			-- 	local old_row, old_col = table.unpack(vim.api.nvim_win_get_cursor(0))
-			-- 	local old_bufnr = vim.api.nvim_get_current_buf()
-			-- 	vim.cmd("Trouble lsp_definitions")
-			-- 	local new_row, new_col = table.unpack(vim.api.nvim_win_get_cursor(0))
-			-- 	local new_bufnr = vim.api.nvim_get_current_buf()
-
-			-- 	if old_row == new_row and old_col == new_col and old_bufnr == new_bufnr then
-			-- 		print("error")
-			-- 	end
-			-- end)
 			vim.keymap.set("n", "gd", "<cmd>Trouble lsp_definitions<cr>")
 			vim.keymap.set("n", "gy", "<cmd>Trouble lsp_type_definitions<cr>")
 			vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
@@ -753,10 +741,107 @@ require("lazy").setup({
 		end,
 		dependencies = { "theHamsta/nvim-dap-virtual-text", "rcarriga/nvim-dap-ui", "ofirgall/goto-breakpoints.nvim", "nvim-neotest/nvim-nio" },
 	},
+	-- {
+	-- 	"nvim-tree/nvim-web-devicons",
+	-- 	lazy = true,
+	-- 	config = function()
+	-- 		require("nvim-web-devicons").setup({
+	-- 			override = {
+	-- 				fish = {
+	-- 					icon = "",
+	-- 					color = "#428850",
+	-- 					cterm_color = "65",
+	-- 					name = "Fish"
+	-- 				}
+	-- 			}
+	-- 		})
+	-- 	end,
+	-- },
 	{
-		"rcarriga/nvim-dap-ui",
-		lazy = true,
-	},
+		"nanozuki/tabby.nvim",
+		event = "VimEnter",
+		dependencies = "nvim-tree/nvim-web-devicons",
+		config = function()
+			vim.opt.showtabline = 2
+			vim.opt.laststatus = 0
+
+			local theme = {
+				fill = "TabLineFill",
+				head = "TabLine",
+				current_tab = "TabLineSel",
+				tab = "TabLine",
+				win = "TabLine",
+				tail = "TabLine",
+				title = "Title",
+				vim_logo = { fg = "#56A56B", bg = "#1A1A1A" },
+				file_logo = { fg = "#76787C", bg = "#1A1A1A" },
+			}
+			require("tabby.tabline").set(function(line)
+				return {
+					{
+						{ '  ', hl = theme.vim_logo },
+						line.sep('', theme.head, theme.fill),
+					},
+					line.tabs().foreach(function(tab)
+						local num_wins = 0
+						local icons = {}
+						line.wins_in_tab(tab.id).foreach(function(win)
+							local extension = vim.fn.fnamemodify(win.buf_name(), ':e')
+							local icon, color = require('nvim-web-devicons').get_icon_color(name, extension,
+								{ default = true })
+
+							table.insert(icons, line.sep(icon, { bg = color }, theme.fill))
+							num_wins = num_wins + 1
+						end)
+
+						local hl = tab.is_current() and theme.current_tab or theme.tab
+
+						local name = tab.name()
+						local pos = string.find(name, "%[%d%+%]")
+						if pos ~= nil then
+							name = string.sub(name, 0, pos - 1)
+						end
+
+						local ret = {
+							line.sep('', hl, theme.fill),
+						}
+
+						for _, icon in pairs(icons) do
+							table.insert(ret, icon)
+						end
+
+						table.insert(ret, name)
+						table.insert(ret, line.sep('', hl, theme.fill))
+
+						ret.hl = hl
+						ret.margin = ' '
+
+						return ret
+					end),
+					-- line.spacer(),
+					-- line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
+					-- 	local extension = vim.fn.fnamemodify(win.buf_name(), ':e')
+					-- 	local icon, color = require('nvim-web-devicons').get_icon_color(name, extension,
+					-- 		{ default = true })
+
+					-- 	return {
+					-- 		line.sep('', theme.win, theme.fill),
+					-- 		line.sep(icon, { bg = color }, theme.fill),
+					-- 		win.buf_name(),
+					-- 		line.sep('', theme.win, theme.fill),
+					-- 		hl = theme.win,
+					-- 		margin = ' ',
+					-- 	}
+					-- end),
+					-- {
+					-- 	line.sep('', theme.tail, theme.fill),
+					-- 	{ '  ', hl = theme.file_logo },
+					-- },
+					hl = theme.fill,
+				}
+			end)
+		end
+	}
 })
 
 -- set help window to vertical split
