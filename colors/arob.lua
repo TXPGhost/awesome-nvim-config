@@ -142,6 +142,9 @@ vim.api.nvim_set_hl(0, "@markup.link.markdown_inline", { link = "Punctuation" })
 vim.api.nvim_set_hl(0, "@markup.link.url.markdown_inline", { fg = lightblue, underline = true })
 vim.api.nvim_set_hl(0, "@markup.link.label.markdown_inline", { fg = cyan, bold = true })
 
+vim.api.nvim_set_hl(0, "@markup.strong.latex", { bold = true })
+vim.api.nvim_set_hl(0, "@markup.italic.latex", { italic = true })
+
 vim.api.nvim_set_hl(0, "@module.latex", { link = "Type" })
 
 vim.api.nvim_set_hl(0, "fugitiveSymbolicRef", { link = "Directory" })
