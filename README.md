@@ -38,15 +38,6 @@ with `:Lazy profile`.
 | Shift Tab | Invoke Copilot / Select previous item |
 | Enter     |           Complete / Select next item |
 
-### Copilot
-
-| Key   |                  Binding |
-| :---- | -----------------------: |
-| Alt ] |     Show next suggestion |
-| Alt ] | Show previous suggestion |
-| Alt l |        Accept suggestion |
-| Alt m |        Reject suggestion |
-
 ### File navigation
 
 | Key       |                      Binding |
