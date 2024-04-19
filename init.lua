@@ -255,6 +255,9 @@ require("lazy").setup({
 			})
 
 			require("treesitter-context").setup({})
+			vim.keymap.set("n", "[c", function()
+				require("treesitter-context").go_to_context(vim.v.count1)
+			end, { silent = true })
 
 			vim.opt.foldmethod = "expr"
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
@@ -370,6 +373,7 @@ require("lazy").setup({
 			vim.keymap.set("n", "<space>j", "<cmd>Telescope jumplist<cr>")
 			vim.keymap.set("n", "<space>g", "<cmd>Telescope git_branches<cr>")
 			vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
+			vim.keymap.set("n", ";", "<cmd>Telescope lsp_document_symbols<cr>")
 		end
 	},
 	{

@@ -68,13 +68,14 @@ with `:Lazy profile`.
 
 ### Tree-Sitter
 
-| Key       |          Binding |
-| :-------- | ---------------: |
-| Enter     |   Init selection |
-| Tab       |   Grow selection |
-| Shift Tab | Shrink Selection |
-| Ctrl j    |       Split code |
-| Ctrl k    |        Join code |
+| Key       |               Binding |
+| :-------- | --------------------: |
+| Enter     |        Init selection |
+| Tab       |        Grow selection |
+| Shift Tab |      Shrink Selection |
+| Ctrl j    |            Split code |
+| Ctrl k    |             Join code |
+| [c        | Jump to context start |
 
 ### LSP
 
@@ -96,6 +97,7 @@ with `:Lazy profile`.
 | Space D |  Show workspace diagnostics |
 | \]d     |     Jump to next diagnostic |
 | \[d     | Jump to previous diagnostic |
+| ;       |       View document symbols |
 
 ### Navigation
 
