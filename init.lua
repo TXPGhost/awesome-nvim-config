@@ -768,6 +768,9 @@ require("lazy").setup({
 							if ft == "" then
 								ft = vim.api.nvim_buf_get_option(buf, 'buftype')
 							end
+							if ft == "" then
+								ft = vim.fn.fnamemodify(win.buf_name(), ':e')
+							end
 							return ft
 						end
 
