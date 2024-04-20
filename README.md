@@ -92,11 +92,15 @@ with `:Lazy profile`.
 
 ### Navigation
 
-| Key    |           Binding |
-| :----- | ----------------: |
-| Ctrl t |    Create new tab |
-| Ctrl h | Goto previous tab |
-| Ctrl l |     Goto next tab |
+| Key    |             Binding |
+| :----- | ------------------: |
+| Ctrl t |      Create new tab |
+| Ctrl h |  Switch window left |
+| Ctrl j |  Switch window down |
+| Ctrl k |    Switch window up |
+| Ctrl l | Switch window right |
+| H      |   Goto previous tab |
+| L      |       Goto next tab |
 
 ### Terminal
 

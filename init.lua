@@ -270,18 +270,6 @@ require("lazy").setup({
 		},
 	},
 	{
-		"Wansmer/treesj",
-		keys = { "<c-j>", "<c-k>" },
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		config = function()
-			require("treesj").setup({
-				use_default_keymaps = false,
-			})
-			vim.keymap.set("n", "<c-j>", "<cmd>TSJSplit<cr>")
-			vim.keymap.set("n", "<c-k>", "<cmd>TSJJoin<cr>")
-		end,
-	},
-	{
 		"stevearc/oil.nvim",
 		keys = { "-" },
 		event = "VeryLazy",
@@ -752,7 +740,6 @@ require("lazy").setup({
 		dependencies = "nvim-tree/nvim-web-devicons",
 		config = function()
 			vim.opt.showtabline = 2
-			vim.opt.laststatus = 0
 
 			local theme = {
 				fill = "TabLineFill",
@@ -774,10 +761,33 @@ require("lazy").setup({
 					line.tabs().foreach(function(tab)
 						local num_wins = 0
 						local icons = {}
-						line.wins_in_tab(tab.id).foreach(function(win)
-							local extension = vim.fn.fnamemodify(win.buf_name(), ':e')
-							local icon, color = require('nvim-web-devicons').get_icon_color(name, extension,
+
+						local getwinft = function(win)
+							local buf = vim.api.nvim_win_get_buf(win.id)
+							local ft = vim.api.nvim_buf_get_option(buf, 'filetype')
+							if ft == "" then
+								ft = vim.api.nvim_buf_get_option(buf, 'buftype')
+							end
+							return ft
+						end
+
+						local geticon = function(ft)
+							local icon, color = require('nvim-web-devicons').get_icon_color(name, ft,
 								{ default = true })
+							if ft == "oil" then
+								icon = ""
+								color = "#568FA5"
+							elseif ft == "fugitive" or ft == "gitcommit" then
+								icon = "󰊢"
+								color = "#F15030"
+							end
+
+							return icon, color
+						end
+
+						line.wins_in_tab(tab.id).foreach(function(win)
+							local ft = getwinft(win)
+							local icon, color = geticon(ft)
 
 							-- TODO: fix background color
 							table.insert(icons, line.sep(icon, { bg = color }, theme.fill))
@@ -787,6 +797,13 @@ require("lazy").setup({
 						local hl = tab.is_current() and theme.current_tab or theme.tab
 
 						local name = tab.name()
+						local ft = getwinft(tab.current_win())
+						if ft == "oil" then
+							name = "Files"
+						elseif ft == "fugitive" then
+							name = "Git"
+						end
+
 						local pos = string.find(name, "%[%d%+%]")
 						if pos ~= nil then
 							name = string.sub(name, 0, pos - 1)
@@ -800,7 +817,7 @@ require("lazy").setup({
 							table.insert(ret, icon)
 						end
 
-						table.insert(ret, name)
+						table.insert(ret, " " .. name)
 						table.insert(ret, line.sep('', hl, theme.fill))
 
 						ret.hl = hl
@@ -831,6 +848,10 @@ require("lazy").setup({
 				}
 			end)
 		end
+	},
+	{
+		"rhysd/conflict-marker.vim",
+		event = "VeryLazy",
 	}
 })
 
@@ -874,10 +895,14 @@ do
 	-- easy exit terminal mode
 	vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
 
-	-- tabs
+	-- navigation
+	vim.keymap.set("n", "<c-h>", "<cmd>wincmd h<cr>")
+	vim.keymap.set("n", "<c-j>", "<cmd>wincmd j<cr>")
+	vim.keymap.set("n", "<c-k>", "<cmd>wincmd k<cr>")
+	vim.keymap.set("n", "<c-l>", "<cmd>wincmd l<cr>")
 	vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
-	vim.keymap.set("n", "<c-h>", "<cmd>tabprev<cr>")
-	vim.keymap.set("n", "<c-l>", "<cmd>tabnext<cr>")
+	vim.keymap.set("n", "L", "<cmd>tabnext<cr>")
+	vim.keymap.set("n", "H", "<cmd>tabprev<cr>")
 end
 
 -- startup commands
