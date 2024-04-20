@@ -820,7 +820,7 @@ require("lazy").setup({
 							table.insert(ret, icon)
 						end
 
-						table.insert(ret, " " .. name)
+						table.insert(ret, name)
 						table.insert(ret, line.sep('', hl, theme.fill))
 
 						ret.hl = hl
