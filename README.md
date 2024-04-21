@@ -127,9 +127,3 @@ with `:Lazy profile`.
 | :---- | ---------------------------: |
 | Alt 0 |      Fast warp next end pair |
 | Alt 9 | Undo fast warp next end pair |
-
-## C/C++
-
-| Key |              Binding |
-| :-- | -------------------: |
-| Tab | Switch source/header |

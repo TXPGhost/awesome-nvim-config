@@ -39,7 +39,6 @@ require("lazy").setup({
 				capabilities = capabilities,
 				cmd = { "clangd", "--query-driver=/usr/bin/arm-none-eabi-g++" }
 			})
-			vim.keymap.set("n", "<tab>", "<cmd>ClangdSwitchSourceHeader<cr>")
 
 			lspconfig.vimls.setup({ capabilities = capabilities })
 			lspconfig.cmake.setup({ capabilities = capabilities })
@@ -174,7 +173,7 @@ require("lazy").setup({
 		event = "VeryLazy",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {
-			height = 20,
+			height = 15,
 			padding = false,
 			auto_close = true,
 			auto_jump = {
