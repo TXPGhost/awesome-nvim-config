@@ -269,9 +269,17 @@ require("lazy").setup({
 		},
 	},
 	{
-		"stevearc/oil.nvim",
+		"refractalize/oil-git-status.nvim",
 		keys = { "-" },
 		event = "VeryLazy",
+		config = true,
+		dependencies = {
+			"stevearc/oil.nvim",
+		},
+	},
+	{
+		"stevearc/oil.nvim",
+		lazy = true,
 		config = function()
 			vim.keymap.set("n", "-", "<cmd>Oil<cr>zz", { desc = "Open parent directory" })
 			require("oil").setup({
@@ -293,6 +301,9 @@ require("lazy").setup({
 					["g\\"] = "actions.toggle_trash",
 				},
 				use_default_keymaps = false,
+				win_options = {
+					signcolumn = "yes:2",
+				},
 			})
 		end,
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -770,6 +781,9 @@ require("lazy").setup({
 							if ft == "" then
 								ft = vim.fn.fnamemodify(win.buf_name(), ':e')
 							end
+							if ft == "terminal" then
+								ft = "fish"
+							end
 							return ft
 						end
 
@@ -777,7 +791,7 @@ require("lazy").setup({
 							local icon, color = require('nvim-web-devicons').get_icon_color(name, ft,
 								{ default = true })
 							if ft == "oil" then
-								icon = ""
+								icon = ""
 								color = "#568FA5"
 							elseif ft == "fugitive" or ft == "gitcommit" then
 								icon = "󰊢"
