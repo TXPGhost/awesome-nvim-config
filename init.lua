@@ -960,4 +960,8 @@ if vim.g.neovide then
 		vim.g.neovide_scale_factor = vim.g.neovide_scale_factor / 1.1
 		vim.cmd("redraw!")
 	end)
+	vim.keymap.set("n", "<c-0>", function()
+		vim.g.neovide_scale_factor = 1
+		vim.cmd("redraw!")
+	end)
 end
