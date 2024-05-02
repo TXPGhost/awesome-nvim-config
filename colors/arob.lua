@@ -15,13 +15,31 @@ local lightblue = "#839BAF"
 local cyan = "#568FA5"
 local green = "#56A56B"
 local gold = "#BC9636"
-local purple = "#9e5fcc"
+local purple = "#9E5FCC"
 local red = "#C6706F"
 
 local redbg = "#1C1212"
 local greenbg = "#121C12"
 local bluebg = "#12121C"
 local bluebgg = "#17172B"
+
+-- terminal
+vim.g.terminal_color_0 = "#101012"  -- black
+vim.g.terminal_color_1 = "#DE5D68"  -- red
+vim.g.terminal_color_2 = "#8FB573"  -- green
+vim.g.terminal_color_3 = "#DBB671"  -- yellow
+vim.g.terminal_color_4 = "#57A5E5"  -- blue
+vim.g.terminal_color_5 = "#BB70D2"  -- magenta
+vim.g.terminal_color_6 = "#51A8B3"  -- cyan
+vim.g.terminal_color_7 = "#A7AAB0"  -- white
+vim.g.terminal_color_8 = "#5A5B5E"  -- black (bright)
+vim.g.terminal_color_9 = "#DE5D68"  -- red (bright)
+vim.g.terminal_color_10 = "#8FB573" -- green (bright)
+vim.g.terminal_color_11 = "#DBB671" -- yellow (bright)
+vim.g.terminal_color_12 = "#57A5E5" -- blue (bright)
+vim.g.terminal_color_13 = "#BB70D2" -- magenta (bright)
+vim.g.terminal_color_14 = "#51A8B3" -- cyan (bright)
+vim.g.terminal_color_15 = "#A7AAB0" -- white (bright)
 
 vim.api.nvim_set_hl(0, "Normal", { fg = fg, bg = bg })
 vim.api.nvim_set_hl(0, "Identifier", {})
@@ -34,7 +52,7 @@ vim.api.nvim_set_hl(0, "Conceal", { fg = fgg })
 vim.api.nvim_set_hl(0, "Pmenu", { bg = bgg })
 vim.api.nvim_set_hl(0, "PmenuSel", { bg = bgggg })
 vim.api.nvim_set_hl(0, "Type", { fg = cyan })
-vim.api.nvim_set_hl(0, "PreProc", { fg = purple, bold = true })
+vim.api.nvim_set_hl(0, "PreProc", { fg = purple })
 vim.api.nvim_set_hl(0, "String", { fg = green })
 vim.api.nvim_set_hl(0, "SignColumn", {})
 vim.api.nvim_set_hl(0, "FoldColumn", {})
@@ -54,7 +72,7 @@ vim.api.nvim_set_hl(0, "Search", { reverse = true })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = bgg })
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = fggg })
 vim.api.nvim_set_hl(0, "Folded", { fg = fggg, bg = bgg })
-vim.api.nvim_set_hl(0, "Title", { fg = cyan, bold = true })
+vim.api.nvim_set_hl(0, "Title", { fg = cyan })
 vim.api.nvim_set_hl(0, "MatchParen", { bg = bggg, bold = true })
 vim.api.nvim_set_hl(0, "Error", { fg = red, bg = redbg })
 vim.api.nvim_set_hl(0, "ErrorMsg", { fg = red, bg = redbg })
@@ -84,18 +102,18 @@ vim.api.nvim_set_hl(0, "ConflictMarkerTheirs", { bg = "#344f69" })
 vim.api.nvim_set_hl(0, "ConflictMarkerEnd", { bg = "#2f628e" })
 vim.api.nvim_set_hl(0, "ConflictMarkerCommonAncestorsHunk", { bg = "#754a81" })
 
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineOk", {})
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", {})
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", {})
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineOk", { sp = fg, undercurl = true })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { sp = lightblue, undercurl = true })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { sp = cyan, undercurl = true })
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { sp = gold, undercurl = true })
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { sp = red, undercurl = true })
 vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { sp = fggg, undercurl = true })
 
 vim.api.nvim_set_hl(0, "@punctuation", { fg = fgg })
 vim.api.nvim_set_hl(0, "@operator", { fg = fgg })
-vim.api.nvim_set_hl(0, "@keyword", { fg = blue, bold = true })
-vim.api.nvim_set_hl(0, "@keyword.directive", { fg = purple, bold = true })
-vim.api.nvim_set_hl(0, "@keyword.import", { fg = purple, bold = true })
+vim.api.nvim_set_hl(0, "@keyword", { fg = blue })
+vim.api.nvim_set_hl(0, "@keyword.directive", { fg = purple })
+vim.api.nvim_set_hl(0, "@keyword.import", { fg = purple })
 
 vim.api.nvim_set_hl(0, "@variable.parameter", { italic = true })
 vim.api.nvim_set_hl(0, "@lsp.type.parameter", { italic = true })
@@ -112,7 +130,7 @@ vim.api.nvim_set_hl(0, "@lsp.type.selfKeyword", { link = "@variable.builtin" })
 
 vim.api.nvim_set_hl(0, "@constant.builtin", { link = "Constant" })
 
-vim.api.nvim_set_hl(0, "@function.macro", { fg = purple, bold = true })
+vim.api.nvim_set_hl(0, "@function.macro", { fg = purple })
 
 vim.api.nvim_set_hl(0, "@lsp.type", { link = "Type" })
 vim.api.nvim_set_hl(0, "@lsp.type.operator", { link = "Operator" })

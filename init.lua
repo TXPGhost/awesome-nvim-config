@@ -128,7 +128,7 @@ require("lazy").setup({
 			vim.keymap.set("n", "[f", function()
 				ufo.goPreviousClosedFold()
 			end)
-			vim.keymap.set("n", "<space>k", function()
+			vim.keymap.set("n", "K", function()
 				local winid = ufo.peekFoldedLinesUnderCursor()
 				if not winid then
 					vim.lsp.buf.hover()
@@ -156,7 +156,7 @@ require("lazy").setup({
 						winblend = 0,
 					},
 					mappings = {
-						switch = "<space>k"
+						switch = "K"
 					}
 				},
 			})
@@ -371,7 +371,6 @@ require("lazy").setup({
 			vim.keymap.set("n", "<space>j", "<cmd>Telescope jumplist<cr>")
 			vim.keymap.set("n", "<space>g", "<cmd>Telescope git_branches<cr>")
 			vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
-			vim.keymap.set("n", ";", "<cmd>Telescope lsp_document_symbols<cr>")
 		end
 	},
 	{
@@ -608,7 +607,7 @@ require("lazy").setup({
 		config = function()
 			vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
 			vim.keymap.set("n", "g?",
-				"<cmd>Gvdiffsplit!<cr><cmd>set foldcolumn=0<cr><cmd>wincmd h<cr><cmd>set foldcolumn=0<cr><cmd>wincmd l<cr>")
+				"<cmd>Gvdiffsplit!<cr><cmd>set foldcolumn=0<cr><cmd>wincmd h<cr><cmd>set foldcolumn=0<cr>")
 		end,
 	},
 	{
@@ -749,8 +748,6 @@ require("lazy").setup({
 		event = "VimEnter",
 		dependencies = "nvim-tree/nvim-web-devicons",
 		config = function()
-			vim.opt.showtabline = 2
-
 			local theme = {
 				fill = "TabLineFill",
 				head = "TabLine",
@@ -896,6 +893,15 @@ end, {})
 -- disable auto comment
 vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=qnlj")
 
+-- terminal
+vim.api.nvim_create_user_command("Terminal", function()
+	vim.cmd("terminal")
+	vim.cmd("setlocal nonumber")
+	vim.cmd("setlocal norelativenumber")
+	vim.cmd("setlocal signcolumn=no")
+	vim.cmd("startinsert")
+end, {})
+
 -- keymaps
 do
 	-- use esc key to exit trouble window and kill highlighting
@@ -905,7 +911,7 @@ do
 	vim.keymap.set(
 		"n",
 		"<c-cr>",
-		"<cmd>terminal<cr><cmd>setlocal nonumber<cr><cmd>setlocal norelativenumber<cr><cmd>setlocal signcolumn=no<cr>i"
+		"<cmd>Terminal<cr>"
 	)
 
 	-- easy exit terminal mode
@@ -936,6 +942,14 @@ vim.opt.foldlevel = 99999
 vim.opt.shortmess:append("I")
 vim.opt.pumheight = 8
 vim.opt.termguicolors = true
+vim.opt.laststatus = 0
+vim.opt.cmdheight = 0
 
 -- colorscheme
 vim.cmd.colorscheme("arob")
+
+-- neovide config
+if vim.g.neovide then
+	-- vim.opt.guifont = "JetBrainsMono Nerd Font:h10"
+	vim.opt.guifont = "NotoMono\\ Nerd\\ Font:h9.5"
+end

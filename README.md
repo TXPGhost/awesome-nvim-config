@@ -88,7 +88,6 @@ with `:Lazy profile`.
 | Space D |  Show workspace diagnostics |
 | \]d     |     Jump to next diagnostic |
 | \[d     | Jump to previous diagnostic |
-| ;       |       View document symbols |
 
 ### Navigation
 
