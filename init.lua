@@ -944,6 +944,7 @@ vim.opt.pumheight = 8
 vim.opt.termguicolors = true
 vim.opt.laststatus = 0
 vim.opt.cmdheight = 0
+vim.opt.mousescroll = "hor:0"
 
 -- colorscheme
 vim.cmd.colorscheme("arob")
