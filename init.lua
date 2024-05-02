@@ -950,6 +950,14 @@ vim.cmd.colorscheme("arob")
 
 -- neovide config
 if vim.g.neovide then
-	-- vim.opt.guifont = "JetBrainsMono Nerd Font:h10"
-	vim.opt.guifont = "NotoMono\\ Nerd\\ Font:h9.5"
+	vim.opt.guifont = "FiraCode Nerd Font:h9"
+
+	vim.keymap.set("n", "<c-=>", function()
+		vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * 1.1
+		vim.cmd("redraw!")
+	end)
+	vim.keymap.set("n", "<c-->", function()
+		vim.g.neovide_scale_factor = vim.g.neovide_scale_factor / 1.1
+		vim.cmd("redraw!")
+	end)
 end
