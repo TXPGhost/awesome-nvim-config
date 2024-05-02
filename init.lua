@@ -918,17 +918,17 @@ do
 	vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
 
 	-- navigation
-	vim.keymap.set("n", "<c-h>", "<cmd>wincmd h<cr>")
-	vim.keymap.set("n", "<c-j>", "<cmd>wincmd j<cr>")
-	vim.keymap.set("n", "<c-k>", "<cmd>wincmd k<cr>")
-	vim.keymap.set("n", "<c-l>", "<cmd>wincmd l<cr>")
+	vim.keymap.set("n", "<c-h>", "<c-w><c-h>")
+	vim.keymap.set("n", "<c-j>", "<c-w><c-j>")
+	vim.keymap.set("n", "<c-k>", "<c-w><c-k>")
+	vim.keymap.set("n", "<c-l>", "<c-w><c-l>")
 	vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
 	vim.keymap.set("n", "L", "<cmd>tabnext<cr>")
 	vim.keymap.set("n", "H", "<cmd>tabprev<cr>")
 	vim.keymap.set("n", "<c-s>", function()
 		local width = vim.api.nvim_win_get_width(0)
 		local height = vim.api.nvim_win_get_height(0)
-		if width >= height * 2.5 then
+		if width >= height * 2.167 then
 			vim.cmd("wincmd v")
 			vim.cmd("wincmd l")
 		else
@@ -936,6 +936,10 @@ do
 			vim.cmd("wincmd j")
 		end
 	end)
+	vim.keymap.set("n", "<a-h>", "<c-w><c-<>")
+	vim.keymap.set("n", "<a-j>", "<c-w><c-+>")
+	vim.keymap.set("n", "<a-k>", "<c-w><c-->")
+	vim.keymap.set("n", "<a-l>", "<c-w><c->>")
 end
 
 -- startup commands
@@ -954,7 +958,7 @@ vim.opt.shortmess:append("I")
 vim.opt.pumheight = 8
 vim.opt.termguicolors = true
 vim.opt.laststatus = 0
-vim.opt.cmdheight = 1
+vim.opt.cmdheight = 0
 vim.opt.mousescroll = "hor:0"
 
 -- colorscheme
@@ -962,9 +966,10 @@ vim.cmd.colorscheme("arob")
 
 -- neovide config
 if vim.g.neovide then
-	local default_scale_factor = 1.1 * 1.1
+	local default_scale_factor = 1
 
-	vim.opt.guifont = "FiraCode Nerd Font:h9"
+	vim.opt.guifont = "GeistMono Nerd Font:h10"
+	vim.opt.linespace = -4
 	vim.g.neovide_scale_factor = default_scale_factor
 
 	vim.keymap.set("n", "<c-=>", function()

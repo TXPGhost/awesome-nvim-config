@@ -91,16 +91,20 @@ with `:Lazy profile`.
 
 ### Navigation
 
-| Key    |             Binding |
-| :----- | ------------------: |
-| Ctrl s |        Split window |
-| Ctrl t |      Create new tab |
-| Ctrl h |  Switch window left |
-| Ctrl j |  Switch window down |
-| Ctrl k |    Switch window up |
-| Ctrl l | Switch window right |
-| H      |   Goto previous tab |
-| L      |       Goto next tab |
+| Key    |                Binding |
+| :----- | ---------------------: |
+| Ctrl s |           Split window |
+| Ctrl t |         Create new tab |
+| Ctrl h |     Switch window left |
+| Ctrl j |     Switch window down |
+| Ctrl k |       Switch window up |
+| Ctrl l |    Switch window right |
+| Alt h  | Decrease window size x |
+| Alt j  | Increase window size y |
+| Alt k  | Decrease window size y |
+| Alt l  | Increase window size x |
+| H      |      Goto previous tab |
+| L      |          Goto next tab |
 
 ### Terminal
 
