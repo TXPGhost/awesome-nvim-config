@@ -943,7 +943,7 @@ vim.opt.shortmess:append("I")
 vim.opt.pumheight = 8
 vim.opt.termguicolors = true
 vim.opt.laststatus = 0
-vim.opt.cmdheight = 0
+vim.opt.cmdheight = 1
 vim.opt.mousescroll = "hor:0"
 
 -- colorscheme
