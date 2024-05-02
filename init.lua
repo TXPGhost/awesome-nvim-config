@@ -616,7 +616,7 @@ require("lazy").setup({
 		config = function()
 			vim.opt.tabstop = 4
 			vim.opt.shiftwidth = 4
-			require('guess-indent').setup({})
+			require("guess-indent").setup({})
 		end
 	},
 	{
@@ -762,30 +762,34 @@ require("lazy").setup({
 			require("tabby.tabline").set(function(line)
 				return {
 					{
-						{ '  ', hl = theme.vim_logo },
-						line.sep('', theme.head, theme.fill),
+						{ "  ", hl = theme.vim_logo },
+						line.sep("", theme.head, theme.fill),
 					},
 					line.tabs().foreach(function(tab)
 						local num_wins = 0
 						local icons = {}
 
+
 						local getwinft = function(win)
 							local buf = vim.api.nvim_win_get_buf(win.id)
-							local ft = vim.api.nvim_buf_get_option(buf, 'filetype')
+							local ft = vim.api.nvim_buf_get_option(buf, "filetype")
 							if ft == "" then
-								ft = vim.api.nvim_buf_get_option(buf, 'buftype')
+								ft = vim.api.nvim_buf_get_option(buf, "buftype")
 							end
 							if ft == "" then
-								ft = vim.fn.fnamemodify(win.buf_name(), ':e')
+								ft = vim.fn.fnamemodify(win.buf_name(), ":e")
 							end
 							if ft == "terminal" then
 								ft = "fish"
+							end
+							if ft == "markdown" then
+								ft = "md"
 							end
 							return ft
 						end
 
 						local geticon = function(ft)
-							local icon, color = require('nvim-web-devicons').get_icon_color(name, ft,
+							local icon, color = require("nvim-web-devicons").get_icon_color(nil, ft,
 								{ default = true })
 							if ft == "oil" then
 								icon = ""
@@ -823,7 +827,7 @@ require("lazy").setup({
 						end
 
 						local ret = {
-							line.sep('', hl, theme.fill),
+							line.sep("", hl, theme.fill),
 						}
 
 						for _, icon in pairs(icons) do
@@ -831,31 +835,31 @@ require("lazy").setup({
 						end
 
 						table.insert(ret, name)
-						table.insert(ret, line.sep('', hl, theme.fill))
+						table.insert(ret, line.sep("", hl, theme.fill))
 
 						ret.hl = hl
-						ret.margin = ' '
+						ret.margin = " "
 
 						return ret
 					end),
 					-- line.spacer(),
 					-- line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
-					-- 	local extension = vim.fn.fnamemodify(win.buf_name(), ':e')
-					-- 	local icon, color = require('nvim-web-devicons').get_icon_color(name, extension,
+					-- 	local extension = vim.fn.fnamemodify(win.buf_name(), ":e")
+					-- 	local icon, color = require("nvim-web-devicons").get_icon_color(name, extension,
 					-- 		{ default = true })
 
 					-- 	return {
-					-- 		line.sep('', theme.win, theme.fill),
+					-- 		line.sep("", theme.win, theme.fill),
 					-- 		line.sep(icon, { bg = color }, theme.fill),
 					-- 		win.buf_name(),
-					-- 		line.sep('', theme.win, theme.fill),
+					-- 		line.sep("", theme.win, theme.fill),
 					-- 		hl = theme.win,
-					-- 		margin = ' ',
+					-- 		margin = " ",
 					-- 	}
 					-- end),
 					-- {
-					-- 	line.sep('', theme.tail, theme.fill),
-					-- 	{ '  ', hl = theme.file_logo },
+					-- 	line.sep("", theme.tail, theme.fill),
+					-- 	{ "  ", hl = theme.file_logo },
 					-- },
 					hl = theme.fill,
 				}
