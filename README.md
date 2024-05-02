@@ -93,6 +93,7 @@ with `:Lazy profile`.
 
 | Key    |             Binding |
 | :----- | ------------------: |
+| Ctrl s |        Split window |
 | Ctrl t |      Create new tab |
 | Ctrl h |  Switch window left |
 | Ctrl j |  Switch window down |

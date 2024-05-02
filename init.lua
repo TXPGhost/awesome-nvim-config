@@ -925,6 +925,17 @@ do
 	vim.keymap.set("n", "<c-t>", "<cmd>tabnew<cr>")
 	vim.keymap.set("n", "L", "<cmd>tabnext<cr>")
 	vim.keymap.set("n", "H", "<cmd>tabprev<cr>")
+	vim.keymap.set("n", "<c-s>", function()
+		local width = vim.api.nvim_win_get_width(0)
+		local height = vim.api.nvim_win_get_height(0)
+		if width >= height * 2.5 then
+			vim.cmd("wincmd v")
+			vim.cmd("wincmd l")
+		else
+			vim.cmd("wincmd s")
+			vim.cmd("wincmd j")
+		end
+	end)
 end
 
 -- startup commands
@@ -951,7 +962,10 @@ vim.cmd.colorscheme("arob")
 
 -- neovide config
 if vim.g.neovide then
+	local default_scale_factor = 1.1 * 1.1
+
 	vim.opt.guifont = "FiraCode Nerd Font:h9"
+	vim.g.neovide_scale_factor = default_scale_factor
 
 	vim.keymap.set("n", "<c-=>", function()
 		vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * 1.1
@@ -962,7 +976,7 @@ if vim.g.neovide then
 		vim.cmd("redraw!")
 	end)
 	vim.keymap.set("n", "<c-0>", function()
-		vim.g.neovide_scale_factor = 1
+		vim.g.neovide_scale_factor = default_scale_factor
 		vim.cmd("redraw!")
 	end)
 end
