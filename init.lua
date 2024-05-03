@@ -490,7 +490,8 @@ require("lazy").setup({
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<cr>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
+						local entry = cmp.core.view:get_selected_entry()
+						if cmp.visible() and not (entry and entry.source.name == "nvim_lsp_signature_help") then
 							cmp.confirm({ select = true })
 							cmp.close()
 						elseif snippy.can_expand_or_advance() then
@@ -522,7 +523,7 @@ require("lazy").setup({
 							cmp.abort()
 						end
 						fallback()
-					end, { "i", "s" }),
+					end, { "i", "s" })
 				}),
 				experimental = {
 					ghost_text = true,
