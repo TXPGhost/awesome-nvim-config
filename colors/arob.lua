@@ -214,3 +214,5 @@ vim.api.nvim_set_hl(0, "OilGitStatusWorkingTreeModified", { link = "Title" })
 vim.api.nvim_set_hl(0, "OilGitStatusWorkingTreeRenamed", { link = "Title" })
 vim.api.nvim_set_hl(0, "OilGitStatusWorkingTreeTypeChanged", { link = "Title" })
 vim.api.nvim_set_hl(0, "OilGitStatusWorkingTreeUnmerged", { link = "Title" })
+
+:vim.api.nvim_set_hl(0, "@lsp.type.bracket", { link = "@punctuation" })
