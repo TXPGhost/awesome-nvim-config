@@ -465,6 +465,9 @@ require("lazy").setup({
 						snippy.expand_snippet(args.body)
 					end,
 				},
+				completion = {
+					completeopt = "menu,menuone,noinsert"
+				},
 				mapping = cmp.mapping.preset.insert({
 					["<cr>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
