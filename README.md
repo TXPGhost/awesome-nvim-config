@@ -111,7 +111,7 @@ with `:Lazy profile`.
 | Key        |            Binding |
 | :--------- | -----------------: |
 | Ctrl Enter |      Open terminal |
-| Ctrl a     | Exit terminal mode |
+| Esc        | Exit terminal mode |
 
 ## Folds
 

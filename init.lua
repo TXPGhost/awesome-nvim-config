@@ -876,6 +876,15 @@ require("lazy").setup({
 		config = function()
 			require("nvim-highlight-colors").setup({
 				render = "background",
+				enable_named_colors = false,
+			})
+		end
+	},
+	{
+		"chomosuke/term-edit.nvim",
+		config = function()
+			require("term-edit").setup({
+				prompt_end = " "
 			})
 		end
 	}
@@ -928,7 +937,7 @@ do
 	)
 
 	-- easy exit terminal mode
-	vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
+	vim.keymap.set("t", "<esc>", "<c-\\><c-n>")
 
 	-- navigation
 	vim.keymap.set("n", "<c-h>", "<c-w><c-h>")
@@ -971,7 +980,7 @@ vim.opt.shortmess:append("I")
 vim.opt.pumheight = 8
 vim.opt.termguicolors = true
 vim.opt.laststatus = 0
-vim.opt.cmdheight = 0
+vim.opt.cmdheight = 1
 vim.opt.mousescroll = "hor:0"
 
 -- colorscheme
