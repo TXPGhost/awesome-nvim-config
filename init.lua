@@ -122,10 +122,10 @@ require("lazy").setup({
 			vim.keymap.set("n", "zM", ufo.closeAllFolds)
 			vim.keymap.set("n", "zr", ufo.openFoldsExceptKinds)
 			vim.keymap.set("n", "zm", ufo.closeFoldsWith)
-			vim.keymap.set("n", "]f", function()
+			vim.keymap.set("n", "]c", function()
 				ufo.goNextClosedFold()
 			end)
-			vim.keymap.set("n", "[f", function()
+			vim.keymap.set("n", "[c", function()
 				ufo.goPreviousClosedFold()
 			end)
 			vim.keymap.set("n", "K", function()
@@ -251,12 +251,31 @@ require("lazy").setup({
 				endwise = {
 					enable = true,
 				},
+				textobjects = {
+					select = {
+						enable = true,
+						keymaps = {
+							["af"] = "@function.outer",
+							["if"] = "@function.inner",
+							["ac"] = "@class.outer",
+							["ic"] = "@class.inner",
+						},
+					},
+					move = {
+						enable = true,
+						goto_next_start = {
+							["]f"] = "@function.outer",
+							["]c"] = "@class.outer",
+						},
+						goto_previous_start = {
+							["[f"] = "@function.outer",
+							["[c"] = "@class.outer",
+						}
+					}
+				}
 			})
 
 			require("treesitter-context").setup({})
-			vim.keymap.set("n", "[c", function()
-				require("treesitter-context").go_to_context(vim.v.count1)
-			end, { silent = true })
 
 			vim.opt.foldmethod = "expr"
 			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
@@ -266,6 +285,7 @@ require("lazy").setup({
 			"RRethy/nvim-treesitter-endwise",
 			"windwp/nvim-ts-autotag",
 			"nvim-treesitter/nvim-treesitter-context",
+			"nvim-treesitter/nvim-treesitter-textobjects",
 		},
 	},
 	{
@@ -466,7 +486,7 @@ require("lazy").setup({
 					end,
 				},
 				completion = {
-					completeopt = "menu,menuone,noinsert"
+					completeopt = "menu,menuone,noinsert",
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<cr>"] = cmp.mapping(function(fallback)

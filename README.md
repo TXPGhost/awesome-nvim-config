@@ -59,14 +59,21 @@ with `:Lazy profile`.
 
 ### Tree-Sitter
 
-| Key       |               Binding |
-| :-------- | --------------------: |
-| Enter     |        Init selection |
-| Tab       |        Grow selection |
-| Shift Tab |      Shrink Selection |
-| Ctrl j    |            Split code |
-| Ctrl k    |             Join code |
-| [c        | Jump to context start |
+| Key       |                   Binding |
+| :-------- | ------------------------: |
+| Enter     |            Init selection |
+| Tab       |            Grow selection |
+| Shift Tab |          Shrink Selection |
+| Ctrl j    |                Split code |
+| Ctrl k    |                 Join code |
+| vaf       |     Select outer function |
+| vif       |     Select inner function |
+| vac       |        Select outer class |
+| vic       |        Select inner class |
+| ]f        |     Jump to next function |
+| [f        | Jump to previous function |
+| ]c        |        Jump to next class |
+| [c        |    Jump to previous class |
 
 ### LSP
 
@@ -122,8 +129,8 @@ with `:Lazy profile`.
 | zr      | Open all folds except comments and imports |
 | zm      |                 Close all folds with level |
 | Space k |                       Preview current fold |
-| ]f      |                      Goto next closed fold |
-| [f      |                  Goto previous closed fold |
+| ]c      |                      Goto next closed fold |
+| [c      |                  Goto previous closed fold |
 
 ## Pairs
 
