@@ -793,6 +793,10 @@ require("lazy").setup({
 						local num_wins = 0
 						local icons = {}
 
+						local getwinname = function(win)
+							local buf = vim.api.nvim_win_get_buf(win.id)
+							return vim.api.nvim_buf_get_name(buf)
+						end
 
 						local getwinft = function(win)
 							local buf = vim.api.nvim_win_get_buf(win.id)
@@ -812,8 +816,8 @@ require("lazy").setup({
 							return ft
 						end
 
-						local geticon = function(ft)
-							local icon, color = require("nvim-web-devicons").get_icon_color(nil, ft,
+						local geticon = function(name, ft)
+							local icon, color = require("nvim-web-devicons").get_icon_color(name, ft,
 								{ default = true })
 							if ft == "oil" then
 								icon = ""
@@ -828,7 +832,8 @@ require("lazy").setup({
 
 						line.wins_in_tab(tab.id).foreach(function(win)
 							local ft = getwinft(win)
-							local icon, color = geticon(ft)
+							local name = getwinname(win)
+							local icon, color = geticon(name, ft)
 
 							-- TODO: fix background color
 							table.insert(icons, line.sep(icon, { bg = color }, theme.fill))
@@ -904,14 +909,6 @@ require("lazy").setup({
 			})
 		end
 	},
-	{
-		"chomosuke/term-edit.nvim",
-		config = function()
-			require("term-edit").setup({
-				prompt_end = " "
-			})
-		end
-	}
 })
 
 -- set help window to vertical split
@@ -961,7 +958,7 @@ do
 	)
 
 	-- easy exit terminal mode
-	vim.keymap.set("t", "<esc>", "<c-\\><c-n>")
+	vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
 
 	-- navigation
 	vim.keymap.set("n", "<c-h>", "<c-w><c-h>")
