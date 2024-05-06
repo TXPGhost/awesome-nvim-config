@@ -49,7 +49,6 @@ with `:Lazy profile`.
 | g.        |     Toggle show hidden files |
 | Space f   |         Search project files |
 | Space b   |       Search project buffers |
-| Space j   |              Search jumplist |
 | Space /   | Search project file contents |
 | Ctrl r    |                Refresh files |
 | Ctrl p    |               Toggle preview |
