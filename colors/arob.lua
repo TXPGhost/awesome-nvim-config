@@ -1,4 +1,3 @@
--- colorscheme
 local fg = "#E0E0E0"
 local fgg = "#A0A0A0"
 local fggg = "#707070"
@@ -15,7 +14,7 @@ local lightblue = "#b4c8e0"
 local teal = "#4EC9B0"
 local green = "#4cbf6b"
 local gold = "#d8a72b"
-local purple = "#bd50e5"
+local purple = "#cd70e5"
 local red = "#d84e4b"
 
 local redbg = "#2C2020"
