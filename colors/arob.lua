@@ -1,27 +1,27 @@
 -- colorscheme
-local fg = "#A7AAB0"
-local fgg = "#76787C"
-local fggg = "#5e6063"
-local fgggg = "#464749"
-local fggggg = "#2e2f30"
+local fg = "#E0E0E0"
+local fgg = "#A0A0A0"
+local fggg = "#707070"
+local fgggg = "#505050"
+local fggggg = "#404040"
 
-local bg = "#121212"
-local bgg = "#151515"
-local bggg = "#181818"
-local bgggg = "#1A1A1A"
+local bg = "#202020"
+local bgg = "#232323"
+local bggg = "#262626"
+local bgggg = "#292929"
 
-local blue = "#466793"
-local lightblue = "#839BAF"
-local cyan = "#568FA5"
-local green = "#56A56B"
-local gold = "#BC9636"
-local purple = "#9E5FCC"
-local red = "#C6706F"
+local blue = "#569cd6"
+local lightblue = "#b4c8e0"
+local teal = "#4EC9B0"
+local green = "#4cbf6b"
+local gold = "#d8a72b"
+local purple = "#bd50e5"
+local red = "#d84e4b"
 
-local redbg = "#1C1212"
-local greenbg = "#121C12"
-local bluebg = "#12121C"
-local bluebgg = "#17172B"
+local redbg = "#2C2020"
+local greenbg = "#202C20"
+local bluebg = "#20202C"
+local bluebgg = "#252545"
 
 -- terminal
 vim.g.terminal_color_0 = "#101012"  -- black
@@ -51,19 +51,18 @@ vim.api.nvim_set_hl(0, "Comment", { fg = fggg, italic = true })
 vim.api.nvim_set_hl(0, "Conceal", { fg = fgg })
 vim.api.nvim_set_hl(0, "Pmenu", { bg = bgg })
 vim.api.nvim_set_hl(0, "PmenuSel", { bg = bgggg })
-vim.api.nvim_set_hl(0, "Type", { fg = cyan })
+vim.api.nvim_set_hl(0, "Type", { fg = teal })
 vim.api.nvim_set_hl(0, "PreProc", { fg = purple })
 vim.api.nvim_set_hl(0, "String", { fg = green })
 vim.api.nvim_set_hl(0, "SignColumn", {})
 vim.api.nvim_set_hl(0, "FoldColumn", {})
-vim.api.nvim_set_hl(0, "Directory", { fg = cyan })
+vim.api.nvim_set_hl(0, "Directory", { fg = teal })
 vim.api.nvim_set_hl(0, "LineNr", { fg = fggg })
 vim.api.nvim_set_hl(0, "LineNrAbove", { fg = fgggg })
 vim.api.nvim_set_hl(0, "LineNrBelow", { fg = fgggg })
 vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = fggggg })
-vim.api.nvim_set_hl(0, "StatusLine", { fg = fgg, bg = bgg })
-vim.api.nvim_set_hl(0, "StatusLineNC", { link = "StatusLine" })
-vim.api.nvim_set_hl(0, "MsgArea", { fg = fgg, bg = bgg })
+vim.api.nvim_set_hl(0, "StatusLine", { fg = fgg, bg = bggg })
+vim.api.nvim_set_hl(0, "StatusLineNC", { fg = fgg, bg = bgg })
 vim.api.nvim_set_hl(0, "TabLine", { bg = bgggg })
 vim.api.nvim_set_hl(0, "TabLineFill", { bg = bggg })
 vim.api.nvim_set_hl(0, "TabLineSel", { bg = bgg })
@@ -73,7 +72,7 @@ vim.api.nvim_set_hl(0, "Search", { reverse = true })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = bgg })
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = fggg })
 vim.api.nvim_set_hl(0, "Folded", { fg = fggg, bg = bgg })
-vim.api.nvim_set_hl(0, "Title", { fg = cyan })
+vim.api.nvim_set_hl(0, "Title", { fg = teal })
 vim.api.nvim_set_hl(0, "MatchParen", { bold = true })
 vim.api.nvim_set_hl(0, "Error", { fg = red, bg = redbg })
 vim.api.nvim_set_hl(0, "ErrorMsg", { fg = red, bg = redbg })
@@ -105,7 +104,7 @@ vim.api.nvim_set_hl(0, "ConflictMarkerCommonAncestorsHunk", { bg = "#754a81" })
 
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineOk", { sp = fg, undercurl = true })
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { sp = lightblue, undercurl = true })
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { sp = cyan, undercurl = true })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { sp = teal, undercurl = true })
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { sp = gold, undercurl = true })
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { sp = red, undercurl = true })
 vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { sp = fggg, undercurl = true })
@@ -127,7 +126,8 @@ vim.api.nvim_set_hl(0, "@lsp.type.property", { link = "@variable.member" })
 vim.api.nvim_set_hl(0, "@lsp.typemod.property", { link = "@variable.member" })
 
 vim.api.nvim_set_hl(0, "@variable.builtin", { link = "@variable.member" })
-vim.api.nvim_set_hl(0, "@lsp.type.selfKeyword", { link = "@variable.builtin" })
+-- vim.api.nvim_set_hl(0, "@lsp.type.selfKeyword", { link = "@variable.builtin" })
+vim.api.nvim_set_hl(0, "@lsp.type.selfKeyword", { link = "@keyword" })
 
 vim.api.nvim_set_hl(0, "@constant.builtin", { link = "Constant" })
 
@@ -149,12 +149,12 @@ vim.api.nvim_set_hl(0, "@lsp.type.builtinAttribute", {})
 vim.api.nvim_set_hl(0, "@lsp.type.generic", {})
 
 vim.api.nvim_set_hl(0, "@markup.heading.markdown", { fg = lightblue })
-vim.api.nvim_set_hl(0, "@markup.heading.1.markdown", { fg = cyan })
-vim.api.nvim_set_hl(0, "@markup.heading.2.markdown", { fg = cyan })
-vim.api.nvim_set_hl(0, "@markup.heading.3.markdown", { fg = cyan })
-vim.api.nvim_set_hl(0, "@markup.heading.4.markdown", { fg = cyan })
-vim.api.nvim_set_hl(0, "@markup.heading.5.markdown", { fg = cyan })
-vim.api.nvim_set_hl(0, "@markup.heading.6.markdown", { fg = cyan })
+vim.api.nvim_set_hl(0, "@markup.heading.1.markdown", { fg = teal })
+vim.api.nvim_set_hl(0, "@markup.heading.2.markdown", { fg = teal })
+vim.api.nvim_set_hl(0, "@markup.heading.3.markdown", { fg = teal })
+vim.api.nvim_set_hl(0, "@markup.heading.4.markdown", { fg = teal })
+vim.api.nvim_set_hl(0, "@markup.heading.5.markdown", { fg = teal })
+vim.api.nvim_set_hl(0, "@markup.heading.6.markdown", { fg = teal })
 
 vim.api.nvim_set_hl(0, "@markup.list.markdown", { fg = blue })
 vim.api.nvim_set_hl(0, "@markup.math.latex", { fg = gold })
@@ -165,7 +165,7 @@ vim.api.nvim_set_hl(0, "@markup.italic.markdown_inline", { italic = true })
 vim.api.nvim_set_hl(0, "@markup.strikethrough.markdown_inline", { strikethrough = true })
 vim.api.nvim_set_hl(0, "@markup.link.markdown_inline", { link = "Punctuation" })
 vim.api.nvim_set_hl(0, "@markup.link.url.markdown_inline", { fg = lightblue, underline = true })
-vim.api.nvim_set_hl(0, "@markup.link.label.markdown_inline", { fg = cyan, bold = true })
+vim.api.nvim_set_hl(0, "@markup.link.label.markdown_inline", { fg = teal, bold = true })
 
 vim.api.nvim_set_hl(0, "@markup.strong.latex", { bold = true })
 vim.api.nvim_set_hl(0, "@markup.italic.latex", { italic = true })
@@ -178,10 +178,10 @@ vim.api.nvim_set_hl(0, "fugitiveHelpTag", { link = "Character" })
 vim.api.nvim_set_hl(0, "@markup.link.gitcommit", { link = "Type" })
 vim.api.nvim_set_hl(0, "@string.special.url.gitcommit", { fg = fg })
 
-vim.api.nvim_set_hl(0, "tutorSectionBullet", { fg = cyan })
+vim.api.nvim_set_hl(0, "tutorSectionBullet", { fg = teal })
 
-vim.api.nvim_set_hl(0, "@function.make", { fg = cyan })
-vim.api.nvim_set_hl(0, "@function.cmake", { fg = cyan })
+vim.api.nvim_set_hl(0, "@function.make", { fg = teal })
+vim.api.nvim_set_hl(0, "@function.cmake", { fg = teal })
 vim.api.nvim_set_hl(0, "@function.latex", { fg = lightblue })
 
 vim.api.nvim_set_hl(0, "@comment.todo.comment", { bg = bggg, bold = true })
