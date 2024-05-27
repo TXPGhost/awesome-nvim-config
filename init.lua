@@ -604,7 +604,8 @@ require("lazy").setup({
 				rmap = "<a-9>",
 				cmap = "<a-0>",
 				rcmap = "<a-9>",
-			}
+			},
+			cmap = false,
 		},
 	},
 	{
