@@ -20,14 +20,13 @@ with `:Lazy profile`.
 
 | Key         |                     Binding |
 | :---------- | --------------------------: |
-| ?           | Open fugitive status window |
-| g?          |              Show diff view |
+| Space g     | Open fugitive status window |
+| gs          |              Show diff view |
 | ]h          |                   Next hunk |
 | [h          |               Previous hunk |
 | ghs         |                  Stage hunk |
 | ghu         |             Undo stage hunk |
 | ghr         |                  Reset hunk |
-| Space g     |               Change branch |
 | Space Space |                Preview hunk |
 
 ### Autocompletion

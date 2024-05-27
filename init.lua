@@ -388,7 +388,6 @@ require("lazy").setup({
 		config = function()
 			vim.keymap.set("n", "<space>f", "<cmd>Telescope fd<cr>")
 			vim.keymap.set("n", "<space>b", "<cmd>Telescope buffers<cr>")
-			vim.keymap.set("n", "<space>g", "<cmd>Telescope git_branches<cr>")
 			vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
 		end
 	},
@@ -634,8 +633,8 @@ require("lazy").setup({
 		lazy = true,
 		event = "VeryLazy",
 		config = function()
-			vim.keymap.set("n", "?", "<cmd>Git<cr><cmd>wincmd L<cr>")
-			vim.keymap.set("n", "g?",
+			vim.keymap.set("n", "<space>g", "<cmd>Git<cr><cmd>wincmd L<cr>")
+			vim.keymap.set("n", "gs",
 				"<cmd>Gvdiffsplit!<cr><cmd>set foldcolumn=0<cr><cmd>wincmd h<cr><cmd>set foldcolumn=0<cr>")
 		end,
 	},
