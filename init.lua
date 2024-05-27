@@ -401,6 +401,12 @@ require("lazy").setup({
 			local lspkind = require("lspkind")
 			local snippy = require("snippy")
 
+			lspkind.init({
+				symbol_map = {
+					Copilot = "",
+				},
+			})
+
 			local item_kind = {
 				Text = 1,
 				Method = 2,
@@ -779,7 +785,7 @@ require("lazy").setup({
 				win = "TabLine",
 				tail = "TabLine",
 				title = "Title",
-				vim_logo = { fg = "#56A56B", bg = "#1A1A1A" },
+				vim_logo = { fg = "#56A56B", bg = "#292929" },
 				file_logo = { fg = "#76787C", bg = "#1A1A1A" },
 			}
 			require("tabby.tabline").set(function(line)
@@ -897,7 +903,45 @@ require("lazy").setup({
 	{
 		"rhysd/conflict-marker.vim",
 		event = "VeryLazy",
-	}
+	},
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			require("copilot").setup({})
+		end,
+	},
+	-- {
+	-- 	"HoNamDuong/hybrid.nvim",
+	-- 	config = function()
+	-- 		require("hybrid").setup({
+	-- 			terminal_colors = true,
+	-- 			undercurl = true,
+	-- 			underline = true,
+	-- 			bold = true,
+	-- 			italic = {
+	-- 				strings = false,
+	-- 				emphasis = true,
+	-- 				comments = true,
+	-- 				folds = false,
+	-- 			},
+	-- 			strikethrough = true,
+	-- 			inverse = true,
+	-- 			transparent = false,
+	-- 			overrides = function(highlights, colors)
+	-- 				-- highlights.LineNr = highlights.LineNrAbove
+	-- 				highlights.Folded = { bg = "#212326" }
+	-- 				highlights.TreesitterContext = { bg = "#212326" }
+	-- 				highlights.LineNr = { fg = "#41454c" }
+	-- 				highlights.LineNrAbove = { fg = "#373B41" }
+	-- 				highlights.LineNrBelow = { fg = "#373B41" }
+	-- 				highlights.EndOfBuffer = { fg = "#2f3338" }
+	-- 			end,
+	-- 		})
+	-- 		vim.cmd.colorscheme("hybrid")
+	-- 	end
+	-- }
 })
 
 -- set help window to vertical split

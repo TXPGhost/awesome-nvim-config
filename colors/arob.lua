@@ -1,6 +1,6 @@
 local fg = "#E0E0E0"
 local fgg = "#A0A0A0"
-local fggg = "#707070"
+local fggg = "#606060"
 local fgggg = "#505050"
 local fggggg = "#404040"
 
@@ -40,7 +40,7 @@ vim.g.terminal_color_13 = "#BB70D2" -- magenta (bright)
 vim.g.terminal_color_14 = "#51A8B3" -- cyan (bright)
 vim.g.terminal_color_15 = "#A7AAB0" -- white (bright)
 
-vim.api.nvim_set_hl(0, "Normal", { fg = fg, bg = bg })
+vim.api.nvim_set_hl(0, "Normal", { fg = fg })
 vim.api.nvim_set_hl(0, "Identifier", {})
 vim.api.nvim_set_hl(0, "Statement", {})
 vim.api.nvim_set_hl(0, "Constant", { fg = gold })
