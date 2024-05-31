@@ -192,11 +192,13 @@ require("lazy").setup({
 		config = function()
 			local config = {
 				cmd = { "/usr/bin/jdtls" },
-				root_dir = vim.fs.dirname(vim.fs.find({ "build.gradle", "gradlew", ".git", "mvnw" }, { upward = true })
+				root_dir = vim.fs.dirname(vim.fs.find({ "build.gradle", "gradlew", ".git", "mvnw" },
+						{ upward = true })
 					[1]),
 				init_options = {
 					bundles = {
-						vim.fn.glob("/usr/share/java-debug/com.microsoft.java.debug.plugin.jar", 1),
+						vim.fn.glob("/usr/share/java-debug/com.microsoft.java.debug.plugin.jar",
+							1),
 					},
 				},
 			}
@@ -435,19 +437,19 @@ require("lazy").setup({
 			}
 
 			local item_kind_rankings = {
-				[item_kind.Field] = 0,
-				[item_kind.Property] = 1,
-				[item_kind.Method] = 2,
-				[item_kind.Function] = 3,
-				[item_kind.Constructor] = 4,
-				[item_kind.Keyword] = 5,
-				[item_kind.TypeParameter] = 6,
-				[item_kind.Variable] = 7,
-				[item_kind.Class] = 8,
-				[item_kind.Interface] = 9,
-				[item_kind.Struct] = 10,
-				[item_kind.Enum] = 11,
-				[item_kind.EnumMember] = 12,
+				[item_kind.EnumMember] = 0,
+				[item_kind.Field] = 1,
+				[item_kind.Property] = 2,
+				[item_kind.Method] = 3,
+				[item_kind.Function] = 4,
+				[item_kind.Constructor] = 5,
+				[item_kind.Keyword] = 6,
+				[item_kind.TypeParameter] = 7,
+				[item_kind.Variable] = 8,
+				[item_kind.Class] = 9,
+				[item_kind.Interface] = 10,
+				[item_kind.Struct] = 11,
+				[item_kind.Enum] = 12,
 				[item_kind.Value] = 13,
 				[item_kind.Unit] = 14,
 				[item_kind.Module] = 15,
@@ -466,7 +468,8 @@ require("lazy").setup({
 				unpack = unpack or table.unpack
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 				return col ~= 0 and
-					vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+					vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") ==
+					nil
 			end
 
 			local kind_comparator = function(entry1, entry2)
@@ -699,7 +702,8 @@ require("lazy").setup({
 					type = "gdb",
 					request = "launch",
 					program = function()
-						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/",
+							"file")
 					end,
 					args = function()
 						local args = {}
@@ -822,7 +826,8 @@ require("lazy").setup({
 						end
 
 						local geticon = function(name, ft)
-							local icon, color = require("nvim-web-devicons").get_icon_color(name, ft,
+							local icon, color = require("nvim-web-devicons").get_icon_color(
+								name, ft,
 								{ default = true })
 							if ft == "oil" then
 								icon = ""
@@ -912,36 +917,6 @@ require("lazy").setup({
 			require("copilot").setup({})
 		end,
 	},
-	-- {
-	-- 	"HoNamDuong/hybrid.nvim",
-	-- 	config = function()
-	-- 		require("hybrid").setup({
-	-- 			terminal_colors = true,
-	-- 			undercurl = true,
-	-- 			underline = true,
-	-- 			bold = true,
-	-- 			italic = {
-	-- 				strings = false,
-	-- 				emphasis = true,
-	-- 				comments = true,
-	-- 				folds = false,
-	-- 			},
-	-- 			strikethrough = true,
-	-- 			inverse = true,
-	-- 			transparent = false,
-	-- 			overrides = function(highlights, colors)
-	-- 				-- highlights.LineNr = highlights.LineNrAbove
-	-- 				highlights.Folded = { bg = "#212326" }
-	-- 				highlights.TreesitterContext = { bg = "#212326" }
-	-- 				highlights.LineNr = { fg = "#41454c" }
-	-- 				highlights.LineNrAbove = { fg = "#373B41" }
-	-- 				highlights.LineNrBelow = { fg = "#373B41" }
-	-- 				highlights.EndOfBuffer = { fg = "#2f3338" }
-	-- 			end,
-	-- 		})
-	-- 		vim.cmd.colorscheme("hybrid")
-	-- 	end
-	-- }
 })
 
 -- set help window to vertical split
