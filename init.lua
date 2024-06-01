@@ -210,8 +210,25 @@ require("lazy").setup({
 				highlight = {
 					enable = true,
 				},
+				indent = {
+					enable = true
+				},
+				endwise = {
+					enable = true,
+				},
+			})
+			require('nvim-ts-autotag').setup({
+				opts = {
+					enable_close = true,
+					enable_rename = true,
+					enable_close_on_slash = false
+				},
 			})
 		end,
+		dependencies = {
+			"RRethy/nvim-treesitter-endwise",
+			"windwp/nvim-ts-autotag",
+		},
 	},
 	{
 		"refractalize/oil-git-status.nvim",
@@ -834,6 +851,11 @@ require("lazy").setup({
 			require("copilot").setup({})
 		end,
 	},
+
+	{
+		"rstacruz/vim-closer",
+		event = "VeryLazy"
+	}
 })
 
 -- set help window to vertical split
