@@ -91,6 +91,7 @@ with `:Lazy profile`.
 | Space a |                 Code action |
 | Space d |   Show document diagnostics |
 | Space D |  Show workspace diagnostics |
+| Space h |          Toggle inlay hints |
 | \]d     |     Jump to next diagnostic |
 | \[d     | Jump to previous diagnostic |
 
