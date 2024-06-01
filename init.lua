@@ -958,7 +958,9 @@ if vim.g.neovide then
 
 	vim.opt.guifont = "GeistMono Nerd Font:h10"
 	vim.opt.linespace = -4
+
 	vim.g.neovide_scale_factor = default_scale_factor
+	vim.g.neovide_transparency = 0.75
 
 	vim.keymap.set("n", "<c-=>", function()
 		vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * 1.1

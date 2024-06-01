@@ -40,7 +40,12 @@ vim.g.terminal_color_13 = "#BB70D2" -- magenta (bright)
 vim.g.terminal_color_14 = "#51A8B3" -- cyan (bright)
 vim.g.terminal_color_15 = "#A7AAB0" -- white (bright)
 
-vim.api.nvim_set_hl(0, "Normal", { fg = fg })
+if vim.g.neovide then
+	vim.api.nvim_set_hl(0, "Normal", { fg = fg, bg = bg })
+else
+	vim.api.nvim_set_hl(0, "Normal", { fg = fg })
+end
+
 vim.api.nvim_set_hl(0, "Identifier", {})
 vim.api.nvim_set_hl(0, "Statement", {})
 vim.api.nvim_set_hl(0, "Function", {})
@@ -62,8 +67,8 @@ vim.api.nvim_set_hl(0, "LineNr", { fg = fggg })
 vim.api.nvim_set_hl(0, "LineNrAbove", { fg = fgggg })
 vim.api.nvim_set_hl(0, "LineNrBelow", { fg = fgggg })
 vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = fggggg })
-vim.api.nvim_set_hl(0, "StatusLine", { fg = fgg, bg = bggg })
-vim.api.nvim_set_hl(0, "StatusLineNC", { fg = fgg, bg = bgg })
+vim.api.nvim_set_hl(0, "StatusLine", { fg = fgg })
+vim.api.nvim_set_hl(0, "StatusLineNC", { fg = fggg })
 vim.api.nvim_set_hl(0, "TabLine", { bg = bgggg })
 vim.api.nvim_set_hl(0, "TabLineFill", { bg = bggg })
 vim.api.nvim_set_hl(0, "TabLineSel", { bg = bgg })
