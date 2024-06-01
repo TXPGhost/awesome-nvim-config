@@ -125,6 +125,9 @@ require("lazy").setup({
 			vim.keymap.set("n", "gy", "<cmd>Trouble lsp_type_definitions<cr>")
 			vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
 			vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
+			vim.keymap.set("n", "<space>h", function()
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+			end)
 
 			vim.lsp.inlay_hint.enable()
 		end,
