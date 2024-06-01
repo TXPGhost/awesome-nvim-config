@@ -433,6 +433,69 @@ require("lazy").setup({
 				return cmp.core.view.custom_entries_view:visible()
 			end
 
+			local close_pairs = function()
+				-- get current line in buffer
+				local line = vim.api.nvim_get_current_line()
+
+				-- stack of keys
+				local keys = ""
+
+				-- keep track of quotation delimeter
+				local in_quotes = nil
+
+				-- true if we are in an escape sequence
+				local escaping = false
+
+				-- true if making a newline
+				local newline = false
+
+				for i = 1, #line do
+					-- get current character
+					local c = string.sub(line, i, i)
+
+					if in_quotes == nil and (c == ")" or c == "}" or c == "]") and #keys > 0 then
+						-- close parens
+						keys = keys:sub(0, #keys - 1)
+					elseif in_quotes == c and not escaping then
+						-- close matching quotes
+						in_quotes = nil
+					elseif in_quotes == nil then
+						-- open parens/quotes
+						if c == "(" then
+							keys = ")" .. keys
+						elseif c == "{" then
+							keys = "}" .. keys
+							newline = true
+						elseif c == "[" then
+							keys = "]" .. keys
+						elseif not escaping and (c == "'" or c == "\"" or c == "`") then
+							in_quotes = c
+						end
+					end
+
+					if escaping then
+						escaping = false
+					else
+						escaping = c == "\\"
+					end
+				end
+				if string.sub(line, #line) == "<" then
+					keys = "<" .. keys
+				end
+				if in_quotes ~= nil then
+					keys = in_quotes .. keys
+				end
+
+				if newline then
+					keys = "<cr>" .. keys .. "<c-c>O"
+				elseif keys == "" then
+					keys = "<cr>"
+				end
+
+				-- feedkeys
+				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, false, false, true), "n", {})
+			end
+
 			cmp.setup({
 				snippet = {
 					expand = function(args)
@@ -451,7 +514,7 @@ require("lazy").setup({
 						elseif snippy.can_expand_or_advance() then
 							snippy.expand_or_advance()
 						else
-							fallback()
+							close_pairs()
 						end
 					end),
 					["<tab>"] = cmp.mapping(function(fallback)
@@ -851,11 +914,6 @@ require("lazy").setup({
 			require("copilot").setup({})
 		end,
 	},
-
-	{
-		"rstacruz/vim-closer",
-		event = "VeryLazy"
-	}
 })
 
 -- set help window to vertical split
