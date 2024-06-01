@@ -23,10 +23,6 @@ require("lazy").setup({
 		event = { "VeryLazy" },
 		cmd = { "LspInfo", "LspInstall", "LspUninstall" },
 		config = function()
-			local ufo = require("ufo")
-
-			vim.opt.foldlevel = 99999
-
 			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			capabilities.offsetEncoding = { "utf-16" }
@@ -118,23 +114,6 @@ require("lazy").setup({
 			vim.lsp.handlers["textDocument/signatureHelp"] =
 				vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
 
-			vim.keymap.set("n", "zR", ufo.openAllFolds)
-			vim.keymap.set("n", "zM", ufo.closeAllFolds)
-			vim.keymap.set("n", "zr", ufo.openFoldsExceptKinds)
-			vim.keymap.set("n", "zm", ufo.closeFoldsWith)
-			vim.keymap.set("n", "]c", function()
-				ufo.goNextClosedFold()
-			end)
-			vim.keymap.set("n", "[c", function()
-				ufo.goPreviousClosedFold()
-			end)
-			vim.keymap.set("n", "K", function()
-				local winid = ufo.peekFoldedLinesUnderCursor()
-				if not winid then
-					vim.lsp.buf.hover()
-				end
-			end)
-
 			vim.keymap.set("n", "<space>d", "<cmd>TroubleToggle document_diagnostics<cr>")
 			vim.keymap.set("n", "<space>D", "<cmd>TroubleToggle workspace_diagnostics<cr>")
 			vim.keymap.set("n", "<space>a", function() vim.lsp.buf.code_action() end)
@@ -147,21 +126,8 @@ require("lazy").setup({
 			vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
 			vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
 
-			ufo.setup({
-				open_fold_hl_timeout = 0,
-				close_fold_kinds_for_ft = { default = { "imports", "comment" } },
-				preview = {
-					win_config = {
-						winhighlight = "Pmenu:Pmenu",
-						winblend = 0,
-					},
-					mappings = {
-						switch = "K"
-					}
-				},
-			})
+			vim.lsp.inlay_hint.enable()
 		end,
-		dependencies = { "kevinhwang91/nvim-ufo" }
 	},
 	{
 		"stevearc/dressing.nvim",
@@ -241,54 +207,8 @@ require("lazy").setup({
 				highlight = {
 					enable = true,
 				},
-				indent = {
-					enable = true
-				},
-				beacon = {
-					enable = false,
-				},
-				autotag = {
-					enable = true,
-				},
-				endwise = {
-					enable = true,
-				},
-				textobjects = {
-					select = {
-						enable = true,
-						keymaps = {
-							["af"] = "@function.outer",
-							["if"] = "@function.inner",
-							["ac"] = "@class.outer",
-							["ic"] = "@class.inner",
-						},
-					},
-					move = {
-						enable = true,
-						goto_next_start = {
-							["]f"] = "@function.outer",
-							["]c"] = "@class.outer",
-						},
-						goto_previous_start = {
-							["[f"] = "@function.outer",
-							["[c"] = "@class.outer",
-						}
-					}
-				}
 			})
-
-			require("treesitter-context").setup({})
-
-			vim.opt.foldmethod = "expr"
-			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-			vim.opt.foldlevel = 99999
 		end,
-		dependencies = {
-			"RRethy/nvim-treesitter-endwise",
-			"windwp/nvim-ts-autotag",
-			"nvim-treesitter/nvim-treesitter-context",
-			"nvim-treesitter/nvim-treesitter-textobjects",
-		},
 	},
 	{
 		"refractalize/oil-git-status.nvim",
@@ -486,6 +406,13 @@ require("lazy").setup({
 				return nil
 			end
 
+			local fast_cmp_visible = function()
+				if not (cmp.core.view and cmp.core.view.custom_entries_view) then
+					return false
+				end
+				return cmp.core.view.custom_entries_view:visible()
+			end
+
 			cmp.setup({
 				snippet = {
 					expand = function(args)
@@ -498,7 +425,7 @@ require("lazy").setup({
 				mapping = cmp.mapping.preset.insert({
 					["<cr>"] = cmp.mapping(function(fallback)
 						local entry = cmp.core.view:get_selected_entry()
-						if cmp.visible() and not (entry and entry.source.name == "nvim_lsp_signature_help") then
+						if fast_cmp_visible() and not (entry and entry.source.name == "nvim_lsp_signature_help") then
 							cmp.confirm({ select = true })
 							cmp.close()
 						elseif snippy.can_expand_or_advance() then
@@ -599,19 +526,6 @@ require("lazy").setup({
 		},
 	},
 	{
-		"altermo/ultimate-autopair.nvim",
-		event = "VeryLazy",
-		opts = {
-			fastwarp = {
-				map = "<a-0>",
-				rmap = "<a-9>",
-				cmap = "<a-0>",
-				rcmap = "<a-9>",
-			},
-			cmap = false,
-		},
-	},
-	{
 		"kylechui/nvim-surround",
 		event = "VeryLazy",
 		config = function()
@@ -622,7 +536,7 @@ require("lazy").setup({
 		"lewis6991/gitsigns.nvim",
 		event = "VeryLazy",
 		config = function()
-			require("gitsigns").setup({ update_debounce = 0 })
+			require("gitsigns").setup({})
 
 			vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
 			vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>zz")
