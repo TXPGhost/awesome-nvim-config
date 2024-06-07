@@ -430,6 +430,21 @@ require("lazy").setup({
 				return cmp.core.view.custom_entries_view:visible()
 			end
 
+			-- keep track if edits were made in insert mode
+			local edits_made = false
+			vim.api.nvim_create_autocmd({ "TextChangedI" }, {
+				pattern = { "*" },
+				callback = function()
+					edits_made = true
+				end
+			})
+			vim.api.nvim_create_autocmd({ "InsertLeave" }, {
+				pattern = { "*" },
+				callback = function()
+					edits_made = false
+				end
+			})
+
 			local close_pairs = function()
 				-- get current line in buffer
 				local line = vim.api.nvim_get_current_line()
@@ -446,42 +461,44 @@ require("lazy").setup({
 				-- true if making a newline
 				local newline = false
 
-				for i = 1, #line do
-					-- get current character
-					local c = string.sub(line, i, i)
+				if edits_made then
+					for i = 1, #line do
+						-- get current character
+						local c = string.sub(line, i, i)
 
-					-- this fixes the % motion: [{(
-					if in_quotes == nil and (c == ")" or c == "}" or c == "]") and #keys > 0 then
-						-- close parens
-						keys = keys:sub(0, #keys - 1)
-					elseif in_quotes == c and not escaping then
-						-- close matching quotes
-						in_quotes = nil
-					elseif in_quotes == nil then
-						-- open parens/quotes
-						if c == "(" then
-							keys = ")" .. keys
-						elseif c == "{" then
-							keys = "}" .. keys
-							newline = true
-						elseif c == "[" then
-							keys = "]" .. keys
-						elseif not escaping and (c == "'" or c == "\"" or c == "`") then
-							in_quotes = c
+						-- this fixes the % motion: [{(
+						if in_quotes == nil and (c == ")" or c == "}" or c == "]") and #keys > 0 then
+							-- close parens
+							keys = keys:sub(0, #keys - 1)
+						elseif in_quotes == c and not escaping then
+							-- close matching quotes
+							in_quotes = nil
+						elseif in_quotes == nil then
+							-- open parens/quotes
+							if c == "(" then
+								keys = ")" .. keys
+							elseif c == "{" then
+								keys = "}" .. keys
+								newline = true
+							elseif c == "[" then
+								keys = "]" .. keys
+							elseif not escaping and (c == "'" or c == "\"" or c == "`") then
+								in_quotes = c
+							end
+						end
+
+						if escaping then
+							escaping = false
+						else
+							escaping = c == "\\"
 						end
 					end
-
-					if escaping then
-						escaping = false
-					else
-						escaping = c == "\\"
+					if string.sub(line, #line) == "<" then
+						keys = "<" .. keys
 					end
-				end
-				if string.sub(line, #line) == "<" then
-					keys = "<" .. keys
-				end
-				if in_quotes ~= nil then
-					keys = in_quotes .. keys
+					if in_quotes ~= nil then
+						keys = in_quotes .. keys
+					end
 				end
 
 				if newline then
@@ -504,7 +521,7 @@ require("lazy").setup({
 					completeopt = "menu,menuone,noinsert",
 				},
 				mapping = cmp.mapping.preset.insert({
-					["<cr>"] = cmp.mapping(function(fallback)
+					["<cr>"] = cmp.mapping(function(_)
 						local entry = cmp.core.view:get_selected_entry()
 						if fast_cmp_visible() and not (entry and entry.source.name == "nvim_lsp_signature_help") then
 							cmp.confirm({ select = true })
