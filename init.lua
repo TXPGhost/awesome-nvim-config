@@ -450,6 +450,7 @@ require("lazy").setup({
 					-- get current character
 					local c = string.sub(line, i, i)
 
+					-- this fixes the % motion: [{(
 					if in_quotes == nil and (c == ")" or c == "}" or c == "]") and #keys > 0 then
 						-- close parens
 						keys = keys:sub(0, #keys - 1)
