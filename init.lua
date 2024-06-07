@@ -911,6 +911,15 @@ require("lazy").setup({
 			require("copilot").setup({})
 		end,
 	},
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("ibl").setup({
+				indent = { char = "▏" }
+			})
+		end
+	},
 })
 
 -- set help window to vertical split
@@ -1003,9 +1012,11 @@ vim.opt.shortmess:append("I")
 vim.opt.pumheight = 8
 vim.opt.termguicolors = true
 vim.opt.mousescroll = "hor:0"
+vim.opt.cursorline = true
+vim.opt.smartindent = true
 
 -- colorscheme
-vim.cmd.colorscheme("arob")
+vim.cmd.colorscheme("react")
 
 -- neovide config
 if vim.g.neovide then
