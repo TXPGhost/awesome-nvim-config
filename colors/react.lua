@@ -16,10 +16,10 @@ local func = "#86D9CA"
 local string = "#977CDC"
 local constant = "#C64640"
 local type = "#DFAB5C"
-local red = "#d84e4b"
+local red = "#D84E4B"
 
 local redbg = "#2C2020"
-local greenbg = "#202C20"
+local greenbg = "#20252C"
 local bluebg = "#20202C"
 local bluebgg = "#252545"
 
@@ -87,17 +87,17 @@ vim.api.nvim_set_hl(0, "ErrorMsg", { fg = red, bg = redbg })
 vim.api.nvim_set_hl(0, "NonText", { fg = fggg })
 vim.api.nvim_set_hl(0, "MoreMsg", { fg = string, bold = true })
 
-vim.api.nvim_set_hl(0, "diffAdded", { fg = string, bg = greenbg })
-vim.api.nvim_set_hl(0, "diffChanged", { fg = keyword, bg = bluebg })
+vim.api.nvim_set_hl(0, "diffAdded", { bg = greenbg })
+vim.api.nvim_set_hl(0, "diffChanged", { bg = bluebg })
 vim.api.nvim_set_hl(0, "diffRemoved", { fg = red, bg = redbg })
 vim.api.nvim_set_hl(0, "diffLine", { fg = fggg })
 
 vim.api.nvim_set_hl(0, "DiffAdd", { link = "diffAdded" })
 vim.api.nvim_set_hl(0, "DiffChange", { link = "diffChanged" })
 vim.api.nvim_set_hl(0, "DiffDelete", { link = "diffRemoved" })
-vim.api.nvim_set_hl(0, "DiffText", { fg = keyword, bg = bluebgg })
+vim.api.nvim_set_hl(0, "DiffText", { bg = bluebgg })
 
-vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = string })
+vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = func })
 vim.api.nvim_set_hl(0, "GitSignsChange", { fg = keyword })
 vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = red })
 

@@ -114,17 +114,16 @@ require("lazy").setup({
 			vim.lsp.handlers["textDocument/signatureHelp"] =
 				vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
 
-			vim.keymap.set("n", "<space>d", "<cmd>TroubleToggle document_diagnostics<cr>")
-			vim.keymap.set("n", "<space>D", "<cmd>TroubleToggle workspace_diagnostics<cr>")
+			vim.keymap.set("n", "<space>d", "<cmd>Telescope diagnostics<cr>")
 			vim.keymap.set("n", "<space>a", function() vim.lsp.buf.code_action() end)
 
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 
-			vim.keymap.set("n", "gd", "<cmd>Trouble lsp_definitions<cr>")
-			vim.keymap.set("n", "gy", "<cmd>Trouble lsp_type_definitions<cr>")
-			vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
-			vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
+			vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end)
+			vim.keymap.set("n", "gy", function() vim.lsp.buf.type_definition() end)
+			vim.keymap.set("n", "gr", function() vim.lsp.buf.references() end)
+			vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end)
 			vim.keymap.set("n", "<space>h", function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 			end)
@@ -136,24 +135,6 @@ require("lazy").setup({
 		"stevearc/dressing.nvim",
 		event = "VeryLazy",
 		opts = {},
-	},
-	{
-		"folke/trouble.nvim",
-		event = "VeryLazy",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {
-			height = 15,
-			padding = false,
-			auto_close = true,
-			auto_jump = {
-				"lsp_definitions",
-				"lsp_type_definitions",
-				"lsp_references",
-				"lsp_implementations",
-				"document_diagnostics",
-				"workspace_diagnostics",
-			},
-		},
 	},
 	{
 		"mfussenegger/nvim-jdtls",
@@ -458,9 +439,6 @@ require("lazy").setup({
 				-- true if we are in an escape sequence
 				local escaping = false
 
-				-- true if making a newline
-				local newline = false
-
 				if edits_made then
 					for i = 1, #line do
 						-- get current character
@@ -479,7 +457,6 @@ require("lazy").setup({
 								keys = ")" .. keys
 							elseif c == "{" then
 								keys = "}" .. keys
-								newline = true
 							elseif c == "[" then
 								keys = "]" .. keys
 							elseif not escaping and (c == "'" or c == "\"" or c == "`") then
@@ -493,17 +470,15 @@ require("lazy").setup({
 							escaping = c == "\\"
 						end
 					end
-					if string.sub(line, #line) == "<" then
-						keys = "<" .. keys
-					end
+					local cursor_pos = vim.api.nvim_win_get_cursor(0)[2]
 					if in_quotes ~= nil then
 						keys = in_quotes .. keys
 					end
 				end
 
-				if newline then
+				if keys ~= "" then
 					keys = "<cr>" .. keys .. "<c-c>O"
-				elseif keys == "" then
+				else
 					keys = "<cr>"
 				end
 
@@ -976,9 +951,6 @@ end, {})
 
 -- keymaps
 do
-	-- use esc key to exit trouble window and kill highlighting
-	vim.keymap.set("n", "<esc>", "<cmd>noh<cr><cmd>TroubleClose<cr>")
-
 	-- easy enter terminal mode
 	vim.keymap.set(
 		"n",
