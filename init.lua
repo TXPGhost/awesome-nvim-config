@@ -96,7 +96,8 @@ require("lazy").setup({
 			vim.fn.sign_define("DiagnosticSignHint", { text = "" })
 			vim.fn.sign_define("DiagnosticSignOk", { text = "" })
 
-			vim.diagnostic.config({ severity_sort = true, virtual_text = false })
+			-- vim.diagnostic.config({ severity_sort = true, virtual_text = false })
+			vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
 
 			local border = {
 				{ "╭", "FloatBorder" },
@@ -127,8 +128,6 @@ require("lazy").setup({
 			vim.keymap.set("n", "<space>h", function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 			end)
-
-			vim.lsp.inlay_hint.enable()
 		end,
 	},
 	{
@@ -209,17 +208,8 @@ require("lazy").setup({
 		},
 	},
 	{
-		"refractalize/oil-git-status.nvim",
-		keys = { "-" },
-		event = "VeryLazy",
-		config = true,
-		dependencies = {
-			"stevearc/oil.nvim",
-		},
-	},
-	{
 		"stevearc/oil.nvim",
-		lazy = true,
+		keys = { "-" },
 		config = function()
 			vim.keymap.set("n", "-", "<cmd>Oil<cr>zz", { desc = "Open parent directory" })
 			require("oil").setup({
@@ -242,7 +232,7 @@ require("lazy").setup({
 				},
 				use_default_keymaps = false,
 				win_options = {
-					signcolumn = "yes:2",
+					signcolumn = "yes",
 				},
 			})
 		end,
@@ -411,81 +401,6 @@ require("lazy").setup({
 				return cmp.core.view.custom_entries_view:visible()
 			end
 
-			-- keep track if edits were made in insert mode
-			local edits_made = false
-			vim.api.nvim_create_autocmd({ "TextChangedI" }, {
-				pattern = { "*" },
-				callback = function()
-					edits_made = true
-				end
-			})
-			vim.api.nvim_create_autocmd({ "InsertLeave" }, {
-				pattern = { "*" },
-				callback = function()
-					edits_made = false
-				end
-			})
-
-			local close_pairs = function()
-				-- get current line in buffer
-				local line = vim.api.nvim_get_current_line()
-
-				-- stack of keys
-				local keys = ""
-
-				-- keep track of quotation delimeter
-				local in_quotes = nil
-
-				-- true if we are in an escape sequence
-				local escaping = false
-
-				if edits_made then
-					for i = 1, #line do
-						-- get current character
-						local c = string.sub(line, i, i)
-
-						-- this fixes the % motion: [{(
-						if in_quotes == nil and (c == ")" or c == "}" or c == "]") and #keys > 0 then
-							-- close parens
-							keys = keys:sub(0, #keys - 1)
-						elseif in_quotes == c and not escaping then
-							-- close matching quotes
-							in_quotes = nil
-						elseif in_quotes == nil then
-							-- open parens/quotes
-							if c == "(" then
-								keys = ")" .. keys
-							elseif c == "{" then
-								keys = "}" .. keys
-							elseif c == "[" then
-								keys = "]" .. keys
-							elseif not escaping and (c == "'" or c == "\"" or c == "`") then
-								in_quotes = c
-							end
-						end
-
-						if escaping then
-							escaping = false
-						else
-							escaping = c == "\\"
-						end
-					end
-					local cursor_pos = vim.api.nvim_win_get_cursor(0)[2]
-					if in_quotes ~= nil then
-						keys = in_quotes .. keys
-					end
-				end
-
-				if keys ~= "" then
-					keys = "<cr>" .. keys .. "<c-c>O"
-				else
-					keys = "<cr>"
-				end
-
-				-- feedkeys
-				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, false, false, true), "n", {})
-			end
-
 			cmp.setup({
 				snippet = {
 					expand = function(args)
@@ -496,7 +411,7 @@ require("lazy").setup({
 					completeopt = "menu,menuone,noinsert",
 				},
 				mapping = cmp.mapping.preset.insert({
-					["<cr>"] = cmp.mapping(function(_)
+					["<cr>"] = cmp.mapping(function(fallback)
 						local entry = cmp.core.view:get_selected_entry()
 						if fast_cmp_visible() and not (entry and entry.source.name == "nvim_lsp_signature_help") then
 							cmp.confirm({ select = true })
@@ -504,7 +419,7 @@ require("lazy").setup({
 						elseif snippy.can_expand_or_advance() then
 							snippy.expand_or_advance()
 						else
-							close_pairs()
+							fallback()
 						end
 					end),
 					["<tab>"] = cmp.mapping(function(fallback)
@@ -604,6 +519,12 @@ require("lazy").setup({
 		config = function()
 			require("nvim-surround").setup({})
 		end,
+	},
+	{
+		"altermo/ultimate-autopair.nvim",
+		event = { "InsertEnter", "CmdlineEnter" },
+		opts = {
+		},
 	},
 	{
 		"lewis6991/gitsigns.nvim",
@@ -909,10 +830,60 @@ require("lazy").setup({
 		event = "VeryLazy",
 		config = function()
 			require("ibl").setup({
-				indent = { char = "▏" }
+				indent = { char = "▏" },
+				scope = { enabled = false },
 			})
 		end
 	},
+	{
+		"epwalsh/obsidian.nvim",
+		version = "*",
+		event = "VeryLazy",
+		ft = "markdown",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"hrsh7th/nvim-cmp",
+			"nvim-telescope/telescope.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		opts = {
+			workspaces = {
+				{
+					name = "main",
+					path = "~/vaults",
+				}
+			},
+			completion = {
+				min_chars = 0,
+				wiki_link_func = function(opts)
+					return string.format("[[%s]]", opts.path)
+				end,
+			},
+			ui = {
+				checkboxes = {
+					[" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
+					["x"] = { char = "󰄵", hl_group = "ObsidianDone" },
+					[">"] = { char = "󰄗", hl_group = "ObsidianRightArrow" },
+					["~"] = { char = "󱋭", hl_group = "ObsidianTilde" },
+				},
+				hl_groups = {},
+			},
+			mappings = {
+				["gd"] = {
+					action = function()
+						return require("obsidian").util.gf_passthrough()
+					end,
+					opts = { noremap = false, expr = true, buffer = true },
+				},
+				["<space><space>"] = {
+					action = function()
+						return require("obsidian").util.toggle_checkbox()
+					end,
+					opts = { buffer = true },
+				},
+			}
+		}
+	}
 })
 
 -- set help window to vertical split
@@ -984,6 +955,9 @@ do
 	vim.keymap.set("n", "<a-j>", "<c-w><c-+>")
 	vim.keymap.set("n", "<a-k>", "<c-w><c-->")
 	vim.keymap.set("n", "<a-l>", "<c-w><c->>")
+
+	-- clear highlighting
+	vim.keymap.set("n", "<esc>", "<cmd>noh<cr>")
 end
 
 -- startup commands
@@ -1004,6 +978,7 @@ vim.opt.termguicolors = true
 vim.opt.mousescroll = "hor:0"
 vim.opt.cursorline = true
 vim.opt.smartindent = true
+vim.opt.conceallevel = 2
 
 -- colorscheme
 vim.cmd.colorscheme("react")

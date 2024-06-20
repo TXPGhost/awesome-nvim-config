@@ -16,7 +16,7 @@ local func = "#86D9CA"
 local string = "#977CDC"
 local constant = "#C64640"
 local type = "#DFAB5C"
-local red = "#D84E4B"
+local green = "#8FB573"
 
 local redbg = "#2C2020"
 local greenbg = "#20252C"
@@ -24,22 +24,22 @@ local bluebg = "#20202C"
 local bluebgg = "#252545"
 
 -- terminal
-vim.g.terminal_color_0 = "#101012"  -- black
-vim.g.terminal_color_1 = "#DE5D68"  -- red
-vim.g.terminal_color_2 = "#8FB573"  -- green
-vim.g.terminal_color_3 = "#DBB671"  -- yellow
-vim.g.terminal_color_4 = "#57A5E5"  -- blue
-vim.g.terminal_color_5 = "#BB70D2"  -- magenta
-vim.g.terminal_color_6 = "#51A8B3"  -- cyan
-vim.g.terminal_color_7 = "#A7AAB0"  -- white
-vim.g.terminal_color_8 = "#5A5B5E"  -- black (bright)
-vim.g.terminal_color_9 = "#DE5D68"  -- red (bright)
-vim.g.terminal_color_10 = "#8FB573" -- green (bright)
-vim.g.terminal_color_11 = "#DBB671" -- yellow (bright)
-vim.g.terminal_color_12 = "#57A5E5" -- blue (bright)
-vim.g.terminal_color_13 = "#BB70D2" -- magenta (bright)
-vim.g.terminal_color_14 = "#51A8B3" -- cyan (bright)
-vim.g.terminal_color_15 = "#A7AAB0" -- white (bright)
+vim.g.terminal_color_0 = fggg     -- black
+vim.g.terminal_color_1 = constant -- red
+vim.g.terminal_color_2 = green    -- green
+vim.g.terminal_color_3 = type     -- yellow
+vim.g.terminal_color_4 = keyword  -- blue
+vim.g.terminal_color_5 = string   -- magenta
+vim.g.terminal_color_6 = func     -- cyan
+vim.g.terminal_color_7 = fgg      -- white
+vim.g.terminal_color_8 = fggg     -- black (bright)
+vim.g.terminal_color_9 = constant -- red (bright)
+vim.g.terminal_color_10 = green   -- green (bright)
+vim.g.terminal_color_11 = type    -- yellow (bright)
+vim.g.terminal_color_12 = keyword -- blue (bright)
+vim.g.terminal_color_13 = string  -- magenta (bright)
+vim.g.terminal_color_14 = func    -- cyan (bright)
+vim.g.terminal_color_15 = fgg     -- white (bright)
 
 if vim.g.neovide then
 	vim.api.nvim_set_hl(0, "Normal", { fg = fg, bg = bg })
@@ -65,6 +65,7 @@ vim.api.nvim_set_hl(0, "String", { fg = string })
 vim.api.nvim_set_hl(0, "SignColumn", {})
 vim.api.nvim_set_hl(0, "FoldColumn", {})
 vim.api.nvim_set_hl(0, "Directory", { fg = func })
+vim.api.nvim_set_hl(0, "ModeMsg", { fg = green })
 vim.api.nvim_set_hl(0, "LineNr", { fg = fgggg })
 vim.api.nvim_set_hl(0, "LineNrAbove", { fg = fggggg })
 vim.api.nvim_set_hl(0, "LineNrBelow", { fg = fggggg })
@@ -82,14 +83,14 @@ vim.api.nvim_set_hl(0, "Search", { reverse = true })
 vim.api.nvim_set_hl(0, "Folded", { fg = fggg, bg = bgg })
 vim.api.nvim_set_hl(0, "Title", { fg = func })
 vim.api.nvim_set_hl(0, "MatchParen", { bg = bggg })
-vim.api.nvim_set_hl(0, "Error", { fg = red, bg = redbg })
-vim.api.nvim_set_hl(0, "ErrorMsg", { fg = red, bg = redbg })
+vim.api.nvim_set_hl(0, "Error", { fg = constant, bg = redbg })
+vim.api.nvim_set_hl(0, "ErrorMsg", { fg = constant, bg = redbg })
 vim.api.nvim_set_hl(0, "NonText", { fg = fggg })
 vim.api.nvim_set_hl(0, "MoreMsg", { fg = string, bold = true })
 
 vim.api.nvim_set_hl(0, "diffAdded", { bg = greenbg })
 vim.api.nvim_set_hl(0, "diffChanged", { bg = bluebg })
-vim.api.nvim_set_hl(0, "diffRemoved", { fg = red, bg = redbg })
+vim.api.nvim_set_hl(0, "diffRemoved", { fg = constant, bg = redbg })
 vim.api.nvim_set_hl(0, "diffLine", { fg = fggg })
 
 vim.api.nvim_set_hl(0, "DiffAdd", { link = "diffAdded" })
@@ -99,7 +100,7 @@ vim.api.nvim_set_hl(0, "DiffText", { bg = bluebgg })
 
 vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = func })
 vim.api.nvim_set_hl(0, "GitSignsChange", { fg = keyword })
-vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = red })
+vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = constant })
 
 vim.api.nvim_set_hl(0, "GitSignsAddPreview", { link = "diffAdded" })
 vim.api.nvim_set_hl(0, "GitSignsDeleteVirtLn", { link = "diffRemoved" })
@@ -110,21 +111,32 @@ vim.api.nvim_set_hl(0, "ConflictMarkerTheirs", { bg = "#344f69" })
 vim.api.nvim_set_hl(0, "ConflictMarkerEnd", { bg = "#2f628e" })
 vim.api.nvim_set_hl(0, "ConflictMarkerCommonAncestorsHunk", { bg = "#754a81" })
 
+vim.api.nvim_set_hl(0, "DiagnosticOk", { fg = fg })
+vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = fg })
+vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = keyword })
+vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = type })
+vim.api.nvim_set_hl(0, "DiagnosticError", { fg = constant })
+
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineOk", { sp = fg, undercurl = true })
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { sp = fg, undercurl = true })
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { sp = func, undercurl = true })
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { sp = constant, undercurl = true })
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { sp = red, undercurl = true })
-vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { sp = fggg, undercurl = true })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { sp = keyword, undercurl = true })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { sp = type, undercurl = true })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { sp = constant, undercurl = true })
+vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { fg = fggg })
+
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextOk", { fg = fg, italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { fg = fg, italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { fg = keyword, italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = type, italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = constant, italic = true })
 
 vim.api.nvim_set_hl(0, "@punctuation", { fg = fgg })
 vim.api.nvim_set_hl(0, "@punctuation.special", { fg = fgg })
 vim.api.nvim_set_hl(0, "@operator", { link = "Operator" })
 vim.api.nvim_set_hl(0, "@keyword", { fg = keyword, italic = true })
-vim.api.nvim_set_hl(0, "@keyword.directive", { fg = string })
-vim.api.nvim_set_hl(0, "@keyword.import", { fg = string })
 vim.api.nvim_set_hl(0, "@variable", { fg = fg })
 vim.api.nvim_set_hl(0, "@function", { fg = func })
+vim.api.nvim_set_hl(0, "@function.builtin", { fg = func })
 
 vim.api.nvim_set_hl(0, "@variable.parameter", { italic = true })
 vim.api.nvim_set_hl(0, "@lsp.type.parameter", { italic = true })
@@ -209,28 +221,6 @@ vim.api.nvim_set_hl(0, "@tag.css", { link = "@variable.member" })
 
 vim.api.nvim_set_hl(0, "@attribute.gdscript", { link = "PreProc" })
 
-vim.api.nvim_set_hl(0, "OilGitStatusIndexUnmodified", { link = "Constant" })
-vim.api.nvim_set_hl(0, "OilGitStatusIndexIgnored", { link = "Constant" })
-vim.api.nvim_set_hl(0, "OilGitStatusIndexUntracked", { link = "Constant" })
-vim.api.nvim_set_hl(0, "OilGitStatusIndexAdded", { link = "Constant" })
-vim.api.nvim_set_hl(0, "OilGitStatusIndexCopied", { link = "Constant" })
-vim.api.nvim_set_hl(0, "OilGitStatusIndexDeleted", { link = "Constant" })
-vim.api.nvim_set_hl(0, "OilGitStatusIndexModified", { link = "Constant" })
-vim.api.nvim_set_hl(0, "OilGitStatusIndexRenamed", { link = "Constant" })
-vim.api.nvim_set_hl(0, "OilGitStatusIndexTypeChanged", { link = "Constant" })
-vim.api.nvim_set_hl(0, "OilGitStatusIndexUnmerged", { link = "Constant" })
-
-vim.api.nvim_set_hl(0, "OilGitStatusWorkingTreeUnmodified", { link = "Title" })
-vim.api.nvim_set_hl(0, "OilGitStatusWorkingTreeIgnored", { link = "Title" })
-vim.api.nvim_set_hl(0, "OilGitStatusWorkingTreeUntracked", { link = "Title" })
-vim.api.nvim_set_hl(0, "OilGitStatusWorkingTreeAdded", { link = "Title" })
-vim.api.nvim_set_hl(0, "OilGitStatusWorkingTreeCopied", { link = "Title" })
-vim.api.nvim_set_hl(0, "OilGitStatusWorkingTreeDeleted", { link = "Title" })
-vim.api.nvim_set_hl(0, "OilGitStatusWorkingTreeModified", { link = "Title" })
-vim.api.nvim_set_hl(0, "OilGitStatusWorkingTreeRenamed", { link = "Title" })
-vim.api.nvim_set_hl(0, "OilGitStatusWorkingTreeTypeChanged", { link = "Title" })
-vim.api.nvim_set_hl(0, "OilGitStatusWorkingTreeUnmerged", { link = "Title" })
-
 vim.api.nvim_set_hl(0, "@lsp.type.bracket", { link = "@punctuation" })
 
 vim.api.nvim_set_hl(0, "CmpItemKind", { fg = fgg })
@@ -238,3 +228,12 @@ vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { link = "CmpItemKind" })
 
 vim.api.nvim_set_hl(0, "IblScope", { fg = bggg })
 vim.api.nvim_set_hl(0, "IblIndent", { fg = bggg })
+
+vim.api.nvim_set_hl(0, "@string.documentation.python", { link = "Comment" })
+
+vim.api.nvim_set_hl(0, "ObsidianRefText", { fg = string, bold = true, underline = true })
+vim.api.nvim_set_hl(0, "ObsidianBullet", { fg = keyword, bold = false })
+vim.api.nvim_set_hl(0, "ObsidianTodo", { fg = fggg, bold = false })
+vim.api.nvim_set_hl(0, "ObsidianDone", { fg = keyword, bold = false })
+vim.api.nvim_set_hl(0, "ObsidianRightArrow", { fg = type, bold = false })
+vim.api.nvim_set_hl(0, "ObsidianTilde", { fg = constant, bold = false })
