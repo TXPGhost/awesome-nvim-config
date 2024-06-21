@@ -910,7 +910,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 
 -- config quick edit
 vim.api.nvim_create_user_command("Config", function()
-	vim.cmd("e ~/.config/nvim/init.lua")
+	vim.cmd("e" .. debug.getinfo(1).source:sub(2))
 end, {})
 
 -- disable auto comment
