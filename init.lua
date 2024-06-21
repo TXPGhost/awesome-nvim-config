@@ -712,8 +712,7 @@ require("lazy").setup({
 				win = "TabLine",
 				tail = "TabLine",
 				title = "Title",
-				vim_logo = { fg = "#56A56B", bg = "#292929" },
-				file_logo = { fg = "#76787C", bg = "#1A1A1A" },
+				vim_logo = { fg = "#56A56B", bg = "#20232B" },
 			}
 			require("tabby.tabline").set(function(line)
 				return {
@@ -767,9 +766,12 @@ require("lazy").setup({
 							local ft = getwinft(win)
 							local name = getwinname(win)
 							local icon, color = geticon(name, ft)
+							local background = theme.head
+							if tab.is_current() then
+								background = theme.current_tab
+							end
 
-							-- TODO: fix background color
-							table.insert(icons, line.sep(icon, { bg = color }, theme.fill))
+							table.insert(icons, line.sep(icon, { bg = color }, background))
 							num_wins = num_wins + 1
 						end)
 
@@ -804,25 +806,6 @@ require("lazy").setup({
 
 						return ret
 					end),
-					-- line.spacer(),
-					-- line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
-					-- 	local extension = vim.fn.fnamemodify(win.buf_name(), ":e")
-					-- 	local icon, color = require("nvim-web-devicons").get_icon_color(name, extension,
-					-- 		{ default = true })
-
-					-- 	return {
-					-- 		line.sep("", theme.win, theme.fill),
-					-- 		line.sep(icon, { bg = color }, theme.fill),
-					-- 		win.buf_name(),
-					-- 		line.sep("", theme.win, theme.fill),
-					-- 		hl = theme.win,
-					-- 		margin = " ",
-					-- 	}
-					-- end),
-					-- {
-					-- 	line.sep("", theme.tail, theme.fill),
-					-- 	{ "  ", hl = theme.file_logo },
-					-- },
 					hl = theme.fill,
 				}
 			end)
