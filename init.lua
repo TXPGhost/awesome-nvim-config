@@ -190,6 +190,9 @@ require("lazy").setup({
 				highlight = {
 					enable = true,
 				},
+				indent = {
+					enable = true
+				},
 				endwise = {
 					enable = true,
 				},
@@ -985,7 +988,6 @@ vim.opt.pumheight = 8
 vim.opt.termguicolors = true
 vim.opt.mousescroll = "hor:0"
 vim.opt.cursorline = true
-vim.opt.smartindent = true
 vim.opt.conceallevel = 2
 
 -- colorscheme
