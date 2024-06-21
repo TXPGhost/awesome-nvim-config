@@ -861,10 +861,8 @@ require("lazy").setup({
 			},
 			ui = {
 				checkboxes = {
-					[" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
-					["x"] = { char = "󰄵", hl_group = "ObsidianDone" },
-					[">"] = { char = "󰄗", hl_group = "ObsidianRightArrow" },
-					["~"] = { char = "󱋭", hl_group = "ObsidianTilde" },
+					[" "] = { char = "", hl_group = "ObsidianTodo" },
+					["x"] = { char = "", hl_group = "ObsidianDone" },
 				},
 				hl_groups = {},
 			},
@@ -881,7 +879,14 @@ require("lazy").setup({
 					end,
 					opts = { buffer = true },
 				},
-			}
+			},
+			follow_url_func = function(url)
+				vim.fn.jobstart({ "xdg-open", url })
+			end,
+			note_id_func = function(title)
+				return title
+			end,
+			disable_frontmatter = true,
 		}
 	}
 })
@@ -958,6 +963,9 @@ do
 
 	-- clear highlighting
 	vim.keymap.set("n", "<esc>", "<cmd>noh<cr>")
+
+	-- obsidian
+	vim.keymap.set("n", "<space>n", "<cmd>ObsidianSearch<cr>")
 end
 
 -- startup commands
