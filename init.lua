@@ -251,10 +251,10 @@ require("lazy").setup({
 				javascriptreact = { "deno_fmt" },
 				json = { "deno_fmt" },
 				typescript = { "deno_fmt" },
-				html = { "deno_fmt" },
-				css = { "deno_fmt" },
-				scss = { "deno_fmt" },
-				vue = { "deno_fmt" },
+				html = { "prettier" },
+				css = { "prettier" },
+				scss = { "prettier" },
+				vue = { "prettier" },
 				markdown = { "deno_fmt" },
 				yaml = { "deno_fmt" },
 				rust = { "rustfmt" },
@@ -422,6 +422,17 @@ require("lazy").setup({
 						elseif snippy.can_expand_or_advance() then
 							snippy.expand_or_advance()
 						else
+							-- expand tags on enter
+							local col = vim.api.nvim_win_get_cursor(0)[2]
+							local line_text = vim.api.nvim_get_current_line()
+							if col > 0 and col < #line_text then
+								if line_text:sub(col, col) == '>' and line_text:sub(col + 1, col + 1) == '<' then
+									vim.api.nvim_feedkeys(
+										vim.api.nvim_replace_termcodes("<cr><esc>O", true, true, true), 'n', true)
+									return
+								end
+							end
+
 							fallback()
 						end
 					end),
@@ -909,6 +920,12 @@ end, {})
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	pattern = { "*.tex" },
 	command = "LatexCompileBackground",
+})
+
+-- guess indent on file save
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	pattern = { "*" },
+	command = "silent GuessIndent",
 })
 
 -- config quick edit
