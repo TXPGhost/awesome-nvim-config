@@ -250,6 +250,7 @@ require("lazy").setup({
 				javascript = { "deno_fmt" },
 				javascriptreact = { "deno_fmt" },
 				json = { "deno_fmt" },
+				jsonc = { "deno_fmt" },
 				typescript = { "deno_fmt" },
 				html = { "prettier" },
 				css = { "prettier" },
