@@ -168,6 +168,13 @@ require("lazy").setup({
 					capabilities = {
 						experimental = {
 							snippetTextEdit = false
+						},
+						textDocument = {
+							completion = {
+								completionItem = {
+									snippetSupport = false
+								}
+							}
 						}
 					},
 					settings = {
