@@ -96,8 +96,8 @@ require("lazy").setup({
 			vim.fn.sign_define("DiagnosticSignHint", { text = "" })
 			vim.fn.sign_define("DiagnosticSignOk", { text = "" })
 
-			-- vim.diagnostic.config({ severity_sort = true, virtual_text = false })
-			vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
+			vim.diagnostic.config({ severity_sort = true, virtual_text = false })
+			-- vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
 
 			local border = {
 				{ "╭", "FloatBorder" },
@@ -169,7 +169,14 @@ require("lazy").setup({
 						experimental = {
 							snippetTextEdit = false
 						}
-					}
+					},
+					settings = {
+						["rust-analyzer"] = {
+							cargo = {
+								allFeatures = true
+							}
+						}
+					},
 				}
 			}
 		end
