@@ -1006,4 +1006,4 @@ vim.opt.cursorline = true
 vim.opt.conceallevel = 2
 
 -- colorscheme
-vim.cmd.colorscheme("react")
+vim.cmd.colorscheme("arob")
