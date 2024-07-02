@@ -726,7 +726,7 @@ require("lazy").setup({
 				win = "TabLine",
 				tail = "TabLine",
 				title = "Title",
-				vim_logo = { fg = "#56A56B", bg = "#20232B" },
+				vim_logo = { fg = "#56A56B", bg = "#454545" },
 			}
 			require("tabby.tabline").set(function(line)
 				return {
@@ -900,7 +900,7 @@ require("lazy").setup({
 			end,
 			disable_frontmatter = true,
 		}
-	}
+	},
 })
 
 -- set help window to vertical split
@@ -1002,8 +1002,31 @@ vim.opt.shortmess:append("I")
 vim.opt.pumheight = 8
 vim.opt.termguicolors = true
 vim.opt.mousescroll = "hor:0"
-vim.opt.cursorline = true
 vim.opt.conceallevel = 2
 
 -- colorscheme
-vim.cmd.colorscheme("arob")
+vim.cmd.colorscheme("new")
+
+-- neovide config
+if vim.g.neovide then
+	local default_scale_factor = 1
+
+	vim.opt.guifont = "BlexMono Nerd Font:h10.5"
+	vim.opt.linespace = -1
+
+	vim.g.neovide_scale_factor = default_scale_factor
+	vim.g.neovide_transparency = 0.5
+
+	vim.keymap.set("n", "<c-=>", function()
+		vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * 1.1
+		vim.cmd("redraw!")
+	end)
+	vim.keymap.set("n", "<c-->", function()
+		vim.g.neovide_scale_factor = vim.g.neovide_scale_factor / 1.1
+		vim.cmd("redraw!")
+	end)
+	vim.keymap.set("n", "<c-0>", function()
+		vim.g.neovide_scale_factor = default_scale_factor
+		vim.cmd("redraw!")
+	end)
+end

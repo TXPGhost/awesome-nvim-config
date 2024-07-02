@@ -1,15 +1,13 @@
--- colors inspired from https://react.dev/blog/2024/04/25/react-19 and firefox tokyonight theme
-
 local fg = "#FFFFFF"
-local fgg = "#C0CAF5"
-local fggg = "#62677F"
-local fgggg = "#4E5266"
-local fggggg = "#3A3D4C"
+local fgg = "#CCCCCC"
+local fggg = "#666666"
+local fgggg = "#444444"
+local fggggg = "#555555"
 
-local bg = "#16161E"
-local bgg = "#1A1B26"
-local bggg = "#1F202D"
-local bgggg = "#222433"
+local bg = "#222222"
+local bgg = "#292929"
+local bggg = "#353535"
+local bgggg = "#454545"
 
 local blue = "#7AA2F7"
 local teal = "#79d1f7"
