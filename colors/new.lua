@@ -1,8 +1,8 @@
 local fg = "#FFFFFF"
 local fgg = "#CCCCCC"
 local fggg = "#666666"
-local fgggg = "#444444"
-local fggggg = "#555555"
+local fgggg = "#555555"
+local fggggg = "#444444"
 
 local bg = "#222222"
 local bgg = "#292929"
@@ -71,9 +71,9 @@ vim.api.nvim_set_hl(0, "CursorLine", { bg = bgg })
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = fgggg })
 vim.api.nvim_set_hl(0, "StatusLine", { fg = fgg })
 vim.api.nvim_set_hl(0, "StatusLineNC", { fg = fggg })
-vim.api.nvim_set_hl(0, "TabLine", { bg = bgggg })
-vim.api.nvim_set_hl(0, "TabLineFill", { bg = bggg })
-vim.api.nvim_set_hl(0, "TabLineSel", { bg = bgg })
+-- vim.api.nvim_set_hl(0, "TabLine", { bg = bgggg })
+-- vim.api.nvim_set_hl(0, "TabLineFill", { bg = bggg })
+-- vim.api.nvim_set_hl(0, "TabLineSel", { bg = bgg })
 vim.api.nvim_set_hl(0, "WinSeparator", { fg = bggg })
 vim.api.nvim_set_hl(0, "Visual", { bg = bggg })
 vim.api.nvim_set_hl(0, "Search", { reverse = true })
