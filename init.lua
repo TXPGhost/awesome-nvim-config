@@ -128,6 +128,9 @@ require("lazy").setup({
 			vim.keymap.set("n", "<space>h", function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 			end)
+
+			-- switch source/header
+			vim.keymap.set("n", "<space>s", "<cmd>ClangdSwitchSourceHeader<cr>")
 		end,
 	},
 	{
@@ -334,82 +337,12 @@ require("lazy").setup({
 				},
 			})
 
-			local item_kind = {
-				Text = 1,
-				Method = 2,
-				Function = 3,
-				Constructor = 4,
-				Field = 5,
-				Variable = 6,
-				Class = 7,
-				Interface = 8,
-				Module = 9,
-				Property = 10,
-				Unit = 11,
-				Value = 12,
-				Enum = 13,
-				Keyword = 14,
-				Snippet = 15,
-				Color = 16,
-				File = 17,
-				Reference = 18,
-				Folder = 19,
-				EnumMember = 20,
-				Constant = 21,
-				Struct = 22,
-				Event = 23,
-				Operator = 24,
-				TypeParameter = 25,
-			}
-
-			local item_kind_rankings = {
-				[item_kind.EnumMember] = 0,
-				[item_kind.Field] = 1,
-				[item_kind.Property] = 2,
-				[item_kind.Method] = 3,
-				[item_kind.Function] = 4,
-				[item_kind.Constructor] = 5,
-				[item_kind.Keyword] = 6,
-				[item_kind.TypeParameter] = 7,
-				[item_kind.Variable] = 8,
-				[item_kind.Class] = 9,
-				[item_kind.Interface] = 10,
-				[item_kind.Struct] = 11,
-				[item_kind.Enum] = 12,
-				[item_kind.Value] = 13,
-				[item_kind.Unit] = 14,
-				[item_kind.Module] = 15,
-				[item_kind.Constant] = 16,
-				[item_kind.Snippet] = 17,
-				[item_kind.Color] = 18,
-				[item_kind.File] = 19,
-				[item_kind.Reference] = 20,
-				[item_kind.Folder] = 21,
-				[item_kind.Event] = 22,
-				[item_kind.Operator] = 23,
-				[item_kind.Text] = 24,
-			}
-
 			local has_words_before = function()
 				unpack = unpack or table.unpack
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 				return col ~= 0 and
 					vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") ==
 					nil
-			end
-
-			local kind_comparator = function(entry1, entry2)
-				local kind1 = entry1:get_kind()
-				local kind2 = entry2:get_kind()
-				if kind1 ~= kind2 then
-					local diff = item_kind_rankings[kind1] - item_kind_rankings[kind2]
-					if diff < 0 then
-						return true
-					elseif diff > 0 then
-						return false
-					end
-				end
-				return nil
 			end
 
 			local fast_cmp_visible = function()
@@ -428,6 +361,13 @@ require("lazy").setup({
 				completion = {
 					completeopt = "menu,menuone,noinsert",
 				},
+				matching = {
+					disallow_fuzzy_matching = true,
+					disallow_fullfuzzy_matching = true,
+					disallow_partial_fuzzy_matching = true,
+					disallow_partial_matching = true,
+					disallow_prefix_unmatching = false,
+				},
 				mapping = cmp.mapping.preset.insert({
 					["<cr>"] = cmp.mapping(function(fallback)
 						local entry = cmp.core.view:get_selected_entry()
@@ -443,7 +383,10 @@ require("lazy").setup({
 							if col > 0 and col < #line_text then
 								if line_text:sub(col, col) == '>' and line_text:sub(col + 1, col + 1) == '<' then
 									vim.api.nvim_feedkeys(
-										vim.api.nvim_replace_termcodes("<cr><esc>O", true, true, true), 'n', true)
+										vim.api.nvim_replace_termcodes(
+											"<cr><esc>O", true, true, true),
+										'n',
+										true)
 									return
 								end
 							end
@@ -485,41 +428,14 @@ require("lazy").setup({
 					{ name = "path" },
 				}, {}),
 				formatting = {
-					fields = { cmp.ItemField.Abbr, cmp.ItemField.Kind },
 					format = lspkind.cmp_format({
-						mode = "symbol_text",
-						maxwidth = 50,
-						ellipsis_char = "…",
-						before = function(_, vim_item)
-							local index = 0
-							for i = 1, string.len(vim_item.abbr) do
-								local char = string.sub(vim_item.abbr, i, i)
-								if string.match(char, "[%w/\\\\#]") then
-									index = i
-									break
-								end
-							end
-
-							vim_item.abbr = string.sub(vim_item.abbr, index);
-							vim_item.menu = ""
-							return vim_item
-						end
+						mode = 'symbol_text', -- show only symbol annotations
+						maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+						-- can also be a function to dynamically calculate max width such as
+						-- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
+						ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+						show_labelDetails = true, -- show labelDetails in menu. Disabled by default
 					})
-				},
-				sorting = {
-					priority_weight = 2,
-					comparators = {
-						cmp.config.compare.exact,
-						cmp.config.compare.offset,
-						cmp.config.compare.score,
-						cmp.config.compare.recently_used,
-						cmp.config.compare.locality,
-						kind_comparator,
-						require("cmp-under-comparator").under,
-						cmp.config.compare.length,
-						cmp.config.compare.sort_text,
-						cmp.config.compare.order,
-					},
 				},
 			})
 
@@ -536,7 +452,6 @@ require("lazy").setup({
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-cmdline",
 			"onsails/lspkind.nvim",
-			"lukas-reineke/cmp-under-comparator",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"dcampos/nvim-snippy",
@@ -580,13 +495,8 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"NMAC427/guess-indent.nvim",
+		"tpope/vim-sleuth",
 		event = "VeryLazy",
-		config = function()
-			vim.opt.tabstop = 4
-			vim.opt.shiftwidth = 4
-			require("guess-indent").setup({})
-		end
 	},
 	{
 		"rmagatti/goto-preview",
@@ -717,14 +627,14 @@ require("lazy").setup({
 		"rhysd/conflict-marker.vim",
 		event = "VeryLazy",
 	},
-	{
-		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
-		event = "InsertEnter",
-		config = function()
-			require("copilot").setup({})
-		end,
-	},
+	-- {
+	-- 	"zbirenbaum/copilot.lua",
+	-- 	cmd = "Copilot",
+	-- 	event = "InsertEnter",
+	-- 	config = function()
+	-- 		require("copilot").setup({})
+	-- 	end,
+	-- },
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		event = "VeryLazy",
@@ -754,17 +664,18 @@ require("lazy").setup({
 				}
 			},
 			completion = {
-				min_chars = 0,
+				min_chars = 1,
 				wiki_link_func = function(opts)
 					return string.format("[[%s]]", opts.path)
 				end,
 			},
 			ui = {
-				checkboxes = {
-					[" "] = { char = "", hl_group = "ObsidianTodo" },
-					["x"] = { char = "", hl_group = "ObsidianDone" },
-				},
-				hl_groups = {},
+				enable = false,
+				-- checkboxes = {
+				-- 	[" "] = { char = "", hl_group = "ObsidianTodo" },
+				-- 	["x"] = { char = "", hl_group = "ObsidianDone" },
+				-- },
+				-- hl_groups = {},
 			},
 			mappings = {
 				["gd"] = {
@@ -789,6 +700,36 @@ require("lazy").setup({
 			disable_frontmatter = true,
 		}
 	},
+	{
+		"RRethy/vim-illuminate",
+		event = "VeryLazy",
+		config = function()
+			require("illuminate").configure({
+				delay = 500,
+				providers = {
+					"lsp",
+					"treesitter",
+				}
+			})
+		end,
+	},
+	{
+		"nvim-neo-tree/neo-tree.nvim",
+		event = "VeryLazy",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons",
+			"MunifTanjim/nui.nvim",
+		},
+		config = function()
+			require("neo-tree").setup({
+				close_if_last_window = true
+			})
+		end
+	},
+	{
+		"sho-87/kanagawa-paper.nvim",
+	},
 })
 
 -- set help window to vertical split
@@ -806,12 +747,6 @@ end, {})
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	pattern = { "*.tex" },
 	command = "LatexCompileBackground",
-})
-
--- guess indent on file save
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-	pattern = { "*" },
-	command = "silent GuessIndent",
 })
 
 -- config quick edit
@@ -852,15 +787,15 @@ do
 	vim.keymap.set("n", "L", "<cmd>tabnext<cr>")
 	vim.keymap.set("n", "H", "<cmd>tabprev<cr>")
 	vim.keymap.set("n", "<c-s>", function()
-		local width = vim.api.nvim_win_get_width(0)
-		local height = vim.api.nvim_win_get_height(0)
-		if width >= height * 2.167 then
-			vim.cmd("wincmd v")
-			vim.cmd("wincmd l")
-		else
-			vim.cmd("wincmd s")
-			vim.cmd("wincmd j")
-		end
+		-- local width = vim.api.nvim_win_get_width(0)
+		-- local height = vim.api.nvim_win_get_height(0)
+		-- if width >= height * 2.167 then
+		vim.cmd("wincmd v")
+		vim.cmd("wincmd l")
+		-- else
+		-- vim.cmd("wincmd s")
+		-- vim.cmd("wincmd j")
+		-- end
 	end)
 	vim.keymap.set("n", "<a-h>", "<c-w><c-<>")
 	vim.keymap.set("n", "<a-j>", "<c-w><c-+>")
@@ -872,6 +807,9 @@ do
 
 	-- obsidian
 	vim.keymap.set("n", "<space>n", "<cmd>ObsidianSearch<cr>")
+
+	-- file tree
+	vim.keymap.set("n", "<space>t", "<cmd>Neotree toggle<cr>")
 end
 
 -- startup commands
@@ -887,10 +825,11 @@ vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.foldlevel = 99999
 vim.opt.shortmess:append("I")
-vim.opt.pumheight = 8
+vim.opt.pumheight = 20
 vim.opt.termguicolors = true
 vim.opt.mousescroll = "hor:0"
-vim.opt.conceallevel = 2
+vim.opt.conceallevel = 0
+vim.opt.tabstop = 4
 
 -- colorscheme
 vim.cmd.colorscheme("new")
@@ -903,7 +842,6 @@ if vim.g.neovide then
 	vim.opt.linespace = -1
 
 	vim.g.neovide_scale_factor = default_scale_factor
-	vim.g.neovide_transparency = 0.5
 
 	vim.keymap.set("n", "<c-=>", function()
 		vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * 1.1

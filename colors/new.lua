@@ -17,7 +17,7 @@ local yellow = "#DFAB5C"
 local green = "#8FB573"
 
 local redbg = "#2C2020"
-local greenbg = "#20252C"
+local greenbg = "#1f2b21"
 local bluebg = "#20202C"
 local bluebgg = "#252545"
 
@@ -53,7 +53,7 @@ vim.api.nvim_set_hl(0, "Special", {})
 vim.api.nvim_set_hl(0, "Operator", { fg = fgg })
 vim.api.nvim_set_hl(0, "Comment", { fg = fggg, italic = true })
 vim.api.nvim_set_hl(0, "Conceal", { fg = fgg })
-vim.api.nvim_set_hl(0, "Pmenu", { bg = bgg })
+vim.api.nvim_set_hl(0, "Pmenu", { bg = bgg, fg = fgg })
 vim.api.nvim_set_hl(0, "PmenuSel", { bg = bgggg })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = bgg })
 vim.api.nvim_set_hl(0, "Type", { fg = yellow })
@@ -85,8 +85,8 @@ vim.api.nvim_set_hl(0, "ErrorMsg", { fg = red, bg = redbg })
 vim.api.nvim_set_hl(0, "NonText", { fg = fggg })
 vim.api.nvim_set_hl(0, "MoreMsg", { fg = purple, bold = true })
 
-vim.api.nvim_set_hl(0, "diffAdded", { bg = greenbg })
-vim.api.nvim_set_hl(0, "diffChanged", { bg = bluebg })
+vim.api.nvim_set_hl(0, "diffAdded", { fg = green, bg = greenbg })
+vim.api.nvim_set_hl(0, "diffChanged", { fg = blue, bg = bluebg })
 vim.api.nvim_set_hl(0, "diffRemoved", { fg = red, bg = redbg })
 vim.api.nvim_set_hl(0, "diffLine", { fg = fggg })
 
@@ -95,7 +95,7 @@ vim.api.nvim_set_hl(0, "DiffChange", { link = "diffChanged" })
 vim.api.nvim_set_hl(0, "DiffDelete", { link = "diffRemoved" })
 vim.api.nvim_set_hl(0, "DiffText", { bg = bluebgg })
 
-vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = teal })
+vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = green })
 vim.api.nvim_set_hl(0, "GitSignsChange", { fg = blue })
 vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = red })
 
@@ -180,7 +180,7 @@ vim.api.nvim_set_hl(0, "@markup.heading.6.markdown", { fg = purple, bold = true 
 
 vim.api.nvim_set_hl(0, "@markup.list.markdown", { fg = fggg })
 vim.api.nvim_set_hl(0, "@markup.math.latex", { fg = red })
-vim.api.nvim_set_hl(0, "@markup.raw.block.markdown", { fg = purple })
+vim.api.nvim_set_hl(0, "@markup.raw.block.markdown", { fg = fgg })
 
 vim.api.nvim_set_hl(0, "@markup.strong.markdown_inline", { bold = true })
 vim.api.nvim_set_hl(0, "@markup.italic.markdown_inline", { italic = true })
@@ -188,6 +188,7 @@ vim.api.nvim_set_hl(0, "@markup.strikethrough.markdown_inline", { strikethrough 
 vim.api.nvim_set_hl(0, "@markup.link.markdown_inline", { link = "@punctuation" })
 vim.api.nvim_set_hl(0, "@markup.link.url.markdown_inline", { fg = fg, underline = true })
 vim.api.nvim_set_hl(0, "@markup.link.label.markdown_inline", { fg = teal, bold = true })
+vim.api.nvim_set_hl(0, "@markup.raw.markdown_inline", { fg = fgg })
 
 vim.api.nvim_set_hl(0, "@markup.strong.latex", { bold = true })
 vim.api.nvim_set_hl(0, "@markup.italic.latex", { italic = true })
@@ -204,9 +205,16 @@ vim.api.nvim_set_hl(0, "tutorSectionBullet", { fg = teal })
 
 vim.api.nvim_set_hl(0, "@function.make", { fg = teal })
 vim.api.nvim_set_hl(0, "@function.cmake", { fg = teal })
-vim.api.nvim_set_hl(0, "@function.latex", { fg = fg })
+vim.api.nvim_set_hl(0, "@function.latex", { fg = teal })
 
+vim.api.nvim_set_hl(0, "@keyword.import.latex", { fg = red })
+vim.api.nvim_set_hl(0, "@markup.math.latex", { fg = blue })
+
+vim.api.nvim_set_hl(0, "@punctuation.delimiter.comment", { link = "Comment" })
 vim.api.nvim_set_hl(0, "@comment.todo.comment", { bg = bggg, bold = true })
+vim.api.nvim_set_hl(0, "@comment.note.comment", { bg = bggg, bold = true })
+vim.api.nvim_set_hl(0, "@comment.warning.comment", { fg = yellow, bg = bggg, bold = true })
+vim.api.nvim_set_hl(0, "@comment.error.comment", { fg = red, bg = bggg, bold = true })
 
 vim.api.nvim_set_hl(0, "@function.call.rust", { fg = fg })
 
@@ -228,8 +236,33 @@ vim.api.nvim_set_hl(0, "IblIndent", { fg = bggg })
 
 vim.api.nvim_set_hl(0, "@string.documentation.python", { link = "Comment" })
 
-vim.api.nvim_set_hl(0, "ObsidianRefText", { fg = purple, bold = true, underline = true })
-vim.api.nvim_set_hl(0, "ObsidianBullet", { fg = fggg, bold = false })
-vim.api.nvim_set_hl(0, "ObsidianTodo", { fg = fggg, bold = false })
-vim.api.nvim_set_hl(0, "ObsidianDone", { fg = purple, bold = false })
-vim.api.nvim_set_hl(0, "ObsidianExtLinkIcon", { fg = purple, bold = false })
+-- vim.api.nvim_set_hl(0, "ObsidianRefText", { fg = purple, bold = true, underline = true })
+-- vim.api.nvim_set_hl(0, "ObsidianBullet", { fg = fggg, bold = false })
+-- vim.api.nvim_set_hl(0, "ObsidianTodo", { fg = fggg, bold = false })
+-- vim.api.nvim_set_hl(0, "ObsidianDone", { fg = purple, bold = false })
+-- vim.api.nvim_set_hl(0, "ObsidianExtLinkIcon", { fg = purple, bold = false })
+
+vim.api.nvim_set_hl(0, "IlluminatedWordText", { bg = bgg })
+vim.api.nvim_set_hl(0, "IlluminatedWordRead", { bg = bgg })
+vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bg = bgg })
+
+vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = blue })
+vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { strikethrough = true, fg = fggg })
+
+vim.api.nvim_set_hl(0, "CmpItemKindClass", { fg = yellow })
+vim.api.nvim_set_hl(0, "CmpItemKindStruct", { fg = yellow })
+vim.api.nvim_set_hl(0, "CmpItemKindInterface", { fg = yellow })
+vim.api.nvim_set_hl(0, "CmpItemKindEnum", { fg = yellow })
+vim.api.nvim_set_hl(0, "CmpItemKindModule", { fg = yellow })
+
+vim.api.nvim_set_hl(0, "CmpItemKindSnippet", { fg = red })
+vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { fg = blue })
+vim.api.nvim_set_hl(0, "CmpItemKindText", { fg = fggg })
+vim.api.nvim_set_hl(0, "CmpItemKindField", { fg = blue })
+vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = fg })
+
+vim.api.nvim_set_hl(0, "CmpItemKindFunction", { fg = teal })
+vim.api.nvim_set_hl(0, "CmpItemKindMethod", { fg = teal })
+
+vim.api.nvim_set_hl(0, "CmpItemKindConstant", { fg = red })
+vim.api.nvim_set_hl(0, "CmpItemKindEnumMember", { fg = red })
