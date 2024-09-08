@@ -4,10 +4,12 @@ local fggg = "#666666"
 local fgggg = "#555555"
 local fggggg = "#444444"
 
+local bbg = "#1F1F1F"
 local bg = "#222222"
-local bgg = "#292929"
-local bggg = "#353535"
-local bgggg = "#454545"
+local bgg = "#242424"
+local bggg = "#292929"
+local bgggg = "#353535"
+local bggggg = "#454545"
 
 local blue = "#7AA2F7"
 local teal = "#79d1f7"
@@ -39,11 +41,7 @@ vim.g.terminal_color_13 = purple -- magenta (bright)
 vim.g.terminal_color_14 = teal   -- cyan (bright)
 vim.g.terminal_color_15 = fgg    -- white (bright)
 
-if vim.g.neovide then
-	vim.api.nvim_set_hl(0, "Normal", { fg = fg, bg = bg })
-else
-	vim.api.nvim_set_hl(0, "Normal", { fg = fg })
-end
+vim.api.nvim_set_hl(0, "Normal", { fg = fg, bg = bg })
 vim.api.nvim_set_hl(0, "Identifier", { fg = red })
 vim.api.nvim_set_hl(0, "Statement", {})
 vim.api.nvim_set_hl(0, "Function", { fg = teal })
@@ -53,12 +51,13 @@ vim.api.nvim_set_hl(0, "Special", {})
 vim.api.nvim_set_hl(0, "Operator", { fg = fgg })
 vim.api.nvim_set_hl(0, "Comment", { fg = fggg, italic = true })
 vim.api.nvim_set_hl(0, "Conceal", { fg = fgg })
-vim.api.nvim_set_hl(0, "Pmenu", { bg = bgg, fg = fgg })
-vim.api.nvim_set_hl(0, "PmenuSel", { bg = bgggg })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = bgg })
+vim.api.nvim_set_hl(0, "Pmenu", { bg = bgggg, fg = fgg })
+vim.api.nvim_set_hl(0, "PmenuSel", { bg = bggggg })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = bgggg })
 vim.api.nvim_set_hl(0, "Type", { fg = yellow })
 vim.api.nvim_set_hl(0, "PreProc", { fg = purple })
 vim.api.nvim_set_hl(0, "String", { fg = purple })
+vim.api.nvim_set_hl(0, "Character", { fg = purple })
 vim.api.nvim_set_hl(0, "SignColumn", {})
 vim.api.nvim_set_hl(0, "FoldColumn", {})
 vim.api.nvim_set_hl(0, "Directory", { fg = teal })
@@ -69,17 +68,18 @@ vim.api.nvim_set_hl(0, "LineNrBelow", { fg = fggggg })
 vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = fggggg })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = bgg })
 vim.api.nvim_set_hl(0, "CursorLineNr", { fg = fgggg })
-vim.api.nvim_set_hl(0, "StatusLine", { fg = fgg })
-vim.api.nvim_set_hl(0, "StatusLineNC", { fg = fggg })
--- vim.api.nvim_set_hl(0, "TabLine", { bg = bgggg })
--- vim.api.nvim_set_hl(0, "TabLineFill", { bg = bggg })
--- vim.api.nvim_set_hl(0, "TabLineSel", { bg = bgg })
-vim.api.nvim_set_hl(0, "WinSeparator", { fg = bggg })
-vim.api.nvim_set_hl(0, "Visual", { bg = bggg })
+vim.api.nvim_set_hl(0, "MsgArea", { bg = bbg })
+vim.api.nvim_set_hl(0, "StatusLine", { fg = fgg, bg = bgg })
+vim.api.nvim_set_hl(0, "StatusLineNC", { fg = fggg, bg = bgg })
+vim.api.nvim_set_hl(0, "TabLine", { bg = bgg })
+vim.api.nvim_set_hl(0, "TabLineFill", { bg = bgg })
+vim.api.nvim_set_hl(0, "TabLineSel", { bg = bgggg })
+vim.api.nvim_set_hl(0, "WinSeparator", { fg = bgggg, bg = bbg })
+vim.api.nvim_set_hl(0, "Visual", { bg = bgggg })
 vim.api.nvim_set_hl(0, "Search", { reverse = true })
-vim.api.nvim_set_hl(0, "Folded", { fg = fggg, bg = bgg })
+vim.api.nvim_set_hl(0, "Folded", { fg = fggg, bg = bggg })
 vim.api.nvim_set_hl(0, "Title", { fg = teal })
-vim.api.nvim_set_hl(0, "MatchParen", { bg = bggg })
+vim.api.nvim_set_hl(0, "MatchParen", { bg = bgggg })
 vim.api.nvim_set_hl(0, "Error", { fg = red, bg = redbg })
 vim.api.nvim_set_hl(0, "ErrorMsg", { fg = red, bg = redbg })
 vim.api.nvim_set_hl(0, "NonText", { fg = fggg })
@@ -211,10 +211,10 @@ vim.api.nvim_set_hl(0, "@keyword.import.latex", { fg = red })
 vim.api.nvim_set_hl(0, "@markup.math.latex", { fg = blue })
 
 vim.api.nvim_set_hl(0, "@punctuation.delimiter.comment", { link = "Comment" })
-vim.api.nvim_set_hl(0, "@comment.todo.comment", { bg = bggg, bold = true })
-vim.api.nvim_set_hl(0, "@comment.note.comment", { bg = bggg, bold = true })
-vim.api.nvim_set_hl(0, "@comment.warning.comment", { fg = yellow, bg = bggg, bold = true })
-vim.api.nvim_set_hl(0, "@comment.error.comment", { fg = red, bg = bggg, bold = true })
+vim.api.nvim_set_hl(0, "@comment.todo.comment", { bg = bgggg, bold = true })
+vim.api.nvim_set_hl(0, "@comment.note.comment", { bg = bgggg, bold = true })
+vim.api.nvim_set_hl(0, "@comment.warning.comment", { fg = yellow, bg = bgggg, bold = true })
+vim.api.nvim_set_hl(0, "@comment.error.comment", { fg = red, bg = bgggg, bold = true })
 
 vim.api.nvim_set_hl(0, "@function.call.rust", { fg = fg })
 
@@ -228,11 +228,8 @@ vim.api.nvim_set_hl(0, "@attribute.gdscript", { link = "PreProc" })
 
 vim.api.nvim_set_hl(0, "@lsp.type.bracket", { link = "@punctuation" })
 
-vim.api.nvim_set_hl(0, "CmpItemKind", { fg = fgg })
-vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { link = "CmpItemKind" })
-
-vim.api.nvim_set_hl(0, "IblScope", { fg = bggg })
-vim.api.nvim_set_hl(0, "IblIndent", { fg = bggg })
+vim.api.nvim_set_hl(0, "IblScope", { fg = bgggg })
+vim.api.nvim_set_hl(0, "IblIndent", { fg = bgggg })
 
 vim.api.nvim_set_hl(0, "@string.documentation.python", { link = "Comment" })
 
@@ -242,12 +239,19 @@ vim.api.nvim_set_hl(0, "@string.documentation.python", { link = "Comment" })
 -- vim.api.nvim_set_hl(0, "ObsidianDone", { fg = purple, bold = false })
 -- vim.api.nvim_set_hl(0, "ObsidianExtLinkIcon", { fg = purple, bold = false })
 
-vim.api.nvim_set_hl(0, "IlluminatedWordText", { bg = bgg })
-vim.api.nvim_set_hl(0, "IlluminatedWordRead", { bg = bgg })
-vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bg = bgg })
+-- vim.api.nvim_set_hl(0, "IlluminatedWordText", { bg = bggg })
+-- vim.api.nvim_set_hl(0, "IlluminatedWordRead", { bg = bggg })
+-- vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { bg = bggg })
+vim.api.nvim_set_hl(0, "IlluminatedWordText", { underline = true })
+vim.api.nvim_set_hl(0, "IlluminatedWordRead", { underline = true })
+vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { underline = true })
 
 vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { fg = blue })
 vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { strikethrough = true, fg = fggg })
+
+vim.api.nvim_set_hl(0, "CmpItemKind", { fg = fgg })
+
+vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = green })
 
 vim.api.nvim_set_hl(0, "CmpItemKindClass", { fg = yellow })
 vim.api.nvim_set_hl(0, "CmpItemKindStruct", { fg = yellow })
@@ -266,3 +270,13 @@ vim.api.nvim_set_hl(0, "CmpItemKindMethod", { fg = teal })
 
 vim.api.nvim_set_hl(0, "CmpItemKindConstant", { fg = red })
 vim.api.nvim_set_hl(0, "CmpItemKindEnumMember", { fg = red })
+
+vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = bbg })
+vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = bbg })
+vim.api.nvim_set_hl(0, "NeoTreeTabInactive", { bg = bbg })
+vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = bg })
+
+vim.api.nvim_set_hl(0, "TroubleNormal", { link = "NeoTreeNormal" })
+vim.api.nvim_set_hl(0, "TroubleNormalNC", { link = "NeoTreeNormalNC" })
+
+vim.api.nvim_set_hl(0, "TreesitterContext", { bg = bggg })

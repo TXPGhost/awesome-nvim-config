@@ -21,9 +21,9 @@ with `:Lazy profile`.
 | Key         |                     Binding |
 | :---------- | --------------------------: |
 | Space g     | Open fugitive status window |
-| gs          |              Show diff view |
-| ]h          |                   Next hunk |
-| [h          |               Previous hunk |
+| Space G     |              Show diff view |
+| ]g          |                   Next hunk |
+| [g          |               Previous hunk |
 | ghs         |                  Stage hunk |
 | ghu         |             Undo stage hunk |
 | ghr         |                  Reset hunk |
@@ -54,6 +54,7 @@ with `:Lazy profile`.
 | Ctrl t    |         Open file in new tab |
 | Ctrl s    |  Open file in vertical split |
 | gx        |     Open in external program |
+| F         |               Open file tree |
 
 ### Tree-Sitter
 
@@ -114,10 +115,9 @@ with `:Lazy profile`.
 
 ### Terminal
 
-| Key        |            Binding |
-| :--------- | -----------------: |
-| Ctrl Enter |      Open terminal |
-| Ctrl a     | Exit terminal mode |
+| Key   |         Binding |
+| :---- | --------------: |
+| Enter | Toggle terminal |
 
 ## Folds
 

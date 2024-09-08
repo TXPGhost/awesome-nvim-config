@@ -80,14 +80,7 @@ require("lazy").setup({
 					}
 				}
 			})
-			lspconfig.denols.setup({
-				capabilities = capabilities,
-				root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-			})
-			lspconfig.tsserver.setup({
-				capabilities = capabilities,
-				root_dir = lspconfig.util.root_pattern("package.json"),
-			})
+			lspconfig.denols.setup({ capabilities = capabilities })
 			lspconfig.gdscript.setup({ capabilities = capabilities })
 
 			vim.fn.sign_define("DiagnosticSignError", { text = "" })
@@ -110,6 +103,14 @@ require("lazy").setup({
 				{ "│", "FloatBorder" },
 			}
 
+			-- hover
+			vim.keymap.set("n", "K", function()
+				local winid = require('ufo').peekFoldedLinesUnderCursor()
+				if not winid then
+					vim.lsp.buf.hover()
+				end
+			end)
+
 			-- LSP settings (for overriding per client)
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
 			vim.lsp.handlers["textDocument/signatureHelp"] =
@@ -121,16 +122,21 @@ require("lazy").setup({
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 
-			vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end)
-			vim.keymap.set("n", "gy", function() vim.lsp.buf.type_definition() end)
-			vim.keymap.set("n", "gr", function() vim.lsp.buf.references() end)
-			vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end)
+			vim.keymap.set("n", "gd", "<cmd>Trouble lsp_definitions<cr>")
+			vim.keymap.set("n", "gy", "<cmd>Trouble lsp_type_definitions<cr>")
+			vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
+			vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
+			vim.keymap.set("n", "gs", "<cmd>Trouble symbols toggle pinned=true win.relative=win win.position=right<cr>")
 			vim.keymap.set("n", "<space>h", function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 			end)
 
 			-- switch source/header
 			vim.keymap.set("n", "<space>s", "<cmd>ClangdSwitchSourceHeader<cr>")
+
+			-- navigate soft line wraps
+			vim.keymap.set("n", "j", "gj")
+			vim.keymap.set("n", "k", "gk")
 		end,
 	},
 	{
@@ -149,8 +155,7 @@ require("lazy").setup({
 					[1]),
 				init_options = {
 					bundles = {
-						vim.fn.glob("/usr/share/java-debug/com.microsoft.java.debug.plugin.jar",
-							1),
+						vim.fn.glob("/usr/share/java-debug/com.microsoft.java.debug.plugin.jar", 1),
 					},
 				},
 			}
@@ -170,12 +175,12 @@ require("lazy").setup({
 				server = {
 					capabilities = {
 						experimental = {
-							snippetTextEdit = false
+							-- snippetTextEdit = false
 						},
 						textDocument = {
 							completion = {
 								completionItem = {
-									snippetSupport = false
+									-- snippetSupport = false
 								}
 							}
 						}
@@ -184,7 +189,7 @@ require("lazy").setup({
 						["rust-analyzer"] = {
 							cargo = {
 								allFeatures = true
-							}
+							},
 						}
 					},
 				}
@@ -225,38 +230,8 @@ require("lazy").setup({
 		dependencies = {
 			"RRethy/nvim-treesitter-endwise",
 			"windwp/nvim-ts-autotag",
+			"nvim-treesitter/nvim-treesitter-context",
 		},
-	},
-	{
-		"stevearc/oil.nvim",
-		keys = { "-" },
-		config = function()
-			vim.keymap.set("n", "-", "<cmd>Oil<cr>zz", { desc = "Open parent directory" })
-			require("oil").setup({
-				keymaps = {
-					["g?"] = "actions.show_help",
-					["<CR>"] = "actions.select",
-					["<C-s>"] = "actions.select_vsplit",
-					["<C-t>"] = "actions.select_tab",
-					["<C-p>"] = "actions.preview",
-					["<C-c>"] = "actions.close",
-					["<C-r>"] = "actions.refresh",
-					["-"] = "actions.parent",
-					["_"] = "actions.open_cwd",
-					["`"] = "actions.cd",
-					["~"] = "actions.tcd",
-					["gs"] = "actions.change_sort",
-					["gx"] = "actions.open_external",
-					["g."] = "actions.toggle_hidden",
-					["g\\"] = "actions.toggle_trash",
-				},
-				use_default_keymaps = false,
-				win_options = {
-					signcolumn = "yes",
-				},
-			})
-		end,
-		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 	{
 		"stevearc/conform.nvim",
@@ -282,13 +257,15 @@ require("lazy").setup({
 				ocaml = { "ocamlformat" },
 				haskell = { "ormolu" },
 				python = { "black", "isort" },
+				latex = { "latexindent" },
+				tex = { "latexindent" },
 				_ = { "trim_whitespace" },
 			},
 			format_on_save = function(bufnr)
 				if not vim.api.nvim_buf_get_option(bufnr, "modified") then
 					return
 				end
-				return { timeout_ms = 500, lsp_fallback = true }
+				return { timeout_ms = 10000, lsp_fallback = true }
 			end,
 			formatters = {
 				["ocamlformat"] = {
@@ -318,7 +295,6 @@ require("lazy").setup({
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			vim.keymap.set("n", "<space>f", "<cmd>Telescope fd<cr>")
-			vim.keymap.set("n", "<space>b", "<cmd>Telescope buffers<cr>")
 			vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
 		end
 	},
@@ -330,6 +306,8 @@ require("lazy").setup({
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
 			local snippy = require("snippy")
+
+			require("copilot_cmp").setup()
 
 			lspkind.init({
 				symbol_map = {
@@ -419,22 +397,18 @@ require("lazy").setup({
 						fallback()
 					end, { "i", "s" })
 				}),
-				experimental = {
-					ghost_text = true,
-				},
 				sources = cmp.config.sources({
+					{ name = "copilot" },
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "path" },
 				}, {}),
 				formatting = {
 					format = lspkind.cmp_format({
-						mode = 'symbol_text', -- show only symbol annotations
-						maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-						-- can also be a function to dynamically calculate max width such as
-						-- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
-						ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-						show_labelDetails = true, -- show labelDetails in menu. Disabled by default
+						mode = 'symbol_text',
+						maxwidth = 50,
+						ellipsis_char = '...',
+						show_labelDetails = true,
 					})
 				},
 			})
@@ -455,6 +429,7 @@ require("lazy").setup({
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"dcampos/nvim-snippy",
+			"zbirenbaum/copilot-cmp",
 		},
 	},
 	{
@@ -467,18 +442,75 @@ require("lazy").setup({
 	{
 		"altermo/ultimate-autopair.nvim",
 		event = { "InsertEnter", "CmdlineEnter" },
-		opts = {
-		},
+		config = function()
+			require("ultimate-autopair").setup({
+				internal_pairs = { -- *ultimate-autopair-pairs-default-pairs*
+					{ '[', ']', fly = true,     dosuround = true, newline = true, space = true },
+					{ '(', ')', fly = true,     dosuround = true, newline = true, space = true },
+					{ '{', '}', fly = true,     dosuround = true, newline = true, space = true },
+					{ '"', '"', suround = true, multiline = false },
+					{
+						"'",
+						"'",
+						suround = true,
+						cond = function(fn)
+							return not
+								fn.in_lisp() or fn.in_string()
+						end,
+						alpha = true,
+						nft = { 'tex' },
+						multiline = false
+					},
+					{
+						'`',
+						'`',
+						cond = function(fn)
+							return not fn.in_lisp() or
+								fn.in_string()
+						end,
+						nft = { 'tex' },
+						multiline = false
+					},
+					{ '``',                 "''",               ft = { 'tex' } },
+					{ '```',                '```',              newline = true,              ft = { 'markdown' } },
+					{ '<!--',               '-->',              ft = { 'markdown', 'html' }, space = true },
+					{ '"""',                '"""',              newline = true,              ft = { 'python' } },
+					{ "'''",                "'''",              newline = true,              ft = { 'python' } },
+					{ '$',                  '$',                ft = { 'tex', 'markdown' },  suround = true,     multiline = false },
+					{ '$$',                 '$$',               ft = { 'tex', 'markdown' },  suround = true,     multiline = false },
+					{ '\\begin{align}',     '\\end{align}',     ft = { 'tex', 'markdown' },  suround = true,     multiline = true, newline = true },
+					{ '\\begin{align*}',    '\\end{align*}',    ft = { 'tex', 'markdown' },  suround = true,     multiline = true, newline = true },
+					{ '\\begin{enumerate}', '\\end{enumerate}', ft = { 'tex', 'markdown' },  suround = true,     multiline = true, newline = true },
+					{ '\\begin{pmatrix}',   '\\end{pmatrix}',   ft = { 'tex', 'markdown' },  suround = true,     multiline = true, newline = true },
+					{ '\\begin{bmatrix}',   '\\end{bmatrix}',   ft = { 'tex', 'markdown' },  suround = true,     multiline = true, newline = true },
+					{ '\\begin{vmatrix}',   '\\end{vmatrix}',   ft = { 'tex', 'markdown' },  suround = true,     multiline = true, newline = true },
+					{ '\\begin{tabular}',   '\\end{tabular}',   ft = { 'tex', 'markdown' },  suround = true,     multiline = true, newline = true },
+					{ '\\begin{center}',    '\\end{center}',    ft = { 'tex', 'markdown' },  suround = true,     multiline = true, newline = true },
+					{ '\\begin{itemize}',   '\\end{itemize}',   ft = { 'tex', 'markdown' },  suround = true,     multiline = true, newline = true },
+					{ '\\begin{document}',  '\\end{document}',  ft = { 'tex', 'markdown' },  suround = true,     multiline = true, newline = true },
+					{ '\\begin{split}',     '\\end{split}',     ft = { 'tex', 'markdown' },  suround = true,     multiline = true, newline = true },
+				}
+			})
+		end,
 	},
 	{
 		"lewis6991/gitsigns.nvim",
 		event = "VeryLazy",
 		config = function()
-			require("gitsigns").setup({})
+			require("gitsigns").setup({
+				signs = {
+					add    = { text = '│' },
+					change = { text = '│' },
+				},
+				signs_staged = {
+					add    = { text = '│' },
+					change = { text = '│' },
+				},
+			})
 
 			vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
-			vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>zz")
-			vim.keymap.set("n", "[h", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>zz")
+			vim.keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>zz")
+			vim.keymap.set("n", "[g", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>zz")
 			vim.keymap.set("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
 			vim.keymap.set("n", "ghu", "<cmd>Gitsigns undo_stage_hunk<cr>")
 			vim.keymap.set("n", "ghr", "<cmd>Gitsigns reset_hunk<cr>")
@@ -490,8 +522,9 @@ require("lazy").setup({
 		event = "VeryLazy",
 		config = function()
 			vim.keymap.set("n", "<space>g", "<cmd>Git<cr><cmd>wincmd L<cr>")
-			vim.keymap.set("n", "gs",
+			vim.keymap.set("n", "<space>G",
 				"<cmd>Gvdiffsplit!<cr><cmd>set foldcolumn=0<cr><cmd>wincmd h<cr><cmd>set foldcolumn=0<cr>")
+			vim.keymap.set("n", "<space>b", "<cmd>Gitsigns blame<cr>")
 		end,
 	},
 	{
@@ -627,14 +660,17 @@ require("lazy").setup({
 		"rhysd/conflict-marker.vim",
 		event = "VeryLazy",
 	},
-	-- {
-	-- 	"zbirenbaum/copilot.lua",
-	-- 	cmd = "Copilot",
-	-- 	event = "InsertEnter",
-	-- 	config = function()
-	-- 		require("copilot").setup({})
-	-- 	end,
-	-- },
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			require("copilot").setup({
+				panel = { enabled = false },
+				suggestion = { enabled = false },
+			})
+		end,
+	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		event = "VeryLazy",
@@ -723,13 +759,66 @@ require("lazy").setup({
 		},
 		config = function()
 			require("neo-tree").setup({
-				close_if_last_window = true
+				close_if_last_window = true,
+				filesystem = {
+					window = {
+						mappings = {
+							["O"] = "system_open",
+						},
+					},
+				},
+				commands = {
+					system_open = function(state)
+						local node = state.tree:get_node()
+						local path = node:get_id()
+						vim.fn.jobstart({ "xdg-open", path }, { detach = true })
+					end,
+				},
 			})
 		end
 	},
 	{
-		"sho-87/kanagawa-paper.nvim",
+		"akinsho/toggleterm.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("toggleterm").setup({
+				highlights = {
+					["Normal"] = { link = "NeoTreeNormal" },
+				},
+				shade_terminals = false,
+				insert_mappings = false,
+				start_in_insert = false,
+			})
+		end
 	},
+	{
+		"folke/trouble.nvim",
+		event = "VeryLazy",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			auto_close = true,
+			auto_jump = true,
+			warn_no_results = false,
+			win = {
+				size = 0.2,
+			}
+		},
+	},
+	{
+		"kevinhwang91/nvim-ufo",
+		config = function()
+			require("ufo").setup({
+				open_fold_hl_timeout = 0,
+				close_fold_kinds_for_ft = { default = { "imports", "comment" } },
+				preview = {
+					win_config = {
+						winhighlight = "Pmenu:Pmenu",
+						winblend = 0,
+					},
+				},
+			})
+		end
+	}
 })
 
 -- set help window to vertical split
@@ -757,22 +846,13 @@ end, {})
 -- disable auto comment
 vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=qnlj")
 
--- terminal
-vim.api.nvim_create_user_command("Terminal", function()
-	vim.cmd("terminal")
-	vim.cmd("setlocal nonumber")
-	vim.cmd("setlocal norelativenumber")
-	vim.cmd("setlocal signcolumn=no")
-	vim.cmd("startinsert")
-end, {})
-
 -- keymaps
 do
 	-- easy enter terminal mode
 	vim.keymap.set(
 		"n",
-		"<c-cr>",
-		"<cmd>Terminal<cr>"
+		"<cr>",
+		"<cmd>ToggleTerm<cr>"
 	)
 
 	-- easy exit terminal mode
@@ -809,7 +889,7 @@ do
 	vim.keymap.set("n", "<space>n", "<cmd>ObsidianSearch<cr>")
 
 	-- file tree
-	vim.keymap.set("n", "<space>t", "<cmd>Neotree toggle<cr>")
+	vim.keymap.set("n", "-", "<cmd>Neotree<cr>")
 end
 
 -- startup commands
@@ -827,9 +907,11 @@ vim.opt.foldlevel = 99999
 vim.opt.shortmess:append("I")
 vim.opt.pumheight = 20
 vim.opt.termguicolors = true
-vim.opt.mousescroll = "hor:0"
+vim.opt.mousescroll = "hor:1,ver:1"
 vim.opt.conceallevel = 0
 vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.wrap = true
 
 -- colorscheme
 vim.cmd.colorscheme("new")
@@ -838,7 +920,7 @@ vim.cmd.colorscheme("new")
 if vim.g.neovide then
 	local default_scale_factor = 1
 
-	vim.opt.guifont = "BlexMono Nerd Font:h10.5"
+	vim.opt.guifont = "NotoMono Nerd Font Mono:h9"
 	vim.opt.linespace = -1
 
 	vim.g.neovide_scale_factor = default_scale_factor
