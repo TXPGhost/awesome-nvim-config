@@ -11,6 +11,14 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local large_file_disable = function(buf)
+	local max_filesize = 100 * 1024 -- 100 KB
+	local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+	if ok and stats and stats.size > max_filesize then
+		return true
+	end
+end
+
 require("lazy").setup({
 	{ "nvim-lua/plenary.nvim",      lazy = true },
 	{ "kevinhwang91/promise-async", lazy = true },
@@ -207,13 +215,6 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		config = function()
-			local large_file_disable = function(buf)
-				local max_filesize = 100 * 1024 -- 100 KB
-				local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-				if ok and stats and stats.size > max_filesize then
-					return true
-				end
-			end
 			require("nvim-treesitter.configs").setup({
 				auto_install = true,
 				highlight = {
@@ -577,101 +578,6 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"mfussenegger/nvim-dap",
-		keys = { "<space>c", "<space>C", "<leader>b", "<space>?<space>" },
-		config = function()
-			local dap = require("dap")
-			local dapui = require("dapui")
-			local breakpoints = require("goto-breakpoints")
-
-			require("nvim-dap-virtual-text").setup()
-
-			dap.adapters.gdb = {
-				type = "executable",
-				command = "gdb",
-				args = { "-i", "dap" },
-			}
-			dap.configurations.c = {
-				{
-					name = "Launch",
-					type = "gdb",
-					request = "launch",
-					program = function()
-						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/",
-							"file")
-					end,
-					args = function()
-						local args = {}
-						for arg in string.gmatch(vim.fn.input("Command arguments: "), "%S+") do
-							table.insert(args, arg)
-						end
-						return args
-					end,
-					cwd = "${workspaceFolder}",
-					stopAtBeginningOfMainSubprogram = false,
-				},
-			}
-			dap.configurations.cpp = dap.configurations.c
-
-			vim.keymap.set("n", "<leader>b", function()
-				dap.toggle_breakpoint()
-			end)
-			vim.keymap.set("n", "<space>?<space>", function()
-				dap.set_breakpoint(vim.fn.input("Condition: "))
-			end)
-			vim.keymap.set("n", "<up>", function()
-				dap.step_out()
-			end)
-			vim.keymap.set("n", "<left>", function()
-				dap.step_back()
-			end)
-			vim.keymap.set("n", "<right>", function()
-				dap.step_over()
-			end)
-			vim.keymap.set("n", "<down>", function()
-				dap.step_into()
-			end)
-
-			vim.keymap.set("n", "]b", breakpoints.next)
-			vim.keymap.set("n", "[b", breakpoints.prev)
-
-			vim.fn.sign_define("DapStopped", { linehl = "CursorLine" })
-			vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError" })
-			vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DiagnosticSignError" })
-			vim.fn.sign_define("DapBreakpointRejected", { text = "󰅙", texthl = "DiagnosticSignError" })
-
-			dapui.setup({})
-			vim.keymap.set("n", "<space>c", function()
-				if vim.bo.filetype == "java" then
-					require("jdtls.dap").setup_dap_main_class_configs()
-				elseif vim.bo.filetype == "rust" then
-					vim.cmd("RustLsp debuggables")
-					return
-				end
-				dapui.open()
-				vim.cmd("DapContinue")
-			end)
-			vim.keymap.set("n", "<space>C", function()
-				dapui.close()
-				dap.terminate()
-			end)
-
-			dap.listeners.before.attach.dapui_config = function()
-				dapui.open()
-			end
-			dap.listeners.before.launch.dapui_config = function()
-				dapui.open()
-			end
-			dap.listeners.before.event_terminated.dapui_config = function()
-				dapui.close()
-			end
-			dap.listeners.before.event_exited.dapui_config = function()
-				dapui.close()
-			end
-		end,
-		dependencies = { "theHamsta/nvim-dap-virtual-text", "rcarriga/nvim-dap-ui", "ofirgall/goto-breakpoints.nvim", "nvim-neotest/nvim-nio" },
-	},
-	{
 		"rhysd/conflict-marker.vim",
 		event = "VeryLazy",
 	},
@@ -722,11 +628,6 @@ require("lazy").setup({
 			},
 			ui = {
 				enable = false,
-				-- checkboxes = {
-				-- 	[" "] = { char = "", hl_group = "ObsidianTodo" },
-				-- 	["x"] = { char = "", hl_group = "ObsidianDone" },
-				-- },
-				-- hl_groups = {},
 			},
 			mappings = {
 				["gd"] = {
@@ -781,6 +682,18 @@ require("lazy").setup({
 							["O"] = "system_open",
 							["/"] = "noop",
 							["esc"] = "noop",
+						},
+					},
+					default_component_configs = {
+						filesystem = {
+							follow_current_file = {
+								enabled = true,
+							},
+						},
+						buffers = {
+							follow_current_file = {
+								enabled = true,
+							},
 						},
 					},
 				},
@@ -840,6 +753,13 @@ require("lazy").setup({
 						winblend = 0,
 					},
 				},
+				provider_selector = function(bufnr, filetype, buftype)
+					if large_file_disable(bufnr) then
+						return ""
+					else
+						return { "treesitter", "indent" }
+					end
+				end
 			})
 		end
 	},
@@ -917,8 +837,8 @@ do
 	vim.keymap.set("n", "<space>n", "<cmd>ObsidianSearch<cr>")
 
 	-- file tree
-	vim.keymap.set("n", "-", "<cmd>Neotree toggle<cr>")
-	vim.keymap.set("n", "`", "<cmd>Neotree buffers toggle<cr>")
+	vim.keymap.set("n", "-", "<cmd>Neotree<cr>")
+	vim.keymap.set("n", "`", "<cmd>Neotree buffers<cr>")
 	vim.keymap.set("n", "<space>-", "<cmd>Neotree reveal_force_cwd<cr>")
 end
 
@@ -942,6 +862,7 @@ vim.opt.conceallevel = 0
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.wrap = false
+vim.opt.foldenable = false
 
 -- colorscheme
 vim.cmd.colorscheme("new")
