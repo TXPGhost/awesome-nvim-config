@@ -280,5 +280,6 @@ vim.api.nvim_set_hl(0, "NeoTreeIndentMarker", { fg = bgggg })
 
 vim.api.nvim_set_hl(0, "TroubleNormal", { link = "NeoTreeNormal" })
 vim.api.nvim_set_hl(0, "TroubleNormalNC", { link = "NeoTreeNormalNC" })
+vim.api.nvim_set_hl(0, "TroubleIndent", { fg = bgggg })
 
 vim.api.nvim_set_hl(0, "TreesitterContext", { bg = bggg })

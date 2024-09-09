@@ -207,7 +207,7 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		config = function()
-			large_file_disable = function(buf)
+			local large_file_disable = function(buf)
 				local max_filesize = 100 * 1024 -- 100 KB
 				local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
 				if ok and stats and stats.size > max_filesize then
@@ -818,7 +818,15 @@ require("lazy").setup({
 			warn_no_results = false,
 			win = {
 				size = 0.2,
-			}
+			},
+
+			throttle = {
+				refresh = 0,                 -- fetches new data when needed
+				update = 0,                  -- updates the window
+				render = 0,                  -- renders the window
+				follow = 00,                 -- follows the current item
+				preview = { ms = 00, debounce = false }, -- shows the preview for the current item
+			},
 		},
 	},
 	{
