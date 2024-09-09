@@ -835,6 +835,10 @@ require("lazy").setup({
 				},
 			})
 		end
+	},
+	{
+		"nanotee/zoxide.vim",
+		cmd = "Z",
 	}
 })
 
