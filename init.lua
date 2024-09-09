@@ -819,13 +819,12 @@ require("lazy").setup({
 			win = {
 				size = 0.2,
 			},
-
 			throttle = {
-				refresh = 0,                 -- fetches new data when needed
-				update = 0,                  -- updates the window
-				render = 0,                  -- renders the window
-				follow = 00,                 -- follows the current item
-				preview = { ms = 00, debounce = false }, -- shows the preview for the current item
+				refresh = 0,
+				update = 0,
+				render = 0,
+				follow = 0,
+				preview = { ms = 0, debounce = false },
 			},
 		},
 	},
