@@ -207,10 +207,20 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		config = function()
+			large_file_disable = function(buf)
+				local max_filesize = 100 * 1024 -- 100 KB
+				local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+				if ok and stats and stats.size > max_filesize then
+					return true
+				end
+			end
 			require("nvim-treesitter.configs").setup({
 				auto_install = true,
 				highlight = {
 					enable = true,
+					disable = function(_, buf)
+						return large_file_disable(buf)
+					end,
 				},
 				indent = {
 					enable = true
@@ -219,6 +229,11 @@ require("lazy").setup({
 					enable = true,
 				},
 			})
+			-- require("treesitter-context").setup({
+			-- 	on_attach = function(buf)
+			-- 		return large_file_disable(buf)
+			-- 	end,
+			-- })
 			require('nvim-ts-autotag').setup({
 				opts = {
 					enable_close = true,
@@ -230,7 +245,7 @@ require("lazy").setup({
 		dependencies = {
 			"RRethy/nvim-treesitter-endwise",
 			"windwp/nvim-ts-autotag",
-			"nvim-treesitter/nvim-treesitter-context",
+			-- "nvim-treesitter/nvim-treesitter-context",
 		},
 	},
 	{
@@ -508,9 +523,9 @@ require("lazy").setup({
 				},
 			})
 
-			vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
-			vim.keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>zz")
-			vim.keymap.set("n", "[g", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>zz")
+			vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk<cr>")
+			vim.keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<cr>zz")
+			vim.keymap.set("n", "[g", "<cmd>Gitsigns prev_hunk<cr>zz")
 			vim.keymap.set("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
 			vim.keymap.set("n", "ghu", "<cmd>Gitsigns undo_stage_hunk<cr>")
 			vim.keymap.set("n", "ghr", "<cmd>Gitsigns reset_hunk<cr>")
@@ -911,7 +926,7 @@ vim.opt.mousescroll = "hor:1,ver:1"
 vim.opt.conceallevel = 0
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.wrap = true
+vim.opt.wrap = false
 
 -- colorscheme
 vim.cmd.colorscheme("new")
