@@ -779,6 +779,8 @@ require("lazy").setup({
 					window = {
 						mappings = {
 							["O"] = "system_open",
+							["/"] = "noop",
+							["esc"] = "noop",
 						},
 					},
 				},
@@ -904,7 +906,9 @@ do
 	vim.keymap.set("n", "<space>n", "<cmd>ObsidianSearch<cr>")
 
 	-- file tree
-	vim.keymap.set("n", "-", "<cmd>Neotree<cr>")
+	vim.keymap.set("n", "-", "<cmd>Neotree toggle<cr>")
+	vim.keymap.set("n", "`", "<cmd>Neotree buffers toggle<cr>")
+	vim.keymap.set("n", "<space>-", "<cmd>Neotree reveal_force_cwd<cr>")
 end
 
 -- startup commands

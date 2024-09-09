@@ -275,6 +275,8 @@ vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = bbg })
 vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = bbg })
 vim.api.nvim_set_hl(0, "NeoTreeTabInactive", { bg = bbg })
 vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = bg })
+vim.api.nvim_set_hl(0, "NeoTreeTitleBar", { fg = fg })
+vim.api.nvim_set_hl(0, "NeoTreeIndentMarker", { fg = bgggg })
 
 vim.api.nvim_set_hl(0, "TroubleNormal", { link = "NeoTreeNormal" })
 vim.api.nvim_set_hl(0, "TroubleNormalNC", { link = "NeoTreeNormalNC" })

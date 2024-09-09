@@ -39,22 +39,23 @@ with `:Lazy profile`.
 
 ### File navigation
 
-| Key       |                      Binding |
-| :-------- | ---------------------------: |
-| -         |   Open file tree/navigate up |
-| Enter     |        Open file/navigate in |
-| Backspace |              Close file tree |
-| `         |        Set current directory |
-| g.        |     Toggle show hidden files |
-| Space f   |         Search project files |
-| Space b   |       Search project buffers |
-| Space /   | Search project file contents |
-| Ctrl r    |                Refresh files |
-| Ctrl p    |               Toggle preview |
-| Ctrl t    |         Open file in new tab |
-| Ctrl s    |  Open file in vertical split |
-| gx        |     Open in external program |
-| F         |               Open file tree |
+| Key       |                       Binding |
+| :-------- | ----------------------------: |
+| -         |                Open file tree |
+| Space -   | Open file tree and upadte CWD |
+| `         |               Open bufferlist |
+| Enter     |                     Open file |
+| .         |                      Set root |
+| Backspace |           Change directory up |
+| `         |         Set current directory |
+| g.        |      Toggle show hidden files |
+| Space f   |          Search project files |
+| Space /   |  Search project file contents |
+| Ctrl r    |                 Refresh files |
+| Ctrl p    |                Toggle preview |
+| Ctrl t    |          Open file in new tab |
+| Ctrl s    |   Open file in vertical split |
+| O         |    Open in system application |
 
 ### Tree-Sitter
 
