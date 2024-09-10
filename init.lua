@@ -524,9 +524,9 @@ require("lazy").setup({
 				},
 			})
 
-			vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk<cr>")
-			vim.keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<cr>zz")
-			vim.keymap.set("n", "[g", "<cmd>Gitsigns prev_hunk<cr>zz")
+			vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
+			vim.keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>zz")
+			vim.keymap.set("n", "[g", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>zz")
 			vim.keymap.set("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
 			vim.keymap.set("n", "ghu", "<cmd>Gitsigns undo_stage_hunk<cr>")
 			vim.keymap.set("n", "ghr", "<cmd>Gitsigns reset_hunk<cr>")
@@ -603,56 +603,6 @@ require("lazy").setup({
 		end
 	},
 	{
-		"epwalsh/obsidian.nvim",
-		version = "*",
-		event = "VeryLazy",
-		ft = "markdown",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"hrsh7th/nvim-cmp",
-			"nvim-telescope/telescope.nvim",
-			"nvim-treesitter/nvim-treesitter",
-		},
-		opts = {
-			workspaces = {
-				{
-					name = "main",
-					path = "~/vaults",
-				}
-			},
-			completion = {
-				min_chars = 1,
-				wiki_link_func = function(opts)
-					return string.format("[[%s]]", opts.path)
-				end,
-			},
-			ui = {
-				enable = false,
-			},
-			mappings = {
-				["gd"] = {
-					action = function()
-						return require("obsidian").util.gf_passthrough()
-					end,
-					opts = { noremap = false, expr = true, buffer = true },
-				},
-				["<space><space>"] = {
-					action = function()
-						return require("obsidian").util.toggle_checkbox()
-					end,
-					opts = { buffer = true },
-				},
-			},
-			follow_url_func = function(url)
-				vim.fn.jobstart({ "xdg-open", url })
-			end,
-			note_id_func = function(title)
-				return title
-			end,
-			disable_frontmatter = true,
-		}
-	},
-	{
 		"RRethy/vim-illuminate",
 		event = "VeryLazy",
 		config = function()
@@ -686,6 +636,7 @@ require("lazy").setup({
 					},
 					default_component_configs = {
 						filesystem = {
+							bind_to_cwd = true,
 							follow_current_file = {
 								enabled = true,
 							},
@@ -833,9 +784,6 @@ do
 	-- clear highlighting
 	vim.keymap.set("n", "<esc>", "<cmd>noh<cr>")
 
-	-- obsidian
-	vim.keymap.set("n", "<space>n", "<cmd>ObsidianSearch<cr>")
-
 	-- file tree
 	vim.keymap.set("n", "-", "<cmd>Neotree<cr>")
 	vim.keymap.set("n", "`", "<cmd>Neotree buffers<cr>")
@@ -861,7 +809,7 @@ vim.opt.mousescroll = "hor:1,ver:1"
 vim.opt.conceallevel = 0
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.wrap = false
+vim.opt.wrap = true
 vim.opt.foldenable = false
 
 -- colorscheme
