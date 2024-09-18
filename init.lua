@@ -130,11 +130,6 @@ require("lazy").setup({
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 
-			vim.keymap.set("n", "gd", "<cmd>Trouble lsp_definitions<cr>")
-			vim.keymap.set("n", "gy", "<cmd>Trouble lsp_type_definitions<cr>")
-			vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
-			vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
-			vim.keymap.set("n", "gs", "<cmd>Trouble symbols toggle pinned=true win.relative=win win.position=right<cr>")
 			vim.keymap.set("n", "<space>h", function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 			end)
@@ -200,7 +195,12 @@ require("lazy").setup({
 							},
 						}
 					},
-				}
+				},
+				tools = {
+					float_win_config = {
+						border = "rounded",
+					},
+				},
 			}
 		end
 	},
@@ -224,17 +224,12 @@ require("lazy").setup({
 					end,
 				},
 				indent = {
-					enable = true
+					enable = true,
 				},
 				endwise = {
 					enable = true,
 				},
 			})
-			-- require("treesitter-context").setup({
-			-- 	on_attach = function(buf)
-			-- 		return large_file_disable(buf)
-			-- 	end,
-			-- })
 			require('nvim-ts-autotag').setup({
 				opts = {
 					enable_close = true,
@@ -246,7 +241,6 @@ require("lazy").setup({
 		dependencies = {
 			"RRethy/nvim-treesitter-endwise",
 			"windwp/nvim-ts-autotag",
-			-- "nvim-treesitter/nvim-treesitter-context",
 		},
 	},
 	{
@@ -273,7 +267,6 @@ require("lazy").setup({
 				ocaml = { "ocamlformat" },
 				haskell = { "ormolu" },
 				python = { "black", "isort" },
-				latex = { "latexindent" },
 				tex = { "latexindent" },
 				_ = { "trim_whitespace" },
 			},
@@ -323,7 +316,7 @@ require("lazy").setup({
 			local lspkind = require("lspkind")
 			local snippy = require("snippy")
 
-			require("copilot_cmp").setup()
+			-- require("copilot_cmp").setup()
 
 			lspkind.init({
 				symbol_map = {
@@ -414,7 +407,7 @@ require("lazy").setup({
 					end, { "i", "s" })
 				}),
 				sources = cmp.config.sources({
-					{ name = "copilot" },
+					-- { name = "copilot" },
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "path" },
@@ -445,7 +438,7 @@ require("lazy").setup({
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"dcampos/nvim-snippy",
-			"zbirenbaum/copilot-cmp",
+			-- "zbirenbaum/copilot-cmp",
 		},
 	},
 	{
@@ -524,9 +517,8 @@ require("lazy").setup({
 				},
 			})
 
-			vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns preview_hunk_inline<cr>")
-			vim.keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>zz")
-			vim.keymap.set("n", "[g", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>zz")
+			vim.keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
+			vim.keymap.set("n", "[g", "<cmd>Gitsigns prev_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
 			vim.keymap.set("n", "ghs", "<cmd>Gitsigns stage_hunk<cr>")
 			vim.keymap.set("n", "ghu", "<cmd>Gitsigns undo_stage_hunk<cr>")
 			vim.keymap.set("n", "ghr", "<cmd>Gitsigns reset_hunk<cr>")
@@ -581,17 +573,20 @@ require("lazy").setup({
 		"rhysd/conflict-marker.vim",
 		event = "VeryLazy",
 	},
-	{
-		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
-		event = "InsertEnter",
-		config = function()
-			require("copilot").setup({
-				panel = { enabled = false },
-				suggestion = { enabled = false },
-			})
-		end,
-	},
+	-- {
+	-- 	"zbirenbaum/copilot.lua",
+	-- 	cmd = "Copilot",
+	-- 	event = "InsertEnter",
+	-- 	config = function()
+	-- 		require("copilot").setup({
+	-- 			panel = { enabled = false },
+	-- 			suggestion = { enabled = false },
+	-- 			filetypes = {
+	-- 				tex = false,
+	-- 			}
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		event = "VeryLazy",
@@ -656,6 +651,11 @@ require("lazy").setup({
 					end,
 				},
 			})
+
+
+			vim.keymap.set("n", "-", "<cmd>Neotree<cr>")
+			vim.keymap.set("n", "`", "<cmd>Neotree buffers<cr>")
+			vim.keymap.set("n", "<space>-", "<cmd>Neotree reveal_force_cwd<cr>")
 		end
 	},
 	{
@@ -670,6 +670,12 @@ require("lazy").setup({
 				insert_mappings = false,
 				start_in_insert = false,
 			})
+
+			vim.keymap.set(
+				"n",
+				"<cr>",
+				"<cmd>ToggleTerm<cr>"
+			)
 		end
 	},
 	{
@@ -691,6 +697,13 @@ require("lazy").setup({
 				preview = { ms = 0, debounce = false },
 			},
 		},
+		config = function()
+			vim.keymap.set("n", "gd", "<cmd>Trouble lsp_definitions<cr>")
+			vim.keymap.set("n", "gy", "<cmd>Trouble lsp_type_definitions<cr>")
+			vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
+			vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
+			vim.keymap.set("n", "gs", "<cmd>Trouble symbols toggle pinned=true win.relative=win win.position=right<cr>")
+		end
 	},
 	{
 		"kevinhwang91/nvim-ufo",
@@ -704,7 +717,7 @@ require("lazy").setup({
 						winblend = 0,
 					},
 				},
-				provider_selector = function(bufnr, filetype, buftype)
+				provider_selector = function(bufnr, _, _)
 					if large_file_disable(bufnr) then
 						return ""
 					else
@@ -717,6 +730,30 @@ require("lazy").setup({
 	{
 		"nanotee/zoxide.vim",
 		cmd = "Z",
+	},
+	{
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			local harpoon = require("harpoon")
+
+			harpoon:setup()
+
+			vim.keymap.set("n", "<space>`", function() harpoon:list():add() end)
+			vim.keymap.set("n", "<space><space>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+			vim.keymap.set("n", "<space>1", function() harpoon:list():select(1) end)
+			vim.keymap.set("n", "<space>2", function() harpoon:list():select(2) end)
+			vim.keymap.set("n", "<space>3", function() harpoon:list():select(3) end)
+			vim.keymap.set("n", "<space>4", function() harpoon:list():select(4) end)
+			vim.keymap.set("n", "<space>5", function() harpoon:list():select(5) end)
+			vim.keymap.set("n", "<space>6", function() harpoon:list():select(6) end)
+			vim.keymap.set("n", "<space>7", function() harpoon:list():select(7) end)
+			vim.keymap.set("n", "<space>8", function() harpoon:list():select(8) end)
+			vim.keymap.set("n", "<space>9", function() harpoon:list():select(9) end)
+			vim.keymap.set("n", "<space>10", function() harpoon:list():select(10) end)
+		end
 	}
 })
 
@@ -747,13 +784,6 @@ vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=qnlj")
 
 -- keymaps
 do
-	-- easy enter terminal mode
-	vim.keymap.set(
-		"n",
-		"<cr>",
-		"<cmd>ToggleTerm<cr>"
-	)
-
 	-- easy exit terminal mode
 	vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
 
@@ -766,15 +796,8 @@ do
 	vim.keymap.set("n", "L", "<cmd>tabnext<cr>")
 	vim.keymap.set("n", "H", "<cmd>tabprev<cr>")
 	vim.keymap.set("n", "<c-s>", function()
-		-- local width = vim.api.nvim_win_get_width(0)
-		-- local height = vim.api.nvim_win_get_height(0)
-		-- if width >= height * 2.167 then
 		vim.cmd("wincmd v")
 		vim.cmd("wincmd l")
-		-- else
-		-- vim.cmd("wincmd s")
-		-- vim.cmd("wincmd j")
-		-- end
 	end)
 	vim.keymap.set("n", "<a-h>", "<c-w><c-<>")
 	vim.keymap.set("n", "<a-j>", "<c-w><c-+>")
@@ -783,11 +806,6 @@ do
 
 	-- clear highlighting
 	vim.keymap.set("n", "<esc>", "<cmd>noh<cr>")
-
-	-- file tree
-	vim.keymap.set("n", "-", "<cmd>Neotree<cr>")
-	vim.keymap.set("n", "`", "<cmd>Neotree buffers<cr>")
-	vim.keymap.set("n", "<space>-", "<cmd>Neotree reveal_force_cwd<cr>")
 end
 
 -- startup commands
@@ -803,7 +821,7 @@ vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.foldlevel = 99999
 vim.opt.shortmess:append("I")
-vim.opt.pumheight = 20
+vim.opt.pumheight = 10
 vim.opt.termguicolors = true
 vim.opt.mousescroll = "hor:1,ver:1"
 vim.opt.conceallevel = 0
@@ -813,13 +831,13 @@ vim.opt.wrap = true
 vim.opt.foldenable = false
 
 -- colorscheme
-vim.cmd.colorscheme("new")
+vim.cmd.colorscheme("warm")
 
 -- neovide config
 if vim.g.neovide then
 	local default_scale_factor = 1
 
-	vim.opt.guifont = "NotoMono Nerd Font Mono:h9"
+	vim.opt.guifont = "MonaspiceNe Nerd Font Mono:h8.6"
 	vim.opt.linespace = -1
 
 	vim.g.neovide_scale_factor = default_scale_factor

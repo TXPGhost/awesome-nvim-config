@@ -138,3 +138,20 @@ with `:Lazy profile`.
 | :---- | ---------------------------: |
 | Alt 0 |      Fast warp next end pair |
 | Alt 9 | Undo fast warp next end pair |
+
+## Harpoon
+
+| Key         |     Binding |
+| :---------- | ----------: |
+| Space `     | Add to list |
+| Space Space |   Open list |
+| Space 1     |    Select 1 |
+| Space 2     |    Select 2 |
+| Space 3     |    Select 3 |
+| Space 4     |    Select 4 |
+| Space 5     |    Select 5 |
+| Space 6     |    Select 6 |
+| Space 7     |    Select 7 |
+| Space 8     |    Select 8 |
+| Space 9     |    Select 9 |
+| Space 0     |   Select 10 |
