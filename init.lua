@@ -682,22 +682,24 @@ require("lazy").setup({
 		"folke/trouble.nvim",
 		event = "VeryLazy",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {
-			auto_close = true,
-			auto_jump = true,
-			warn_no_results = false,
-			win = {
-				size = 0.2,
-			},
-			throttle = {
-				refresh = 0,
-				update = 0,
-				render = 0,
-				follow = 0,
-				preview = { ms = 0, debounce = false },
-			},
-		},
 		config = function()
+			require("trouble").setup({
+
+				auto_close = true,
+				auto_jump = true,
+				warn_no_results = false,
+				win = {
+					size = 0.2,
+				},
+				throttle = {
+					refresh = 0,
+					update = 0,
+					render = 0,
+					follow = 0,
+					preview = { ms = 0, debounce = false },
+				},
+			})
+
 			vim.keymap.set("n", "gd", "<cmd>Trouble lsp_definitions<cr>")
 			vim.keymap.set("n", "gy", "<cmd>Trouble lsp_type_definitions<cr>")
 			vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
