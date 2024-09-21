@@ -43,7 +43,6 @@ with `:Lazy profile`.
 | :-------- | ----------------------------: |
 | -         |                Open file tree |
 | Space -   | Open file tree and upadte CWD |
-| `         |               Open bufferlist |
 | Enter     |                     Open file |
 | .         |                      Set root |
 | Backspace |           Change directory up |
@@ -116,9 +115,10 @@ with `:Lazy profile`.
 
 ### Terminal
 
-| Key   |         Binding |
-| :---- | --------------: |
-| Enter | Toggle terminal |
+| Key           |                 Binding |
+| :------------ | ----------------------: |
+| Enter         |         Toggle terminal |
+| \<NUM\> Enter | Toggle terminal \<NUM\> |
 
 ## Folds
 

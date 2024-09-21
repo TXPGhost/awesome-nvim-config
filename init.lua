@@ -560,6 +560,9 @@ require("lazy").setup({
 		build = function() vim.fn["mkdp#util#install"]() end,
 		config = function()
 			vim.g.mkdp_theme = "light"
+			vim.g.mkdp_preview_options = {
+				disable_sync_scroll = 1,
+			}
 		end
 	},
 	{
@@ -654,7 +657,6 @@ require("lazy").setup({
 
 
 			vim.keymap.set("n", "-", "<cmd>Neotree<cr>")
-			vim.keymap.set("n", "`", "<cmd>Neotree buffers<cr>")
 			vim.keymap.set("n", "<space>-", "<cmd>Neotree reveal_force_cwd<cr>")
 		end
 	},
@@ -669,13 +671,8 @@ require("lazy").setup({
 				shade_terminals = false,
 				insert_mappings = false,
 				start_in_insert = false,
+				open_mapping = "<cr>",
 			})
-
-			vim.keymap.set(
-				"n",
-				"<cr>",
-				"<cmd>ToggleTerm<cr>"
-			)
 		end
 	},
 	{

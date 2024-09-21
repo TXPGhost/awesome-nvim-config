@@ -17,10 +17,10 @@ local hl3 = "#6293bb"
 local hl4 = "#C64640"
 local hl5 = "#8FB573"
 
-local redbg = "#2C2020"
-local greenbg = "#1f2b21"
-local bluebg = "#20202C"
-local bluebgg = "#252545"
+local redbg = "#2C1F1D"
+local greenbg = "#232C23"
+local bluebg = "#1D2228"
+local bluebgg = "#242b33"
 
 -- terminal
 vim.g.terminal_color_0 = fggg -- black
@@ -85,7 +85,7 @@ vim.api.nvim_set_hl(0, "NonText", { fg = fggg })
 vim.api.nvim_set_hl(0, "MoreMsg", { fg = hl3, bold = true })
 
 vim.api.nvim_set_hl(0, "diffAdded", { fg = hl5, bg = greenbg })
-vim.api.nvim_set_hl(0, "diffChanged", { fg = hl1, bg = bluebg })
+vim.api.nvim_set_hl(0, "diffChanged", { fg = hl3, bg = bluebg })
 vim.api.nvim_set_hl(0, "diffRemoved", { fg = hl4, bg = redbg })
 vim.api.nvim_set_hl(0, "diffLine", { fg = fggg })
 
@@ -95,7 +95,7 @@ vim.api.nvim_set_hl(0, "DiffDelete", { link = "diffRemoved" })
 vim.api.nvim_set_hl(0, "DiffText", { bg = bluebgg })
 
 vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = hl5 })
-vim.api.nvim_set_hl(0, "GitSignsChange", { fg = hl1 })
+vim.api.nvim_set_hl(0, "GitSignsChange", { fg = hl3 })
 vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = hl4 })
 
 vim.api.nvim_set_hl(0, "GitSignsAddPreview", { link = "diffAdded" })
