@@ -124,7 +124,7 @@ require("lazy").setup({
 			vim.lsp.handlers["textDocument/signatureHelp"] =
 				vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
 
-			vim.keymap.set("n", "<space>d", "<cmd>Telescope diagnostics<cr>")
+			vim.keymap.set("n", "<space>d", "<cmd>Truoble diagnostics<cr>")
 			vim.keymap.set("n", "<space>a", function() vim.lsp.buf.code_action() end)
 
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
@@ -670,6 +670,7 @@ require("lazy").setup({
 				},
 				shade_terminals = false,
 				insert_mappings = false,
+				terminal_mappings = false,
 				start_in_insert = false,
 				open_mapping = "<cr>",
 			})
@@ -686,7 +687,7 @@ require("lazy").setup({
 				auto_jump = true,
 				warn_no_results = false,
 				win = {
-					size = 0.2,
+					size = 0.3,
 				},
 				throttle = {
 					refresh = 0,
@@ -753,7 +754,7 @@ require("lazy").setup({
 			vim.keymap.set("n", "<space>9", function() harpoon:list():select(9) end)
 			vim.keymap.set("n", "<space>10", function() harpoon:list():select(10) end)
 		end
-	}
+	},
 })
 
 -- set help window to vertical split
