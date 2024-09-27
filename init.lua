@@ -24,7 +24,7 @@ require("lazy").setup({
 	{ "kevinhwang91/promise-async", lazy = true },
 	{
 		"tpope/vim-commentary",
-		event = "VeryLazy",
+		keys = "gc",
 	},
 	{
 		"neovim/nvim-lspconfig",
@@ -135,7 +135,7 @@ require("lazy").setup({
 			end)
 
 			-- switch source/header
-			vim.keymap.set("n", "<space>s", "<cmd>ClangdSwitchSourceHeader<cr>")
+			vim.keymap.set("n", "gh", "<cmd>ClangdSwitchSourceHeader<cr>")
 
 			-- navigate soft line wraps
 			vim.keymap.set("n", "j", "gj")
@@ -149,7 +149,7 @@ require("lazy").setup({
 	},
 	{
 		"mfussenegger/nvim-jdtls",
-		event = "VeryLazy",
+		ft = "java",
 		config = function()
 			local config = {
 				cmd = { "/usr/bin/jdtls" },
@@ -172,7 +172,7 @@ require("lazy").setup({
 	},
 	{
 		"mrcjkb/rustaceanvim",
-		event = "VeryLazy",
+		ft = "rust",
 		config = function()
 			vim.g.rustaceanvim = {
 				server = {
@@ -206,7 +206,7 @@ require("lazy").setup({
 	},
 	{
 		"smjonas/inc-rename.nvim",
-		event = "VeryLazy",
+		keys = "<space>r",
 		config = function()
 			require("inc_rename").setup({})
 			vim.keymap.set("n", "<space>r", ":IncRename ")
@@ -214,6 +214,7 @@ require("lazy").setup({
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
+		event = "BufRead",
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				auto_install = true,
@@ -245,7 +246,7 @@ require("lazy").setup({
 	},
 	{
 		"stevearc/conform.nvim",
-		event = "VeryLazy",
+		event = "BufWritePre",
 		opts = {
 			notify_on_error = false,
 			formatters_by_ft = {
@@ -293,7 +294,9 @@ require("lazy").setup({
 	},
 	{
 		"nvim-telescope/telescope.nvim",
-		event = "VeryLazy",
+		lazy = true,
+		keys = { "<space>f", "<space>/" },
+		cmd = { "Telescope" },
 		opts = {
 			pickers = {
 				find_files = {
@@ -310,7 +313,7 @@ require("lazy").setup({
 	{
 		"hrsh7th/nvim-cmp",
 		lazy = true,
-		event = "VeryLazy",
+		event = { "InsertEnter", "CmdlineEnter" },
 		config = function()
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
@@ -443,7 +446,7 @@ require("lazy").setup({
 	},
 	{
 		"kylechui/nvim-surround",
-		event = "VeryLazy",
+		keys = { "ys", "cs", "ds" },
 		config = function()
 			require("nvim-surround").setup({})
 		end,
@@ -527,7 +530,8 @@ require("lazy").setup({
 	{
 		"tpope/vim-fugitive",
 		lazy = true,
-		event = "VeryLazy",
+		keys = { "<space>g", "<space>G", "<space>b" },
+		cmd = { "Git", "Gsplit", "Gvsplit", "Gdiffsplit", "Gvdiffsplit" },
 		config = function()
 			vim.keymap.set("n", "<space>g", "<cmd>Git<cr><cmd>wincmd L<cr>")
 			vim.keymap.set("n", "<space>G",
@@ -541,7 +545,7 @@ require("lazy").setup({
 	},
 	{
 		"rmagatti/goto-preview",
-		event = "VeryLazy",
+		keys = { "gp", "gP" },
 		config = function()
 			local goto_preview = require("goto-preview")
 			goto_preview.setup({})
@@ -561,7 +565,7 @@ require("lazy").setup({
 		config = function()
 			vim.g.mkdp_theme = "light"
 			vim.g.mkdp_preview_options = {
-				disable_sync_scroll = 1,
+				-- disable_sync_scroll = 1,
 			}
 		end
 	},
@@ -615,7 +619,8 @@ require("lazy").setup({
 	},
 	{
 		"nvim-neo-tree/neo-tree.nvim",
-		event = "VeryLazy",
+		keys = "-",
+		cmd = "Neotree",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons",
@@ -662,7 +667,7 @@ require("lazy").setup({
 	},
 	{
 		"akinsho/toggleterm.nvim",
-		event = "VeryLazy",
+		keys = "<cr>",
 		config = function()
 			require("toggleterm").setup({
 				highlights = {
@@ -678,14 +683,15 @@ require("lazy").setup({
 	},
 	{
 		"folke/trouble.nvim",
-		event = "VeryLazy",
+		event = "LspAttach",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("trouble").setup({
-
 				auto_close = true,
 				auto_jump = true,
+				focus = true,
 				warn_no_results = false,
+				multiline = false,
 				win = {
 					size = 0.3,
 				},
@@ -702,13 +708,15 @@ require("lazy").setup({
 			vim.keymap.set("n", "gy", "<cmd>Trouble lsp_type_definitions<cr>")
 			vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
 			vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
+			vim.keymap.set("n", "go", "<cmd>Trouble lsp_incoming_calls<cr>")
 			vim.keymap.set("n", "gs", "<cmd>Trouble symbols toggle pinned=true win.relative=win win.position=right<cr>")
 		end
 	},
 	{
 		"kevinhwang91/nvim-ufo",
 		config = function()
-			require("ufo").setup({
+			local ufo = require("ufo")
+			ufo.setup({
 				open_fold_hl_timeout = 0,
 				close_fold_kinds_for_ft = { default = { "imports", "comment" } },
 				preview = {
@@ -725,6 +733,12 @@ require("lazy").setup({
 					end
 				end
 			})
+
+			vim.opt.foldlevel = 99999
+			vim.opt.foldlevelstart = 99999
+
+			vim.keymap.set("n", "zR", ufo.openAllFolds)
+			vim.keymap.set("n", "zM", ufo.closeAllFolds)
 		end
 	},
 	{
@@ -733,6 +747,7 @@ require("lazy").setup({
 	},
 	{
 		"ThePrimeagen/harpoon",
+		keys = "<space>",
 		branch = "harpoon2",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
@@ -819,7 +834,6 @@ vim.opt.shell = "fish"
 vim.opt.textwidth = 80
 vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
-vim.opt.foldlevel = 99999
 vim.opt.shortmess:append("I")
 vim.opt.pumheight = 10
 vim.opt.termguicolors = true
@@ -828,7 +842,6 @@ vim.opt.conceallevel = 0
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.wrap = true
-vim.opt.foldenable = false
 
 -- colorscheme
 vim.cmd.colorscheme("warm")

@@ -11,8 +11,8 @@ The awesomest neovim config out there.
 
 ## Performance
 
-Startup time is typically around 20 milliseconds. You can view the startup time
-with `:Lazy profile`.
+Startup time is typically around 13 milliseconds on my machine. Most plugins are
+lazy-loaded. You can view the startup time with `:Lazy profile`.
 
 ## Keybindings
 
@@ -22,12 +22,12 @@ with `:Lazy profile`.
 | :---------- | --------------------------: |
 | Space g     | Open fugitive status window |
 | Space G     |              Show diff view |
-| ]g          |                   Next hunk |
-| [g          |               Previous hunk |
-| ghs         |                  Stage hunk |
-| ghu         |             Undo stage hunk |
-| ghr         |                  Reset hunk |
-| Space Space |                Preview hunk |
+| ]g          |               Next git hunk |
+| [g          |           Previous git hunk |
+| ghs         |              Stage git hunk |
+| ghu         |         Undo stage git hunk |
+| ghr         |              Reset git hunk |
+| Space Space |            Preview git hunk |
 
 ### Autocompletion
 
@@ -82,16 +82,17 @@ with `:Lazy profile`.
 | gy      |        Goto type definition |
 | gr      |             Goto references |
 | gi      |        Goto implementations |
+| go      |         Goto incoming calls |
 | gpd     |          Preview definition |
 | gpy     |     Preview type definition |
 | gpr     |          Preview references |
 | gpi     |     Preview implementations |
 | gP      |   Close all preview windows |
+| gh      |  Switch C/C++ source/header |
+| K       |         Hover documentation |
 | Space r |               Rename symbol |
-| Space k |         Hover documentation |
 | Space a |                 Code action |
-| Space d |   Show document diagnostics |
-| Space D |  Show workspace diagnostics |
+| Space d |            Show diagnostics |
 | Space h |          Toggle inlay hints |
 | \]d     |     Jump to next diagnostic |
 | \[d     | Jump to previous diagnostic |
@@ -129,15 +130,13 @@ with `:Lazy profile`.
 | zr      | Open all folds except comments and imports |
 | zm      |                 Close all folds with level |
 | Space k |                       Preview current fold |
-| ]c      |                      Goto next closed fold |
-| [c      |                  Goto previous closed fold |
 
 ## Pairs
 
-| Key   |                      Binding |
-| :---- | ---------------------------: |
-| Alt 0 |      Fast warp next end pair |
-| Alt 9 | Undo fast warp next end pair |
+| Key         |                      Binding |
+| :---------- | ---------------------------: |
+| Alt e       |      Fast warp next end pair |
+| Alt Shift e | Undo fast warp next end pair |
 
 ## Harpoon
 
