@@ -124,7 +124,7 @@ require("lazy").setup({
 			vim.lsp.handlers["textDocument/signatureHelp"] =
 				vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
 
-			vim.keymap.set("n", "<space>d", "<cmd>Truoble diagnostics<cr>")
+			vim.keymap.set("n", "<space>d", "<cmd>Trouble diagnostics<cr>")
 			vim.keymap.set("n", "<space>a", function() vim.lsp.buf.code_action() end)
 
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
@@ -561,7 +561,10 @@ require("lazy").setup({
 		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		ft = { "markdown" },
-		build = function() vim.fn["mkdp#util#install"]() end,
+		build = "cd app && yarn install",
+		init = function()
+			vim.g.mkdp_filetypes = { "markdown" }
+		end,
 		config = function()
 			vim.g.mkdp_theme = "light"
 			vim.g.mkdp_preview_options = {
@@ -842,6 +845,15 @@ vim.opt.conceallevel = 0
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.wrap = true
+
+-- spell for markdown files
+-- Set spell check only for markdown files
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "markdown",
+	callback = function()
+		vim.opt_local.spell = true
+	end,
+})
 
 -- colorscheme
 vim.cmd.colorscheme("warm")
