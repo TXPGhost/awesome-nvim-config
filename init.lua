@@ -70,6 +70,7 @@ require("lazy").setup({
 			lspconfig.dotls.setup({ capabilities = capabilities })
 			lspconfig.hls.setup({ capabilities = capabilities })
 			lspconfig.glslls.setup({ capabilities = capabilities })
+			lspconfig.glsl_analyzer.setup({ capabilities = capabilities })
 			lspconfig.pylsp.setup({
 				capabilities = capabilities,
 				settings = {
@@ -490,6 +491,8 @@ require("lazy").setup({
 					{ "'''",                "'''",              newline = true,              ft = { 'python' } },
 					{ '$',                  '$',                ft = { 'tex', 'markdown' },  multiline = false },
 					{ '$$',                 '$$',               ft = { 'tex', 'markdown' },  multiline = true },
+					{ '\\{',                '\\}',              ft = { 'tex', 'markdown' },  multiline = true },
+					{ '\\[',                '\\]',              ft = { 'tex', 'markdown' },  multiline = true },
 					{ '\\begin{align}',     '\\end{align}',     ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
 					{ '\\begin{align*}',    '\\end{align*}',    ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
 					{ '\\begin{enumerate}', '\\end{enumerate}', ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
@@ -501,6 +504,7 @@ require("lazy").setup({
 					{ '\\begin{itemize}',   '\\end{itemize}',   ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
 					{ '\\begin{document}',  '\\end{document}',  ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
 					{ '\\begin{split}',     '\\end{split}',     ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
+					{ '\\begin{cases}',     '\\end{cases}',     ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
 				}
 			})
 		end,
@@ -770,7 +774,6 @@ require("lazy").setup({
 			vim.keymap.set("n", "<space>7", function() harpoon:list():select(7) end)
 			vim.keymap.set("n", "<space>8", function() harpoon:list():select(8) end)
 			vim.keymap.set("n", "<space>9", function() harpoon:list():select(9) end)
-			vim.keymap.set("n", "<space>10", function() harpoon:list():select(10) end)
 		end
 	},
 })
@@ -840,7 +843,7 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.shortmess:append("I")
 vim.opt.pumheight = 10
 vim.opt.termguicolors = true
-vim.opt.mousescroll = "hor:1,ver:1"
+vim.opt.mousescroll = "hor:0,ver:2"
 vim.opt.conceallevel = 0
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -856,14 +859,13 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- colorscheme
-vim.cmd.colorscheme("warm")
+vim.cmd.colorscheme("lesswarm")
 
 -- neovide config
 if vim.g.neovide then
 	local default_scale_factor = 1
 
-	vim.opt.guifont = "MonaspiceNe Nerd Font Mono:h8.6"
-	vim.opt.linespace = -1
+	vim.opt.guifont = "CommitMono:h9"
 
 	vim.g.neovide_scale_factor = default_scale_factor
 
