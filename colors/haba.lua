@@ -4,17 +4,17 @@ local fggg = "#757068"
 local fgggg = "#6b665f"
 local fggggg = "#514e48"
 
-local bg = "#1a1b1b"
-local bgg = "#1e1f1f"
-local bggg = "#232424"
-local bgggg = "#282929"
-local bggggg = "#2d2e2e"
-local bgggggg = "#313232"
+local bg = "#111111"
+local bgg = "#151515"
+local bggg = "#1a1a1a"
+local bgggg = "#1f1f1f"
+local bggggg = "#252525"
+local bgggggg = "#292929"
 
-local hl1 = "#d1b78e"
-local hl2 = "#d1a764"
-local hl3 = "#6293bb"
-local hl4 = "#C64640"
+local hl1 = "#af87af"
+local hl2 = "#87afaf"
+local hl3 = "#afaf87"
+local hl4 = "#d7875f"
 local hl5 = "#8FB573"
 
 local redbg = "#2C1F1D"
@@ -41,7 +41,7 @@ vim.g.terminal_color_14 = hl2 -- cyan (bright)
 vim.g.terminal_color_15 = fgg -- white (bright)
 
 vim.api.nvim_set_hl(0, "Normal", { fg = fg, bg = bgg })
-vim.api.nvim_set_hl(0, "Identifier", { fg = hl4 })
+vim.api.nvim_set_hl(0, "Identifier", {})
 vim.api.nvim_set_hl(0, "Statement", {})
 vim.api.nvim_set_hl(0, "Function", { fg = hl2 })
 vim.api.nvim_set_hl(0, "Constant", { fg = hl4 })

@@ -88,7 +88,7 @@ lazy-loaded. You can view the startup time with `:Lazy profile`.
 | gpr     |          Preview references |
 | gpi     |     Preview implementations |
 | gP      |   Close all preview windows |
-| gh      |  Switch C/C++ source/header |
+| g Space |  Switch C/C++ source/header |
 | K       |         Hover documentation |
 | Space r |               Rename symbol |
 | Space a |                 Code action |
@@ -116,10 +116,10 @@ lazy-loaded. You can view the startup time with `:Lazy profile`.
 
 ### Terminal
 
-| Key           |                 Binding |
-| :------------ | ----------------------: |
-| Enter         |         Toggle terminal |
-| \<NUM\> Enter | Toggle terminal \<NUM\> |
+| Key                |                 Binding |
+| :----------------- | ----------------------: |
+| Ctrl Enter         |         Toggle terminal |
+| \<NUM\> Ctrl Enter | Toggle terminal \<NUM\> |
 
 ## Folds
 

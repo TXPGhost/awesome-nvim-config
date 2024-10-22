@@ -69,7 +69,6 @@ require("lazy").setup({
 			lspconfig.taplo.setup({ capabilities = capabilities })
 			lspconfig.dotls.setup({ capabilities = capabilities })
 			lspconfig.hls.setup({ capabilities = capabilities })
-			lspconfig.glslls.setup({ capabilities = capabilities })
 			lspconfig.glsl_analyzer.setup({ capabilities = capabilities })
 			lspconfig.pylsp.setup({
 				capabilities = capabilities,
@@ -89,7 +88,7 @@ require("lazy").setup({
 					}
 				}
 			})
-			lspconfig.denols.setup({ capabilities = capabilities })
+			lspconfig.ts_ls.setup({ capabilities = capabilities })
 			lspconfig.gdscript.setup({ capabilities = capabilities })
 
 			vim.fn.sign_define("DiagnosticSignError", { text = "" })
@@ -136,7 +135,7 @@ require("lazy").setup({
 			end)
 
 			-- switch source/header
-			vim.keymap.set("n", "gh", "<cmd>ClangdSwitchSourceHeader<cr>")
+			vim.keymap.set("n", "g<space>", "<cmd>ClangdSwitchSourceHeader<cr>")
 
 			-- navigate soft line wraps
 			vim.keymap.set("n", "j", "gj")
@@ -225,9 +224,9 @@ require("lazy").setup({
 						return large_file_disable(buf)
 					end,
 				},
-				indent = {
-					enable = true,
-				},
+				-- indent = {
+				-- 	enable = true,
+				-- },
 				endwise = {
 					enable = true,
 				},
@@ -256,11 +255,11 @@ require("lazy").setup({
 				json = { "deno_fmt" },
 				jsonc = { "deno_fmt" },
 				typescript = { "deno_fmt" },
-				html = { "prettier" },
-				css = { "prettier" },
-				scss = { "prettier" },
-				vue = { "prettier" },
-				markdown = { "prettier" },
+				html = { "prettierd" },
+				css = { "prettierd" },
+				scss = { "prettierd" },
+				vue = { "prettierd" },
+				markdown = { "prettierd" },
 				yaml = { "deno_fmt" },
 				rust = { "rustfmt" },
 				c = { "clang_format" },
@@ -371,14 +370,48 @@ require("lazy").setup({
 							-- expand tags on enter
 							local col = vim.api.nvim_win_get_cursor(0)[2]
 							local line_text = vim.api.nvim_get_current_line()
-							if col > 0 and col < #line_text then
-								if line_text:sub(col, col) == '>' and line_text:sub(col + 1, col + 1) == '<' then
+							if col > 0 and col <= #line_text then
+								local c0 = line_text:sub(col, col)
+								local c1 = line_text:sub(col + 1, col + 1)
+								if c0 == ">" and c1 == "<" then
 									vim.api.nvim_feedkeys(
 										vim.api.nvim_replace_termcodes(
-											"<cr><esc>O", true, true, true),
+											"<cr><esc>O<tab>", true, true, true),
 										'n',
 										true)
 									return
+									-- elseif c0 == "{" then
+									-- 	if c1 == "}" then
+									-- 		vim.api.nvim_feedkeys(
+									-- 			vim.api.nvim_replace_termcodes(
+									-- 				"<cr><esc>O", true, true, true),
+									-- 			'n',
+									-- 			true)
+									-- 		return
+									-- 	else
+									-- 		vim.api.nvim_feedkeys(
+									-- 			vim.api.nvim_replace_termcodes(
+									-- 				"<cr>}<esc>O", true, true, true),
+									-- 			'n',
+									-- 			true)
+									-- 		return
+									-- 	end
+									-- elseif c0 == "[" then
+									-- 	if c1 == "]" then
+									-- 		vim.api.nvim_feedkeys(
+									-- 			vim.api.nvim_replace_termcodes(
+									-- 				"<cr><esc>O", true, true, true),
+									-- 			'n',
+									-- 			true)
+									-- 		return
+									-- 	else
+									-- 		vim.api.nvim_feedkeys(
+									-- 			vim.api.nvim_replace_termcodes(
+									-- 				"<cr>]<esc>O", true, true, true),
+									-- 			'n',
+									-- 			true)
+									-- 		return
+									-- 	end
 								end
 							end
 
@@ -453,61 +486,37 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"altermo/ultimate-autopair.nvim",
-		event = { "InsertEnter", "CmdlineEnter" },
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
 		config = function()
-			require("ultimate-autopair").setup({
-				internal_pairs = { -- *ultimate-autopair-pairs-default-pairs*
-					{ '[', ']', fly = true,     dosuround = true, newline = true, space = true },
-					{ '(', ')', fly = true,     dosuround = true, newline = true, space = true },
-					{ '{', '}', fly = true,     dosuround = true, newline = true, space = true },
-					{ '"', '"', suround = true, multiline = false },
-					{
-						"'",
-						"'",
-						suround = true,
-						cond = function(fn)
-							return not
-								fn.in_lisp() or fn.in_string()
-						end,
-						alpha = true,
-						nft = { 'tex' },
-						multiline = false
-					},
-					{
-						'`',
-						'`',
-						cond = function(fn)
-							return not fn.in_lisp() or
-								fn.in_string()
-						end,
-						nft = { 'tex' },
-						multiline = false
-					},
-					{ '``',                 "''",               ft = { 'tex' } },
-					{ '```',                '```',              newline = true,              ft = { 'markdown' } },
-					{ '<!--',               '-->',              ft = { 'markdown', 'html' }, space = true },
-					{ '"""',                '"""',              newline = true,              ft = { 'python' } },
-					{ "'''",                "'''",              newline = true,              ft = { 'python' } },
-					{ '$',                  '$',                ft = { 'tex', 'markdown' },  multiline = false },
-					{ '$$',                 '$$',               ft = { 'tex', 'markdown' },  multiline = true },
-					{ '\\{',                '\\}',              ft = { 'tex', 'markdown' },  multiline = true },
-					{ '\\[',                '\\]',              ft = { 'tex', 'markdown' },  multiline = true },
-					{ '\\begin{align}',     '\\end{align}',     ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
-					{ '\\begin{align*}',    '\\end{align*}',    ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
-					{ '\\begin{enumerate}', '\\end{enumerate}', ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
-					{ '\\begin{pmatrix}',   '\\end{pmatrix}',   ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
-					{ '\\begin{bmatrix}',   '\\end{bmatrix}',   ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
-					{ '\\begin{vmatrix}',   '\\end{vmatrix}',   ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
-					{ '\\begin{tabular}',   '\\end{tabular}',   ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
-					{ '\\begin{center}',    '\\end{center}',    ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
-					{ '\\begin{itemize}',   '\\end{itemize}',   ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
-					{ '\\begin{document}',  '\\end{document}',  ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
-					{ '\\begin{split}',     '\\end{split}',     ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
-					{ '\\begin{cases}',     '\\end{cases}',     ft = { 'tex', 'markdown' },  multiline = true,   newline = true },
-				}
-			})
-		end,
+			local npairs = require('nvim-autopairs')
+			local rule = require('nvim-autopairs.rule')
+			local cond = require('nvim-autopairs.conds')
+
+			npairs.setup({})
+			-- npairs.add_rule(rule("$$", "$$", "tex"))
+			-- npairs.add_rules({
+			-- 	rule("\\start(%w*) $", "")
+			-- 		:replace_endpair(function(opts)
+			-- 			local beforeText = string.sub(opts.line, 0, opts.col)
+			-- 			local _, _, match = beforeText:find("\\start(%w*)")
+			-- 			if match and #match > 0 then
+			-- 				return " \\stop" .. match
+			-- 			end
+			-- 			return ''
+			-- 		end)
+			-- 		:with_move(cond.none())
+			-- 		:use_key("<space>")
+			-- 		:use_regex(true)
+			-- })
+
+			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+			local cmp = require("cmp")
+			cmp.event:on(
+				"confirm_done",
+				cmp_autopairs.on_confirm_done()
+			)
+		end
 	},
 	{
 		"lewis6991/gitsigns.nvim",
@@ -522,6 +531,7 @@ require("lazy").setup({
 					add    = { text = '│' },
 					change = { text = '│' },
 				},
+				-- update_debounce = 0,
 			})
 
 			vim.keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
@@ -608,6 +618,7 @@ require("lazy").setup({
 			require("ibl").setup({
 				indent = { char = "▏" },
 				scope = { enabled = false },
+				debounce = 0,
 			})
 		end
 	},
@@ -674,7 +685,7 @@ require("lazy").setup({
 	},
 	{
 		"akinsho/toggleterm.nvim",
-		keys = "<cr>",
+		keys = "<c-cr>",
 		config = function()
 			require("toggleterm").setup({
 				highlights = {
@@ -684,7 +695,7 @@ require("lazy").setup({
 				insert_mappings = false,
 				terminal_mappings = false,
 				start_in_insert = false,
-				open_mapping = "<cr>",
+				open_mapping = "<c-cr>",
 			})
 		end
 	},
@@ -744,8 +755,12 @@ require("lazy").setup({
 			vim.opt.foldlevel = 99999
 			vim.opt.foldlevelstart = 99999
 
-			vim.keymap.set("n", "zR", ufo.openAllFolds)
-			vim.keymap.set("n", "zM", ufo.closeAllFolds)
+			vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+			vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+			vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds)
+			vim.keymap.set("n", "zm", require("ufo").closeFoldsWith)
+			vim.keymap.set("n", "]f", require("ufo").goNextClosedFold)
+			vim.keymap.set("n", "[f", require("ufo").goPreviousClosedFold)
 		end
 	},
 	{
@@ -847,7 +862,9 @@ vim.opt.mousescroll = "hor:0,ver:2"
 vim.opt.conceallevel = 0
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.wrap = true
+vim.opt.wrap = false
+vim.opt.smartindent = true
+vim.opt.guifont = "CommitMono:h9.5"
 
 -- spell for markdown files
 -- Set spell check only for markdown files
@@ -859,13 +876,11 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- colorscheme
-vim.cmd.colorscheme("lesswarm")
+vim.cmd.colorscheme("next")
 
 -- neovide config
 if vim.g.neovide then
 	local default_scale_factor = 1
-
-	vim.opt.guifont = "CommitMono:h9"
 
 	vim.g.neovide_scale_factor = default_scale_factor
 
