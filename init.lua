@@ -531,7 +531,6 @@ require("lazy").setup({
 					add    = { text = '│' },
 					change = { text = '│' },
 				},
-				-- update_debounce = 0,
 			})
 
 			vim.keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
@@ -618,7 +617,6 @@ require("lazy").setup({
 			require("ibl").setup({
 				indent = { char = "▏" },
 				scope = { enabled = false },
-				debounce = 0,
 			})
 		end
 	},

@@ -153,6 +153,7 @@ vim.api.nvim_set_hl(0, "@constant.builtin", { link = "Constant" })
 
 vim.api.nvim_set_hl(0, "@function.macro", { link = "PreProc" })
 vim.api.nvim_set_hl(0, "@lsp.type.macro", { link = "PreProc" })
+vim.api.nvim_set_hl(0, "@lsp.typemod.macro", { link = "PreProc" })
 
 vim.api.nvim_set_hl(0, "@type", { link = "Type" })
 vim.api.nvim_set_hl(0, "@type.builtin", { link = "Type" })
@@ -183,7 +184,7 @@ vim.api.nvim_set_hl(0, "@markup.quote.markdown", { fg = fgg })
 
 vim.api.nvim_set_hl(0, "@markup.list.markdown", { fg = fggg })
 vim.api.nvim_set_hl(0, "@punctuation.special.markdown", { fg = fggg })
-vim.api.nvim_set_hl(0, "@markup.math.latex", { fg = orange })
+vim.api.nvim_set_hl(0, "@markup.math.latex", { fg = red })
 vim.api.nvim_set_hl(0, "@markup.raw.block.markdown", { fg = fgg })
 
 vim.api.nvim_set_hl(0, "@markup.strong.markdown_inline", { bold = true })
@@ -211,10 +212,9 @@ vim.api.nvim_set_hl(0, "tutorSectionBullet", { fg = green })
 
 vim.api.nvim_set_hl(0, "@function.make", { fg = green })
 vim.api.nvim_set_hl(0, "@function.cmake", { fg = green })
-vim.api.nvim_set_hl(0, "@function.latex", { fg = green })
+vim.api.nvim_set_hl(0, "@function.latex", { fg = green, bold = true })
 
-vim.api.nvim_set_hl(0, "@keyword.import.latex", { fg = orange })
-vim.api.nvim_set_hl(0, "@markup.math.latex", { fg = red })
+vim.api.nvim_set_hl(0, "@keyword.import.latex", { fg = orange, bold = true })
 
 vim.api.nvim_set_hl(0, "@punctuation.delimiter.comment", { link = "Comment" })
 vim.api.nvim_set_hl(0, "@comment.todo.comment", { bg = bggggg, bold = true })
