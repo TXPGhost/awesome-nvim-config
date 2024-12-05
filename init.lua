@@ -215,6 +215,7 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		event = "BufRead",
+		build = ":TSUpdate",
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				auto_install = true,
@@ -351,13 +352,13 @@ require("lazy").setup({
 				completion = {
 					completeopt = "menu,menuone,noinsert",
 				},
-				matching = {
-					disallow_fuzzy_matching = true,
-					disallow_fullfuzzy_matching = true,
-					disallow_partial_fuzzy_matching = true,
-					disallow_partial_matching = true,
-					disallow_prefix_unmatching = false,
-				},
+				-- matching = {
+				-- 	disallow_fuzzy_matching = true,
+				-- 	disallow_fullfuzzy_matching = true,
+				-- 	disallow_partial_fuzzy_matching = true,
+				-- 	disallow_partial_matching = true,
+				-- 	disallow_prefix_unmatching = false,
+				-- },
 				mapping = cmp.mapping.preset.insert({
 					["<cr>"] = cmp.mapping(function(fallback)
 						local entry = cmp.core.view:get_selected_entry()
@@ -611,16 +612,6 @@ require("lazy").setup({
 	-- 	end,
 	-- },
 	{
-		"lukas-reineke/indent-blankline.nvim",
-		event = "VeryLazy",
-		config = function()
-			require("ibl").setup({
-				indent = { char = "▏" },
-				scope = { enabled = false },
-			})
-		end
-	},
-	{
 		"RRethy/vim-illuminate",
 		event = "VeryLazy",
 		config = function()
@@ -687,13 +678,15 @@ require("lazy").setup({
 		config = function()
 			require("toggleterm").setup({
 				highlights = {
-					["Normal"] = { link = "NeoTreeNormal" },
+					["Normal"] = { link = "Terminal" },
+					["NormalFloat"] = { link = "Terminal" },
 				},
 				shade_terminals = false,
 				insert_mappings = false,
 				terminal_mappings = false,
 				start_in_insert = false,
 				open_mapping = "<c-cr>",
+				direction = "tab",
 			})
 		end
 	},
@@ -874,7 +867,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- colorscheme
-vim.cmd.colorscheme("next")
+vim.cmd.colorscheme("lesswarm")
 
 -- neovide config
 if vim.g.neovide then

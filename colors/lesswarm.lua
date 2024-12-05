@@ -6,10 +6,10 @@ local fggggg = "#514e48"
 
 local bg = "#111111"
 local bgg = "#151515"
-local bggg = "#1a1a1a"
-local bgggg = "#1f1f1f"
-local bggggg = "#252525"
-local bgggggg = "#292929"
+local bggg = "#191919"
+local bgggg = "#1d1d1d"
+local bggggg = "#212121"
+local bgggggg = "#252525"
 
 local hl1 = "#d1b78e"
 local hl2 = "#d1a764"
@@ -52,7 +52,8 @@ vim.api.nvim_set_hl(0, "Comment", { fg = fggg, italic = true })
 vim.api.nvim_set_hl(0, "Conceal", { fg = fgg })
 vim.api.nvim_set_hl(0, "Pmenu", { bg = bggggg, fg = fgg })
 vim.api.nvim_set_hl(0, "PmenuSel", { bg = bgggggg })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = bggggg })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = bgggg })
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = bgggg, fg = fggggg })
 vim.api.nvim_set_hl(0, "Type", { fg = hl2 })
 vim.api.nvim_set_hl(0, "PreProc", { fg = hl3 })
 vim.api.nvim_set_hl(0, "String", { fg = hl3 })
@@ -226,9 +227,6 @@ vim.api.nvim_set_hl(0, "@attribute.gdscript", { link = "PreProc" })
 
 vim.api.nvim_set_hl(0, "@lsp.type.bracket", { link = "@punctuation" })
 
-vim.api.nvim_set_hl(0, "IblScope", { fg = bggggg })
-vim.api.nvim_set_hl(0, "IblIndent", { fg = bggggg })
-
 vim.api.nvim_set_hl(0, "@string.documentation.python", { link = "Comment" })
 
 vim.api.nvim_set_hl(0, "IlluminatedWordText", { underline = true })
@@ -274,3 +272,12 @@ vim.api.nvim_set_hl(0, "TroubleNormalNC", { link = "NeoTreeNormalNC" })
 vim.api.nvim_set_hl(0, "TroubleIndent", { fg = bggggg })
 
 vim.api.nvim_set_hl(0, "TreesitterContext", { bg = bgggg })
+
+vim.api.nvim_set_hl(0, "@string.escape", { fg = hl1 })
+vim.api.nvim_set_hl(0, "@character.printf", { fg = hl2 })
+vim.api.nvim_set_hl(0, "@lsp.type.formatSpecifier", { fg = hl2 })
+vim.api.nvim_set_hl(0, "@character.special", { fg = fggg })
+
+vim.api.nvim_set_hl(0, "Terminal", { bg = bbg })
+
+vim.api.nvim_set_hl(0, "LspInlayHint", { fg = fggggg })

@@ -4,6 +4,7 @@ local fggg = "#6a737d"
 local fgggg = "#585E64"
 local fggggg = "#363a3f"
 
+local bbg = "#111111"
 local bg = "#1a1a1a"
 local bgg = "#1f1f1f"
 local bggg = "#242424"
@@ -233,7 +234,7 @@ vim.api.nvim_set_hl(0, "@attribute.gdscript", { link = "PreProc" })
 
 vim.api.nvim_set_hl(0, "@lsp.type.bracket", { link = "@punctuation" })
 
-vim.api.nvim_set_hl(0, "IblScope", { fg = bggggg })
+vim.api.nvim_set_hl(0, "IblScope", { fg = fggggg })
 vim.api.nvim_set_hl(0, "IblIndent", { fg = bggggg })
 
 vim.api.nvim_set_hl(0, "@string.documentation.python", { link = "Comment" })
@@ -287,3 +288,5 @@ vim.api.nvim_set_hl(0, "@string.escape", { fg = blue })
 vim.api.nvim_set_hl(0, "@character.printf", { fg = orange })
 vim.api.nvim_set_hl(0, "@lsp.type.formatSpecifier", { fg = orange })
 vim.api.nvim_set_hl(0, "@character.special", { fg = fggg })
+
+vim.api.nvim_set_hl(0, "Terminal", { bg = bbg })
