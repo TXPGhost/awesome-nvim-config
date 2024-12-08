@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local large_file_disable = function(buf)
-	local max_filesize = 100 * 1024 -- 100 KB
+	local max_filesize = 1024 * 1024 -- 1 MB
 	local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
 	if ok and stats and stats.size > max_filesize then
 		return true
@@ -90,6 +90,28 @@ require("lazy").setup({
 			})
 			lspconfig.ts_ls.setup({ capabilities = capabilities })
 			lspconfig.gdscript.setup({ capabilities = capabilities })
+			lspconfig.rust_analyzer.setup({
+				capabilities = capabilities,
+				settings = {
+					["rust-analyzer"] = {
+						check = {
+							command = "clippy",
+						},
+					},
+				},
+			})
+
+			-- temporary fix for rust analyzer server cancelation request
+			for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
+				local default_diagnostic_handler = vim.lsp.handlers[method]
+				vim.lsp.handlers[method] = function(err, result, context, config)
+					if err ~= nil and err.code == -32802 then
+						return
+					end
+					return default_diagnostic_handler(err, result, context, config)
+				end
+			end
+
 
 			vim.fn.sign_define("DiagnosticSignError", { text = "" })
 			vim.fn.sign_define("DiagnosticSignWarn", { text = "" })
@@ -110,14 +132,6 @@ require("lazy").setup({
 				{ "╰", "FloatBorder" },
 				{ "│", "FloatBorder" },
 			}
-
-			-- hover
-			vim.keymap.set("n", "K", function()
-				local winid = require('ufo').peekFoldedLinesUnderCursor()
-				if not winid then
-					vim.lsp.buf.hover()
-				end
-			end)
 
 			-- LSP settings (for overriding per client)
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
@@ -169,40 +183,6 @@ require("lazy").setup({
 				end,
 			})
 		end,
-	},
-	{
-		"mrcjkb/rustaceanvim",
-		ft = "rust",
-		config = function()
-			vim.g.rustaceanvim = {
-				server = {
-					capabilities = {
-						experimental = {
-							-- snippetTextEdit = false
-						},
-						textDocument = {
-							completion = {
-								completionItem = {
-									-- snippetSupport = false
-								}
-							}
-						}
-					},
-					settings = {
-						["rust-analyzer"] = {
-							cargo = {
-								allFeatures = true
-							},
-						}
-					},
-				},
-				tools = {
-					float_win_config = {
-						border = "rounded",
-					},
-				},
-			}
-		end
 	},
 	{
 		"smjonas/inc-rename.nvim",
@@ -643,6 +623,7 @@ require("lazy").setup({
 							["/"] = "noop",
 							["esc"] = "noop",
 						},
+						width = 30,
 					},
 					default_component_configs = {
 						filesystem = {
@@ -722,39 +703,6 @@ require("lazy").setup({
 		end
 	},
 	{
-		"kevinhwang91/nvim-ufo",
-		config = function()
-			local ufo = require("ufo")
-			ufo.setup({
-				open_fold_hl_timeout = 0,
-				close_fold_kinds_for_ft = { default = { "imports", "comment" } },
-				preview = {
-					win_config = {
-						winhighlight = "Pmenu:Pmenu",
-						winblend = 0,
-					},
-				},
-				provider_selector = function(bufnr, _, _)
-					if large_file_disable(bufnr) then
-						return ""
-					else
-						return { "treesitter", "indent" }
-					end
-				end
-			})
-
-			vim.opt.foldlevel = 99999
-			vim.opt.foldlevelstart = 99999
-
-			vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-			vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
-			vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds)
-			vim.keymap.set("n", "zm", require("ufo").closeFoldsWith)
-			vim.keymap.set("n", "]f", require("ufo").goNextClosedFold)
-			vim.keymap.set("n", "[f", require("ufo").goPreviousClosedFold)
-		end
-	},
-	{
 		"nanotee/zoxide.vim",
 		cmd = "Z",
 	},
@@ -825,6 +773,10 @@ do
 	vim.keymap.set("n", "<c-s>", function()
 		vim.cmd("wincmd v")
 		vim.cmd("wincmd l")
+	end)
+	vim.keymap.set("n", "<c-n>", function()
+		vim.cmd("new")
+		vim.cmd("wincmd L")
 	end)
 	vim.keymap.set("n", "<a-h>", "<c-w><c-<>")
 	vim.keymap.set("n", "<a-j>", "<c-w><c-+>")
