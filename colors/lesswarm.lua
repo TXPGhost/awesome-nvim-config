@@ -189,6 +189,8 @@ vim.api.nvim_set_hl(0, "@markup.link.url.markdown_inline", { fg = fg, underline 
 vim.api.nvim_set_hl(0, "@markup.link.label.markdown_inline", { fg = hl2, bold = true })
 vim.api.nvim_set_hl(0, "@markup.raw.markdown_inline", { fg = fgg })
 
+vim.api.nvim_set_hl(0, "@markup.quote.markdown", { fg = fgg })
+
 vim.api.nvim_set_hl(0, "@markup.strong.latex", { bold = true })
 vim.api.nvim_set_hl(0, "@markup.italic.latex", { italic = true })
 
