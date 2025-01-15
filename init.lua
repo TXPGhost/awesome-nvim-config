@@ -20,7 +20,7 @@ local large_file_disable = function(buf)
 end
 
 require("lazy").setup({
-	{ "nvim-lua/plenary.nvim",      lazy = true },
+	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "kevinhwang91/promise-async", lazy = true },
 	{
 		"tpope/vim-commentary",
@@ -41,7 +41,7 @@ require("lazy").setup({
 
 			lspconfig.clangd.setup({
 				capabilities = capabilities,
-				cmd = { "clangd", "--query-driver=/usr/bin/arm-none-eabi-g++" }
+				cmd = { "clangd", "--query-driver=/usr/bin/arm-none-eabi-g++" },
 			})
 
 			lspconfig.vimls.setup({ capabilities = capabilities })
@@ -84,9 +84,9 @@ require("lazy").setup({
 							pylsp_mypy = { enabled = true },
 							jedi_completion = { fuzzy = true },
 							pyls_isort = { enabled = true },
-						}
-					}
-				}
+						},
+					},
+				},
 			})
 			lspconfig.ts_ls.setup({ capabilities = capabilities })
 			lspconfig.gdscript.setup({ capabilities = capabilities })
@@ -100,9 +100,10 @@ require("lazy").setup({
 					},
 				},
 			})
+			lspconfig.svlangserver.setup({})
 
 			-- temporary fix for rust analyzer server cancelation request
-			for _, method in ipairs({ 'textDocument/diagnostic', 'workspace/diagnostic' }) do
+			for _, method in ipairs({ "textDocument/diagnostic", "workspace/diagnostic" }) do
 				local default_diagnostic_handler = vim.lsp.handlers[method]
 				vim.lsp.handlers[method] = function(err, result, context, config)
 					if err ~= nil and err.code == -32802 then
@@ -111,7 +112,6 @@ require("lazy").setup({
 					return default_diagnostic_handler(err, result, context, config)
 				end
 			end
-
 
 			vim.fn.sign_define("DiagnosticSignError", { text = "" })
 			vim.fn.sign_define("DiagnosticSignWarn", { text = "" })
@@ -139,7 +139,9 @@ require("lazy").setup({
 				vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
 
 			vim.keymap.set("n", "<space>d", "<cmd>Trouble diagnostics<cr>")
-			vim.keymap.set("n", "<space>a", function() vim.lsp.buf.code_action() end)
+			vim.keymap.set("n", "<space>a", function()
+				vim.lsp.buf.code_action()
+			end)
 
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
@@ -167,9 +169,9 @@ require("lazy").setup({
 		config = function()
 			local config = {
 				cmd = { "/usr/bin/jdtls" },
-				root_dir = vim.fs.dirname(vim.fs.find({ "build.gradle", "gradlew", ".git", "mvnw" },
-						{ upward = true })
-					[1]),
+				root_dir = vim.fs.dirname(
+					vim.fs.find({ "build.gradle", "gradlew", ".git", "mvnw" }, { upward = true })[1]
+				),
 				init_options = {
 					bundles = {
 						vim.fn.glob("/usr/share/java-debug/com.microsoft.java.debug.plugin.jar", 1),
@@ -212,11 +214,11 @@ require("lazy").setup({
 					enable = true,
 				},
 			})
-			require('nvim-ts-autotag').setup({
+			require("nvim-ts-autotag").setup({
 				opts = {
 					enable_close = true,
 					enable_rename = true,
-					enable_close_on_slash = false
+					enable_close_on_slash = false,
 				},
 			})
 		end,
@@ -289,7 +291,7 @@ require("lazy").setup({
 		config = function()
 			vim.keymap.set("n", "<space>f", "<cmd>Telescope fd<cr>")
 			vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
-		end
+		end,
 	},
 	{
 		"hrsh7th/nvim-cmp",
@@ -311,9 +313,8 @@ require("lazy").setup({
 			local has_words_before = function()
 				unpack = unpack or table.unpack
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-				return col ~= 0 and
-					vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") ==
-					nil
+				return col ~= 0
+					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
 
 			local fast_cmp_visible = function()
@@ -356,10 +357,10 @@ require("lazy").setup({
 								local c1 = line_text:sub(col + 1, col + 1)
 								if c0 == ">" and c1 == "<" then
 									vim.api.nvim_feedkeys(
-										vim.api.nvim_replace_termcodes(
-											"<cr><esc>O<tab>", true, true, true),
-										'n',
-										true)
+										vim.api.nvim_replace_termcodes("<cr><esc>O<tab>", true, true, true),
+										"n",
+										true
+									)
 									return
 									-- elseif c0 == "{" then
 									-- 	if c1 == "}" then
@@ -422,7 +423,7 @@ require("lazy").setup({
 							cmp.abort()
 						end
 						fallback()
-					end, { "i", "s" })
+					end, { "i", "s" }),
 				}),
 				sources = cmp.config.sources({
 					-- { name = "copilot" },
@@ -432,11 +433,11 @@ require("lazy").setup({
 				}, {}),
 				formatting = {
 					format = lspkind.cmp_format({
-						mode = 'symbol_text',
+						mode = "symbol_text",
 						maxwidth = 50,
-						ellipsis_char = '...',
+						ellipsis_char = "...",
 						show_labelDetails = true,
-					})
+					}),
 				},
 			})
 
@@ -470,9 +471,9 @@ require("lazy").setup({
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		config = function()
-			local npairs = require('nvim-autopairs')
-			local rule = require('nvim-autopairs.rule')
-			local cond = require('nvim-autopairs.conds')
+			local npairs = require("nvim-autopairs")
+			local rule = require("nvim-autopairs.rule")
+			local cond = require("nvim-autopairs.conds")
 
 			npairs.setup({})
 			-- npairs.add_rule(rule("$$", "$$", "tex"))
@@ -493,11 +494,8 @@ require("lazy").setup({
 
 			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 			local cmp = require("cmp")
-			cmp.event:on(
-				"confirm_done",
-				cmp_autopairs.on_confirm_done()
-			)
-		end
+			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+		end,
 	},
 	{
 		"lewis6991/gitsigns.nvim",
@@ -505,12 +503,12 @@ require("lazy").setup({
 		config = function()
 			require("gitsigns").setup({
 				signs = {
-					add    = { text = '│' },
-					change = { text = '│' },
+					add = { text = "│" },
+					change = { text = "│" },
 				},
 				signs_staged = {
-					add    = { text = '│' },
-					change = { text = '│' },
+					add = { text = "│" },
+					change = { text = "│" },
 				},
 			})
 
@@ -528,8 +526,11 @@ require("lazy").setup({
 		cmd = { "Git", "Gsplit", "Gvsplit", "Gdiffsplit", "Gvdiffsplit" },
 		config = function()
 			vim.keymap.set("n", "<space>g", "<cmd>Git<cr><cmd>wincmd L<cr>")
-			vim.keymap.set("n", "<space>G",
-				"<cmd>Gvdiffsplit!<cr><cmd>set foldcolumn=0<cr><cmd>wincmd h<cr><cmd>set foldcolumn=0<cr>")
+			vim.keymap.set(
+				"n",
+				"<space>G",
+				"<cmd>Gvdiffsplit!<cr><cmd>set foldcolumn=0<cr><cmd>wincmd h<cr><cmd>set foldcolumn=0<cr>"
+			)
 			vim.keymap.set("n", "<space>b", "<cmd>Gitsigns blame<cr>")
 		end,
 	},
@@ -564,7 +565,7 @@ require("lazy").setup({
 			vim.g.mkdp_preview_options = {
 				-- disable_sync_scroll = 1,
 			}
-		end
+		end,
 	},
 	{
 		"saecki/crates.nvim",
@@ -600,7 +601,7 @@ require("lazy").setup({
 				providers = {
 					"lsp",
 					"treesitter",
-				}
+				},
 			})
 		end,
 	},
@@ -648,10 +649,9 @@ require("lazy").setup({
 				},
 			})
 
-
 			vim.keymap.set("n", "-", "<cmd>Neotree<cr>")
 			vim.keymap.set("n", "<space>-", "<cmd>Neotree reveal_force_cwd<cr>")
-		end
+		end,
 	},
 	{
 		"akinsho/toggleterm.nvim",
@@ -669,7 +669,7 @@ require("lazy").setup({
 				open_mapping = "<c-cr>",
 				direction = "tab",
 			})
-		end
+		end,
 	},
 	{
 		"folke/trouble.nvim",
@@ -700,7 +700,7 @@ require("lazy").setup({
 			vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
 			vim.keymap.set("n", "go", "<cmd>Trouble lsp_incoming_calls<cr>")
 			vim.keymap.set("n", "gs", "<cmd>Trouble symbols toggle pinned=true win.relative=win win.position=right<cr>")
-		end
+		end,
 	},
 	{
 		"nanotee/zoxide.vim",
@@ -716,19 +716,41 @@ require("lazy").setup({
 
 			harpoon:setup()
 
-			vim.keymap.set("n", "<space>`", function() harpoon:list():add() end)
-			vim.keymap.set("n", "<space><space>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+			vim.keymap.set("n", "<space>`", function()
+				harpoon:list():add()
+			end)
+			vim.keymap.set("n", "<space><space>", function()
+				harpoon.ui:toggle_quick_menu(harpoon:list())
+			end)
 
-			vim.keymap.set("n", "<space>1", function() harpoon:list():select(1) end)
-			vim.keymap.set("n", "<space>2", function() harpoon:list():select(2) end)
-			vim.keymap.set("n", "<space>3", function() harpoon:list():select(3) end)
-			vim.keymap.set("n", "<space>4", function() harpoon:list():select(4) end)
-			vim.keymap.set("n", "<space>5", function() harpoon:list():select(5) end)
-			vim.keymap.set("n", "<space>6", function() harpoon:list():select(6) end)
-			vim.keymap.set("n", "<space>7", function() harpoon:list():select(7) end)
-			vim.keymap.set("n", "<space>8", function() harpoon:list():select(8) end)
-			vim.keymap.set("n", "<space>9", function() harpoon:list():select(9) end)
-		end
+			vim.keymap.set("n", "<space>1", function()
+				harpoon:list():select(1)
+			end)
+			vim.keymap.set("n", "<space>2", function()
+				harpoon:list():select(2)
+			end)
+			vim.keymap.set("n", "<space>3", function()
+				harpoon:list():select(3)
+			end)
+			vim.keymap.set("n", "<space>4", function()
+				harpoon:list():select(4)
+			end)
+			vim.keymap.set("n", "<space>5", function()
+				harpoon:list():select(5)
+			end)
+			vim.keymap.set("n", "<space>6", function()
+				harpoon:list():select(6)
+			end)
+			vim.keymap.set("n", "<space>7", function()
+				harpoon:list():select(7)
+			end)
+			vim.keymap.set("n", "<space>8", function()
+				harpoon:list():select(8)
+			end)
+			vim.keymap.set("n", "<space>9", function()
+				harpoon:list():select(9)
+			end)
+		end,
 	},
 })
 
@@ -742,7 +764,7 @@ vim.api.nvim_create_user_command("LatexCompile", function()
 end, {})
 vim.api.nvim_create_user_command("LatexCompileBackground", function()
 	local texpath = vim.fn.expand("%")
-	vim.cmd("silent !tmux new -d \"tectonic -Z continue-on-errors " .. texpath .. "\"")
+	vim.cmd('silent !tmux new -d "tectonic -Z continue-on-errors ' .. texpath .. '"')
 end, {})
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 	pattern = { "*.tex" },
@@ -799,7 +821,7 @@ vim.opt.textwidth = 80
 vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.shortmess:append("I")
-vim.opt.pumheight = 10
+-- vim.opt.pumheight = 10
 vim.opt.termguicolors = true
 vim.opt.mousescroll = "hor:0,ver:2"
 vim.opt.conceallevel = 0
