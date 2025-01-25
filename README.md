@@ -73,6 +73,8 @@ lazy-loaded. You can view the startup time with `:Lazy profile`.
 | [f        | Jump to previous function |
 | ]c        |        Jump to next class |
 | [c        |    Jump to previous class |
+| Space j   |                Split node |
+| Space k   |                 Join node |
 
 ### LSP
 
