@@ -100,7 +100,9 @@ require("lazy").setup({
 					},
 				},
 			})
-			lspconfig.svlangserver.setup({})
+			lspconfig.svls.setup({})
+			lspconfig.veridian.setup({})
+			lspconfig.verible.setup({})
 
 			-- temporary fix for rust analyzer server cancelation request
 			for _, method in ipairs({ "textDocument/diagnostic", "workspace/diagnostic" }) do
@@ -238,11 +240,11 @@ require("lazy").setup({
 				json = { "deno_fmt" },
 				jsonc = { "deno_fmt" },
 				typescript = { "deno_fmt" },
-				html = { "prettierd" },
-				css = { "prettierd" },
-				scss = { "prettierd" },
+				html = { "deno_fmt" },
+				css = { "deno_fmt" },
+				scss = { "deno_fmt" },
 				vue = { "prettierd" },
-				markdown = { "prettierd" },
+				markdown = { "deno_fmt" },
 				yaml = { "deno_fmt" },
 				rust = { "rustfmt" },
 				c = { "clang_format" },
@@ -250,7 +252,7 @@ require("lazy").setup({
 				lua = { "stylua" },
 				ocaml = { "ocamlformat" },
 				haskell = { "ormolu" },
-				python = { "black", "isort" },
+				python = { "isort", "black" },
 				tex = { "latexindent" },
 				_ = { "trim_whitespace" },
 			},
@@ -841,7 +843,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- colorscheme
-vim.cmd.colorscheme("lesswarm")
+vim.cmd.colorscheme("alac")
 
 -- neovide config
 if vim.g.neovide then
