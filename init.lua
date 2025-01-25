@@ -43,18 +43,11 @@ require("lazy").setup({
 				capabilities = capabilities,
 				cmd = { "clangd", "--query-driver=/usr/bin/arm-none-eabi-g++" },
 			})
-
 			lspconfig.vimls.setup({ capabilities = capabilities })
 			lspconfig.cmake.setup({ capabilities = capabilities })
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
-				settings = {
-					Lua = {
-						completion = {
-							callSnippet = "Replace",
-						},
-					},
-				},
+				settings = { Lua = { completion = { callSnippet = "Replace" } } },
 			})
 			lspconfig.marksman.setup({ capabilities = capabilities })
 			lspconfig.ocamllsp.setup({ capabilities = capabilities, cmd = { "ocamllsp", "--fallback-read-dot-merlin" } })
@@ -92,13 +85,7 @@ require("lazy").setup({
 			lspconfig.gdscript.setup({ capabilities = capabilities })
 			lspconfig.rust_analyzer.setup({
 				capabilities = capabilities,
-				settings = {
-					["rust-analyzer"] = {
-						check = {
-							command = "clippy",
-						},
-					},
-				},
+				settings = { ["rust-analyzer"] = { check = { command = "clippy" } } },
 			})
 			lspconfig.svls.setup({})
 			lspconfig.veridian.setup({})
@@ -175,9 +162,7 @@ require("lazy").setup({
 					vim.fs.find({ "build.gradle", "gradlew", ".git", "mvnw" }, { upward = true })[1]
 				),
 				init_options = {
-					bundles = {
-						vim.fn.glob("/usr/share/java-debug/com.microsoft.java.debug.plugin.jar", 1),
-					},
+					bundles = { vim.fn.glob("/usr/share/java-debug/com.microsoft.java.debug.plugin.jar", 1) },
 				},
 			}
 			vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -209,12 +194,7 @@ require("lazy").setup({
 						return large_file_disable(buf)
 					end,
 				},
-				-- indent = {
-				-- 	enable = true,
-				-- },
-				endwise = {
-					enable = true,
-				},
+				endwise = { enable = true },
 			})
 			require("nvim-ts-autotag").setup({
 				opts = {
@@ -283,11 +263,7 @@ require("lazy").setup({
 		keys = { "<space>f", "<space>/" },
 		cmd = { "Telescope" },
 		opts = {
-			pickers = {
-				find_files = {
-					find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/" },
-				},
-			},
+			pickers = { find_files = { find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/" } } },
 		},
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
@@ -752,6 +728,17 @@ require("lazy").setup({
 			vim.keymap.set("n", "<space>9", function()
 				harpoon:list():select(9)
 			end)
+		end,
+	},
+	{
+		"Wansmer/treesj",
+		keys = { "<space>j", "<space>k" },
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		config = function()
+			require("treesj").setup({ use_default_keymaps = false })
+
+			vim.keymap.set("n", "<space>j", require("treesj").split)
+			vim.keymap.set("n", "<space>k", require("treesj").join)
 		end,
 	},
 })

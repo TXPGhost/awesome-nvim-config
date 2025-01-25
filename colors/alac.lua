@@ -28,16 +28,16 @@ vim.g.terminal_color_1 = red -- red
 vim.g.terminal_color_2 = green -- green
 vim.g.terminal_color_3 = yellow -- yellow
 vim.g.terminal_color_4 = blue -- blue
-vim.g.terminal_color_5 = cyan -- magenta
-vim.g.terminal_color_6 = yellow -- cyan
+vim.g.terminal_color_5 = magenta -- magenta
+vim.g.terminal_color_6 = cyan -- cyan
 vim.g.terminal_color_7 = fgg -- white
 vim.g.terminal_color_8 = fggg -- black (bright)
 vim.g.terminal_color_9 = red -- red (bright)
 vim.g.terminal_color_10 = green -- green (bright)
 vim.g.terminal_color_11 = yellow -- yellow (bright)
 vim.g.terminal_color_12 = blue -- blue (bright)
-vim.g.terminal_color_13 = cyan -- magenta (bright)
-vim.g.terminal_color_14 = yellow -- cyan (bright)
+vim.g.terminal_color_13 = magenta -- magenta (bright)
+vim.g.terminal_color_14 = cyan -- cyan (bright)
 vim.g.terminal_color_15 = fgg -- white (bright)
 
 vim.api.nvim_set_hl(0, "Normal", { fg = fg, bg = bg })
