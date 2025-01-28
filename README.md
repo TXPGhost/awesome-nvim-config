@@ -156,3 +156,10 @@ lazy-loaded. You can view the startup time with `:Lazy profile`.
 | Space 8     |    Select 8 |
 | Space 9     |    Select 9 |
 | Space 0     |   Select 10 |
+
+## Markdown
+
+| Key     |       Binding |
+| :------ | ------------: |
+| Space p |  Open preview |
+| Space P | Close preview |

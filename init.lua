@@ -49,7 +49,6 @@ require("lazy").setup({
 				capabilities = capabilities,
 				settings = { Lua = { completion = { callSnippet = "Replace" } } },
 			})
-			lspconfig.marksman.setup({ capabilities = capabilities })
 			lspconfig.ocamllsp.setup({ capabilities = capabilities, cmd = { "ocamllsp", "--fallback-read-dot-merlin" } })
 			lspconfig.texlab.setup({ capabilities = capabilities })
 			lspconfig.wgsl_analyzer.setup({ capabilities = capabilities })
@@ -280,14 +279,6 @@ require("lazy").setup({
 			local lspkind = require("lspkind")
 			local snippy = require("snippy")
 
-			-- require("copilot_cmp").setup()
-
-			lspkind.init({
-				symbol_map = {
-					Copilot = "",
-				},
-			})
-
 			local has_words_before = function()
 				unpack = unpack or table.unpack
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -340,38 +331,6 @@ require("lazy").setup({
 										true
 									)
 									return
-									-- elseif c0 == "{" then
-									-- 	if c1 == "}" then
-									-- 		vim.api.nvim_feedkeys(
-									-- 			vim.api.nvim_replace_termcodes(
-									-- 				"<cr><esc>O", true, true, true),
-									-- 			'n',
-									-- 			true)
-									-- 		return
-									-- 	else
-									-- 		vim.api.nvim_feedkeys(
-									-- 			vim.api.nvim_replace_termcodes(
-									-- 				"<cr>}<esc>O", true, true, true),
-									-- 			'n',
-									-- 			true)
-									-- 		return
-									-- 	end
-									-- elseif c0 == "[" then
-									-- 	if c1 == "]" then
-									-- 		vim.api.nvim_feedkeys(
-									-- 			vim.api.nvim_replace_termcodes(
-									-- 				"<cr><esc>O", true, true, true),
-									-- 			'n',
-									-- 			true)
-									-- 		return
-									-- 	else
-									-- 		vim.api.nvim_feedkeys(
-									-- 			vim.api.nvim_replace_termcodes(
-									-- 				"<cr>]<esc>O", true, true, true),
-									-- 			'n',
-									-- 			true)
-									-- 		return
-									-- 	end
 								end
 							end
 
@@ -381,7 +340,7 @@ require("lazy").setup({
 					["<tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-						elseif has_words_before() then
+						elseif has_words_before() and vim.bo.filetype ~= "markdown" then
 							cmp.complete()
 						else
 							fallback()
@@ -404,7 +363,6 @@ require("lazy").setup({
 					end, { "i", "s" }),
 				}),
 				sources = cmp.config.sources({
-					-- { name = "copilot" },
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
 					{ name = "path" },
@@ -435,7 +393,6 @@ require("lazy").setup({
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"dcampos/nvim-snippy",
-			-- "zbirenbaum/copilot-cmp",
 		},
 	},
 	{
@@ -454,21 +411,6 @@ require("lazy").setup({
 			local cond = require("nvim-autopairs.conds")
 
 			npairs.setup({})
-			-- npairs.add_rule(rule("$$", "$$", "tex"))
-			-- npairs.add_rules({
-			-- 	rule("\\start(%w*) $", "")
-			-- 		:replace_endpair(function(opts)
-			-- 			local beforeText = string.sub(opts.line, 0, opts.col)
-			-- 			local _, _, match = beforeText:find("\\start(%w*)")
-			-- 			if match and #match > 0 then
-			-- 				return " \\stop" .. match
-			-- 			end
-			-- 			return ''
-			-- 		end)
-			-- 		:with_move(cond.none())
-			-- 		:use_key("<space>")
-			-- 		:use_regex(true)
-			-- })
 
 			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 			local cmp = require("cmp")
@@ -539,18 +481,17 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"iamcco/markdown-preview.nvim",
-		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-		ft = { "markdown" },
-		build = "cd app && yarn install",
-		init = function()
-			vim.g.mkdp_filetypes = { "markdown" }
-		end,
+		"toppair/peek.nvim",
+		event = { "VeryLazy" },
+		build = "deno task --quiet build:fast",
 		config = function()
-			vim.g.mkdp_theme = "light"
-			vim.g.mkdp_preview_options = {
-				-- disable_sync_scroll = 1,
-			}
+			require("peek").setup({
+				theme = "light",
+			})
+			vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
+			vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
+			vim.keymap.set("n", "<space>p", require("peek").open)
+			vim.keymap.set("n", "<space>P", require("peek").close)
 		end,
 	},
 	{
@@ -564,20 +505,6 @@ require("lazy").setup({
 		"rhysd/conflict-marker.vim",
 		event = "VeryLazy",
 	},
-	-- {
-	-- 	"zbirenbaum/copilot.lua",
-	-- 	cmd = "Copilot",
-	-- 	event = "InsertEnter",
-	-- 	config = function()
-	-- 		require("copilot").setup({
-	-- 			panel = { enabled = false },
-	-- 			suggestion = { enabled = false },
-	-- 			filetypes = {
-	-- 				tex = false,
-	-- 			}
-	-- 		})
-	-- 	end,
-	-- },
 	{
 		"RRethy/vim-illuminate",
 		event = "VeryLazy",
@@ -749,12 +676,40 @@ require("lazy").setup({
 			vim.keymap.set("n", "<space>k", require("treesj").join)
 		end,
 	},
-	-- {
-	-- 	"jakewvincent/mkdnflow.nvim",
-	-- 	config = function()
-	-- 		require("mkdnflow").setup({})
-	-- 	end,
-	-- },
+	{
+		"jakewvincent/mkdnflow.nvim",
+		config = function()
+			require("mkdnflow").setup({
+				tables = {
+					style = {
+						mimic_alignment = false,
+					},
+				},
+				mappings = {
+					MkdnEnter = { { "i", "n", "v" }, "gd" },
+					MkdnGoBack = { { "i", "n", "v" }, "go" },
+					MkdnNextLink = false,
+					MkdnPrevLink = false,
+					MkdnNewListItem = { "i", "<cr>" },
+					MkdnDestroyLink = { "n", "gD" },
+					MkdnIncreaseHeading = {},
+					MkdnDecreaseHeading = {},
+					MkdnFoldSection = { "n", "zc" },
+					MkdnUnfoldSection = { "n", "zo" },
+					MkdnTableNextCell = { "i", "<right>" },
+					MkdnTablePrevCell = { "i", "<left>" },
+					MkdnTableNextRow = { "i", "<down>" },
+					MkdnTablePrevRow = { "i", "<up>" },
+				},
+				links = {
+					transform_explicit = false,
+				},
+			})
+		end,
+	},
+	{
+		"dfendr/clipboard-image.nvim",
+	},
 })
 
 -- set help window to vertical split
@@ -778,9 +733,6 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 vim.api.nvim_create_user_command("Config", function()
 	vim.cmd("e " .. debug.getinfo(1).source:sub(2))
 end, {})
-
--- disable auto comment
-vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions=qnlj")
 
 -- keymaps
 do
