@@ -22,6 +22,28 @@ local greenbg = "#232C23"
 local bluebg = "#1D2228"
 local bluebgg = "#242b33"
 
+local function blend(hex1, hex2, t)
+	local function hexToRgb(hex)
+		local r = tonumber(hex:sub(2, 3), 16)
+		local g = tonumber(hex:sub(4, 5), 16)
+		local b = tonumber(hex:sub(6, 7), 16)
+		return r, g, b
+	end
+
+	local function rgbToHex(r, g, b)
+		return string.format("#%02x%02x%02x", r, g, b)
+	end
+
+	local r1, g1, b1 = hexToRgb(hex1)
+	local r2, g2, b2 = hexToRgb(hex2)
+
+	local r = math.floor(r1 + (r2 - r1) * t + 0.5)
+	local g = math.floor(g1 + (g2 - g1) * t + 0.5)
+	local b = math.floor(b1 + (b2 - b1) * t + 0.5)
+
+	return rgbToHex(r, g, b)
+end
+
 -- terminal
 vim.g.terminal_color_0 = fggg -- black
 vim.g.terminal_color_1 = red -- red
@@ -169,13 +191,13 @@ vim.api.nvim_set_hl(0, "@lsp.type.attributeBracket", {})
 vim.api.nvim_set_hl(0, "@lsp.type.builtinAttribute", {})
 vim.api.nvim_set_hl(0, "@lsp.type.generic", {})
 
-vim.api.nvim_set_hl(0, "@markup.heading.markdown", { fg = fg, bold = true })
-vim.api.nvim_set_hl(0, "@markup.heading.1.markdown", { fg = fg, bold = true, underline = true })
-vim.api.nvim_set_hl(0, "@markup.heading.2.markdown", { fg = fg, bold = true, underline = true })
-vim.api.nvim_set_hl(0, "@markup.heading.3.markdown", { fg = fg, bold = true, underline = true })
-vim.api.nvim_set_hl(0, "@markup.heading.4.markdown", { fg = fg, bold = true, underline = true })
-vim.api.nvim_set_hl(0, "@markup.heading.5.markdown", { fg = fg, bold = true, underline = true })
-vim.api.nvim_set_hl(0, "@markup.heading.6.markdown", { fg = fg, bold = true, underline = true })
+vim.api.nvim_set_hl(0, "@markup.heading.markdown", { fg = cyan, bold = true })
+vim.api.nvim_set_hl(0, "@markup.heading.1.markdown", { fg = blend(cyan, blue, 0), bold = true, underline = true })
+vim.api.nvim_set_hl(0, "@markup.heading.2.markdown", { fg = blend(cyan, blue, 0.2), bold = true, underline = true })
+vim.api.nvim_set_hl(0, "@markup.heading.3.markdown", { fg = blend(cyan, blue, 0.4), bold = true, underline = true })
+vim.api.nvim_set_hl(0, "@markup.heading.4.markdown", { fg = blend(cyan, blue, 0.6), bold = true, underline = true })
+vim.api.nvim_set_hl(0, "@markup.heading.5.markdown", { fg = blend(cyan, blue, 0.8), bold = true, underline = true })
+vim.api.nvim_set_hl(0, "@markup.heading.6.markdown", { fg = blend(cyan, blue, 1), bold = true, underline = true })
 
 vim.api.nvim_set_hl(0, "@markup.list.markdown", { fg = fggg })
 vim.api.nvim_set_hl(0, "@markup.math.latex", { fg = red })

@@ -87,9 +87,9 @@ require("lazy").setup({
 				capabilities = capabilities,
 				settings = { ["rust-analyzer"] = { check = { command = "clippy" } } },
 			})
-			lspconfig.svls.setup({})
-			lspconfig.veridian.setup({})
-			lspconfig.verible.setup({})
+			lspconfig.svls.setup({ capabilities = capabilities })
+			lspconfig.veridian.setup({ capabilities = capabilities })
+			lspconfig.verible.setup({ capabilities = capabilities })
 
 			-- temporary fix for rust analyzer server cancelation request
 			for _, method in ipairs({ "textDocument/diagnostic", "workspace/diagnostic" }) do
@@ -500,8 +500,7 @@ require("lazy").setup({
 	{
 		"tpope/vim-fugitive",
 		lazy = true,
-		keys = { "<space>g", "<space>G", "<space>b" },
-		cmd = { "Git", "Gsplit", "Gvsplit", "Gdiffsplit", "Gvdiffsplit" },
+		event = { "VeryLazy" },
 		config = function()
 			vim.keymap.set("n", "<space>g", "<cmd>Git<cr><cmd>wincmd L<cr>")
 			vim.keymap.set(
@@ -511,6 +510,15 @@ require("lazy").setup({
 			)
 			vim.keymap.set("n", "<space>b", "<cmd>Gitsigns blame<cr>")
 		end,
+		dependencies = { "tpope/vim-rhubarb" },
+	},
+	{
+		"rbong/vim-flog",
+		lazy = true,
+		cmd = { "Flog", "Flogsplit", "Floggit" },
+		dependencies = {
+			"tpope/vim-fugitive",
+		},
 	},
 	{
 		"tpope/vim-sleuth",
@@ -741,6 +749,12 @@ require("lazy").setup({
 			vim.keymap.set("n", "<space>k", require("treesj").join)
 		end,
 	},
+	-- {
+	-- 	"jakewvincent/mkdnflow.nvim",
+	-- 	config = function()
+	-- 		require("mkdnflow").setup({})
+	-- 	end,
+	-- },
 })
 
 -- set help window to vertical split
@@ -810,7 +824,6 @@ vim.opt.textwidth = 80
 vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.shortmess:append("I")
--- vim.opt.pumheight = 10
 vim.opt.termguicolors = true
 vim.opt.mousescroll = "hor:0,ver:2"
 vim.opt.conceallevel = 0
