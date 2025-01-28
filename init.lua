@@ -683,6 +683,7 @@ require("lazy").setup({
 	},
 	{
 		"jakewvincent/mkdnflow.nvim",
+		ft = { "md", "rmd", "markdown" },
 		config = function()
 			require("mkdnflow").setup({
 				tables = {
@@ -714,6 +715,7 @@ require("lazy").setup({
 	},
 	{
 		"dfendr/clipboard-image.nvim",
+		ft = { "md", "rmd", "markdown" },
 	},
 })
 
