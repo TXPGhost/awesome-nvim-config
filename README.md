@@ -1,6 +1,6 @@
 # awesome-nvim-config
 
-The awesomest neovim config out there.
+Neovim configuration with a focus on simplicity, ease of use, and consistency.
 
 ![Screenshot of config](preview.png)
 
