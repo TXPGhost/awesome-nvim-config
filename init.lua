@@ -692,8 +692,8 @@ require("lazy").setup({
 					MkdnPrevLink = false,
 					MkdnNewListItem = { "i", "<cr>" },
 					MkdnDestroyLink = { "n", "gD" },
-					MkdnIncreaseHeading = {},
-					MkdnDecreaseHeading = {},
+					MkdnIncreaseHeading = false,
+					MkdnDecreaseHeading = false,
 					MkdnFoldSection = { "n", "zc" },
 					MkdnUnfoldSection = { "n", "zo" },
 					MkdnTableNextCell = { "i", "<right>" },
@@ -762,6 +762,9 @@ do
 
 	-- clear highlighting
 	vim.keymap.set("n", "<esc>", "<cmd>noh<cr>")
+
+	-- easy file save
+	vim.keymap.set("n", "<cr>", ":w<cr>")
 end
 
 -- startup commands
