@@ -613,7 +613,11 @@ require("lazy").setup({
 			vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
 			vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
 			vim.keymap.set("n", "go", "<cmd>Trouble lsp_incoming_calls<cr>")
-			vim.keymap.set("n", "gs", "<cmd>Trouble symbols toggle pinned=true win.relative=win win.position=right<cr>")
+			vim.keymap.set(
+				"n",
+				"gs",
+				"<cmd>Trouble lsp_document_symbols toggle pinned=true win.relative=win win.position=right<cr>"
+			)
 		end,
 	},
 	{
@@ -687,8 +691,8 @@ require("lazy").setup({
 					},
 				},
 				mappings = {
-					MkdnEnter = { { "i", "n", "v" }, "gd" },
-					MkdnGoBack = { { "i", "n", "v" }, "go" },
+					MkdnEnter = { { "n", "v" }, "gd" },
+					MkdnGoBack = { { "n", "v" }, "go" },
 					MkdnNextLink = false,
 					MkdnPrevLink = false,
 					MkdnNewListItem = { "i", "<cr>" },
