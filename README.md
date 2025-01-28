@@ -18,16 +18,17 @@ lazy-loaded. You can view the startup time with `:Lazy profile`.
 
 ### Git
 
-| Key         |                     Binding |
-| :---------- | --------------------------: |
-| Space g     | Open fugitive status window |
-| Space G     |              Show diff view |
-| ]g          |               Next git hunk |
-| [g          |           Previous git hunk |
-| ghs         |              Stage git hunk |
-| ghu         |         Undo stage git hunk |
-| ghr         |              Reset git hunk |
-| Space Space |            Preview git hunk |
+| Key     |                     Binding |
+| :------ | --------------------------: |
+| Space g | Open fugitive status window |
+| Space G |              Show diff view |
+| ]g      |               Next git hunk |
+| [g      |           Previous git hunk |
+| ghs     |              Stage git hunk |
+| ghu     |         Undo stage git hunk |
+| ghr     |              Reset git hunk |
+| Space b |          Blame current line |
+| Space B |                  Blame file |
 
 ### Autocompletion
 

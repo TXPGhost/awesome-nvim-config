@@ -450,7 +450,8 @@ require("lazy").setup({
 				"<space>G",
 				"<cmd>Gvdiffsplit!<cr><cmd>set foldcolumn=0<cr><cmd>wincmd h<cr><cmd>set foldcolumn=0<cr>"
 			)
-			vim.keymap.set("n", "<space>b", "<cmd>Gitsigns blame<cr>")
+			vim.keymap.set("n", "<space>b", "<cmd>Gitsigns blame_line<cr>")
+			vim.keymap.set("n", "<space>B", "<cmd>Gitsigns blame<cr>")
 		end,
 		dependencies = { "tpope/vim-rhubarb" },
 	},
