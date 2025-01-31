@@ -86,9 +86,7 @@ require("lazy").setup({
 				capabilities = capabilities,
 				settings = { ["rust-analyzer"] = { check = { command = "clippy" } } },
 			})
-			lspconfig.svls.setup({ capabilities = capabilities })
 			lspconfig.veridian.setup({ capabilities = capabilities })
-			lspconfig.verible.setup({ capabilities = capabilities })
 
 			-- temporary fix for rust analyzer server cancelation request
 			for _, method in ipairs({ "textDocument/diagnostic", "workspace/diagnostic" }) do
