@@ -559,6 +559,15 @@ require("lazy").setup({
 						vim.fn.jobstart({ "xdg-open", path }, { detach = true })
 					end,
 				},
+				event_handlers = {
+					{
+						event = "before_render",
+						handler = function()
+							vim.cmd("ToggleTerm")
+							vim.cmd("ToggleTerm")
+						end,
+					},
+				},
 			})
 
 			vim.keymap.set("n", "-", "<cmd>Neotree<cr>")
@@ -568,6 +577,7 @@ require("lazy").setup({
 	{
 		"akinsho/toggleterm.nvim",
 		keys = "<c-cr>",
+		cmd = "ToggleTerm",
 		config = function()
 			require("toggleterm").setup({
 				highlights = {
@@ -579,7 +589,6 @@ require("lazy").setup({
 				terminal_mappings = false,
 				start_in_insert = false,
 				open_mapping = "<c-cr>",
-				direction = "tab",
 			})
 		end,
 	},
@@ -741,8 +750,15 @@ end, {})
 
 -- keymaps
 do
-	-- easy exit terminal mode
+	-- terminal
 	vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
+	vim.keymap.set("n", "<c-s-cr>", function()
+		vim.cmd("tabnew")
+		vim.cmd("terminal")
+		vim.cmd("setlocal nonumber")
+		vim.cmd("setlocal norelativenumber")
+		vim.cmd("setlocal signcolumn=no")
+	end)
 
 	-- navigation
 	vim.keymap.set("n", "<c-h>", "<c-w><c-h>")
