@@ -761,6 +761,17 @@ require("lazy").setup({
 			vim.keymap.set("n", "]c", dropbar_api.select_next_context, { desc = "Select next context" })
 		end,
 	},
+	{
+		"nat-418/boole.nvim",
+		config = function()
+			require("boole").setup({
+				mappings = {
+					increment = "<C-a>",
+					decrement = "<C-x>",
+				},
+			})
+		end,
+	},
 })
 
 -- set help window to vertical split
