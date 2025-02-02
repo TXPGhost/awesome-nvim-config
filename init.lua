@@ -442,7 +442,13 @@ require("lazy").setup({
 		lazy = true,
 		event = { "VeryLazy" },
 		config = function()
-			vim.keymap.set("n", "<space>g", "<cmd>Git<cr><cmd>wincmd L<cr>")
+			vim.keymap.set("n", "<space>g", function()
+				vim.cmd("Git")
+				vim.cmd("wincmd L")
+				vim.cmd("ToggleTerm")
+				vim.cmd("ToggleTerm")
+				vim.cmd("Git")
+			end)
 			vim.keymap.set(
 				"n",
 				"<space>G",
@@ -590,6 +596,7 @@ require("lazy").setup({
 				terminal_mappings = false,
 				start_in_insert = false,
 				open_mapping = "<c-cr>",
+				persist_size = false,
 			})
 		end,
 	},
@@ -725,6 +732,12 @@ require("lazy").setup({
 		"dfendr/clipboard-image.nvim",
 		ft = { "md", "rmd", "markdown" },
 	},
+	{
+		"echasnovski/mini.statusline",
+		config = function()
+			require("mini.statusline").setup({})
+		end,
+	},
 })
 
 -- set help window to vertical split
@@ -808,6 +821,8 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.wrap = false
 vim.opt.smartindent = true
+vim.opt.laststatus = 3
+vim.opt.showmode = false
 vim.opt.guifont = "CommitMono:h9.5"
 
 -- spell for markdown files
