@@ -222,7 +222,7 @@ require("lazy").setup({
 				scss = { "deno_fmt" },
 				vue = { "prettierd" },
 				markdown = { "deno_fmt" },
-				yaml = { "deno_fmt" },
+				yaml = { "prettierd" },
 				rust = { "rustfmt" },
 				c = { "clang_format" },
 				cpp = { "clang_format" },
