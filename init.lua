@@ -409,6 +409,9 @@ require("lazy").setup({
 			local cond = require("nvim-autopairs.conds")
 
 			npairs.setup({})
+			npairs.add_rules({
+				rule(">", ">"):with_pair(cond.none()):with_move(cond.done()):with_cr(cond.none()):with_del(cond.done()),
+			})
 
 			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 			local cmp = require("cmp")
@@ -767,7 +770,6 @@ do
 	-- terminal
 	vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
 	vim.keymap.set("n", "<c-s-cr>", function()
-		vim.cmd("tabnew")
 		vim.cmd("terminal")
 		vim.cmd("setlocal nonumber")
 		vim.cmd("setlocal norelativenumber")

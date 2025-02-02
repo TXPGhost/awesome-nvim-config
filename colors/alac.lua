@@ -1,27 +1,3 @@
-local fg = "#c5c8c6"
-local fgg = "#abadac"
-local fggg = "#929392"
-local fgggg = "#797a79"
-local fggggg = "#5f6060"
-
-local bg = "#1d1f21"
-local bgg = "#1f2123"
-local bggg = "#212326"
-local bgggg = "#232628"
-local bggggg = "#26282b"
-
-local blue = "#81a2be"
-local yellow = "#f0c674"
-local cyan = "#8abeb7"
-local red = "#cc6666"
-local green = "#b5bd68"
-local magenta = "#b294bb"
-
-local redbg = "#2C1F1D"
-local greenbg = "#232C23"
-local bluebg = "#1D2228"
-local bluebgg = "#242b33"
-
 local function blend(hex1, hex2, t)
 	local function hexToRgb(hex)
 		local r = tonumber(hex:sub(2, 3), 16)
@@ -43,6 +19,26 @@ local function blend(hex1, hex2, t)
 
 	return rgbToHex(r, g, b)
 end
+
+local fg = "#c5c8c6"
+local bg = "#1d1f21"
+
+local fgg = blend(bg, fg, 0.85)
+local fggg = blend(bg, fg, 0.7)
+local fgggg = blend(bg, fg, 0.55)
+local fggggg = blend(bg, fg, 0.4)
+
+local bgg = blend(bg, fg, 0.01)
+local bggg = blend(bg, fg, 0.02)
+local bgggg = blend(bg, fg, 0.03)
+local bggggg = blend(bg, fg, 0.04)
+
+local blue = "#81a2be"
+local yellow = "#f0c674"
+local cyan = "#8abeb7"
+local red = "#cc6666"
+local green = "#b5bd68"
+local magenta = "#b294bb"
 
 -- terminal
 vim.g.terminal_color_0 = fggg -- black
@@ -102,20 +98,20 @@ vim.api.nvim_set_hl(0, "Search", { reverse = true })
 vim.api.nvim_set_hl(0, "Folded", { fg = fggg, bg = bggg })
 vim.api.nvim_set_hl(0, "Title", { fg = yellow })
 vim.api.nvim_set_hl(0, "MatchParen", { bg = bgggg })
-vim.api.nvim_set_hl(0, "Error", { fg = red, bg = redbg })
-vim.api.nvim_set_hl(0, "ErrorMsg", { fg = red, bg = redbg })
+vim.api.nvim_set_hl(0, "Error", { fg = red, bg = blend(red, bg, 0.9) })
+vim.api.nvim_set_hl(0, "ErrorMsg", { fg = red, bg = blend(red, bg, 0.9) })
 vim.api.nvim_set_hl(0, "NonText", { fg = fggg })
 vim.api.nvim_set_hl(0, "MoreMsg", { fg = cyan, bold = true })
 
-vim.api.nvim_set_hl(0, "diffAdded", { fg = green, bg = greenbg })
-vim.api.nvim_set_hl(0, "diffChanged", { fg = cyan, bg = bluebg })
-vim.api.nvim_set_hl(0, "diffRemoved", { fg = red, bg = redbg })
+vim.api.nvim_set_hl(0, "diffAdded", { fg = green, bg = blend(green, bg, 0.9) })
+vim.api.nvim_set_hl(0, "diffChanged", { fg = cyan, bg = blend(blue, bg, 0.9) })
+vim.api.nvim_set_hl(0, "diffRemoved", { fg = red, bg = blend(red, bg, 0.9) })
 vim.api.nvim_set_hl(0, "diffLine", { fg = fggg })
 
 vim.api.nvim_set_hl(0, "DiffAdd", { link = "diffAdded" })
 vim.api.nvim_set_hl(0, "DiffChange", { link = "diffChanged" })
 vim.api.nvim_set_hl(0, "DiffDelete", { link = "diffRemoved" })
-vim.api.nvim_set_hl(0, "DiffText", { bg = bluebgg })
+vim.api.nvim_set_hl(0, "DiffText", { fg = cyan, bg = blend(cyan, bg, 0.8) })
 
 vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = green })
 vim.api.nvim_set_hl(0, "GitSignsChange", { fg = cyan })
@@ -143,11 +139,11 @@ vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { sp = yellow, undercurl = tru
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { sp = red, undercurl = true })
 vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { fg = fggg })
 
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextOk", { fg = fg, italic = true })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { fg = fg, italic = true })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { fg = blue, italic = true })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = yellow, italic = true })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = red, italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextOk", { fg = fg, bg = blend(fg, bg, 0.95), italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { fg = fg, bg = blend(fg, bg, 0.95), italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { fg = blue, bg = blend(blue, bg, 0.95), italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = yellow, bg = blend(yellow, bg, 0.95), italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = red, bg = blend(red, bg, 0.95), italic = true })
 
 vim.api.nvim_set_hl(0, "@punctuation", { fg = fgg })
 vim.api.nvim_set_hl(0, "@punctuation.special", { fg = fgg })
