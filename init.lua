@@ -561,10 +561,11 @@ require("lazy").setup({
 				},
 				event_handlers = {
 					{
-						event = "before_render",
+						event = "neo_tree_window_after_open",
 						handler = function()
 							vim.cmd("ToggleTerm")
 							vim.cmd("ToggleTerm")
+							vim.cmd("Neotree focus")
 						end,
 					},
 				},
