@@ -763,11 +763,12 @@ require("lazy").setup({
 	},
 	{
 		"nat-418/boole.nvim",
+		keys = { "<c-a>", "<c-x>" },
 		config = function()
 			require("boole").setup({
 				mappings = {
-					increment = "<C-a>",
-					decrement = "<C-x>",
+					increment = "<c-a>",
+					decrement = "<c-x>",
 				},
 			})
 		end,
