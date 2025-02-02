@@ -22,6 +22,12 @@ end
 
 local fg = "#c5c8c6"
 local bg = "#1d1f21"
+local blue = "#81a2be"
+local yellow = "#f0c674"
+local cyan = "#8abeb7"
+local red = "#cc6666"
+local green = "#b5bd68"
+local magenta = "#b294bb"
 
 local fgg = blend(bg, fg, 0.85)
 local fggg = blend(bg, fg, 0.7)
@@ -32,13 +38,6 @@ local bgg = blend(bg, fg, 0.01)
 local bggg = blend(bg, fg, 0.02)
 local bgggg = blend(bg, fg, 0.03)
 local bggggg = blend(bg, fg, 0.04)
-
-local blue = "#81a2be"
-local yellow = "#f0c674"
-local cyan = "#8abeb7"
-local red = "#cc6666"
-local green = "#b5bd68"
-local magenta = "#b294bb"
 
 -- terminal
 vim.g.terminal_color_0 = fggg -- black
