@@ -308,6 +308,7 @@ vim.api.nvim_set_hl(0, "LspInlayHint", { fg = fggggg })
 
 vim.api.nvim_set_hl(0, "MiniStatuslineDevInfo", { fg = fgg, bg = bgggg })
 vim.api.nvim_set_hl(0, "MiniStatuslineFileinfo", { fg = fgg, bg = bgggg })
+vim.api.nvim_set_hl(0, "MiniStatuslineFilename", { fg = fgg, bg = bgg })
 
 vim.api.nvim_set_hl(0, "MiniStatuslineModeNormal", { fg = fgg, bg = bggggg })
 vim.api.nvim_set_hl(0, "MiniStatuslineModeInsert", { fg = fgg, bg = bggggg })
