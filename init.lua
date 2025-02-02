@@ -605,7 +605,7 @@ require("lazy").setup({
 	},
 	{
 		"folke/trouble.nvim",
-		event = "LspAttach",
+		event = "VeryLazy",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("trouble").setup({
@@ -624,6 +624,22 @@ require("lazy").setup({
 					follow = 0,
 					preview = { ms = 0, debounce = false },
 				},
+				modes = {
+					lsp_document_symbols = {
+						mode = "lsp_document_symbols",
+						focus = false,
+						win = { position = "right", relative = "win" },
+						filter = {
+							-- remove Package since luals uses it for control flow structures
+							["not"] = {
+								any = {
+									{ ft = "lua", kind = "Package" },
+									kind = { "Variable", "Module" },
+								},
+							},
+						},
+					},
+				},
 			})
 
 			vim.keymap.set("n", "gd", "<cmd>Trouble lsp_definitions<cr>")
@@ -631,11 +647,7 @@ require("lazy").setup({
 			vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
 			vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
 			vim.keymap.set("n", "go", "<cmd>Trouble lsp_incoming_calls<cr>")
-			vim.keymap.set(
-				"n",
-				"gs",
-				"<cmd>Trouble lsp_document_symbols toggle pinned=true win.relative=win win.position=right<cr>"
-			)
+			vim.keymap.set("n", "gs", "<cmd>Trouble lsp_document_symbols toggle<cr>")
 		end,
 	},
 	{
@@ -747,6 +759,51 @@ require("lazy").setup({
 		config = function()
 			local hipatterns = require("mini.hipatterns")
 			hipatterns.setup({ highlighters = { hex_color = hipatterns.gen_highlighter.hex_color() } })
+		end,
+	},
+	{
+		"Bekaboo/dropbar.nvim",
+		event = "BufRead",
+		dependencies = {
+			"nvim-telescope/telescope-fzf-native.nvim",
+			build = "make",
+		},
+		config = function()
+			require("dropbar").setup({
+
+				icons = {
+					kinds = {
+						symbols = {
+							Array = " ",
+							Boolean = "󰨙 ",
+							Constructor = " ",
+							Enum = " ",
+							EnumMember = " ",
+							Event = " ",
+							Field = " ",
+							File = " ",
+							Interface = " ",
+							Key = " ",
+							Method = "󰊕 ",
+							Module = " ",
+							Namespace = "󰦮 ",
+							Null = " ",
+							Object = " ",
+							Operator = " ",
+							Package = " ",
+							String = " ",
+							Struct = "󰆼 ",
+							TypeParameter = " ",
+							Folder = " ",
+							Function = "󰊕 ",
+						},
+					},
+				},
+			})
+			local dropbar_api = require("dropbar.api")
+			vim.keymap.set("n", "<space>c", dropbar_api.pick, { desc = "Pick symbols in winbar" })
+			vim.keymap.set("n", "[c", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
+			vim.keymap.set("n", "]c", dropbar_api.select_next_context, { desc = "Select next context" })
 		end,
 	},
 })
