@@ -23,10 +23,6 @@ require("lazy").setup({
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "kevinhwang91/promise-async", lazy = true },
 	{
-		"tpope/vim-commentary",
-		keys = "gc",
-	},
-	{
 		"neovim/nvim-lspconfig",
 		event = { "VeryLazy" },
 		cmd = { "LspInfo", "LspInstall", "LspUninstall" },
@@ -39,6 +35,7 @@ require("lazy").setup({
 				lineFoldingOnly = true,
 			}
 
+			lspconfig.marksman.setup({ capabilities = capabilities })
 			lspconfig.clangd.setup({
 				capabilities = capabilities,
 				cmd = { "clangd", "--query-driver=/usr/bin/arm-none-eabi-g++" },
@@ -80,7 +77,16 @@ require("lazy").setup({
 					},
 				},
 			})
-			lspconfig.ts_ls.setup({ capabilities = capabilities })
+			lspconfig.denols.setup({
+				on_attach = on_attach,
+				root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+			})
+
+			lspconfig.ts_ls.setup({
+				on_attach = on_attach,
+				root_dir = lspconfig.util.root_pattern("package.json"),
+				single_file_support = false,
+			})
 			lspconfig.gdscript.setup({ capabilities = capabilities })
 			lspconfig.rust_analyzer.setup({
 				capabilities = capabilities,
@@ -447,11 +453,11 @@ require("lazy").setup({
 		config = function()
 			vim.keymap.set("n", "<space>g", function()
 				vim.cmd("Trouble lsp_document_symbols close")
-				vim.cmd("Git")
+				vim.cmd("silent! Git")
 				vim.cmd("wincmd L")
 				vim.cmd("ToggleTerm")
 				vim.cmd("ToggleTerm")
-				vim.cmd("Git")
+				vim.cmd("silent! Git")
 			end)
 			vim.keymap.set(
 				"n",
@@ -870,6 +876,14 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- colorscheme
 vim.cmd.colorscheme("alac")
+
+-- commentstring for c/c++
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "c", "cpp" },
+	callback = function()
+		vim.bo.commentstring = "// %s"
+	end,
+})
 
 -- neovide config
 if vim.g.neovide then
