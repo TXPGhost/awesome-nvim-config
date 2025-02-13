@@ -291,6 +291,7 @@ vim.api.nvim_set_hl(0, "NeoTreeGitConflict", { fg = red })
 vim.api.nvim_set_hl(0, "TroubleNormal", { link = "NeoTreeNormal" })
 vim.api.nvim_set_hl(0, "TroubleNormalNC", { link = "NeoTreeNormalNC" })
 vim.api.nvim_set_hl(0, "TroubleIndent", { fg = bgggg })
+vim.api.nvim_set_hl(0, "TroubleIconDirectory", { link = "Directory" })
 
 vim.api.nvim_set_hl(0, "TreesitterContext", { bg = bggg })
 

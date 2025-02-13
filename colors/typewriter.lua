@@ -1,5 +1,3 @@
--- colors inspired from https://react.dev/blog/2024/04/25/react-19
-
 local function blend(hex1, hex2, t)
 	local function hexToRgb(hex)
 		local r = tonumber(hex:sub(2, 3), 16)
@@ -22,16 +20,14 @@ local function blend(hex1, hex2, t)
 	return rgbToHex(r, g, b)
 end
 
-local fg = "#FFFFFF"
-
-local bg = "#16181D"
-
-local blue = "#77B7D7"
-local cyan = "#86D9CA"
-local magenta = "#977CDC"
-local red = "#C64640"
-local yellow = "#DFAB5C"
-local green = "#8FB573"
+local fg = "#000000"
+local bg = "#d3d2cf"
+local blue = fg
+local yellow = fg
+local cyan = fg
+local red = fg
+local green = fg
+local magenta = fg
 
 local fgg = blend(bg, fg, 0.85)
 local fggg = blend(bg, fg, 0.7)
@@ -75,7 +71,7 @@ vim.api.nvim_set_hl(0, "Pmenu", { bg = bgggg, fg = fgg })
 vim.api.nvim_set_hl(0, "PmenuSel", { bg = bggggg })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = bggg })
 vim.api.nvim_set_hl(0, "FloatBorder", { bg = bggg, fg = fggggg })
-vim.api.nvim_set_hl(0, "Type", { fg = yellow })
+vim.api.nvim_set_hl(0, "Type", { fg = yellow, bold = true })
 vim.api.nvim_set_hl(0, "PreProc", { fg = cyan })
 vim.api.nvim_set_hl(0, "String", { fg = cyan })
 vim.api.nvim_set_hl(0, "Character", { fg = cyan })

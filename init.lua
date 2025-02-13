@@ -144,10 +144,6 @@ require("lazy").setup({
 
 			-- switch source/header
 			vim.keymap.set("n", "g<space>", "<cmd>ClangdSwitchSourceHeader<cr>")
-
-			-- navigate soft line wraps
-			vim.keymap.set("n", "j", "gj")
-			vim.keymap.set("n", "k", "gk")
 		end,
 	},
 	{
@@ -455,8 +451,6 @@ require("lazy").setup({
 				vim.cmd("Trouble lsp_document_symbols close")
 				vim.cmd("silent! Git")
 				vim.cmd("wincmd L")
-				vim.cmd("ToggleTerm")
-				vim.cmd("ToggleTerm")
 				vim.cmd("silent! Git")
 			end)
 			vim.keymap.set(
@@ -575,39 +569,10 @@ require("lazy").setup({
 						vim.fn.jobstart({ "xdg-open", path }, { detach = true })
 					end,
 				},
-				event_handlers = {
-					{
-						event = "neo_tree_window_after_open",
-						handler = function()
-							vim.cmd("ToggleTerm")
-							vim.cmd("ToggleTerm")
-							vim.cmd("Neotree focus")
-						end,
-					},
-				},
 			})
 
 			vim.keymap.set("n", "-", "<cmd>Neotree<cr>")
 			vim.keymap.set("n", "<space>-", "<cmd>Neotree reveal_force_cwd<cr>")
-		end,
-	},
-	{
-		"akinsho/toggleterm.nvim",
-		keys = "<c-cr>",
-		cmd = "ToggleTerm",
-		config = function()
-			require("toggleterm").setup({
-				highlights = {
-					["Normal"] = { link = "Terminal" },
-					["NormalFloat"] = { link = "Terminal" },
-				},
-				shade_terminals = false,
-				insert_mappings = false,
-				terminal_mappings = false,
-				start_in_insert = false,
-				open_mapping = "<c-cr>",
-				persist_size = false,
-			})
 		end,
 	},
 	{
@@ -807,11 +772,12 @@ end, {})
 do
 	-- terminal
 	vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
-	vim.keymap.set("n", "<c-s-cr>", function()
+	vim.keymap.set("n", "<c-cr>", function()
 		vim.cmd("terminal")
 		vim.cmd("setlocal nonumber")
 		vim.cmd("setlocal norelativenumber")
 		vim.cmd("setlocal signcolumn=no")
+		vim.api.nvim_feedkeys("i", "n", true)
 	end)
 
 	-- navigation
@@ -855,7 +821,7 @@ vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.shortmess:append("I")
 vim.opt.termguicolors = true
-vim.opt.mousescroll = "hor:0,ver:2"
+vim.opt.mousescroll = "hor:0,ver:1"
 vim.opt.conceallevel = 0
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -863,7 +829,7 @@ vim.opt.wrap = false
 vim.opt.smartindent = true
 vim.opt.laststatus = 3
 vim.opt.showmode = false
-vim.opt.guifont = "CommitMono:h9.5"
+vim.opt.guifont = "BlexMono Nerd Font:h9.5"
 
 -- spell for markdown files
 -- Set spell check only for markdown files

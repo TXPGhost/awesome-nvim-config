@@ -29,15 +29,15 @@ local bluebgg = bgg
 
 -- terminal
 vim.g.terminal_color_0 = fggg -- black
-vim.g.terminal_color_1 = hl4  -- red
-vim.g.terminal_color_2 = hl5  -- green
-vim.g.terminal_color_3 = hl2  -- yellow
-vim.g.terminal_color_4 = hl1  -- blue
-vim.g.terminal_color_5 = hl3  -- magenta
-vim.g.terminal_color_6 = hl2  -- cyan
-vim.g.terminal_color_7 = fgg  -- white
+vim.g.terminal_color_1 = hl4 -- red
+vim.g.terminal_color_2 = hl5 -- green
+vim.g.terminal_color_3 = hl2 -- yellow
+vim.g.terminal_color_4 = hl1 -- blue
+vim.g.terminal_color_5 = hl3 -- magenta
+vim.g.terminal_color_6 = hl2 -- cyan
+vim.g.terminal_color_7 = fgg -- white
 vim.g.terminal_color_8 = fggg -- black (bright)
-vim.g.terminal_color_9 = hl4  -- red (bright)
+vim.g.terminal_color_9 = hl4 -- red (bright)
 vim.g.terminal_color_10 = hl5 -- green (bright)
 vim.g.terminal_color_11 = hl2 -- yellow (bright)
 vim.g.terminal_color_12 = hl1 -- blue (bright)

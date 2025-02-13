@@ -119,11 +119,9 @@ lazy-loaded. You can view the startup time with `:Lazy profile`.
 
 ### Terminal
 
-| Key                |                  Binding |
-| :----------------- | -----------------------: |
-| Ctrl Enter         |          Toggle terminal |
-| \<NUM\> Ctrl Enter |  Toggle terminal \<NUM\> |
-| Ctrl Shift Enter   | Open terminal in new tab |
+| Key        |       Binding |
+| :--------- | ------------: |
+| Ctrl Enter | Open terminal |
 
 ## Folds
 
