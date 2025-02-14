@@ -93,6 +93,7 @@ require("lazy").setup({
 				settings = { ["rust-analyzer"] = { check = { command = "clippy" } } },
 			})
 			lspconfig.veridian.setup({ capabilities = capabilities })
+			lspconfig.jdtls.setup({ capabilities = capabilities })
 
 			-- temporary fix for rust analyzer server cancelation request
 			for _, method in ipairs({ "textDocument/diagnostic", "workspace/diagnostic" }) do
@@ -144,27 +145,6 @@ require("lazy").setup({
 
 			-- switch source/header
 			vim.keymap.set("n", "g<space>", "<cmd>ClangdSwitchSourceHeader<cr>")
-		end,
-	},
-	{
-		"mfussenegger/nvim-jdtls",
-		ft = "java",
-		config = function()
-			local config = {
-				cmd = { "/usr/bin/jdtls" },
-				root_dir = vim.fs.dirname(
-					vim.fs.find({ "build.gradle", "gradlew", ".git", "mvnw" }, { upward = true })[1]
-				),
-				init_options = {
-					bundles = { vim.fn.glob("/usr/share/java-debug/com.microsoft.java.debug.plugin.jar", 1) },
-				},
-			}
-			vim.api.nvim_create_autocmd({ "FileType" }, {
-				pattern = { "java" },
-				callback = function()
-					require("jdtls").start_or_attach(config)
-				end,
-			})
 		end,
 	},
 	{
@@ -254,16 +234,30 @@ require("lazy").setup({
 	{
 		"nvim-telescope/telescope.nvim",
 		lazy = true,
-		keys = { "<space>f", "<space>b", "<space>/" },
+		keys = { "<space>f", "<space>b", "<space>/", "<space>a" },
 		cmd = { "Telescope" },
 		opts = {
 			pickers = { find_files = { find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/" } } },
 		},
-		dependencies = { "nvim-lua/plenary.nvim" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope-ui-select.nvim",
+		},
 		config = function()
 			vim.keymap.set("n", "<space>f", "<cmd>Telescope fd<cr>")
 			vim.keymap.set("n", "<space>b", "<cmd>Telescope buffers<cr>")
 			vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
+
+			require("telescope").setup({
+				extensions = {
+					["ui-select"] = {
+						require("telescope.themes").get_dropdown({
+							-- even more opts
+						}),
+					},
+				},
+			})
+			require("telescope").load_extension("ui-select")
 		end,
 	},
 	{
