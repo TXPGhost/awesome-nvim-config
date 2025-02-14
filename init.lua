@@ -243,25 +243,11 @@ require("lazy").setup({
 		opts = {
 			pickers = { find_files = { find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/" } } },
 		},
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope-ui-select.nvim",
-		},
+		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			vim.keymap.set("n", "<space>f", "<cmd>Telescope fd<cr>")
 			vim.keymap.set("n", "<space>b", "<cmd>Telescope buffers<cr>")
 			vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
-
-			require("telescope").setup({
-				extensions = {
-					["ui-select"] = {
-						require("telescope.themes").get_dropdown({
-							-- even more opts
-						}),
-					},
-				},
-			})
-			require("telescope").load_extension("ui-select")
 		end,
 	},
 	{
@@ -677,6 +663,13 @@ require("lazy").setup({
 		config = function()
 			local hipatterns = require("mini.hipatterns")
 			hipatterns.setup({ highlighters = { hex_color = hipatterns.gen_highlighter.hex_color() } })
+		end,
+	},
+	{
+		"stevearc/dressing.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("dressing").setup({})
 		end,
 	},
 })
