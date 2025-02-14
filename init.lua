@@ -177,10 +177,14 @@ require("lazy").setup({
 					enable_close_on_slash = false,
 				},
 			})
+			require("treesitter-context").setup({
+				update_debounce = 15,
+			})
 		end,
 		dependencies = {
 			"RRethy/nvim-treesitter-endwise",
 			"windwp/nvim-ts-autotag",
+			"TXPGhost/nvim-treesitter-context",
 		},
 	},
 	{
@@ -332,21 +336,16 @@ require("lazy").setup({
 						if cmp.visible() then
 							cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
 						elseif vim.snippet.active({ direction = -1 }) then
-							vim.snippet.jump({ direction = -1 })
+							vim.snippet.jump(-1)
 						else
 							fallback()
 						end
-					end, { "i", "s" }),
-					["<esc>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.abort()
-						end
-						fallback()
 					end, { "i", "s" }),
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
 					{ name = "nvim_lsp_signature_help" },
+					{ name = "neodev", group_index = 0 },
 					{ name = "path" },
 				}, {}),
 				formatting = {
@@ -374,6 +373,17 @@ require("lazy").setup({
 			"onsails/lspkind.nvim",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
+		},
+	},
+	{
+		"folke/lazydev.nvim",
+		ft = "lua",
+		opts = {
+			library = {
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+			},
 		},
 	},
 	-- {
@@ -429,6 +439,7 @@ require("lazy").setup({
 					add = { text = "│" },
 					change = { text = "│" },
 				},
+				update_debounce = 15,
 			})
 
 			vim.keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
@@ -488,7 +499,7 @@ require("lazy").setup({
 		"saecki/crates.nvim",
 		event = "BufRead Cargo.toml",
 		config = function()
-			require("crates").setup()
+			require("crates").setup({})
 		end,
 	},
 	{
@@ -666,63 +677,6 @@ require("lazy").setup({
 		config = function()
 			local hipatterns = require("mini.hipatterns")
 			hipatterns.setup({ highlighters = { hex_color = hipatterns.gen_highlighter.hex_color() } })
-		end,
-	},
-	{
-		"Bekaboo/dropbar.nvim",
-		event = "BufRead",
-		dependencies = {
-			"nvim-telescope/telescope-fzf-native.nvim",
-			build = "make",
-		},
-		config = function()
-			require("dropbar").setup({
-
-				icons = {
-					kinds = {
-						symbols = {
-							Array = " ",
-							Boolean = "󰨙 ",
-							Constructor = " ",
-							Enum = " ",
-							EnumMember = " ",
-							Event = " ",
-							Field = " ",
-							File = " ",
-							Interface = " ",
-							Key = " ",
-							Method = "󰊕 ",
-							Module = " ",
-							Namespace = "󰦮 ",
-							Null = " ",
-							Object = " ",
-							Operator = " ",
-							Package = " ",
-							String = " ",
-							Struct = "󰆼 ",
-							TypeParameter = " ",
-							Folder = " ",
-							Function = "󰊕 ",
-						},
-					},
-				},
-			})
-			local dropbar_api = require("dropbar.api")
-			vim.keymap.set("n", "<space>c", dropbar_api.pick, { desc = "Pick symbols in winbar" })
-			vim.keymap.set("n", "[c", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
-			vim.keymap.set("n", "]c", dropbar_api.select_next_context, { desc = "Select next context" })
-		end,
-	},
-	{
-		"nat-418/boole.nvim",
-		keys = { "<c-a>", "<c-x>" },
-		config = function()
-			require("boole").setup({
-				mappings = {
-					increment = "<c-a>",
-					decrement = "<c-x>",
-				},
-			})
 		end,
 	},
 })
