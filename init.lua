@@ -147,11 +147,6 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"stevearc/dressing.nvim",
-		event = "VeryLazy",
-		opts = {},
-	},
-	{
 		"mfussenegger/nvim-jdtls",
 		ft = "java",
 		config = function()
@@ -259,7 +254,7 @@ require("lazy").setup({
 	{
 		"nvim-telescope/telescope.nvim",
 		lazy = true,
-		keys = { "<space>f", "<space>/" },
+		keys = { "<space>f", "<space>b", "<space>/" },
 		cmd = { "Telescope" },
 		opts = {
 			pickers = { find_files = { find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/" } } },
@@ -267,17 +262,18 @@ require("lazy").setup({
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			vim.keymap.set("n", "<space>f", "<cmd>Telescope fd<cr>")
+			vim.keymap.set("n", "<space>b", "<cmd>Telescope buffers<cr>")
 			vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
 		end,
 	},
 	{
-		"hrsh7th/nvim-cmp",
+		"iguanacucumber/magazine.nvim",
+		name = "nvim-cmp",
 		lazy = true,
 		event = { "InsertEnter", "CmdlineEnter" },
 		config = function()
 			local cmp = require("cmp")
 			local lspkind = require("lspkind")
-			local snippy = require("snippy")
 
 			local has_words_before = function()
 				unpack = unpack or table.unpack
@@ -294,29 +290,21 @@ require("lazy").setup({
 			end
 
 			cmp.setup({
-				snippet = {
-					expand = function(args)
-						snippy.expand_snippet(args.body)
-					end,
-				},
 				completion = {
 					completeopt = "menu,menuone,noinsert",
 				},
-				-- matching = {
-				-- 	disallow_fuzzy_matching = true,
-				-- 	disallow_fullfuzzy_matching = true,
-				-- 	disallow_partial_fuzzy_matching = true,
-				-- 	disallow_partial_matching = true,
-				-- 	disallow_prefix_unmatching = false,
-				-- },
+				performance = {
+					debounce = 0,
+					throttle = 0,
+				},
 				mapping = cmp.mapping.preset.insert({
 					["<cr>"] = cmp.mapping(function(fallback)
 						local entry = cmp.core.view:get_selected_entry()
 						if fast_cmp_visible() and not (entry and entry.source.name == "nvim_lsp_signature_help") then
 							cmp.confirm({ select = true })
 							cmp.close()
-						elseif snippy.can_expand_or_advance() then
-							snippy.expand_or_advance()
+						elseif vim.snippet.active({ direction = 1 }) then
+							vim.snippet.jump(1)
 						else
 							-- expand tags on enter
 							local col = vim.api.nvim_win_get_cursor(0)[2]
@@ -349,8 +337,8 @@ require("lazy").setup({
 					["<s-tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-						elseif snippy.can_jump(-1) then
-							snippy.previous()
+						elseif vim.snippet.active({ direction = -1 }) then
+							vim.snippet.jump({ direction = -1 })
 						else
 							fallback()
 						end
@@ -392,9 +380,23 @@ require("lazy").setup({
 			"onsails/lspkind.nvim",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
-			"dcampos/nvim-snippy",
 		},
 	},
+	-- {
+	-- 	"zbirenbaum/copilot.lua",
+	-- 	cmd = "Copilot",
+	-- 	event = "InsertEnter",
+	-- 	config = function()
+	-- 		require("copilot").setup({
+	-- 			panel = {
+	-- 				position = "right",
+	-- 			},
+	-- 			suggestion = {
+	-- 				auto_trigger = true,
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"kylechui/nvim-surround",
 		keys = { "ys", "cs", "ds" },
@@ -458,8 +460,7 @@ require("lazy").setup({
 				"<space>G",
 				"<cmd>Gvdiffsplit!<cr><cmd>set foldcolumn=0<cr><cmd>wincmd h<cr><cmd>set foldcolumn=0<cr>"
 			)
-			vim.keymap.set("n", "<space>b", "<cmd>Gitsigns blame_line<cr>")
-			vim.keymap.set("n", "<space>B", "<cmd>Gitsigns blame<cr>")
+			vim.keymap.set("n", "<space><space>", "<cmd>Gitsigns blame_line<cr>")
 		end,
 		dependencies = { "tpope/vim-rhubarb" },
 	},
@@ -474,20 +475,6 @@ require("lazy").setup({
 	{
 		"tpope/vim-sleuth",
 		event = "VeryLazy",
-	},
-	{
-		"rmagatti/goto-preview",
-		keys = { "gp", "gP" },
-		config = function()
-			local goto_preview = require("goto-preview")
-			goto_preview.setup({})
-
-			vim.keymap.set("n", "gpd", goto_preview.goto_preview_definition)
-			vim.keymap.set("n", "gpr", goto_preview.goto_preview_references)
-			vim.keymap.set("n", "gpi", goto_preview.goto_preview_implementation)
-			vim.keymap.set("n", "gpy", goto_preview.goto_preview_type_definition)
-			vim.keymap.set("n", "gP", goto_preview.close_all_win)
-		end,
 	},
 	{
 		"toppair/peek.nvim",
@@ -821,7 +808,7 @@ vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.shortmess:append("I")
 vim.opt.termguicolors = true
-vim.opt.mousescroll = "hor:0,ver:1"
+vim.opt.mousescroll = "hor:0,ver:2"
 vim.opt.conceallevel = 0
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -841,7 +828,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- colorscheme
-vim.cmd.colorscheme("alac")
+vim.cmd.colorscheme("vague")
 
 -- commentstring for c/c++
 vim.api.nvim_create_autocmd("FileType", {

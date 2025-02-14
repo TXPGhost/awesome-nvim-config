@@ -18,25 +18,24 @@ lazy-loaded. You can view the startup time with `:Lazy profile`.
 
 ### Git
 
-| Key     |                     Binding |
-| :------ | --------------------------: |
-| Space g | Open fugitive status window |
-| Space G |              Show diff view |
-| ]g      |               Next git hunk |
-| [g      |           Previous git hunk |
-| ghs     |              Stage git hunk |
-| ghu     |         Undo stage git hunk |
-| ghr     |              Reset git hunk |
-| Space b |          Blame current line |
-| Space B |                  Blame file |
+| Key         |                     Binding |
+| :---------- | --------------------------: |
+| Space g     | Open fugitive status window |
+| Space G     |              Show diff view |
+| ]g          |               Next git hunk |
+| [g          |           Previous git hunk |
+| ghs         |              Stage git hunk |
+| ghu         |         Undo stage git hunk |
+| ghr         |              Reset git hunk |
+| Space Space |          Blame current line |
 
 ### Autocompletion
 
 | Key       |                               Binding |
 | :-------- | ------------------------------------: |
-| Tab       |                     Invoke Completion |
+| Tab       |  Invoke Completion / Select next item |
 | Shift Tab | Invoke Copilot / Select previous item |
-| Enter     |           Complete / Select next item |
+| Enter     |                              Complete |
 
 ### File navigation
 
@@ -59,23 +58,10 @@ lazy-loaded. You can view the startup time with `:Lazy profile`.
 
 ### Tree-Sitter
 
-| Key       |                   Binding |
-| :-------- | ------------------------: |
-| Enter     |            Init selection |
-| Tab       |            Grow selection |
-| Shift Tab |          Shrink Selection |
-| Ctrl j    |                Split code |
-| Ctrl k    |                 Join code |
-| vaf       |     Select outer function |
-| vif       |     Select inner function |
-| vac       |        Select outer class |
-| vic       |        Select inner class |
-| ]f        |     Jump to next function |
-| [f        | Jump to previous function |
-| ]c        |        Jump to next class |
-| [c        |    Jump to previous class |
-| Space j   |                Split node |
-| Space k   |                 Join node |
+| Key     |    Binding |
+| :------ | ---------: |
+| Space j | Split node |
+| Space k |  Join node |
 
 ### LSP
 
@@ -122,23 +108,6 @@ lazy-loaded. You can view the startup time with `:Lazy profile`.
 | Key        |       Binding |
 | :--------- | ------------: |
 | Ctrl Enter | Open terminal |
-
-## Folds
-
-| Key     |                                    Binding |
-| :------ | -----------------------------------------: |
-| zR      |                             Open all folds |
-| zM      |                            Close all folds |
-| zr      | Open all folds except comments and imports |
-| zm      |                 Close all folds with level |
-| Space k |                       Preview current fold |
-
-## Pairs
-
-| Key         |                      Binding |
-| :---------- | ---------------------------: |
-| Alt e       |      Fast warp next end pair |
-| Alt Shift e | Undo fast warp next end pair |
 
 ## Markdown
 
