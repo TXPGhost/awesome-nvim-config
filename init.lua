@@ -78,12 +78,10 @@ require("lazy").setup({
 				},
 			})
 			lspconfig.denols.setup({
-				on_attach = on_attach,
 				root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
 			})
 
 			lspconfig.ts_ls.setup({
-				on_attach = on_attach,
 				root_dir = lspconfig.util.root_pattern("package.json"),
 				single_file_support = false,
 			})
@@ -160,6 +158,7 @@ require("lazy").setup({
 		event = "BufRead",
 		build = ":TSUpdate",
 		config = function()
+			---@diagnostic disable-next-line: missing-fields
 			require("nvim-treesitter.configs").setup({
 				auto_install = true,
 				highlight = {
@@ -170,15 +169,12 @@ require("lazy").setup({
 				},
 				endwise = { enable = true },
 			})
-			require("nvim-ts-autotag").setup({
-				opts = {
-					enable_close = true,
-					enable_rename = true,
-					enable_close_on_slash = false,
-				},
-			})
+			require("nvim-ts-autotag").setup()
 			require("treesitter-context").setup({
 				update_debounce = 15,
+				-- max_lines = 3,
+				multiline_threshold = 1,
+				trim_scope = "inner",
 			})
 		end,
 		dependencies = {
@@ -215,7 +211,7 @@ require("lazy").setup({
 				_ = { "trim_whitespace" },
 			},
 			format_on_save = function(bufnr)
-				if not vim.api.nvim_buf_get_option(bufnr, "modified") then
+				if not vim.api.nvim_get_option_value("modified", { buf = bufnr }) then
 					return
 				end
 				return { timeout_ms = 10000, lsp_fallback = true }
@@ -238,7 +234,7 @@ require("lazy").setup({
 	{
 		"nvim-telescope/telescope.nvim",
 		lazy = true,
-		keys = { "<space>f", "<space>b", "<space>/", "<space>a" },
+		keys = { "<space>f", "<space>b", "<space>/", "<space>s", "<space>S" },
 		cmd = { "Telescope" },
 		opts = {
 			pickers = { find_files = { find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/" } } },
@@ -248,6 +244,8 @@ require("lazy").setup({
 			vim.keymap.set("n", "<space>f", "<cmd>Telescope fd<cr>")
 			vim.keymap.set("n", "<space>b", "<cmd>Telescope buffers<cr>")
 			vim.keymap.set("n", "<space>/", "<cmd>Telescope live_grep<cr>")
+			vim.keymap.set("n", "<space>s", "<cmd>Telescope lsp_document_symbols<cr>")
+			vim.keymap.set("n", "<space>S", "<cmd>Telescope lsp_workspace_symbols<cr>")
 		end,
 	},
 	{
@@ -267,9 +265,11 @@ require("lazy").setup({
 			end
 
 			local fast_cmp_visible = function()
+				---@diagnostic disable-next-line: invisible
 				if not (cmp.core.view and cmp.core.view.custom_entries_view) then
 					return false
 				end
+				---@diagnostic disable-next-line: invisible
 				return cmp.core.view.custom_entries_view:visible()
 			end
 
@@ -277,6 +277,7 @@ require("lazy").setup({
 				completion = {
 					completeopt = "menu,menuone,noinsert",
 				},
+				---@diagnostic disable-next-line: missing-fields
 				performance = {
 					debounce = 0,
 					throttle = 0,
@@ -372,21 +373,21 @@ require("lazy").setup({
 			},
 		},
 	},
-	-- {
-	-- 	"zbirenbaum/copilot.lua",
-	-- 	cmd = "Copilot",
-	-- 	event = "InsertEnter",
-	-- 	config = function()
-	-- 		require("copilot").setup({
-	-- 			panel = {
-	-- 				position = "right",
-	-- 			},
-	-- 			suggestion = {
-	-- 				auto_trigger = true,
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			require("copilot").setup({
+				panel = {
+					position = "right",
+				},
+				suggestion = {
+					auto_trigger = true,
+				},
+			})
+		end,
+	},
 	{
 		"kylechui/nvim-surround",
 		keys = { "ys", "cs", "ds" },
@@ -558,6 +559,7 @@ require("lazy").setup({
 		event = "VeryLazy",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
+			---@diagnostic disable-next-line: missing-fields
 			require("trouble").setup({
 				auto_close = true,
 				auto_jump = true,
@@ -672,6 +674,13 @@ require("lazy").setup({
 			require("dressing").setup({})
 		end,
 	},
+	{
+		"tonymajestro/smart-scrolloff.nvim",
+		event = "VeryLazy",
+		opts = {
+			scrolloff_percentage = 0.2,
+		},
+	},
 })
 
 -- set help window to vertical split
@@ -705,7 +714,6 @@ do
 		vim.cmd("setlocal nonumber")
 		vim.cmd("setlocal norelativenumber")
 		vim.cmd("setlocal signcolumn=no")
-		vim.api.nvim_feedkeys("i", "n", true)
 	end)
 
 	-- navigation
@@ -745,7 +753,6 @@ vim.opt.relativenumber = true
 vim.opt.linebreak = true
 vim.opt.shell = "fish"
 vim.opt.textwidth = 80
-vim.opt.scrolloff = 5
 vim.opt.clipboard = "unnamedplus"
 vim.opt.shortmess:append("I")
 vim.opt.termguicolors = true
