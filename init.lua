@@ -146,6 +146,20 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"rmagatti/goto-preview",
+		keys = { "gpd", "gpr", "gpi", "gpy", "gP" },
+		config = function()
+			local goto_preview = require("goto-preview")
+			goto_preview.setup({})
+
+			vim.keymap.set("n", "gpd", goto_preview.goto_preview_definition)
+			vim.keymap.set("n", "gpr", goto_preview.goto_preview_references)
+			vim.keymap.set("n", "gpi", goto_preview.goto_preview_implementation)
+			vim.keymap.set("n", "gpy", goto_preview.goto_preview_type_definition)
+			vim.keymap.set("n", "gP", goto_preview.close_all_win)
+		end,
+	},
+	{
 		"smjonas/inc-rename.nvim",
 		keys = "<space>r",
 		config = function()
@@ -373,21 +387,21 @@ require("lazy").setup({
 			},
 		},
 	},
-	{
-		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
-		event = "InsertEnter",
-		config = function()
-			require("copilot").setup({
-				panel = {
-					position = "right",
-				},
-				suggestion = {
-					auto_trigger = true,
-				},
-			})
-		end,
-	},
+	-- {
+	-- 	"zbirenbaum/copilot.lua",
+	-- 	cmd = "Copilot",
+	-- 	event = "InsertEnter",
+	-- 	config = function()
+	-- 		require("copilot").setup({
+	-- 			panel = {
+	-- 				position = "right",
+	-- 			},
+	-- 			suggestion = {
+	-- 				auto_trigger = true,
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"kylechui/nvim-surround",
 		keys = { "ys", "cs", "ds" },
@@ -478,8 +492,6 @@ require("lazy").setup({
 			})
 			vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
 			vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
-			vim.keymap.set("n", "<space>p", require("peek").open)
-			vim.keymap.set("n", "<space>P", require("peek").close)
 		end,
 	},
 	{
@@ -594,7 +606,9 @@ require("lazy").setup({
 				},
 			})
 
-			vim.keymap.set("n", "gd", "<cmd>Trouble lsp_definitions<cr>")
+			vim.keymap.set("n", "gd", function()
+				vim.lsp.buf.definition()
+			end)
 			vim.keymap.set("n", "gy", "<cmd>Trouble lsp_type_definitions<cr>")
 			vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<cr>")
 			vim.keymap.set("n", "gi", "<cmd>Trouble lsp_implementations<cr>")
@@ -742,6 +756,10 @@ do
 
 	-- easy file save
 	vim.keymap.set("n", "<cr>", ":w<cr>")
+
+	-- system clipboard
+	vim.keymap.set({ "n", "v" }, "<space>y", '"+y')
+	vim.keymap.set({ "n", "v" }, "<space>p", '"+p')
 end
 
 -- startup commands
@@ -753,7 +771,6 @@ vim.opt.relativenumber = true
 vim.opt.linebreak = true
 vim.opt.shell = "fish"
 vim.opt.textwidth = 80
-vim.opt.clipboard = "unnamedplus"
 vim.opt.shortmess:append("I")
 vim.opt.termguicolors = true
 vim.opt.mousescroll = "hor:0,ver:2"
@@ -776,7 +793,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- colorscheme
-vim.cmd.colorscheme("vague")
+vim.cmd.colorscheme("crayon")
 
 -- commentstring for c/c++
 vim.api.nvim_create_autocmd("FileType", {

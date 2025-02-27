@@ -109,9 +109,9 @@ lazy-loaded. You can view the startup time with `:Lazy profile`.
 | :--------- | ------------: |
 | Ctrl Enter | Open terminal |
 
-## Markdown
+## Clipboard
 
-| Key     |       Binding |
-| :------ | ------------: |
-| Space p |  Open preview |
-| Space P | Close preview |
+| Key     |                     Binding |
+| :------ | --------------------------: |
+| Space y |    Yank to system clipboard |
+| Space p | Paste from system clipboard |
