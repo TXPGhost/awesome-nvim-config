@@ -32,6 +32,7 @@ local member = "#a1b56c"
 local green = member
 local red = string
 local blue = func
+local orange = number
 
 local fgg = blend(bg, fg, 0.85)
 local fggg = blend(bg, fg, 0.7)
@@ -92,14 +93,14 @@ vim.api.nvim_set_hl(0, "NonText", { fg = fggg })
 vim.api.nvim_set_hl(0, "MoreMsg", { fg = number, bold = true })
 
 vim.api.nvim_set_hl(0, "diffAdded", { fg = green, bg = blend(green, bg, 0.9) })
-vim.api.nvim_set_hl(0, "diffChanged", { fg = number, bg = blend(keyword_mod, bg, 0.9) })
-vim.api.nvim_set_hl(0, "diffRemoved", { fg = number, bg = blend(number, bg, 0.9) })
+vim.api.nvim_set_hl(0, "diffChanged", { fg = blue, bg = blend(blue, bg, 0.9) })
+vim.api.nvim_set_hl(0, "diffRemoved", { fg = red, bg = blend(red, bg, 0.9) })
 vim.api.nvim_set_hl(0, "diffLine", { fg = fggg })
 
 vim.api.nvim_set_hl(0, "DiffAdd", { link = "diffAdded" })
 vim.api.nvim_set_hl(0, "DiffChange", { link = "diffChanged" })
 vim.api.nvim_set_hl(0, "DiffDelete", { link = "diffRemoved" })
-vim.api.nvim_set_hl(0, "DiffText", { fg = number, bg = blend(number, bg, 0.8) })
+vim.api.nvim_set_hl(0, "DiffText", { fg = number, bg = blend(blue, bg, 0.8) })
 vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = green })
 vim.api.nvim_set_hl(0, "GitSignsChange", { fg = blue })
 vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = red })
@@ -111,7 +112,7 @@ vim.api.nvim_set_hl(0, "ConflictMarkerBegin", { bg = green })
 vim.api.nvim_set_hl(0, "ConflictMarkerOurs", { bg = blend(green, blue, 0.33) })
 vim.api.nvim_set_hl(0, "ConflictMarkerTheirs", { bg = blend(green, blue, 0.66) })
 vim.api.nvim_set_hl(0, "ConflictMarkerEnd", { bg = blue })
-vim.api.nvim_set_hl(0, "ConflictMarkerCommonAncestorsHunk", { bg = "#754a81" })
+vim.api.nvim_set_hl(0, "ConflictMarkerCommonAncestorsHunk", { fg = keyword })
 
 vim.api.nvim_set_hl(0, "DiagnosticOk", { fg = fg })
 vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = fg })
@@ -121,22 +122,22 @@ vim.api.nvim_set_hl(0, "DiagnosticError", { fg = number })
 
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineOk", { sp = fg, undercurl = true })
 vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo", { sp = fg, undercurl = true })
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { sp = keyword_mod, undercurl = true })
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { sp = string, undercurl = true })
-vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { sp = number, undercurl = true })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint", { sp = blue, undercurl = true })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", { sp = orange, undercurl = true })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { sp = red, undercurl = true })
 vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { fg = fggg })
 
 vim.api.nvim_set_hl(0, "DiagnosticVirtualTextOk", { fg = fg, bg = blend(fg, bg, 0.95), italic = true })
 vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo", { fg = fg, bg = blend(fg, bg, 0.95), italic = true })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { fg = func, bg = blend(keyword_mod, bg, 0.95), italic = true })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = string, bg = blend(string, bg, 0.95), italic = true })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = number, bg = blend(number, bg, 0.95), italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { fg = blue, bg = blend(blue, bg, 0.95), italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = orange, bg = blend(orange, bg, 0.95), italic = true })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = red, bg = blend(red, bg, 0.95), italic = true })
 
 vim.api.nvim_set_hl(0, "@punctuation", { link = "Operator" })
 vim.api.nvim_set_hl(0, "@punctuation.special", { link = "Operator" })
 vim.api.nvim_set_hl(0, "@operator", { link = "Operator" })
-vim.api.nvim_set_hl(0, "@keyword", { fg = keyword, italic = true, bold = true })
-vim.api.nvim_set_hl(0, "@keyword.modifier", { fg = keyword_mod, italic = true, bold = true })
+vim.api.nvim_set_hl(0, "@keyword", { fg = keyword, italic = true })
+vim.api.nvim_set_hl(0, "@keyword.modifier", { fg = keyword_mod, italic = true })
 vim.api.nvim_set_hl(0, "@variable", { fg = fg })
 vim.api.nvim_set_hl(0, "@function", { link = "Function" })
 vim.api.nvim_set_hl(0, "@function.builtin", { link = "Function" })
@@ -176,36 +177,12 @@ vim.api.nvim_set_hl(0, "@lsp.type.builtinAttribute", {})
 vim.api.nvim_set_hl(0, "@lsp.type.generic", {})
 
 vim.api.nvim_set_hl(0, "@markup.heading.markdown", { fg = number, bold = true })
-vim.api.nvim_set_hl(
-	0,
-	"@markup.heading.1.markdown",
-	{ fg = blend(number, keyword_mod, 0), bold = true, underline = true }
-)
-vim.api.nvim_set_hl(
-	0,
-	"@markup.heading.2.markdown",
-	{ fg = blend(number, keyword_mod, 0.2), bold = true, underline = true }
-)
-vim.api.nvim_set_hl(
-	0,
-	"@markup.heading.3.markdown",
-	{ fg = blend(number, keyword_mod, 0.4), bold = true, underline = true }
-)
-vim.api.nvim_set_hl(
-	0,
-	"@markup.heading.4.markdown",
-	{ fg = blend(number, keyword_mod, 0.6), bold = true, underline = true }
-)
-vim.api.nvim_set_hl(
-	0,
-	"@markup.heading.5.markdown",
-	{ fg = blend(number, keyword_mod, 0.8), bold = true, underline = true }
-)
-vim.api.nvim_set_hl(
-	0,
-	"@markup.heading.6.markdown",
-	{ fg = blend(number, keyword_mod, 1), bold = true, underline = true }
-)
+vim.api.nvim_set_hl(0, "@markup.heading.1.markdown", { fg = blend(number, string, 0), bold = true, underline = true })
+vim.api.nvim_set_hl(0, "@markup.heading.2.markdown", { fg = blend(number, string, 0.2), bold = true, underline = true })
+vim.api.nvim_set_hl(0, "@markup.heading.3.markdown", { fg = blend(number, string, 0.4), bold = true, underline = true })
+vim.api.nvim_set_hl(0, "@markup.heading.4.markdown", { fg = blend(number, string, 0.6), bold = true, underline = true })
+vim.api.nvim_set_hl(0, "@markup.heading.5.markdown", { fg = blend(number, string, 0.8), bold = true, underline = true })
+vim.api.nvim_set_hl(0, "@markup.heading.6.markdown", { fg = blend(number, string, 1), bold = true, underline = true })
 
 vim.api.nvim_set_hl(0, "@markup.list.markdown", { fg = fggg })
 vim.api.nvim_set_hl(0, "@markup.math.latex", { fg = number })
