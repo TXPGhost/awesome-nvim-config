@@ -632,38 +632,6 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"jakewvincent/mkdnflow.nvim",
-		ft = { "md", "rmd", "markdown" },
-		config = function()
-			require("mkdnflow").setup({
-				tables = {
-					style = {
-						mimic_alignment = false,
-					},
-				},
-				mappings = {
-					MkdnEnter = { { "n", "v" }, "gd" },
-					MkdnGoBack = { { "n", "v" }, "go" },
-					MkdnNextLink = false,
-					MkdnPrevLink = false,
-					MkdnNewListItem = { "i", "<cr>" },
-					MkdnDestroyLink = { "n", "gD" },
-					MkdnIncreaseHeading = false,
-					MkdnDecreaseHeading = false,
-					MkdnFoldSection = { "n", "zc" },
-					MkdnUnfoldSection = { "n", "zo" },
-					MkdnTableNextCell = { "i", "<right>" },
-					MkdnTablePrevCell = { "i", "<left>" },
-					MkdnTableNextRow = { "i", "<down>" },
-					MkdnTablePrevRow = { "i", "<up>" },
-				},
-				links = {
-					transform_explicit = false,
-				},
-			})
-		end,
-	},
-	{
 		"dfendr/clipboard-image.nvim",
 		ft = { "md", "rmd", "markdown" },
 	},
