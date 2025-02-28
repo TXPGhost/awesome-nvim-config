@@ -304,7 +304,7 @@ vim.api.nvim_set_hl(0, "@character.printf", { fg = magenta })
 vim.api.nvim_set_hl(0, "@lsp.type.formatSpecifier", { fg = yellow })
 vim.api.nvim_set_hl(0, "@character.special", { fg = fggg })
 
-vim.api.nvim_set_hl(0, "Terminal", { bg = bbg })
+vim.api.nvim_set_hl(0, "Terminal", { bg = bg })
 
 vim.api.nvim_set_hl(0, "LspInlayHint", { fg = fggggg })
 
