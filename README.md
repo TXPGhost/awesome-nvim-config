@@ -94,12 +94,6 @@ lazy-loaded. You can view the startup time with `:Lazy profile`.
 | H      |      Goto previous tab |
 | L      |          Goto next tab |
 
-### Terminal
-
-| Key        |       Binding |
-| :--------- | ------------: |
-| Ctrl Enter | Open terminal |
-
 ## Clipboard
 
 | Key     |                     Binding |

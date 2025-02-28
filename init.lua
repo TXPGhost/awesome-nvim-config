@@ -113,22 +113,6 @@ require("lazy").setup({
 			vim.diagnostic.config({ severity_sort = true, virtual_text = false })
 			-- vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
 
-			local border = {
-				{ "╭", "FloatBorder" },
-				{ "─", "FloatBorder" },
-				{ "╮", "FloatBorder" },
-				{ "│", "FloatBorder" },
-				{ "╯", "FloatBorder" },
-				{ "─", "FloatBorder" },
-				{ "╰", "FloatBorder" },
-				{ "│", "FloatBorder" },
-			}
-
-			-- LSP settings (for overriding per client)
-			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
-			vim.lsp.handlers["textDocument/signatureHelp"] =
-				vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
-
 			vim.keymap.set("n", "<space>d", "<cmd>Trouble diagnostics<cr>")
 			vim.keymap.set("n", "<space>a", function()
 				vim.lsp.buf.code_action()
@@ -484,7 +468,7 @@ require("lazy").setup({
 	},
 	{
 		"toppair/peek.nvim",
-		event = { "VeryLazy" },
+		cmd = { "PeekOpen", "PeekClose" },
 		build = "deno task --quiet build:fast",
 		config = function()
 			require("peek").setup({
@@ -492,13 +476,6 @@ require("lazy").setup({
 			})
 			vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
 			vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
-		end,
-	},
-	{
-		"saecki/crates.nvim",
-		event = "BufRead Cargo.toml",
-		config = function()
-			require("crates").setup({})
 		end,
 	},
 	{
@@ -522,6 +499,7 @@ require("lazy").setup({
 		"stevearc/oil.nvim",
 		keys = "-",
 		cmd = "Oil",
+		event = "VeryLazy",
 		config = function()
 			require("oil").setup({
 				watch_for_changes = true,
@@ -547,17 +525,10 @@ require("lazy").setup({
 					["g\\"] = { "actions.toggle_trash", mode = "n" },
 				},
 			})
-			-- require("oil-git-status").setup({})
 
 			vim.keymap.set("n", "-", "<cmd>Oil<cr>", { desc = "Open parent directory" })
 		end,
-		-- dependencies = { "refractalize/oil-git-status.nvim" },
-		dependencies = { "FerretDetective/oil-git-signs.nvim" },
-	},
-	{
-		"FerretDetective/oil-git-signs.nvim",
-		ft = "oil",
-		opts = {},
+		dependencies = { { "FerretDetective/oil-git-signs.nvim", opts = {} } },
 	},
 	{
 		"folke/trouble.nvim",
@@ -682,15 +653,6 @@ end, {})
 
 -- keymaps
 do
-	-- terminal
-	vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
-	vim.keymap.set("n", "<c-cr>", function()
-		vim.cmd("terminal")
-		vim.cmd("setlocal nonumber")
-		vim.cmd("setlocal norelativenumber")
-		vim.cmd("setlocal signcolumn=no")
-	end)
-
 	-- navigation
 	vim.keymap.set("n", "<c-h>", "<c-w><c-h>")
 	vim.keymap.set("n", "<c-j>", "<c-w><c-j>")
