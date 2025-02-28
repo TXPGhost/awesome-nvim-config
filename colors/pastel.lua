@@ -32,9 +32,7 @@ local func = "#669bbc"
 local member = "#adb9ce"
 local red = number
 local blue = func
-local lightblue = type
 local orange = string
-local purple = keyword
 
 local fgg = blend(bg, fg, 0.85)
 local fggg = blend(bg, fg, 0.7)
