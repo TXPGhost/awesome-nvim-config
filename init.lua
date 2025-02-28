@@ -761,7 +761,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- colorscheme
-vim.cmd.colorscheme("crayon")
+vim.cmd.colorscheme("pastel")
 
 -- commentstring for c/c++
 vim.api.nvim_create_autocmd("FileType", {
