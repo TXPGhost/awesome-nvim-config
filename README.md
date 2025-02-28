@@ -39,22 +39,13 @@ lazy-loaded. You can view the startup time with `:Lazy profile`.
 
 ### File navigation
 
-| Key       |                       Binding |
-| :-------- | ----------------------------: |
-| -         |                Open file tree |
-| Space -   | Open file tree and upadte CWD |
-| Enter     |                     Open file |
-| .         |                      Set root |
-| Backspace |           Change directory up |
-| `         |         Set current directory |
-| g.        |      Toggle show hidden files |
-| Space f   |          Search project files |
-| Space /   |  Search project file contents |
-| Ctrl r    |                 Refresh files |
-| Ctrl p    |                Toggle preview |
-| Ctrl t    |          Open file in new tab |
-| Ctrl s    |   Open file in vertical split |
-| O         |    Open in system application |
+| Key   |                        Binding |
+| :---- | -----------------------------: |
+| -     |    Open tree / Go up directory |
+| Enter |                      Open file |
+| _     | Goto current working directory |
+| \`    |  Set current working directory |
+| :w    |                   Save changes |
 
 ### Tree-Sitter
 

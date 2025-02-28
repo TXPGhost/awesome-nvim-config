@@ -519,52 +519,45 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"nvim-neo-tree/neo-tree.nvim",
+		"stevearc/oil.nvim",
 		keys = "-",
-		cmd = "Neotree",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons",
-			"MunifTanjim/nui.nvim",
-		},
+		cmd = "Oil",
 		config = function()
-			require("neo-tree").setup({
-				close_if_last_window = true,
-				filesystem = {
-					window = {
-						mappings = {
-							["O"] = "system_open",
-							["/"] = "noop",
-							["esc"] = "noop",
-						},
-						width = 30,
-					},
-					default_component_configs = {
-						filesystem = {
-							bind_to_cwd = true,
-							follow_current_file = {
-								enabled = true,
-							},
-						},
-						buffers = {
-							follow_current_file = {
-								enabled = true,
-							},
-						},
-					},
+			require("oil").setup({
+				watch_for_changes = true,
+				win_options = {
+					signcolumn = "yes:2",
 				},
-				commands = {
-					system_open = function(state)
-						local node = state.tree:get_node()
-						local path = node:get_id()
-						vim.fn.jobstart({ "xdg-open", path }, { detach = true })
-					end,
+				use_default_keymaps = false,
+				keymaps = {
+					["g?"] = { "actions.show_help", mode = "n" },
+					["<cr>"] = "actions.select",
+					["<c-s>"] = { "actions.select", opts = { vertical = true } },
+					["<c-t>"] = { "actions.select", opts = { tab = true } },
+					["<c-p>"] = "actions.preview",
+					["<c-c>"] = { "actions.close", mode = "n" },
+					["<c-r>"] = "actions.refresh",
+					["-"] = { "actions.parent", mode = "n" },
+					["_"] = { "actions.open_cwd", mode = "n" },
+					["`"] = { "actions.cd", mode = "n" },
+					["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
+					["gs"] = { "actions.change_sort", mode = "n" },
+					["gx"] = "actions.open_external",
+					["g."] = { "actions.toggle_hidden", mode = "n" },
+					["g\\"] = { "actions.toggle_trash", mode = "n" },
 				},
 			})
+			-- require("oil-git-status").setup({})
 
-			vim.keymap.set("n", "-", "<cmd>Neotree<cr>")
-			vim.keymap.set("n", "<space>-", "<cmd>Neotree reveal_force_cwd<cr>")
+			vim.keymap.set("n", "-", "<cmd>Oil<cr>", { desc = "Open parent directory" })
 		end,
+		-- dependencies = { "refractalize/oil-git-status.nvim" },
+		dependencies = { "FerretDetective/oil-git-signs.nvim" },
+	},
+	{
+		"FerretDetective/oil-git-signs.nvim",
+		ft = "oil",
+		opts = {},
 	},
 	{
 		"folke/trouble.nvim",
@@ -722,9 +715,6 @@ do
 	-- clear highlighting
 	vim.keymap.set("n", "<esc>", "<cmd>noh<cr>")
 
-	-- easy file save
-	vim.keymap.set("n", "<cr>", ":w<cr>")
-
 	-- system clipboard
 	vim.keymap.set({ "n", "v" }, "<space>y", '"+y')
 	vim.keymap.set({ "n", "v" }, "<space>p", '"+p')
@@ -750,6 +740,7 @@ vim.opt.smartindent = true
 vim.opt.laststatus = 3
 vim.opt.showmode = false
 vim.opt.guifont = "BlexMono Nerd Font:h9.5"
+vim.opt.pumheight = 30
 
 -- spell for markdown files
 -- Set spell check only for markdown files

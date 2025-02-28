@@ -32,7 +32,9 @@ local func = "#669bbc"
 local member = "#adb9ce"
 local red = number
 local blue = func
+local lightblue = type
 local orange = string
+local purple = keyword
 
 local fgg = blend(bg, fg, 0.85)
 local fggg = blend(bg, fg, 0.7)
@@ -314,3 +316,9 @@ vim.api.nvim_set_hl(0, "WinBar", { fg = fgg, bg = bgg, italic = false })
 vim.api.nvim_set_hl(0, "WinBarNC", { fg = fggg, bg = bgg, italic = false })
 
 vim.api.nvim_set_hl(0, "@constructor.ocaml", { link = "Constant" })
+
+vim.api.nvim_set_hl(0, "OilChange", { fg = blue })
+vim.api.nvim_set_hl(0, "OilCreate", { fg = green })
+vim.api.nvim_set_hl(0, "OilDelete", { fg = red })
+vim.api.nvim_set_hl(0, "OilMove", { fg = blue })
+vim.api.nvim_set_hl(0, "OilCopy", { fg = green })
