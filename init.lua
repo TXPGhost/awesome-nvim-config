@@ -503,9 +503,6 @@ require("lazy").setup({
 		config = function()
 			require("oil").setup({
 				watch_for_changes = true,
-				win_options = {
-					signcolumn = "yes:2",
-				},
 				use_default_keymaps = false,
 				keymaps = {
 					["g?"] = { "actions.show_help", mode = "n" },
@@ -528,7 +525,6 @@ require("lazy").setup({
 
 			vim.keymap.set("n", "-", "<cmd>Oil<cr>", { desc = "Open parent directory" })
 		end,
-		dependencies = { { "FerretDetective/oil-git-signs.nvim", opts = {} } },
 	},
 	{
 		"folke/trouble.nvim",
@@ -691,7 +687,7 @@ vim.opt.relativenumber = true
 vim.opt.linebreak = true
 vim.opt.shell = "fish"
 vim.opt.textwidth = 80
-vim.opt.shortmess:append("I")
+-- vim.opt.shortmess:append("I")
 vim.opt.termguicolors = true
 vim.opt.mousescroll = "hor:0,ver:2"
 vim.opt.conceallevel = 0
@@ -701,7 +697,6 @@ vim.opt.wrap = false
 vim.opt.smartindent = true
 vim.opt.laststatus = 3
 vim.opt.showmode = false
-vim.opt.guifont = "BlexMono Nerd Font:h9.5"
 vim.opt.pumheight = 30
 
 -- spell for markdown files
@@ -723,23 +718,3 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.bo.commentstring = "// %s"
 	end,
 })
-
--- neovide config
-if vim.g.neovide then
-	local default_scale_factor = 1
-
-	vim.g.neovide_scale_factor = default_scale_factor
-
-	vim.keymap.set("n", "<c-=>", function()
-		vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * 1.1
-		vim.cmd("redraw!")
-	end)
-	vim.keymap.set("n", "<c-->", function()
-		vim.g.neovide_scale_factor = vim.g.neovide_scale_factor / 1.1
-		vim.cmd("redraw!")
-	end)
-	vim.keymap.set("n", "<c-0>", function()
-		vim.g.neovide_scale_factor = default_scale_factor
-		vim.cmd("redraw!")
-	end)
-end

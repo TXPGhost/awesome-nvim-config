@@ -323,3 +323,18 @@ vim.api.nvim_set_hl(0, "OilCreate", { fg = green })
 vim.api.nvim_set_hl(0, "OilDelete", { fg = red })
 vim.api.nvim_set_hl(0, "OilMove", { fg = blue })
 vim.api.nvim_set_hl(0, "OilCopy", { fg = green })
+
+vim.api.nvim_set_hl(0, "manSectionHeading", { link = "@markup.heading" })
+vim.api.nvim_set_hl(0, "manSubHeading", { bold = true, fg = blend(red, orange, 0.5) })
+vim.api.nvim_set_hl(0, "manReference", { link = "@markup.link" })
+
+vim.api.nvim_set_hl(0, "LazyH1", { fg = blend(red, orange, 0), bold = true })
+vim.api.nvim_set_hl(0, "LazyH2", { fg = blend(red, orange, 0.2), bold = true })
+vim.api.nvim_set_hl(0, "LazyH3", { fg = blend(red, orange, 0.4), bold = true })
+vim.api.nvim_set_hl(0, "LazyH4", { fg = blend(red, orange, 0.6), bold = true })
+vim.api.nvim_set_hl(0, "LazyH5", { fg = blend(red, orange, 0.8), bold = true })
+vim.api.nvim_set_hl(0, "LazyH6", { fg = blend(red, orange, 1), bold = true })
+
+vim.api.nvim_set_hl(0, "LazySpecial", { fg = fggg })
+vim.api.nvim_set_hl(0, "LazyButton", { fg = type, bold = true })
+vim.api.nvim_set_hl(0, "LazyButtonActive", { fg = blue, bold = true, underline = true })
