@@ -176,7 +176,7 @@ local plugins = {
 			require("nvim-ts-autotag").setup()
 			require("treesitter-context").setup({
 				update_debounce = 15,
-				-- max_lines = 3,
+				multiwindow = true,
 				multiline_threshold = 1,
 				trim_scope = "inner",
 			})
