@@ -15,8 +15,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- disable some plugins for large files
 local large_file_disable = function(buf)
-	local max_filesize = 1024 * 1024 -- 1 MB
+	local max_filesize = 1024 * 1024 -- 1 MiB
 	local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
 	if ok and stats and stats.size > max_filesize then
 		return true
@@ -632,7 +633,7 @@ require("lazy").setup({
 -- set help window to vertical split
 vim.api.nvim_create_autocmd({ "FileType" }, { pattern = { "help" }, command = "wincmd L" })
 
--- latex
+-- latex auto compilation
 vim.api.nvim_create_user_command("LatexCompile", function()
 	local texpath = vim.fn.expand("%")
 	vim.cmd("!tectonic -Z continue-on-errors " .. texpath)
