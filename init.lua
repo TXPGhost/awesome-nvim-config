@@ -672,7 +672,7 @@ vim.api.nvim_create_user_command("Config", function()
 	vim.cmd("e " .. debug.getinfo(1).source:sub(2))
 end, {})
 
--- keymaps
+-- misc. keymaps
 do
 	-- navigation
 	vim.keymap.set("n", "<c-h>", "<c-w><c-h>")
@@ -703,7 +703,7 @@ do
 	vim.keymap.set({ "n", "v" }, "<space>p", '"+p')
 end
 
--- startup commands
+-- startup opts
 vim.opt.compatible = false
 vim.opt.swapfile = false
 vim.opt.signcolumn = "yes"
