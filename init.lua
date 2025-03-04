@@ -159,7 +159,7 @@ local plugins = {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = "BufRead",
+		event = "VeryLazy",
 		build = ":TSUpdate",
 		config = function()
 			---@diagnostic disable-next-line: missing-fields
@@ -505,7 +505,7 @@ local plugins = {
 		"stevearc/oil.nvim",
 		keys = "-",
 		cmd = "Oil",
-		event = "VeryLazy",
+		event = { "VimEnter */*,.*", "BufNew */*,.*" },
 		config = function()
 			require("oil").setup({
 				watch_for_changes = true,
@@ -534,7 +534,8 @@ local plugins = {
 	},
 	{
 		"folke/trouble.nvim",
-		event = "VeryLazy",
+		cmd = "Trouble",
+		event = "LspAttach",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			---@diagnostic disable-next-line: missing-fields
@@ -599,7 +600,7 @@ local plugins = {
 	},
 	{
 		"dfendr/clipboard-image.nvim",
-		ft = { "md", "rmd", "markdown" },
+		cmd = "PasteImg",
 	},
 	{
 		"echasnovski/mini.statusline",
