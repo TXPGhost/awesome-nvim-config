@@ -158,7 +158,7 @@ vim.api.nvim_set_hl(0, "@lsp.type.selfKeyword", { link = "@keyword" })
 
 vim.api.nvim_set_hl(0, "@constant.builtin", { link = "Constant" })
 
-vim.api.nvim_set_hl(0, "@function.macro", { fg = number })
+vim.api.nvim_set_hl(0, "@function.macro", { link = "PreProc" })
 
 vim.api.nvim_set_hl(0, "@type", { link = "Type" })
 vim.api.nvim_set_hl(0, "@type.builtin", { link = "Type" })
@@ -185,18 +185,18 @@ vim.api.nvim_set_hl(0, "@markup.heading.4", { fg = blend(red, orange, 0.6), bold
 vim.api.nvim_set_hl(0, "@markup.heading.5", { fg = blend(red, orange, 0.8), bold = true, underline = true })
 vim.api.nvim_set_hl(0, "@markup.heading.6", { fg = blend(red, orange, 1), bold = true, underline = true })
 
-vim.api.nvim_set_hl(0, "@markup.list.markdown", { fg = fggg })
+vim.api.nvim_set_hl(0, "@markup.list.markdown", { fg = fgggg })
 vim.api.nvim_set_hl(0, "@markup.math.latex", { fg = number })
 vim.api.nvim_set_hl(0, "@markup.raw.block.markdown", { fg = fgggg })
 
-vim.api.nvim_set_hl(0, "@markup.strong", { fg = member, bold = true })
-vim.api.nvim_set_hl(0, "@markup.italic", { fg = member, italic = true })
-vim.api.nvim_set_hl(0, "@markup.strikethrough", { fg = member, strikethrough = true })
+vim.api.nvim_set_hl(0, "@markup.strong", { bold = true })
+vim.api.nvim_set_hl(0, "@markup.italic", { italic = true })
+vim.api.nvim_set_hl(0, "@markup.strikethrough", { strikethrough = true })
 vim.api.nvim_set_hl(0, "@markup.link", { fg = type, underline = true })
 vim.api.nvim_set_hl(0, "@markup.link.markdown_inline", { link = "@punctuation" })
 vim.api.nvim_set_hl(0, "@markup.link.url", { link = "@markup.link" })
 vim.api.nvim_set_hl(0, "@markup.link.label", { fg = type, bold = true })
-vim.api.nvim_set_hl(0, "@markup.raw", { fg = keyword })
+vim.api.nvim_set_hl(0, "@markup.raw", { link = "@markup.raw.block.markdown" })
 
 vim.api.nvim_set_hl(0, "@markup.quote.markdown", { fg = fggg })
 vim.api.nvim_set_hl(0, "@punctuation.special.markdown", { fg = fgggg })
