@@ -712,7 +712,6 @@ vim.opt.relativenumber = true
 vim.opt.linebreak = true
 vim.opt.shell = "fish"
 vim.opt.textwidth = 80
--- vim.opt.shortmess:append("I")
 vim.opt.termguicolors = true
 vim.opt.mousescroll = "hor:0,ver:2"
 vim.opt.conceallevel = 0
@@ -720,9 +719,9 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.wrap = false
 vim.opt.smartindent = true
-vim.opt.laststatus = 3
 vim.opt.showmode = false
 vim.opt.pumheight = 30
+vim.opt.conceallevel = 2
 
 -- spell for markdown files
 -- Set spell check only for markdown files
