@@ -24,7 +24,8 @@ local large_file_disable = function(buf)
 	end
 end
 
-require("lazy").setup({
+-- plugin definitions
+local plugins = {
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "kevinhwang91/promise-async", lazy = true },
 	{
@@ -626,6 +627,25 @@ require("lazy").setup({
 		event = "VeryLazy",
 		opts = {
 			scrolloff_percentage = 0.2,
+		},
+	},
+}
+
+---@diagnostic disable-next-line: missing-fields
+require("lazy").setup(plugins, {
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"gzip",
+				"matchit",
+				"netrwPlugin",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+				"man",
+				"osc52",
+			},
 		},
 	},
 })
