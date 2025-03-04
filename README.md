@@ -1,6 +1,8 @@
 # awesome-nvim-config
 
 Neovim configuration with a focus on simplicity, ease of use, and consistency.
+Designed to resemble "vanilla" Vim/Neovim with support for LSP, autoformatting,
+git integration, and various other improvements.
 
 ![Screenshot of config](preview.png)
 
