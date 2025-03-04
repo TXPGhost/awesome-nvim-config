@@ -473,8 +473,9 @@ local plugins = {
 		event = "VeryLazy",
 	},
 	{
-		"toppair/peek.nvim",
+		"n-crespo/peek.nvim",
 		cmd = { "PeekOpen", "PeekClose" },
+		keys = "<space>m",
 		build = "deno task --quiet build:fast",
 		config = function()
 			require("peek").setup({
@@ -482,6 +483,8 @@ local plugins = {
 			})
 			vim.api.nvim_create_user_command("PeekOpen", require("peek").open, {})
 			vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
+			vim.keymap.set("n", "<space>m", require("peek").open)
+			vim.keymap.set("n", "<space>M", require("peek").close)
 		end,
 	},
 	{

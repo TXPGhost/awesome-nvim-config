@@ -100,3 +100,10 @@ lazy-loaded. You can view the startup time with `:Lazy profile`.
 | :------ | --------------------------: |
 | Space y |    Yank to system clipboard |
 | Space p | Paste from system clipboard |
+
+## Markdown
+
+| Key     |                Binding |
+| :------ | ---------------------: |
+| Space m |  Open markdown preview |
+| Space M | Close markdown preview |
