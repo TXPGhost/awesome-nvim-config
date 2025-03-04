@@ -211,7 +211,7 @@ local plugins = {
 				ocaml = { "ocamlformat" },
 				haskell = { "ormolu" },
 				python = { "isort", "black" },
-				tex = { "latexindent" },
+				tex = { "latexindent_no_log" },
 				_ = { "trim_whitespace" },
 			},
 			format_on_save = function(bufnr)
@@ -231,6 +231,14 @@ local plugins = {
 						"$FILENAME",
 						"-",
 					},
+				},
+				["latexindent_no_log"] = {
+					command = "latexindent",
+					args = { "--logfile=/dev/null" },
+					range_args = function(_, ctx)
+						return { "--lines", ctx.range.start[1] .. "-" .. ctx.range["end"][1] }
+					end,
+					stdin = true,
 				},
 			},
 		},
