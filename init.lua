@@ -708,7 +708,10 @@ do
 	vim.keymap.set("n", "<a-l>", "<c-w><c->>")
 
 	-- clear highlighting
-	vim.keymap.set("n", "<esc>", "<cmd>noh<cr>")
+	vim.keymap.set("n", "<esc>", function()
+		vim.cmd.noh()
+		vim.snippet.stop()
+	end)
 
 	-- system clipboard
 	vim.keymap.set({ "n", "v" }, "<space>y", '"+y')
@@ -745,7 +748,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- colorscheme
-vim.cmd.colorscheme("pastel")
+vim.cmd.colorscheme("arob")
 
 -- commentstring for c/c++
 vim.api.nvim_create_autocmd("FileType", {
