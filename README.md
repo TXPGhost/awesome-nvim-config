@@ -51,10 +51,11 @@ lazy-loaded. You can view the startup time with `:Lazy profile`.
 
 ### Tree-Sitter
 
-| Key     |    Binding |
-| :------ | ---------: |
-| Space j | Split node |
-| Space k |  Join node |
+| Key     |         Binding |
+| :------ | --------------: |
+| Space j |      Split node |
+| Space k |       Join node |
+| \[c     | Jump to context |
 
 ### LSP
 

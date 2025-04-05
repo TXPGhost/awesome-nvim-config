@@ -181,6 +181,9 @@ local plugins = {
 				multiline_threshold = 1,
 				trim_scope = "inner",
 			})
+			vim.keymap.set("n", "[c", function()
+				require("treesitter-context").go_to_context(vim.v.count1)
+			end, { silent = true })
 		end,
 		dependencies = {
 			"RRethy/nvim-treesitter-endwise",
@@ -741,6 +744,7 @@ vim.opt.pumheight = 30
 vim.opt.conceallevel = 2
 vim.opt.cursorline = true
 vim.opt.laststatus = 3
+vim.opt.clipboard = "unnamedplus"
 
 -- spell for markdown files
 -- Set spell check only for markdown files
