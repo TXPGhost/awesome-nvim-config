@@ -22,6 +22,7 @@ local large_file_disable = function(buf)
 	if ok and stats and stats.size > max_filesize then
 		return true
 	end
+	return false
 end
 
 -- plugin definitions
@@ -291,8 +292,8 @@ local plugins = {
 				},
 				---@diagnostic disable-next-line: missing-fields
 				performance = {
-					debounce = 0,
-					throttle = 0,
+					debounce = 5,
+					throttle = 5,
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<cr>"] = cmp.mapping(function(fallback)
@@ -385,21 +386,22 @@ local plugins = {
 			},
 		},
 	},
-	-- {
-	-- 	"zbirenbaum/copilot.lua",
-	-- 	cmd = "Copilot",
-	-- 	event = "InsertEnter",
-	-- 	config = function()
-	-- 		require("copilot").setup({
-	-- 			panel = {
-	-- 				position = "right",
-	-- 			},
-	-- 			suggestion = {
-	-- 				auto_trigger = true,
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		config = function()
+			require("copilot").setup({
+				panel = {
+					position = "right",
+				},
+			})
+
+			local cmp = require("cmp")
+			vim.keymap.set("i", "<a-]>", cmp.close())
+			vim.keymap.set("i", "<a-[>", cmp.close())
+			vim.keymap.set("i", "<a-l>", cmp.close())
+		end,
+	},
 	{
 		"kylechui/nvim-surround",
 		keys = { "ys", "cs", "ds" },
@@ -638,7 +640,7 @@ local plugins = {
 		"tonymajestro/smart-scrolloff.nvim",
 		event = "VeryLazy",
 		opts = {
-			scrolloff_percentage = 0.2,
+			scrolloff_percentage = 0.15,
 		},
 	},
 }
@@ -737,6 +739,7 @@ vim.opt.smartindent = true
 vim.opt.showmode = false
 vim.opt.pumheight = 30
 vim.opt.conceallevel = 2
+vim.opt.cursorline = true
 
 -- spell for markdown files
 -- Set spell check only for markdown files
@@ -748,7 +751,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- colorscheme
-vim.cmd.colorscheme("arob")
+vim.cmd.colorscheme("newhaba")
 
 -- commentstring for c/c++
 vim.api.nvim_create_autocmd("FileType", {
