@@ -640,7 +640,7 @@ local plugins = {
 		"tonymajestro/smart-scrolloff.nvim",
 		event = "VeryLazy",
 		opts = {
-			scrolloff_percentage = 0.15,
+			scrolloff_percentage = 0.1,
 		},
 	},
 }
@@ -740,6 +740,7 @@ vim.opt.showmode = false
 vim.opt.pumheight = 30
 vim.opt.conceallevel = 2
 vim.opt.cursorline = true
+vim.opt.laststatus = 3
 
 -- spell for markdown files
 -- Set spell check only for markdown files
@@ -751,7 +752,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- colorscheme
-vim.cmd.colorscheme("newhaba")
+vim.cmd.colorscheme("haba")
 
 -- commentstring for c/c++
 vim.api.nvim_create_autocmd("FileType", {
