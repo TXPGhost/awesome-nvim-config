@@ -24,7 +24,7 @@ local colors = {
 	member = member,
 	red = constant,
 	blue = func,
-	heading = constant,
+	orange = constant,
 }
 
 colorscheme.colorscheme(colors)

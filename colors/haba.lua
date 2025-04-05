@@ -20,7 +20,7 @@ local colors = {
 	member = colorscheme.blend(keyword, func, 0.5),
 	red = constant,
 	blue = func,
-	heading = string,
+	orange = constant,
 }
 
 colorscheme.colorscheme(colors)
