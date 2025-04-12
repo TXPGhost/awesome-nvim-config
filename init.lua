@@ -741,7 +741,6 @@ vim.opt.wrap = false
 vim.opt.smartindent = true
 vim.opt.showmode = false
 vim.opt.pumheight = 30
-vim.opt.conceallevel = 2
 vim.opt.cursorline = true
 vim.opt.laststatus = 3
 vim.opt.clipboard = "unnamedplus"
