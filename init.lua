@@ -117,7 +117,11 @@ local plugins = {
 			vim.fn.sign_define("DiagnosticSignHint", { text = "" })
 			vim.fn.sign_define("DiagnosticSignOk", { text = "" })
 
-			vim.diagnostic.config({ severity_sort = true, virtual_text = false })
+			vim.diagnostic.config({
+				severity_sort = true,
+				float = true,
+				update_in_insert = true,
+			})
 			-- vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
 
 			vim.keymap.set("n", "<space>d", "<cmd>Trouble diagnostics<cr>")
@@ -125,8 +129,12 @@ local plugins = {
 				vim.lsp.buf.code_action()
 			end)
 
-			vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+			vim.keymap.set("n", "]d", function()
+				vim.diagnostic.jump({ count = 1, float = true })
+			end)
+			vim.keymap.set("n", "[d", function()
+				vim.diagnostic.jump({ count = -1, float = true })
+			end)
 
 			vim.keymap.set("n", "<space>h", function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
@@ -293,11 +301,6 @@ local plugins = {
 				completion = {
 					completeopt = "menu,menuone,noinsert",
 				},
-				---@diagnostic disable-next-line: missing-fields
-				performance = {
-					debounce = 5,
-					throttle = 5,
-				},
 				mapping = cmp.mapping.preset.insert({
 					["<cr>"] = cmp.mapping(function(fallback)
 						local entry = cmp.core.view:get_selected_entry()
@@ -443,7 +446,6 @@ local plugins = {
 					add = { text = "│" },
 					change = { text = "│" },
 				},
-				update_debounce = 15,
 			})
 
 			vim.keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
@@ -731,7 +733,6 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.linebreak = true
 vim.opt.shell = "fish"
-vim.opt.textwidth = 80
 vim.opt.termguicolors = true
 vim.opt.mousescroll = "hor:0,ver:2"
 vim.opt.conceallevel = 0
@@ -745,12 +746,12 @@ vim.opt.cursorline = true
 vim.opt.laststatus = 3
 vim.opt.clipboard = "unnamedplus"
 
--- spell for markdown files
--- Set spell check only for markdown files
+-- local options for markdown files
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "markdown",
 	callback = function()
 		vim.opt_local.spell = true
+		vim.opt_local.textwidth = 80
 	end,
 })
 
