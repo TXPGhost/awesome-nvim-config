@@ -176,6 +176,7 @@ local plugins = {
 				auto_install = true,
 				highlight = {
 					enable = true,
+					additional_vim_regex_highlighting = false,
 					disable = function(_, buf)
 						return large_file_disable(buf)
 					end,
@@ -745,6 +746,14 @@ vim.opt.pumheight = 30
 vim.opt.cursorline = true
 vim.opt.laststatus = 3
 vim.opt.clipboard = "unnamedplus"
+
+-- make sure `.ll` gets recognized as llvm
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	pattern = { "*.ll" },
+	callback = function()
+		vim.bo.filetype = "llvm"
+	end,
+})
 
 -- local options for markdown files
 vim.api.nvim_create_autocmd("FileType", {
