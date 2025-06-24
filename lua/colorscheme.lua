@@ -356,6 +356,9 @@ M.colorscheme = function(colors)
 	vim.api.nvim_set_hl(0, "LazySpecial", { fg = fggg })
 	vim.api.nvim_set_hl(0, "LazyButton", { fg = type, bold = true })
 	vim.api.nvim_set_hl(0, "LazyButtonActive", { fg = blue, bold = true, underline = true })
+
+	vim.api.nvim_set_hl(0, "IndentGuide", { fg = bgg })
+	vim.api.nvim_set_hl(0, "IndentGuideScope", { fg = bggggg })
 end
 
 return M

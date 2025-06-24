@@ -111,18 +111,19 @@ local plugins = {
 				end
 			end
 
-			vim.fn.sign_define("DiagnosticSignError", { text = "" })
-			vim.fn.sign_define("DiagnosticSignWarn", { text = "" })
-			vim.fn.sign_define("DiagnosticSignInfo", { text = "" })
-			vim.fn.sign_define("DiagnosticSignHint", { text = "" })
-			vim.fn.sign_define("DiagnosticSignOk", { text = "" })
-
 			vim.diagnostic.config({
 				severity_sort = true,
 				float = true,
 				update_in_insert = true,
+				signs = {
+					text = {
+						[vim.diagnostic.severity.ERROR] = "",
+						[vim.diagnostic.severity.WARN] = "",
+						[vim.diagnostic.severity.HINT] = "",
+						[vim.diagnostic.severity.INFO] = "",
+					},
+				},
 			})
-			-- vim.diagnostic.config({ severity_sort = true, virtual_text = { prefix = "" } })
 
 			vim.keymap.set("n", "<space>d", "<cmd>Trouble diagnostics<cr>")
 			vim.keymap.set("n", "<space>a", function()
@@ -190,9 +191,6 @@ local plugins = {
 				multiline_threshold = 1,
 				trim_scope = "inner",
 			})
-			vim.keymap.set("n", "[c", function()
-				require("treesitter-context").go_to_context(vim.v.count1)
-			end, { silent = true })
 		end,
 		dependencies = {
 			"RRethy/nvim-treesitter-endwise",
@@ -447,6 +445,7 @@ local plugins = {
 					add = { text = "│" },
 					change = { text = "│" },
 				},
+				update_debounce = 15,
 			})
 
 			vim.keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
@@ -577,6 +576,7 @@ local plugins = {
 				modes = {
 					lsp_document_symbols = {
 						mode = "lsp_document_symbols",
+						auto_close = false,
 						focus = false,
 						win = { position = "right", relative = "win" },
 						filter = {
@@ -649,6 +649,36 @@ local plugins = {
 			scrolloff_percentage = 0.1,
 		},
 	},
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		event = "VeryLazy",
+		config = function()
+			require("ibl").setup({
+				debounce = 15,
+				indent = {
+					highlight = "IndentGuide",
+					char = "▏",
+				},
+				scope = {
+					enabled = true,
+					show_start = false,
+					show_end = false,
+					highlight = "IndentGuideScope",
+					char = "▏",
+				},
+			})
+		end,
+	},
+	{
+		"Bekaboo/dropbar.nvim",
+		config = function()
+			local dropbar_api = require("dropbar.api")
+			vim.keymap.set("n", "<space>c", dropbar_api.pick, { desc = "Pick symbols in winbar" })
+			vim.keymap.set("n", "[c", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
+			vim.keymap.set("n", "]c", dropbar_api.select_next_context, { desc = "Select next context" })
+		end,
+	},
 }
 
 ---@diagnostic disable-next-line: missing-fields
@@ -720,10 +750,6 @@ do
 		vim.cmd.noh()
 		vim.snippet.stop()
 	end)
-
-	-- system clipboard
-	vim.keymap.set({ "n", "v" }, "<space>y", '"+y')
-	vim.keymap.set({ "n", "v" }, "<space>p", '"+p')
 end
 
 -- startup opts
