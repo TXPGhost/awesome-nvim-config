@@ -665,25 +665,22 @@ local plugins = {
 	},
 	{
 		"olimorris/codecompanion.nvim",
-		keys = { "<space>i", "<space>I" },
-		opts = {},
+		keys = { "<space>i", "<space>I", "<space>A" },
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
 			"echasnovski/mini.diff",
+			"zbirenbaum/copilot.lua",
 		},
 		config = function()
-			require("codecompanion").setup({
-				display = {
-					chat = {
-						window = {
-							width = 0.25,
-						},
-					},
-				},
+			require("copilot").setup({
+				suggestion = { enabled = false },
+				panel = { enabled = false },
 			})
+			require("codecompanion").setup({ display = { chat = { window = { width = 0.25 } } } })
 			vim.keymap.set("n", "<space>i", "<cmd>CodeCompanion<cr>")
 			vim.keymap.set("n", "<space>I", "<cmd>CodeCompanionChat<cr>")
+			vim.keymap.set("n", "<space>A", "<cmd>CodeCompanionActions<cr>")
 		end,
 	},
 	{

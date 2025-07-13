@@ -18,6 +18,14 @@ lazy-loaded. You can view the startup time with `:Lazy profile`.
 
 ## Keybindings
 
+### AI
+
+| Key     |             Binding |
+| :------ | ------------------: |
+| Space i |   AI code insertion |
+| Space I | Open AI chat window |
+| Space A |      AI code action |
+
 ### Git
 
 | Key         |                     Binding |
