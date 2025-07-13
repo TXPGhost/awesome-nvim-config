@@ -392,22 +392,6 @@ local plugins = {
 		},
 	},
 	{
-		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
-		config = function()
-			require("copilot").setup({
-				panel = {
-					position = "right",
-				},
-			})
-
-			local cmp = require("cmp")
-			vim.keymap.set("i", "<a-]>", cmp.close())
-			vim.keymap.set("i", "<a-[>", cmp.close())
-			vim.keymap.set("i", "<a-l>", cmp.close())
-		end,
-	},
-	{
 		"kylechui/nvim-surround",
 		keys = { "ys", "cs", "ds" },
 		config = function()
@@ -679,6 +663,39 @@ local plugins = {
 			vim.keymap.set("n", "]c", dropbar_api.select_next_context, { desc = "Select next context" })
 		end,
 	},
+	{
+		"olimorris/codecompanion.nvim",
+		keys = { "<space>i", "<space>I" },
+		opts = {},
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"echasnovski/mini.diff",
+		},
+		config = function()
+			require("codecompanion").setup({
+				display = {
+					chat = {
+						window = {
+							width = 0.25,
+						},
+					},
+				},
+			})
+			vim.keymap.set("n", "<space>i", "<cmd>CodeCompanion<cr>")
+			vim.keymap.set("n", "<space>I", "<cmd>CodeCompanionChat<cr>")
+		end,
+	},
+	{
+		"echasnovski/mini.diff",
+		event = "VeryLazy",
+		config = function()
+			local diff = require("mini.diff")
+			diff.setup({
+				source = diff.gen_source.none(),
+			})
+		end,
+	},
 }
 
 ---@diagnostic disable-next-line: missing-fields
@@ -734,7 +751,6 @@ do
 	vim.keymap.set("n", "H", "<cmd>tabprev<cr>")
 	vim.keymap.set("n", "<c-s>", function()
 		vim.cmd("wincmd v")
-		vim.cmd("wincmd l")
 	end)
 	vim.keymap.set("n", "<c-n>", function()
 		vim.cmd("new")
@@ -772,6 +788,7 @@ vim.opt.pumheight = 30
 vim.opt.cursorline = true
 vim.opt.laststatus = 3
 vim.opt.clipboard = "unnamedplus"
+vim.opt.splitright = true
 
 -- make sure `.ll` gets recognized as llvm
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {

@@ -7,9 +7,11 @@ local fgggg = "#6b665f"
 local fggggg = "#514e48"
 local bg = "#1e1f1f"
 local string = "#6293bb"
+local green = "#62a56b"
 local keyword = "#d1b78e"
 local constant = "#c64640"
 local func = "#d1a764"
+local orange = "#d17754"
 
 local colors = {
 	fg = fg,
@@ -22,12 +24,12 @@ local colors = {
 	keyword = keyword,
 	constant = constant,
 	func = func,
-	green = string,
+	green = green,
 	type = colorscheme.blend(string, func, 0.8),
 	member = colorscheme.blend(keyword, func, 0.5),
 	red = constant,
 	blue = string,
-	orange = constant,
+	orange = orange,
 }
 
 colorscheme.colorscheme(colors)
