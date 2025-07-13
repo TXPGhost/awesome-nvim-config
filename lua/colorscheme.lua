@@ -40,10 +40,10 @@ M.colorscheme = function(colors)
 	local blue = colors.blue or func
 	local orange = colors.orange or constant
 
-	local fgg = blend(bg, fg, 0.85)
-	local fggg = blend(bg, fg, 0.7)
-	local fgggg = blend(bg, fg, 0.55)
-	local fggggg = blend(bg, fg, 0.4)
+	local fgg = colors.fgg or blend(bg, fg, 0.85)
+	local fggg = colors.fggg or blend(bg, fg, 0.7)
+	local fgggg = colors.fgggg or blend(bg, fg, 0.55)
+	local fggggg = colors.fggggg or blend(bg, fg, 0.4)
 
 	local bgg = blend(bg, fg, 0.01)
 	local bggg = blend(bg, fg, 0.02)

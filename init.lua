@@ -791,7 +791,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- colorscheme
-vim.cmd.colorscheme("haba")
+vim.cmd.colorscheme("warm")
 
 -- commentstring for c/c++
 vim.api.nvim_create_autocmd("FileType", {
