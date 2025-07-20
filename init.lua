@@ -403,13 +403,7 @@ local plugins = {
 		event = "InsertEnter",
 		config = function()
 			local npairs = require("nvim-autopairs")
-			local rule = require("nvim-autopairs.rule")
-			local cond = require("nvim-autopairs.conds")
-
 			npairs.setup({})
-			npairs.add_rules({
-				rule(">", ">"):with_pair(cond.none()):with_move(cond.done()):with_cr(cond.none()):with_del(cond.done()),
-			})
 
 			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 			local cmp = require("cmp")
@@ -634,36 +628,6 @@ local plugins = {
 		},
 	},
 	{
-		"lukas-reineke/indent-blankline.nvim",
-		main = "ibl",
-		event = "VeryLazy",
-		config = function()
-			require("ibl").setup({
-				debounce = 15,
-				indent = {
-					highlight = "IndentGuide",
-					char = "▏",
-				},
-				scope = {
-					enabled = true,
-					show_start = false,
-					show_end = false,
-					highlight = "IndentGuideScope",
-					char = "▏",
-				},
-			})
-		end,
-	},
-	{
-		"Bekaboo/dropbar.nvim",
-		config = function()
-			local dropbar_api = require("dropbar.api")
-			vim.keymap.set("n", "<space>c", dropbar_api.pick, { desc = "Pick symbols in winbar" })
-			vim.keymap.set("n", "[c", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
-			vim.keymap.set("n", "]c", dropbar_api.select_next_context, { desc = "Select next context" })
-		end,
-	},
-	{
 		"olimorris/codecompanion.nvim",
 		keys = { "<space>i", "<space>I", "<space>A" },
 		dependencies = {
@@ -671,16 +635,20 @@ local plugins = {
 			"nvim-treesitter/nvim-treesitter",
 			"echasnovski/mini.diff",
 			"zbirenbaum/copilot.lua",
+			"franco-ruggeri/codecompanion-spinner.nvim",
 		},
 		config = function()
 			require("copilot").setup({
 				suggestion = { enabled = false },
 				panel = { enabled = false },
 			})
-			require("codecompanion").setup({ display = { chat = { window = { width = 0.25 } } } })
-			vim.keymap.set("n", "<space>i", "<cmd>CodeCompanion<cr>")
-			vim.keymap.set("n", "<space>I", "<cmd>CodeCompanionChat<cr>")
-			vim.keymap.set("n", "<space>A", "<cmd>CodeCompanionActions<cr>")
+			require("codecompanion").setup({
+				display = { chat = { window = { width = 0.25 } } },
+				extensions = { spinner = {} },
+			})
+			vim.keymap.set({ "n", "v" }, "<space>i", "<cmd>CodeCompanion<cr>")
+			vim.keymap.set({ "n", "v" }, "<space>I", "<cmd>CodeCompanionChat Toggle<cr>")
+			vim.keymap.set({ "n", "v" }, "<space>A", "<cmd>CodeCompanionActions<cr>")
 		end,
 	},
 	{
