@@ -742,7 +742,6 @@ vim.opt.showmode = false
 vim.opt.pumheight = 30
 vim.opt.cursorline = true
 vim.opt.laststatus = 3
-vim.opt.clipboard = "unnamedplus"
 vim.opt.splitright = true
 vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions-=ro")
 

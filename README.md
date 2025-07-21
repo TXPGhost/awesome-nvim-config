@@ -10,7 +10,6 @@ git integration, and various other improvements.
 
 - Performance is nearly identical to vanilla vim/nvim, opens in ~13 ms
 - A choice of custom-made colorschemes, with the ability to easily add more
-- Seamlessly sync the system clipboard with the default yank/put register
 - LSP configurations for the most popular languages with `nvim-lspconfig`
 - Code actions and performant, unintrusive autocomplete with `blink.cmp`
 - Syntax highlighting and context with `nvim-treesitter` and
@@ -127,13 +126,6 @@ git integration, and various other improvements.
 | Alt l  | Increase window size x |
 | H      |      Goto previous tab |
 | L      |          Goto next tab |
-
-## Clipboard
-
-| Key     |                     Binding |
-| :------ | --------------------------: |
-| Space y |    Yank to system clipboard |
-| Space p | Paste from system clipboard |
 
 ## Markdown
 
