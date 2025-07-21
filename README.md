@@ -67,11 +67,12 @@ git integration, and various other improvements.
 
 ### Autocompletion
 
-| Key       |              Binding |
-| :-------- | -------------------: |
-| Tab       |     Select next item |
-| Shift Tab | Select previous item |
-| Enter     |             Complete |
+| Key       |                      Binding |
+| :-------- | ---------------------------: |
+| Tab       |             Select next item |
+| Shift Tab |         Select previous item |
+| Enter     |                     Complete |
+| Ctrl k    | Show function signature help |
 
 > Note: although the completion window always shows, it does not select an item
 > by default. To select the first item, press tab.

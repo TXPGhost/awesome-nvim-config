@@ -301,6 +301,9 @@ local plugins = {
 				["<cr>"] = { "accept", "snippet_forward", "fallback" },
 				["<tab>"] = { "select_next", "fallback" },
 				["<s-tab>"] = { "select_prev", "fallback" },
+				["<down>"] = { "select_next", "fallback" },
+				["<up>"] = { "select_prev", "fallback" },
+				["<c-k>"] = { "show_signature", "hide_signature", "fallback" },
 			},
 			appearance = {
 				nerd_font_variant = "normal",
@@ -342,10 +345,11 @@ local plugins = {
 					"sort_text",
 				},
 			},
-			-- signature = {
-			-- 	enabled = true,
-			-- 	window = { max_width = 50 },
-			-- },
+			signature = {
+				enabled = true,
+				trigger = { enabled = false },
+				window = { direction_priority = { "n", "s" } },
+			},
 		},
 		opts_extend = { "sources.default" },
 	},
