@@ -628,30 +628,6 @@ local plugins = {
 		},
 	},
 	{
-		"olimorris/codecompanion.nvim",
-		keys = { "<space>i", "<space>I", "<space>A" },
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
-			"echasnovski/mini.diff",
-			"zbirenbaum/copilot.lua",
-			"franco-ruggeri/codecompanion-spinner.nvim",
-		},
-		config = function()
-			require("copilot").setup({
-				suggestion = { enabled = false },
-				panel = { enabled = false },
-			})
-			require("codecompanion").setup({
-				display = { chat = { window = { width = 0.25 } } },
-				extensions = { spinner = {} },
-			})
-			vim.keymap.set({ "n", "v" }, "<space>i", "<cmd>CodeCompanion<cr>")
-			vim.keymap.set({ "n", "v" }, "<space>I", "<cmd>CodeCompanionChat Toggle<cr>")
-			vim.keymap.set({ "n", "v" }, "<space>A", "<cmd>CodeCompanionActions<cr>")
-		end,
-	},
-	{
 		"echasnovski/mini.diff",
 		event = "VeryLazy",
 		config = function()
@@ -754,6 +730,7 @@ vim.opt.cursorline = true
 vim.opt.laststatus = 3
 vim.opt.clipboard = "unnamedplus"
 vim.opt.splitright = true
+vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions-=ro")
 
 -- make sure `.ll` gets recognized as llvm
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
