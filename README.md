@@ -14,7 +14,7 @@ git integration, and various other improvements.
 - Code actions and performant, unintrusive autocomplete with `blink.cmp`
 - Syntax highlighting and context with `nvim-treesitter` and
   `nvim-treesitter-context`
-- Automatic format on save
+- Automatic format on save with `conform.nvim`
 - GitHub copilot integration with agent capabilities with `copilot.lua` and
   `codecompanion.nvim`
 - Vim-surround key mappings with `nvim-surround`
