@@ -342,10 +342,10 @@ local plugins = {
 					"sort_text",
 				},
 			},
-			signature = {
-				enabled = true,
-				window = { max_width = 50 },
-			},
+			-- signature = {
+			-- 	enabled = true,
+			-- 	window = { max_width = 50 },
+			-- },
 		},
 		opts_extend = { "sources.default" },
 	},
