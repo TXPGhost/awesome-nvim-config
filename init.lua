@@ -596,6 +596,50 @@ local plugins = {
 		},
 	},
 	{
+		"olimorris/codecompanion.nvim",
+		keys = { "<space>i", "<space>I", "<space>A" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			"echasnovski/mini.diff",
+			"zbirenbaum/copilot.lua",
+			"franco-ruggeri/codecompanion-spinner.nvim",
+		},
+		config = function()
+			require("copilot").setup({
+				suggestion = { enabled = false },
+				panel = { enabled = false },
+			})
+			require("codecompanion").setup({
+				display = { chat = { window = { width = 0.25 } } },
+				extensions = { spinner = {} },
+				strategies = {
+					chat = {
+						adapter = {
+							name = "copilot",
+							model = "claude-sonnet-4",
+						},
+					},
+					inline = {
+						adapter = {
+							name = "copilot",
+							model = "claude-sonnet-4",
+						},
+					},
+					cmd = {
+						adapter = {
+							name = "copilot",
+							model = "claude-sonnet-4",
+						},
+					},
+				},
+			})
+			vim.keymap.set({ "n", "v" }, "<space>i", "<cmd>CodeCompanion<cr>")
+			vim.keymap.set({ "n", "v" }, "<space>I", "<cmd>CodeCompanionChat Toggle<cr>")
+			vim.keymap.set({ "n", "v" }, "<space>A", "<cmd>CodeCompanionActions<cr>")
+		end,
+	},
+	{
 		"echasnovski/mini.diff",
 		event = "VeryLazy",
 		config = function()
