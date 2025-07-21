@@ -35,7 +35,7 @@ local plugins = {
 		cmd = { "LspInfo", "LspInstall", "LspUninstall" },
 		config = function()
 			local lspconfig = require("lspconfig")
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
 			capabilities.offsetEncoding = { "utf-16" }
 			capabilities.textDocument.foldingRange = {
 				dynamicRegistration = false,
@@ -272,113 +272,76 @@ local plugins = {
 		end,
 	},
 	{
-		"iguanacucumber/magazine.nvim",
-		name = "nvim-cmp",
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
 		lazy = true,
-		event = { "InsertEnter", "CmdlineEnter" },
-		config = function()
-			local cmp = require("cmp")
-			local lspkind = require("lspkind")
-
-			local has_words_before = function()
-				unpack = unpack or table.unpack
-				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-				return col ~= 0
-					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-			end
-
-			local fast_cmp_visible = function()
-				---@diagnostic disable-next-line: invisible
-				if not (cmp.core.view and cmp.core.view.custom_entries_view) then
-					return false
-				end
-				---@diagnostic disable-next-line: invisible
-				return cmp.core.view.custom_entries_view:visible()
-			end
-
-			cmp.setup({
-				completion = {
-					completeopt = "menu,menuone,noinsert",
-				},
-				mapping = cmp.mapping.preset.insert({
-					["<cr>"] = cmp.mapping(function(fallback)
-						local entry = cmp.core.view:get_selected_entry()
-						if fast_cmp_visible() and not (entry and entry.source.name == "nvim_lsp_signature_help") then
-							cmp.confirm({ select = true })
-							cmp.close()
-						elseif vim.snippet.active({ direction = 1 }) then
-							vim.snippet.jump(1)
-						else
-							-- expand tags on enter
-							local col = vim.api.nvim_win_get_cursor(0)[2]
-							local line_text = vim.api.nvim_get_current_line()
-							if col > 0 and col <= #line_text then
-								local c0 = line_text:sub(col, col)
-								local c1 = line_text:sub(col + 1, col + 1)
-								if c0 == ">" and c1 == "<" then
-									vim.api.nvim_feedkeys(
-										vim.api.nvim_replace_termcodes("<cr><esc>O<tab>", true, true, true),
-										"n",
-										true
-									)
-									return
-								end
-							end
-
-							fallback()
-						end
-					end),
-					["<tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-						elseif has_words_before() and vim.bo.filetype ~= "markdown" then
-							cmp.complete()
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-					["<s-tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-						elseif vim.snippet.active({ direction = -1 }) then
-							vim.snippet.jump(-1)
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-				}),
-				sources = cmp.config.sources({
-					{ name = "nvim_lsp" },
-					{ name = "nvim_lsp_signature_help" },
-					{ name = "neodev", group_index = 0 },
-					{ name = "path" },
-				}, {}),
-				formatting = {
-					format = lspkind.cmp_format({
-						mode = "symbol_text",
-						maxwidth = 50,
-						ellipsis_char = "...",
-						show_labelDetails = true,
-					}),
-				},
-			})
-
-			cmp.setup.cmdline(":", {
-				mapping = cmp.mapping.preset.cmdline(),
-				sources = cmp.config.sources({
-					{ name = "cmdline" },
-				}, {}),
-				preselect = cmp.PreselectMode.None,
-				completion = { completeopt = "menu,menuone,noselect" },
-			})
-		end,
-		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-cmdline",
-			"onsails/lspkind.nvim",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-nvim-lsp-signature-help",
+		opts = {
+			suggestion = { enabled = false },
+			panel = { enabled = false },
 		},
+	},
+	{
+		"saghen/blink.cmp",
+		event = "VeryLazy",
+		dependencies = {
+			"zbirenbaum/copilot.lua",
+			"rafamadriz/friendly-snippets",
+			{
+				"fang2hou/blink-copilot",
+				opts = {
+					kind_icon = " ",
+					kind_hl = "BlinkCmpKindCopilot",
+				},
+			},
+		},
+		version = "1.*",
+		opts = {
+			keymap = {
+				preset = "none",
+				["<cr>"] = { "accept", "snippet_forward", "fallback" },
+				["<tab>"] = { "select_next", "fallback" },
+				["<s-tab>"] = { "select_prev", "fallback" },
+			},
+			appearance = {
+				nerd_font_variant = "normal",
+			},
+			cmdline = {
+				enabled = true,
+				keymap = { preset = "none" },
+				completion = { menu = { auto_show = true } },
+			},
+			completion = {
+				documentation = { auto_show = true, auto_show_delay_ms = 0 },
+				list = { selection = { preselect = false, auto_insert = false } },
+				menu = {
+					draw = { columns = { { "label", "kind_icon" } } },
+					auto_show = true,
+				},
+			},
+			sources = {
+				default = { "copilot", "lsp", "path", "snippets" },
+				providers = {
+					copilot = {
+						name = "copilot",
+						module = "blink-copilot",
+						async = true,
+					},
+				},
+			},
+			fuzzy = {
+				implementation = "prefer_rust_with_warning",
+				sorts = {
+					"exact",
+					"score",
+					"sort_text",
+				},
+			},
+			signature = {
+				enabled = true,
+				window = { max_width = 50 },
+			},
+		},
+		opts_extend = { "sources.default" },
 	},
 	{
 		"folke/lazydev.nvim",
@@ -405,9 +368,9 @@ local plugins = {
 			local npairs = require("nvim-autopairs")
 			npairs.setup({})
 
-			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-			local cmp = require("cmp")
-			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+			-- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+			-- local cmp = require("cmp")
+			-- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 		end,
 	},
 	{
