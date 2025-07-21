@@ -117,3 +117,18 @@ lazy-loaded. You can view the startup time with `:Lazy profile`.
 | :------ | ---------------------: |
 | Space m |  Open markdown preview |
 | Space M | Close markdown preview |
+
+## Custom Commands
+
+| Command                   |                                    Description |
+| :------------------------ | ---------------------------------------------: |
+| `:Config`                 |                           Edit the config file |
+| `:Indent <n>`             |       Set indent width to the specified amount |
+| `:PeekOpen`               |          Open markdown preview of current file |
+| `:PeekClose`              |         Close markdown preview of current file |
+| `:LatexCompile`           | Compile the current latex file with `tectonic` |
+| `:LatexCompileBackground` |        Silently compile the current latex file |
+
+> Note: on the `tex` file type, `:LatexCompileBackground` is called
+> automatically on file save to support live preview. For the latex commands to
+> work, `tectonic` must be installed and available in the system path.

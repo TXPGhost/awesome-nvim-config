@@ -307,7 +307,7 @@ local plugins = {
 			},
 			cmdline = {
 				enabled = true,
-				keymap = { preset = "none" },
+				keymap = { preset = "inherit" },
 				completion = { menu = { auto_show = true } },
 			},
 			completion = {
@@ -642,6 +642,12 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 vim.api.nvim_create_user_command("Config", function()
 	vim.cmd("e " .. debug.getinfo(1).source:sub(2))
 end, {})
+
+-- set indentation with command
+vim.api.nvim_create_user_command("Indent", function(ctxt)
+	vim.opt_local.tabstop = tonumber(ctxt.args)
+	vim.opt_local.shiftwidth = tonumber(ctxt.args)
+end, { nargs = 1 })
 
 -- misc. keymaps
 do
