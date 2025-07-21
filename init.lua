@@ -307,8 +307,13 @@ local plugins = {
 			},
 			cmdline = {
 				enabled = true,
-				keymap = { preset = "inherit" },
-				completion = { menu = { auto_show = true } },
+				keymap = {
+					preset = "inherit",
+				},
+				completion = {
+					menu = { auto_show = true },
+					list = { selection = { preselect = false, auto_insert = false } },
+				},
 			},
 			completion = {
 				documentation = { auto_show = true, auto_show_delay_ms = 0 },
