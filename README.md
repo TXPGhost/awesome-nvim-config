@@ -49,6 +49,9 @@ git integration, and various other improvements.
 | Space I | Open AI chat window |
 | Space A |      AI code action |
 
+> Note: these features are in addition to the completion menu copilot
+> integration, which requires no special keybindings
+
 ### Git
 
 | Key         |                     Binding |
@@ -60,15 +63,18 @@ git integration, and various other improvements.
 | ghs         |              Stage git hunk |
 | ghu         |         Undo stage git hunk |
 | ghr         |              Reset git hunk |
-| Space Space |          Blame current line |
+| Space Space |      Git blame current line |
 
 ### Autocompletion
 
-| Key       |                               Binding |
-| :-------- | ------------------------------------: |
-| Tab       |  Invoke Completion / Select next item |
-| Shift Tab | Invoke Copilot / Select previous item |
-| Enter     |                              Complete |
+| Key       |              Binding |
+| :-------- | -------------------: |
+| Tab       |     Select next item |
+| Shift Tab | Select previous item |
+| Enter     |             Complete |
+
+> Note: although the completion window always shows, it does not select an item
+> by default. To select the first item, press tab.
 
 ### File navigation
 
@@ -79,6 +85,8 @@ git integration, and various other improvements.
 | _     | Goto current working directory |
 | \`    |  Set current working directory |
 | :w    |                   Save changes |
+
+> Note: the filesystem can be edited like any other vim buffer
 
 ### Tree-Sitter
 
@@ -129,10 +137,10 @@ git integration, and various other improvements.
 
 ## Markdown
 
-| Key     |                Binding |
-| :------ | ---------------------: |
-| Space m |  Open markdown preview |
-| Space M | Close markdown preview |
+| Key     |                                Binding |
+| :------ | -------------------------------------: |
+| Space m |  Open markdown preview of current file |
+| Space M | Close markdown preview of current file |
 
 ## Custom Commands
 

@@ -309,6 +309,7 @@ local plugins = {
 				enabled = true,
 				keymap = {
 					preset = "inherit",
+					["<cr>"] = { "accept_and_enter", "fallback" },
 				},
 				completion = {
 					menu = { auto_show = true },
