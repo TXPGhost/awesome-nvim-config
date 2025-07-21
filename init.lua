@@ -404,7 +404,6 @@ local plugins = {
 	},
 	{
 		"tpope/vim-fugitive",
-		lazy = true,
 		event = { "VeryLazy" },
 		config = function()
 			vim.keymap.set("n", "<space>g", function()
@@ -764,7 +763,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- colorscheme
-vim.cmd.colorscheme("warm")
+vim.cmd.colorscheme("pastel")
 
 -- commentstring for c/c++
 vim.api.nvim_create_autocmd("FileType", {
