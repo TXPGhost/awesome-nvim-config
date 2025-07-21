@@ -6,15 +6,39 @@ git integration, and various other improvements.
 
 ![Screenshot of config](preview.png)
 
+## Features
+
+- Performance is nearly identical to vanilla vim/nvim, opens in ~13 ms
+- A choice of custom-made colorschemes, with the ability to easily add more
+- Seamlessly sync the system clipboard with the default yank/put register
+- LSP configurations for the most popular languages with `nvim-lspconfig`
+- Code actions and performant, unintrusive autocomplete with `blink.cmp`
+- Syntax highlighting and context with `nvim-treesitter` and
+  `nvim-treesitter-context`
+- Automatic format on save
+- GitHub copilot integration with agent capabilities with `copilot.lua` and
+  `codecompanion.nvim`
+- Vim-surround key mappings with `nvim-surround`
+- Automatic pair completion with `nvim-autopairs` and `nvim-ts-autotag`
+- Extensive git integration with `gitsigns.nvim`, `vim-fugitive`, and
+  `conflict-marker.nvim`
+- Automatic indent width detection with `vim-sleuth`
+- Illuminate symbols under the cursor with `vim-illuminate`
+- Edit the filesystem like a buffer with `oil.nvim`
+- Workspace diagnostics powered by `trouble.nvim`
+- Split and join tree-sitter nodes with `treesj`
+- Simple and clean statusline with `mini.statusline`
+- Highlight hex color strings with `mini.hipatterns`
+- Improved user interface with `dressing.nvim`
+
 ## Installation
 
 1. Clone the repo into your `.config/nvim`
 2. Open neovim
+3. Make sure to install any necessary LSP servers
 
-## Performance
-
-Startup time is typically around 13 milliseconds on my machine. Most plugins are
-lazy-loaded. You can view the startup time with `:Lazy profile`.
+> Note: if LSP servers are missing, a warning will show when opening that file
+> type
 
 ## Keybindings
 

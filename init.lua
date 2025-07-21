@@ -549,10 +549,6 @@ local plugins = {
 		end,
 	},
 	{
-		"nanotee/zoxide.vim",
-		cmd = "Z",
-	},
-	{
 		"Wansmer/treesj",
 		keys = { "<space>j", "<space>k" },
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
