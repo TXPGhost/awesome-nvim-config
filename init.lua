@@ -767,7 +767,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- colorscheme
-vim.cmd.colorscheme("pastel")
+vim.cmd.colorscheme("rose")
 
 -- commentstring for c/c++
 vim.api.nvim_create_autocmd("FileType", {
