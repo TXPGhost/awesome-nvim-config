@@ -36,11 +36,6 @@ local plugins = {
 		config = function()
 			local lspconfig = require("lspconfig")
 			local capabilities = require("blink.cmp").get_lsp_capabilities()
-			capabilities.offsetEncoding = { "utf-16" }
-			capabilities.textDocument.foldingRange = {
-				dynamicRegistration = false,
-				lineFoldingOnly = true,
-			}
 
 			lspconfig.marksman.setup({ capabilities = capabilities })
 			lspconfig.clangd.setup({
@@ -185,17 +180,10 @@ local plugins = {
 				endwise = { enable = true },
 			})
 			require("nvim-ts-autotag").setup()
-			require("treesitter-context").setup({
-				update_debounce = 15,
-				multiwindow = true,
-				multiline_threshold = 1,
-				trim_scope = "inner",
-			})
 		end,
 		dependencies = {
 			"RRethy/nvim-treesitter-endwise",
 			"windwp/nvim-ts-autotag",
-			"TXPGhost/nvim-treesitter-context",
 		},
 	},
 	{
@@ -396,7 +384,7 @@ local plugins = {
 					add = { text = "│" },
 					change = { text = "│" },
 				},
-				update_debounce = 15,
+				update_debounce = 30,
 			})
 
 			vim.keymap.set("n", "]g", "<cmd>Gitsigns next_hunk<cr><cmd>Gitsigns preview_hunk_inline<cr>")
@@ -736,7 +724,7 @@ vim.opt.relativenumber = true
 vim.opt.linebreak = true
 vim.opt.shell = "fish"
 vim.opt.termguicolors = true
-vim.opt.mousescroll = "hor:0,ver:2"
+vim.opt.mousescroll = "hor:1,ver:1"
 vim.opt.conceallevel = 0
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -747,6 +735,8 @@ vim.opt.pumheight = 30
 vim.opt.cursorline = true
 vim.opt.laststatus = 3
 vim.opt.splitright = true
+vim.opt.exrc = true
+
 vim.cmd("autocmd BufNewFile,BufRead * setlocal formatoptions-=ro")
 
 -- make sure `.ll` gets recognized as llvm
