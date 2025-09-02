@@ -25,6 +25,16 @@ local large_file_disable = function(buf)
 	return false
 end
 
+-- returns true if the text before the cursor is only whitespace
+local only_whitespace = function()
+	local col = vim.api.nvim_win_get_cursor(0)[2]
+	if col == 0 then
+		return false
+	end
+	local line = vim.api.nvim_get_current_line()
+	return line:sub(0, col):match("%S") ~= nil
+end
+
 -- plugin definitions
 local plugins = {
 	{ "nvim-lua/plenary.nvim", lazy = true },
@@ -272,23 +282,36 @@ local plugins = {
 		"saghen/blink.cmp",
 		event = "VeryLazy",
 		dependencies = {
-			"zbirenbaum/copilot.lua",
+			-- "zbirenbaum/copilot.lua",
 			"rafamadriz/friendly-snippets",
-			{
-				"fang2hou/blink-copilot",
-				opts = {
-					kind_icon = " ",
-					kind_hl = "BlinkCmpKindCopilot",
-				},
-			},
+			-- {
+			-- 	"fang2hou/blink-copilot",
+			-- 	opts = {
+			-- 		kind_icon = " ",
+			-- 		kind_hl = "BlinkCmpKindCopilot",
+			-- 	},
+			-- },
 		},
 		version = "1.*",
 		opts = {
 			keymap = {
 				preset = "none",
 				["<cr>"] = { "accept", "snippet_forward", "fallback" },
-				["<tab>"] = { "select_next", "fallback" },
-				["<s-tab>"] = { "select_prev", "fallback" },
+				["<tab>"] = {
+					function(cmp)
+						if only_whitespace() then
+							return cmp.show()
+						else
+							return false
+						end
+					end,
+					"select_next",
+					"fallback",
+				},
+				["<s-tab>"] = {
+					"select_prev",
+					"fallback",
+				},
 				["<down>"] = { "select_next", "fallback" },
 				["<up>"] = { "select_prev", "fallback" },
 				["<c-k>"] = { "show_signature", "hide_signature", "fallback" },
@@ -312,18 +335,19 @@ local plugins = {
 				list = { selection = { preselect = false, auto_insert = false } },
 				menu = {
 					draw = { columns = { { "label", "kind_icon" } } },
-					auto_show = true,
+					auto_show = false,
 				},
 			},
 			sources = {
-				default = { "copilot", "lsp", "path", "snippets" },
-				providers = {
-					copilot = {
-						name = "copilot",
-						module = "blink-copilot",
-						async = true,
-					},
-				},
+				-- default = { "copilot", "lsp", "path", "snippets" },
+				default = { "lsp", "path", "snippets" },
+				-- providers = {
+				-- 	copilot = {
+				-- 		name = "copilot",
+				-- 		module = "blink-copilot",
+				-- 		async = true,
+				-- 	},
+				-- },
 			},
 			fuzzy = {
 				implementation = "prefer_rust_with_warning",
@@ -757,7 +781,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- colorscheme
-vim.cmd.colorscheme("rose")
+vim.cmd.colorscheme("rasmus")
 
 -- commentstring for c/c++
 vim.api.nvim_create_autocmd("FileType", {

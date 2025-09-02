@@ -158,6 +158,7 @@ M.colorscheme = function(colors)
 	vim.api.nvim_set_hl(0, "@keyword.modifier", { fg = keyword, italic = true })
 	vim.api.nvim_set_hl(0, "@variable", { fg = fg })
 	vim.api.nvim_set_hl(0, "@function", { link = "Function" })
+	vim.api.nvim_set_hl(0, "@function.call", { link = "Function" })
 	vim.api.nvim_set_hl(0, "@function.builtin", { link = "Function" })
 
 	vim.api.nvim_set_hl(0, "@variable.parameter", { italic = true })
