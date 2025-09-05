@@ -143,6 +143,13 @@ git integration, and various other improvements.
 | Space m |  Open markdown preview of current file |
 | Space M | Close markdown preview of current file |
 
+## Terminal
+
+| Key        |                  Binding |
+| :--------- | -----------------------: |
+| Ctrl Enter |  Quick open new terminal |
+| Ctrl a     | Quick exit terminal mode |
+
 ## Custom Commands
 
 | Command                   |                                    Description |
