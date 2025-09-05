@@ -8,6 +8,7 @@ local keyword = "#95b3d1"
 local red = "#d7675f"
 local func = "#f6c699"
 local type = "#eea86b"
+local member = colorscheme.blend(keyword, fg, 0.5)
 
 local colors = {
 	fg = fg,
@@ -18,7 +19,7 @@ local colors = {
 	func = func,
 	green = string,
 	type = type,
-	member = colorscheme.blend(keyword, fg, 0.5),
+	member = member,
 	red = red,
 	blue = keyword,
 	orange = type,

@@ -737,6 +737,12 @@ do
 		vim.cmd.noh()
 		vim.snippet.stop()
 	end)
+
+	-- terminal
+	vim.keymap.set("n", "<c-cr>", function()
+		vim.cmd.terminal()
+	end)
+	vim.keymap.set("t", "<c-a>", "<c-\\><c-n>")
 end
 
 -- startup opts
